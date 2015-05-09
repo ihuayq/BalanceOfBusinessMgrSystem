@@ -1,0 +1,91 @@
+//
+//  BMainViewController.m
+//  BalanceOfBusinessMgrSystem
+//
+//  Created by huayq on 15/5/7.
+//  Copyright (c) 2015年 hkrt. All rights reserved.
+//
+
+#import "BMMainViewController.h"
+#import "NavigationWithInteract.h"
+
+@interface BMMainViewController ()
+
+@property(nonatomic,strong) BMHomePageViewController *homePageVC;
+@property(nonatomic,strong) BMInvestmentViewController *investViewVC;
+@property(nonatomic,strong) BMHomePageViewController *earningVC;
+@property(nonatomic,strong) BMAccountMainViewController *accountVC;
+
+
+
+
+@end
+
+@implementation BMMainViewController
+
+@synthesize homePageVC;
+@synthesize investViewVC;
+@synthesize earningVC;
+@synthesize accountVC;
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self initUI];
+}
+
+
+-(void)initUI{
+    
+    homePageVC = [[BMHomePageViewController alloc] init];
+    investViewVC = [[BMInvestmentViewController alloc] init];
+    earningVC = [[BMAssetsMainPageViewController alloc] init];
+    accountVC = [[BMAccountMainViewController alloc] init];
+    
+    //MainViewController * MAIN = [[MainViewController alloc] init];
+    
+    
+    NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
+    NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:investViewVC];
+    NavigationWithInteract * nc3 = [[NavigationWithInteract alloc] initWithRootViewController:earningVC];
+    NavigationWithInteract * nc4 = [[NavigationWithInteract alloc] initWithRootViewController:accountVC];
+    
+    nc1.hidesBottomBarWhenPushed = YES;
+    nc2.hidesBottomBarWhenPushed = YES;
+    nc3.hidesBottomBarWhenPushed = YES;
+    nc4.hidesBottomBarWhenPushed = YES;
+    
+    self.viewControllers = [NSArray arrayWithObjects:nc1,nc2,nc3,nc4,nil];
+    
+    nc1.tabBarItem.title = @"首页";
+    nc2.tabBarItem.title = @"投资";
+    nc3.tabBarItem.title = @"收益";
+    nc4.tabBarItem.title = @"账号";
+    
+    
+    nc1.tabBarItem.image = [UIImage imageNamed:@"home_page"];
+    nc2.tabBarItem.image = [UIImage imageNamed:@"invest"];
+    nc3.tabBarItem.image = [UIImage imageNamed:@"earnings"];
+    nc4.tabBarItem.image = [UIImage imageNamed:@"account"];
+    
+    //self.tabBarController.selectedViewController = nc2;
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

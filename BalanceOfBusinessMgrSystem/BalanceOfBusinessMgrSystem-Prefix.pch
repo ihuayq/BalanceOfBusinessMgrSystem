@@ -1,0 +1,61 @@
+//
+// Prefix header for all source files of the 'jxtuan' target in the 'jxtuan' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import   <SystemConfiguration/SystemConfiguration.h>
+#import   <MobileCoreServices/MobileCoreServices.h>
+#endif
+
+
+#import "HP_Common4IOS.h"
+#import "GlobalDefine.h"
+#import "APIConfig.h"
+//#import "ControllerConfig.h"
+
+
+#define ScreenHeight [[UIScreen mainScreen] bounds].size.height
+#define ScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define MainHeight ScreenHeight
+#define MainWidth ScreenWidth
+#define TOPHeight 20
+
+
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define isIOS7 (([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)? (YES):(NO))
+#define isIOS8 (([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)? (YES):(NO))
+
+
+#define CurVervionString [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+
+//#define Default_Phone_Imei [UIDevice uniqueGlobalDeviceIdentifier]//无效
+
+
+#define Default_Phone_UUID [UIDevice currentDevice].identifierForVendor.UUIDString
+#define Default_Phone_UUID_MD5 [MD5Utils md5:Default_Phone_UUID]
+#define Default_Phone_Imei Default_Phone_UUID_MD5
+
+//消息中心发送 消息名称
+#define GOtoMyAccount_MyMoneyCount @"GOtoMyAccount_MyMoneyCount"
+#define HaveNewVervion_ShowRedPoint @"HaveNewVervion_ShowRedPoint"//有新版本通知
+#define HaveNewInvestment_ShowRedPoint @"HaveNewInvestment_ShowRedPoint"//有新项目数据通知
+#define HaveNewInvestmentForTra_ShowRedPoint @"HaveNewInvestmentForTra_ShowRedPoint"//有新项目转让通知
+#define HaveNews_ShowRedPoint @"HaveNews_ShowRedPoint"//有公告新闻通知
+
+
+#define mima_tishiyu_6_20 @"6-20字符，必须包含数字、字母(区分大小写)。"
+#define queding @"确定"
+#define GoBackVC 444
+#define GetDataOK 100
+
+//苹果发布ID
+#define MyAppStoreID @"883131484"
+#define MyAppStoreURL @"http://itunes.apple.com/us/app/id883131484"
