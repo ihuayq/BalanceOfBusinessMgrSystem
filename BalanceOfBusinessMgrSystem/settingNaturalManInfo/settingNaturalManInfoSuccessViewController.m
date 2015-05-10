@@ -1,34 +1,24 @@
 //
-//  SettingLoginPassWordView2ControllerViewController.m
+//  settingNaturalManInfoSuccessViewController.m
 //  BalanceOfBusinessMgrSystem
 //
-//  Created by huayq on 15/5/6.
+//  Created by 华永奇 on 15/5/10.
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "SettingLoginPassWord2ViewController.h"
+#import "settingNaturalManInfoSuccessViewController.h"
+#import "bindNetworkPointAccountViewController.h"
 
-@interface SettingLoginPassWord2ViewController ()
+@interface settingNaturalManInfoSuccessViewController ()
 
 @end
 
-@implementation SettingLoginPassWord2ViewController
+@implementation settingNaturalManInfoSuccessViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigation.title = @"设置登录密码";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
-    
-    //设置标题
-//    UILabel * notePsdLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10, 240, 40)];
-//    notePsdLabel.text = @"登陆密码设置成功，下次登陆请使用新密码，点击确认返回主页";
-//    notePsdLabel.textAlignment = NSTextAlignmentCenter;
-//    notePsdLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-//    notePsdLabel.font = [UIFont systemFontOfSize:18];
-//    notePsdLabel.backgroundColor = [UIColor clearColor];
-//    notePsdLabel.numberOfLines = 0;
-//    [self.view addSubview:notePsdLabel];
+    self.navigation.title = @"设置成功";
     
     //初始化label
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10,0,0)];
@@ -36,7 +26,7 @@
     [label setNumberOfLines:0];
     //label.lineBreakMode = UILineBreakModeWordWrap;
     // 测试字串
-    NSString *s = @"登陆密码设置成功，下次登陆请使用新密码，点击确认返回主页";
+    NSString *s = @"成功授权自然人，绑定账户后即可登  陆此自然人账号进行投资理财操作！";
     UIFont *font = [UIFont systemFontOfSize:18];
     //设置一个行高上限
     CGSize size = CGSizeMake(300,400);
@@ -46,28 +36,29 @@
     label.text = s;
     [self.view addSubview:label];
     
-    
-    //确定
+    //绑定网点账户
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
-    [registerButton setFrame:CGRectMake(MainWidth/2 - 20, 400, 80, 40)];
-    [registerButton addTarget:self action:@selector(touchConfirmButton) forControlEvents:UIControlEventTouchUpInside];
+    [registerButton setFrame:CGRectMake(20, label.frame.size.height + label.frame.origin.y + 100, MainWidth-2*20, 40)];
+    [registerButton addTarget:self action:@selector(bindNetworkPoint) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerButton];
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
+    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
     registerLabel.textAlignment = NSTextAlignmentCenter;
     registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确认";
+    registerLabel.text = @"绑定网点账户";
     registerLabel.textColor = [UIColor whiteColor];
     registerLabel.font = [UIFont systemFontOfSize:15];
     [registerButton addSubview:registerLabel];
+    
 }
 
-
--(void) touchConfirmButton{
-    
+-(void)bindNetworkPoint{
+    bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
+    [self.navigationController pushViewController:info
+                                         animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {

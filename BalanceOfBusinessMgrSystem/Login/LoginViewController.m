@@ -10,7 +10,8 @@
 #import "ControllerConfig.h"
 #import "RadioButton.h"
 #import "SettingLoginPassWordViewController.h"
-#import "BMMainViewController.h"
+#import "BMCommercialTenantMainViewController.h"
+#import "BMNaturalManMainViewController.h"
 
 @interface LoginViewController ()<RadioButtonDelegate>{
     BOOL isSupplerSelected;
@@ -365,7 +366,7 @@
 {
     //商户登陆
     if( self.isSupplerSelected ){
-        BMMainViewController * mainview=[[BMMainViewController alloc]init];
+        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
         //mainview.transferDict=responseJSONDictionary;
         //[mainview showAlertView];
         [self.navigationController pushViewController:mainview animated:NO];
@@ -373,8 +374,10 @@
     //自然人登陆
     else
     {
-        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-        [self.navigationController pushViewController:settingVc animated:NO];
+//        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+//        [self.navigationController pushViewController:settingVc animated:NO];
+        BMNaturalManMainViewController * manVC=[[BMNaturalManMainViewController alloc]init];
+         [self.navigationController pushViewController:manVC animated:NO];
     }
     
     return;

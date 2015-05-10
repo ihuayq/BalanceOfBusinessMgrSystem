@@ -1,21 +1,22 @@
 //
-//  BMAccountMainViewController.m
+//  BMNaturalManAccountMainViewController.m
 //  BalanceOfBusinessMgrSystem
 //
-//  Created by huayq on 15/5/7.
+//  Created by 华永奇 on 15/5/10.
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "BMAccountMainViewController.h"
+#import "BMNaturalManAccountMainViewController.h"
 #import "BMAccountCellInfo.h"
 
-@interface BMAccountMainViewController (){
+@interface BMNaturalManAccountMainViewController ()
+{
     NSMutableArray *_group;//cell数组
 }
 @property(strong,nonatomic) UITableView * tableView;
 @end
 
-@implementation BMAccountMainViewController
+@implementation BMNaturalManAccountMainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,7 +34,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:_tableView];
     
-    //确定
+    //退出当前账号
     UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
@@ -58,25 +59,20 @@
 - (void) initGroup{
     _group=[[NSMutableArray alloc]init];
     
-    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
+    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前账号角色信息"];
     BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact0, nil]];
     [_group addObject:group0];
     
     
-    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
+    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"自然人信息管理"];
     BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1, nil]];
     [_group addObject:group1];
     
     
     
-    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"登陆密码"];
+    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"关于超额宝"];
     BMAccountCellGroup *group2=[BMAccountCellGroup initWithName:@"B" andDetail:@"With names beginning with B" andContacts:[NSMutableArray arrayWithObjects:contact2, nil]];
     [_group addObject:group2];
-    
-    BMAccountCellInfo *contact3=[BMAccountCellInfo initWithFirstName:@"交易密码"];
-    BMAccountCellGroup *group3=[BMAccountCellGroup initWithName:@"B" andDetail:@"With names beginning with B" andContacts:[NSMutableArray arrayWithObjects:contact3, nil]];
-    [_group addObject:group3];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,27 +112,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
-        if(indexPath.section != 0 )
-        {
             cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-        }
-        
-    }
-    
-    cell.textLabel.text=contact.title;
-    
-    if( indexPath.section == 2 || indexPath.section == 3)
-    {
-         cell.detailTextLabel.text=@"修改";
-    }
-    else if (indexPath.section == 0)
-    {
-        
-        //cell.detailTextLabel.text= self.accountInfo;
-        cell.detailTextLabel.text=@"自然人";
-    }
 
-    
+    }
+    cell.textLabel.text=contact.title;
     return cell;
 }
 
@@ -147,15 +126,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
 }
 
 
 #pragma mark 返回每组头标题名称
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     NSLog(@"生成组（组%i）名称",section);
-//    BMAccountCellGroup *group=_group[section];
-//    return group.name;
+    //    BMAccountCellGroup *group=_group[section];
+    //    return group.name;
     return @"";
 }
 
@@ -163,8 +141,8 @@
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
     NSLog(@"生成尾部（组%i）详情",section);
     return @"";
-//    BMAccountCellGroup *tgroup=_group[section];
-//    return tgroup.detail;
+    //    BMAccountCellGroup *tgroup=_group[section];
+    //    return tgroup.detail;
 }
 
 
@@ -181,6 +159,8 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 10;
 }
+
+
 
 /*
 #pragma mark - Navigation

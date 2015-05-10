@@ -48,12 +48,18 @@
     _navigation.type = type;
     _navigation.leftImage  = [UIImage imageNamed:@"nav_backbtn.png"];
     _navigation.delegate = self;
-    //_navigation.backgroundColor = [UIColor clearColor];;
+    //_navigation.backgroundColor = [UIColor clearColor];
+    _navigation.backgroundColor = [self getRandomColor];
     [self.view addSubview:_navigation];
     
      NSLog(@"the title navigation is:%@",self.navigation);
 
 	// Do any additional setup after loading the view.
+}
+- (UIColor *)getRandomColor
+{
+    UIColor *color = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
+    return color;
 }
 
 #pragma mark ##### ZZNavigationViewDelegate ####

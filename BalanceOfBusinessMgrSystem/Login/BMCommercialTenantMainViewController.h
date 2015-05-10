@@ -15,8 +15,8 @@
 #import "BMHomePageViewController.h"
 #import "BMInvestmentViewController.h"
 
-
-@interface BMMainViewController : UITabBarController//<UIScrollViewDelegate,UIAlertViewDelegate>
+//commercial tenant
+@interface BMCommercialTenantMainViewController : UITabBarController//<UIScrollViewDelegate,UIAlertViewDelegate>
 
 
 

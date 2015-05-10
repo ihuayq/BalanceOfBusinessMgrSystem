@@ -6,27 +6,34 @@
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "BMMainViewController.h"
+#import "BMCommercialTenantMainViewController.h"
 #import "NavigationWithInteract.h"
 
-@interface BMMainViewController ()
+@interface BMCommercialTenantMainViewController (){
 
-@property(nonatomic,strong) BMHomePageViewController *homePageVC;
-@property(nonatomic,strong) BMInvestmentViewController *investViewVC;
-@property(nonatomic,strong) BMHomePageViewController *earningVC;
-@property(nonatomic,strong) BMAccountMainViewController *accountVC;
+    BMHomePageViewController *homePageVC;
+    BMInvestmentViewController *investViewVC;
+    BMAssetsMainPageViewController *earningVC;
+    BMAccountMainViewController *accountVC;
+    
+}
+
+//@property(nonatomic,strong) BMHomePageViewController *homePageVC;
+//@property(nonatomic,strong) BMInvestmentViewController *investViewVC;
+//@property(nonatomic,strong) BMHomePageViewController *earningVC;
+//@property(nonatomic,strong) BMAccountMainViewController *accountVC;
 
 
 
 
 @end
 
-@implementation BMMainViewController
+@implementation BMCommercialTenantMainViewController
 
-@synthesize homePageVC;
-@synthesize investViewVC;
-@synthesize earningVC;
-@synthesize accountVC;
+//@synthesize homePageVC;
+//@synthesize investViewVC;
+//@synthesize earningVC;
+//@synthesize accountVC;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,9 +48,6 @@
     investViewVC = [[BMInvestmentViewController alloc] init];
     earningVC = [[BMAssetsMainPageViewController alloc] init];
     accountVC = [[BMAccountMainViewController alloc] init];
-    
-    //MainViewController * MAIN = [[MainViewController alloc] init];
-    
     
     NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
     NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:investViewVC];
@@ -69,7 +73,6 @@
     nc4.tabBarItem.image = [UIImage imageNamed:@"account"];
     
     //self.tabBarController.selectedViewController = nc2;
-    
 }
 
 
