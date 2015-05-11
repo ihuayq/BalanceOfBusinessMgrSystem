@@ -19,4 +19,7 @@
 @property (nonatomic,copy) NSString *bankName;
 @property (nonatomic,copy) NSString *bankCardNumber;
 @property (nonatomic,assign) bool bSelected;
+@property (nonatomic,assign) bool bShowRadioBtn;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier hasSelectBtn:(bool)hasSelectBtn;
 @end

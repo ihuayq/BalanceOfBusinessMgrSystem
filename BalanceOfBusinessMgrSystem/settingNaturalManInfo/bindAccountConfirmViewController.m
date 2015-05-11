@@ -10,6 +10,7 @@
 #import "BankAccountTableViewCell.h"
 #import "BMAccountCellInfo.h"
 #import "bindBalanceAccountViewController.h"
+#import "bindSuccessSwitchViewController.h"
 
 @interface bindAccountConfirmViewController (){
     UITableView * tableView;
@@ -42,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigation.title = @"绑定网点账户";
+    self.navigation.title = @"确认信息";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
     [self initGroup];
@@ -67,8 +68,8 @@
     [self.view addSubview:manNameLabel];
     
     //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30 , NAVIGATION_OUTLET_HEIGHT + 10, 90, 50)];
-    identifyTitleLabel.text = @"身份证号码";
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 50)];
+    identifyTitleLabel.text = @"身份证号码:";
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -76,8 +77,8 @@
     identifyTitleLabel.numberOfLines = 0;
     [self.view addSubview:identifyTitleLabel];
     
-    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x +30, NAVIGATION_OUTLET_HEIGHT + 10,120, 50)];
-    identifyLabel.text = @"3421345464364746";
+    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 50)];
+    identifyLabel.text = @"340882198804230456";
     identifyLabel.textAlignment = NSTextAlignmentCenter;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
@@ -86,8 +87,8 @@
     [self.view addSubview:identifyLabel];
     
     //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 80, 40)];
-    telephoneTitleLabel.text = @"手机号码";
+    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 60, 40)];
+    telephoneTitleLabel.text = @"手机号码:";
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -95,7 +96,7 @@
     telephoneTitleLabel.numberOfLines = 0;
     [self.view addSubview:telephoneTitleLabel];
     
-    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 80,50)];
+    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 150,40)];
     telephoneLabel.text = @"17701315969";
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -103,6 +104,10 @@
     telephoneLabel.backgroundColor = [UIColor clearColor];
     telephoneLabel.numberOfLines = 0;
     [self.view addSubview:telephoneLabel];
+    
+    UIView *seporatorLine = [[UIView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 9.5f , MainWidth, 0.5f)];
+    seporatorLine.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:seporatorLine];
     
     
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 130.0f)];
@@ -116,7 +121,7 @@
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, MainHeight-60, MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:avestButton];
     
@@ -133,9 +138,8 @@
 
 
 -(void)touchOkButton{
-    bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
+        bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc ] init];
+        [self.navigationController pushViewController:vc animated:NO];
 }
 
 
@@ -155,7 +159,7 @@
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     NSLog(@"计算每组(组%i)行数",section);
-    return 1;
+    return 3;
 }
 
 
@@ -164,15 +168,11 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    BankAccountTableViewCell *contact=group[indexPath.row];
+    BMAccountCellGroup *contact=group[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
-        //cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
-        
-        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
+        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier hasSelectBtn:NO];
     }
     cell.title=@"张三";
     cell.bankName = @"建行";
@@ -193,9 +193,8 @@
 #pragma mark 返回每组头标题名称
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     NSLog(@"生成组（组%i）名称",section);
-//    BMAccountCellGroup *group=group[section];
-//    return group.name;
-    return @"";
+    BMAccountCellGroup *accountGroup=group[section];
+    return accountGroup.name;
     
 }
 
@@ -203,8 +202,6 @@
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
     NSLog(@"生成尾部（组%i）详情",section);
     return @"";
-    //    BMAccountCellGroup *tgroup=_group[section];
-    //    return tgroup.detail;
 }
 
 
@@ -212,14 +209,14 @@
 #pragma mark 设置分组标题内容高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if(section==0){
-        return 0.1f;
+        return 30.0f;
     }
-    return 10;
+    return 20;
 }
 
 #pragma mark 设置尾部说明内容高度
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
+    return 20;
 }
 
 

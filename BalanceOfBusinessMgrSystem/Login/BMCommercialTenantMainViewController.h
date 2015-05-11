@@ -10,10 +10,7 @@
 #import "HP_BaseTabBarController.h"
 #import "HP_Common4IOS.h"
 #import "ControllerConfig.h"
-#import "BMAccountMainViewController.h"
-#import "BMAssetsMainPageViewController.h"
-#import "BMHomePageViewController.h"
-#import "BMInvestmentViewController.h"
+
 
 //commercial tenant
 @interface BMCommercialTenantMainViewController : UITabBarController//<UIScrollViewDelegate,UIAlertViewDelegate>

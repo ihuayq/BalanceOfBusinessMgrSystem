@@ -36,6 +36,7 @@
 		8889BAB61AFCA789001BF5E2 /* sanjiaobiao.png in Resources */ = {isa = PBXBuildFile; fileRef = 8889BAB51AFCA789001BF5E2 /* sanjiaobiao.png */; };
 		8889BABD1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */; };
 		8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */; };
+		88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */; };
 		88E7A7AE1AF9ACEC00B44364 /* RadioButton_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E7A7AA1AF9ACEC00B44364 /* RadioButton_check.png */; };
 		88E7A7AF1AF9ACEC00B44364 /* RadioButton_Not_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E7A7AB1AF9ACEC00B44364 /* RadioButton_Not_check.png */; };
 		88E7A7B01AF9ACEC00B44364 /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7A7AD1AF9ACEC00B44364 /* RadioButton.m */; };
@@ -432,6 +433,8 @@
 		8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAssetsInfoSubViewController.m; sourceTree = "<group>"; };
 		8889BABF1AFCC09A001BF5E2 /* NALLabelsMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NALLabelsMatrix.h; sourceTree = "<group>"; };
 		8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NALLabelsMatrix.m; sourceTree = "<group>"; };
+		88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bindSuccessSwitchViewController.h; sourceTree = "<group>"; };
+		88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindSuccessSwitchViewController.m; sourceTree = "<group>"; };
 		88E7A7AA1AF9ACEC00B44364 /* RadioButton_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton_check.png; sourceTree = "<group>"; };
 		88E7A7AB1AF9ACEC00B44364 /* RadioButton_Not_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton_Not_check.png; sourceTree = "<group>"; };
 		88E7A7AC1AF9ACEC00B44364 /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
@@ -914,6 +917,8 @@
 				7A21E57E1AFFB63600C8C023 /* bindBalanceAccountViewController.m */,
 				7A21E5801AFFB88B00C8C023 /* bindAccountConfirmViewController.h */,
 				7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */,
+				88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */,
+				88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */,
 			);
 			path = settingNaturalManInfo;
 			sourceTree = "<group>";
@@ -2130,6 +2135,7 @@
 				88EF06E51AF8A3EE006B09B0 /* HP_UIImageView.m in Sources */,
 				88EF06EC1AF8A3EE006B09B0 /* HP_BaseViewController.m in Sources */,
 				88ED8CDA1AF84FEB00B82BE7 /* main.m in Sources */,
+				88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */,
 				88EF05CC1AF8A3EC006B09B0 /* UIImage+Common4IOS.m in Sources */,
 				88EF07471AF8C218006B09B0 /* GTMBase64.m in Sources */,
 				88EF06FB1AF8A3EF006B09B0 /* NSString+MD5Addition.m in Sources */,

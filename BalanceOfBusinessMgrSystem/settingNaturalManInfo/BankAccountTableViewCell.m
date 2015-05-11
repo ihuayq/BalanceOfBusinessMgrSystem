@@ -24,6 +24,7 @@
 @synthesize bankCardNumber =_bankCardNumber;
 @synthesize bankName = _bankName;
 @synthesize bSelected =_bSelected;
+@synthesize bShowRadioBtn =_bShowRadioBtn;
 
 //-(BankAccountTableViewCell*)initWithFrame:(CGRect)frame{
 //    self = [super initWithFrame:frame];
@@ -67,22 +68,21 @@
         [self.contentView addSubview:titleLabel];
         
         bankNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2-10, 120, 20)];
-        bankNameLabel.textAlignment = NSTextAlignmentCenter;
+        bankNameLabel.textAlignment = NSTextAlignmentLeft;
         bankNameLabel.backgroundColor = [UIColor clearColor];
         bankNameLabel.textColor = [UIColor blackColor];
         bankNameLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:bankNameLabel];
         
         bankCardNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2 + 10 , 120, 20)];
-        bankCardNumberLabel.textAlignment = NSTextAlignmentCenter;
+        bankCardNumberLabel.textAlignment = NSTextAlignmentLeft;
         bankCardNumberLabel.backgroundColor = [UIColor clearColor];
         bankCardNumberLabel.textColor = [UIColor blackColor];
         bankCardNumberLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:bankCardNumberLabel];
         
-        selectButton=[[RadioButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 20, self.bounds.size.height/2, 15, 15) typeCheck:YES];
+        selectButton=[[RadioButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 40, self.bounds.size.height/2, 15, 15) typeCheck:NO];
         [selectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        //[selectButton setTitle:@"我已阅读并且同意投资授权协议" forState:UIControlStateNormal];
         selectButton.titleLabel.font=[UIFont systemFontOfSize:12];
         selectButton.delegate=self;
         selectButton.tag=707;
@@ -91,6 +91,47 @@
     }
     return self;
 }
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier hasSelectBtn:(bool)hasSelectBtn
+{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if (self) {
+        // Initialization code
+        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.bounds.size.height/2, 60, 20)];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.textColor = [UIColor blackColor];
+        titleLabel.font = [UIFont systemFontOfSize:16.0f];
+        [self.contentView addSubview:titleLabel];
+        
+        bankNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2-10, 120, 20)];
+        bankNameLabel.textAlignment = NSTextAlignmentLeft;
+        bankNameLabel.backgroundColor = [UIColor clearColor];
+        bankNameLabel.textColor = [UIColor blackColor];
+        bankNameLabel.font = [UIFont systemFontOfSize:16.0f];
+        [self.contentView addSubview:bankNameLabel];
+        
+        bankCardNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2 + 10 , 120, 20)];
+        bankCardNumberLabel.textAlignment = NSTextAlignmentLeft;
+        bankCardNumberLabel.backgroundColor = [UIColor clearColor];
+        bankCardNumberLabel.textColor = [UIColor blackColor];
+        bankCardNumberLabel.font = [UIFont systemFontOfSize:16.0f];
+        [self.contentView addSubview:bankCardNumberLabel];
+        
+        selectButton=[[RadioButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 40, self.bounds.size.height/2, 15, 15) typeCheck:NO];
+        [selectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        selectButton.titleLabel.font=[UIFont systemFontOfSize:12];
+        selectButton.delegate=self;
+        selectButton.tag=707;
+        if (!hasSelectBtn) {
+            selectButton.hidden = YES;
+        }
+        [self.contentView addSubview:selectButton];
+        
+    }
+    return self;
+}
+
 
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
     int flags = 0;
@@ -124,6 +165,11 @@
 
 -(void)setTitle:(NSString *)title{
     titleLabel.text = title;
+}
+
+-(void)setBShowRadioBtn:(bool)bShowRadioBtn{
+    _bShowRadioBtn = bShowRadioBtn;
+    selectButton.hidden = _bShowRadioBtn;
 }
 
 

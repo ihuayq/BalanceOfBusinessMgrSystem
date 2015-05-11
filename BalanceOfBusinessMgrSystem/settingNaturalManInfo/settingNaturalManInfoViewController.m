@@ -157,7 +157,7 @@
     sendLabel.hidden = YES;
     [self.view  addSubview:sendLabel];
     
-    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(36, sendCheckCodeButton.frame.origin.y+sendCheckCodeButton.frame.size.height+20, 100, 80) typeCheck:YES];
+    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(36, sendCheckCodeButton.frame.origin.y+sendCheckCodeButton.frame.size.height+20, 200, 80) typeCheck:YES];
     [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [radioAgreement setTitle:@"我已阅读并且同意投资授权协议" forState:UIControlStateNormal];
     radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];

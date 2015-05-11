@@ -60,8 +60,8 @@
     [self.view addSubview:manNameLabel];
     
     //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30 , NAVIGATION_OUTLET_HEIGHT + 10, 90, 50)];
-    identifyTitleLabel.text = @"身份证号码";
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 50)];
+    identifyTitleLabel.text = @"身份证号码:";
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -69,8 +69,8 @@
     identifyTitleLabel.numberOfLines = 0;
     [self.view addSubview:identifyTitleLabel];
     
-    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x +30, NAVIGATION_OUTLET_HEIGHT + 10,120, 50)];
-    identifyLabel.text = @"3421345464364746";
+    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 50)];
+    identifyLabel.text = @"340882198804230456";
     identifyLabel.textAlignment = NSTextAlignmentCenter;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
@@ -79,8 +79,8 @@
     [self.view addSubview:identifyLabel];
     
     //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 80, 40)];
-    telephoneTitleLabel.text = @"手机号码";
+    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 60, 40)];
+    telephoneTitleLabel.text = @"手机号码:";
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -88,7 +88,7 @@
     telephoneTitleLabel.numberOfLines = 0;
     [self.view addSubview:telephoneTitleLabel];
     
-    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 80,50)];
+    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 150,40)];
     telephoneLabel.text = @"17701315969";
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -97,8 +97,12 @@
     telephoneLabel.numberOfLines = 0;
     [self.view addSubview:telephoneLabel];
     
+    UIView *seporatorLine = [[UIView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 9.5f , MainWidth, 0.5f)];
+    seporatorLine.backgroundColor = [UIColor blackColor];
+    [self.view addSubview:seporatorLine];
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 130.0f)];
+    
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 130.0f) style:UITableViewStyleGrouped];
     tableView.delegate =self;
     tableView.dataSource = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -181,6 +185,17 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+
+#pragma mark 设置分组标题内容高度
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.01f;
+}
+
+#pragma mark 设置尾部说明内容高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01f;
 }
 
 /*
