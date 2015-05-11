@@ -8,6 +8,7 @@
 
 #import "BMNaturalManAccountMainViewController.h"
 #import "BMAccountCellInfo.h"
+#import "NaturalManInfoMgrViewController.h"
 
 @interface BMNaturalManAccountMainViewController ()
 {
@@ -126,6 +127,12 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        
+    }
+    
+    NaturalManInfoMgrViewController *vc = [[NaturalManInfoMgrViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 

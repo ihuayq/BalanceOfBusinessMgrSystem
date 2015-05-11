@@ -37,6 +37,12 @@
 		8889BABD1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */; };
 		8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */; };
 		88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */; };
+		88D406E51B007F0200418ACC /* NaturalManInfoMgrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E41B007F0200418ACC /* NaturalManInfoMgrViewController.m */; };
+		88D406E71B007F9D00418ACC /* addNaturalMan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88D406E61B007F9D00418ACC /* addNaturalMan@2x.png */; };
+		88D406EA1B007FFC00418ACC /* NaturalManInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E91B007FFC00418ACC /* NaturalManInfoTableViewCell.m */; };
+		88D406EE1B00834B00418ACC /* NaturalManItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406ED1B00834B00418ACC /* NaturalManItemModel.m */; };
+		88D406F01B009C5700418ACC /* modify@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88D406EF1B009C5700418ACC /* modify@2x.png */; };
+		88D406F31B00BC2F00418ACC /* BMCancelInvestmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406F21B00BC2F00418ACC /* BMCancelInvestmentViewController.m */; };
 		88E7A7AE1AF9ACEC00B44364 /* RadioButton_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E7A7AA1AF9ACEC00B44364 /* RadioButton_check.png */; };
 		88E7A7AF1AF9ACEC00B44364 /* RadioButton_Not_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E7A7AB1AF9ACEC00B44364 /* RadioButton_Not_check.png */; };
 		88E7A7B01AF9ACEC00B44364 /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7A7AD1AF9ACEC00B44364 /* RadioButton.m */; };
@@ -435,6 +441,16 @@
 		8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NALLabelsMatrix.m; sourceTree = "<group>"; };
 		88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bindSuccessSwitchViewController.h; sourceTree = "<group>"; };
 		88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindSuccessSwitchViewController.m; sourceTree = "<group>"; };
+		88D406E31B007F0200418ACC /* NaturalManInfoMgrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaturalManInfoMgrViewController.h; sourceTree = "<group>"; };
+		88D406E41B007F0200418ACC /* NaturalManInfoMgrViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaturalManInfoMgrViewController.m; sourceTree = "<group>"; };
+		88D406E61B007F9D00418ACC /* addNaturalMan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addNaturalMan@2x.png"; sourceTree = "<group>"; };
+		88D406E81B007FFC00418ACC /* NaturalManInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaturalManInfoTableViewCell.h; sourceTree = "<group>"; };
+		88D406E91B007FFC00418ACC /* NaturalManInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaturalManInfoTableViewCell.m; sourceTree = "<group>"; };
+		88D406EC1B00834B00418ACC /* NaturalManItemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NaturalManItemModel.h; path = settingNaturalManInfo/NaturalManItemModel.h; sourceTree = "<group>"; };
+		88D406ED1B00834B00418ACC /* NaturalManItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NaturalManItemModel.m; path = settingNaturalManInfo/NaturalManItemModel.m; sourceTree = "<group>"; };
+		88D406EF1B009C5700418ACC /* modify@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "modify@2x.png"; sourceTree = "<group>"; };
+		88D406F11B00BC2F00418ACC /* BMCancelInvestmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCancelInvestmentViewController.h; sourceTree = "<group>"; };
+		88D406F21B00BC2F00418ACC /* BMCancelInvestmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCancelInvestmentViewController.m; sourceTree = "<group>"; };
 		88E7A7AA1AF9ACEC00B44364 /* RadioButton_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton_check.png; sourceTree = "<group>"; };
 		88E7A7AB1AF9ACEC00B44364 /* RadioButton_Not_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton_Not_check.png; sourceTree = "<group>"; };
 		88E7A7AC1AF9ACEC00B44364 /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
@@ -919,6 +935,11 @@
 				7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */,
 				88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */,
 				88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */,
+				88D406E31B007F0200418ACC /* NaturalManInfoMgrViewController.h */,
+				88D406E41B007F0200418ACC /* NaturalManInfoMgrViewController.m */,
+				88D406E81B007FFC00418ACC /* NaturalManInfoTableViewCell.h */,
+				88D406E91B007FFC00418ACC /* NaturalManInfoTableViewCell.m */,
+				88D406EB1B00830600418ACC /* Model */,
 			);
 			path = settingNaturalManInfo;
 			sourceTree = "<group>";
@@ -926,8 +947,10 @@
 		7A21E5611AFF61F000C8C023 /* NewResource */ = {
 			isa = PBXGroup;
 			children = (
+				88D406E61B007F9D00418ACC /* addNaturalMan@2x.png */,
 				7A21E5621AFF61F000C8C023 /* email.png */,
 				7A21E5631AFF61F000C8C023 /* headicon.png */,
+				88D406EF1B009C5700418ACC /* modify@2x.png */,
 				7A21E5641AFF61F000C8C023 /* sanjiaobiao.png */,
 				7A21E5651AFF61F000C8C023 /* shengfengzheng.png */,
 				7A21E5661AFF61F000C8C023 /* telephone.png */,
@@ -977,6 +1000,16 @@
 				8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */,
 			);
 			path = NALLabelsMatrix;
+			sourceTree = "<group>";
+		};
+		88D406EB1B00830600418ACC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				88D406EC1B00834B00418ACC /* NaturalManItemModel.h */,
+				88D406ED1B00834B00418ACC /* NaturalManItemModel.m */,
+			);
+			name = Model;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		88E7A7A81AF9ACEC00B44364 /* RadioButton */ = {
@@ -1403,6 +1436,8 @@
 			children = (
 				88F1853B1AFB0F85007FE83B /* BMInvestmentViewController.h */,
 				88F1853C1AFB0F85007FE83B /* BMInvestmentViewController.m */,
+				88D406F11B00BC2F00418ACC /* BMCancelInvestmentViewController.h */,
+				88D406F21B00BC2F00418ACC /* BMCancelInvestmentViewController.m */,
 			);
 			path = Investment;
 			sourceTree = "<group>";
@@ -1802,6 +1837,7 @@
 				88F18A8F1AFB50D4007FE83B /* back_icon@2x.png in Resources */,
 				88F18AB61AFB50D4007FE83B /* sharelogo.png in Resources */,
 				88F18A631AFB50D4007FE83B /* cgb.png in Resources */,
+				88D406E71B007F9D00418ACC /* addNaturalMan@2x.png in Resources */,
 				88F18ACE1AFB50D4007FE83B /* 4come2.png in Resources */,
 				88F189F91AFB50D4007FE83B /* 003.png in Resources */,
 				88F18AC91AFB50D4007FE83B /* 002_2dj@2x.png in Resources */,
@@ -1932,6 +1968,7 @@
 				7A21E56C1AFF61F000C8C023 /* headicon.png in Resources */,
 				88F18A1B1AFB50D4007FE83B /* 3@2x.png in Resources */,
 				88F18A851AFB50D4007FE83B /* icbc.png in Resources */,
+				88D406F01B009C5700418ACC /* modify@2x.png in Resources */,
 				88F18A6D1AFB50D4007FE83B /* fasong.png in Resources */,
 				88F18ACB1AFB50D4007FE83B /* 002_3dj@2x.png in Resources */,
 				88F18A521AFB50D4007FE83B /* cell0.png in Resources */,
@@ -2066,6 +2103,7 @@
 				7A21E5551AFF4C5D00C8C023 /* BMNaturalManMainViewController.m in Sources */,
 				7A21E5821AFFB88B00C8C023 /* bindAccountConfirmViewController.m in Sources */,
 				88EF030A1AF8A375006B09B0 /* ASIAuthenticationDialog.m in Sources */,
+				88D406E51B007F0200418ACC /* NaturalManInfoMgrViewController.m in Sources */,
 				88EF07351AF8B119006B09B0 /* SetPayMoneyPasswordViewController.m in Sources */,
 				8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */,
 				88F1853D1AFB0F85007FE83B /* BMInvestmentViewController.m in Sources */,
@@ -2075,6 +2113,7 @@
 				88EF07231AF8B112006B09B0 /* LoginViewController.m in Sources */,
 				88F18AEC1AFB8904007FE83B /* BMAccountMainViewController.m in Sources */,
 				88EF06F01AF8A3EE006B09B0 /* HP_NetWorkUtils.m in Sources */,
+				88D406F31B00BC2F00418ACC /* BMCancelInvestmentViewController.m in Sources */,
 				88EF07221AF8B112006B09B0 /* ForgetPasswordViewController.m in Sources */,
 				88E7C2951AFC57A200F7B58C /* UIAssetsTableViewCell.m in Sources */,
 				88F185501AFB1612007FE83B /* NavigationWithInteract.m in Sources */,
@@ -2098,6 +2137,7 @@
 				88EF06EA1AF8A3EE006B09B0 /* HP_UIView.m in Sources */,
 				88E7A7B01AF9ACEC00B44364 /* RadioButton.m in Sources */,
 				88EF06F51AF8A3EF006B09B0 /* HP_Reachability.m in Sources */,
+				88D406EA1B007FFC00418ACC /* NaturalManInfoTableViewCell.m in Sources */,
 				7A21E5521AFE3E5700C8C023 /* RFSegmentView.m in Sources */,
 				8889BABD1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m in Sources */,
 				88EF06F11AF8A3EE006B09B0 /* HP_NSBundleUtils.m in Sources */,
@@ -2133,6 +2173,7 @@
 				88EF06E71AF8A3EE006B09B0 /* HP_UIScrollView.m in Sources */,
 				88EF05D01AF8A3EC006B09B0 /* HP_UIKeyboardCoView.m in Sources */,
 				88EF06E51AF8A3EE006B09B0 /* HP_UIImageView.m in Sources */,
+				88D406EE1B00834B00418ACC /* NaturalManItemModel.m in Sources */,
 				88EF06EC1AF8A3EE006B09B0 /* HP_BaseViewController.m in Sources */,
 				88ED8CDA1AF84FEB00B82BE7 /* main.m in Sources */,
 				88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */,

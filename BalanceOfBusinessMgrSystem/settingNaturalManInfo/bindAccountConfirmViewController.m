@@ -132,8 +132,6 @@
     registerLabel.textColor = [UIColor whiteColor];
     registerLabel.font = [UIFont systemFontOfSize:15];
     [avestButton addSubview:registerLabel];
-    
-    
 }
 
 
@@ -168,7 +166,7 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    BMAccountCellGroup *contact=group[indexPath.row];
+    //BMAccountCellGroup *contact=group[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {

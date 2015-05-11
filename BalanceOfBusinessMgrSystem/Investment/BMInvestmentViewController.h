@@ -10,6 +10,6 @@
 
 @interface BMInvestmentViewController : HP_BaseViewController
 
-@property (strong, nonatomic) UIWebView *manualProductWebView;
+
 
 @end

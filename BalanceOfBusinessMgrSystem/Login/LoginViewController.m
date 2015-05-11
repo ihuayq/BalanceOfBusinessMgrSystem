@@ -374,10 +374,9 @@
     //自然人登陆
     else
     {
-//        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-//        [self.navigationController pushViewController:settingVc animated:NO];
-        BMNaturalManMainViewController * manVC=[[BMNaturalManMainViewController alloc]init];
-         [self.navigationController pushViewController:manVC animated:NO];
+        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+        [self.navigationController pushViewController:settingVc animated:NO];
+
     }
     
     return;

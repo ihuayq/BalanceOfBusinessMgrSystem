@@ -7,6 +7,7 @@
 //
 
 #import "SettingLoginPassWord2ViewController.h"
+#import "BMNaturalManMainViewController.h"
 
 @interface SettingLoginPassWord2ViewController ()
 
@@ -67,7 +68,8 @@
 
 
 -(void) touchConfirmButton{
-    
+    BMNaturalManMainViewController * manVC=[[BMNaturalManMainViewController alloc]init];
+    [self.navigationController pushViewController:manVC animated:NO];
 }
 
 - (void)didReceiveMemoryWarning {
