@@ -301,8 +301,6 @@
 
 -(void)touchChangePasswordButton
 {
-    SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
-    [self.navigationController pushViewController:mainview animated:YES];
 
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {
@@ -378,7 +376,7 @@
 
     NSLog(@"connDictionary:%@",connDictionary);
 
-    [self showProgressViewWithMessage:@"正在设置支付码..."];
+    [self showProgressViewWithMessage:@"正在设置登录密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
@@ -404,6 +402,9 @@
 
              //MainViewController * mainview=[[MainViewController alloc]init];
              //[self.navigationController pushViewController:mainview animated:YES];
+             
+             SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
+             [self.navigationController pushViewController:mainview animated:YES];
 
          }
          else

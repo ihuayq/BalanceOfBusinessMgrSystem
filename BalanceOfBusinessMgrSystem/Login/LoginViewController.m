@@ -458,8 +458,15 @@
             //自然人登陆
             else
             {
-                SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-                [self.navigationController pushViewController:settingVc animated:NO];
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isinitialloginpassword"]isEqualToString:@"1"]) {
+                    SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+                    [self.navigationController pushViewController:settingVc animated:YES];
+                }
+                else{
+                    BMNaturalManMainViewController* settingVc=[[BMNaturalManMainViewController alloc]init];
+                    [self.navigationController pushViewController:settingVc animated:YES];
+                }
+               
             }
 
         }
