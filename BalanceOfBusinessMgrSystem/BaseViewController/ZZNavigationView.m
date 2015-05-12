@@ -12,6 +12,7 @@
 {
     UIButton * leftBtn;
     UIButton * rightBtn;
+    //NSString * rightBtnLabel;
     UIImageView * headerImageView;
     UILabel * titleLabel;
     
@@ -23,8 +24,10 @@
 @implementation ZZNavigationView
 @synthesize leftImage = _leftImage;
 @synthesize rightImage = _rightImage;
+//@synthesize rightBtnLabel = _rightBtnLabel;
 @synthesize headerImage = _headerImage;
 @synthesize title = _title;
+@synthesize rightTitle = _rightTitle;
 @synthesize delegate =_delegate;
 @synthesize navigaionBackColor = _navigaionBackColor;
 
@@ -99,6 +102,18 @@
     
     NSLog(@"the title frame is:%@",titleLabel);
     titleLabel.text = title;
+}
+
+-(void)setRightTitle:(NSString *)title
+{
+    CGSize titleSize = [title sizeWithFont:titleLabel.font constrainedToSize:CGSizeMake(navigationBack.frame.size.width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
+    if (titleSize.width>80) {
+        titleSize.width = 80;
+    }
+    if (rightBtn!=nil) {
+        [rightBtn setImage:nil forState:UIControlStateNormal];
+         [rightBtn setTitle:title forState:UIControlStateNormal];
+    }
 }
 
 -(void)setNavigaionBackColor:(UIColor *)navigaionBackColor

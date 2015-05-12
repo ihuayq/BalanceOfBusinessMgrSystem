@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TotalAssetInfoModel.h"
 
 @interface BMAssetsMainPageViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
+
+
+@property(nonatomic,strong) TotalAssetInfoModel * assetInfo;
 
 @end

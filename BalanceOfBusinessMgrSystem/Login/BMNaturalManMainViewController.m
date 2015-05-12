@@ -62,10 +62,10 @@
     nc4.tabBarItem.title = @"账号";
     
     
-    nc1.tabBarItem.image = [UIImage imageNamed:@"home_page"];
-    nc2.tabBarItem.image = [UIImage imageNamed:@"invest"];
-    nc3.tabBarItem.image = [UIImage imageNamed:@"earnings"];
-    nc4.tabBarItem.image = [UIImage imageNamed:@"account"];
+    nc1.tabBarItem.image = [UIImage imageNamed:@"首页"];
+    nc2.tabBarItem.image = [UIImage imageNamed:@"投资"];
+    nc3.tabBarItem.image = [UIImage imageNamed:@"资产"];
+    nc4.tabBarItem.image = [UIImage imageNamed:@"账号"];
     
     //self.tabBarController.selectedViewController = nc2;
 }

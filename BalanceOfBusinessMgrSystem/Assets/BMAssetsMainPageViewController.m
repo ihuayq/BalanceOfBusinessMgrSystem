@@ -11,13 +11,22 @@
 #import "UIAssetsPageCell.h"
 #import "UIDatingAssetsViewTips.h"
 #import "BMAssetsInfoSubViewController.h"
+#import "BMWithDrawsCashViewController.h"
+#import "DXAlertView.h"
+#import "BMSettingTransactionpPasswordViewController.h"
+
 
 @interface BMAssetsMainPageViewController (){
     UIImageView *_arrowButton;
     
     UIView *_datingIndicatorView;
     UIView *_popView;
-    BOOL            _popItemMenu;           // is needed pop item menu
+    BOOL _popItemMenu;           // is needed pop item menu
+    
+    
+    UIAssetsPageCell *historyProfitCell;
+    UIAssetsPageCell *futurePrincipalCell;
+    
 }
 @property(strong,nonatomic) UITableView * tableView;
 @end
@@ -31,7 +40,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"我的资产";
-    self.navigation.rightImage = [UIImage imageNamed:@"earnings.png"];
+    self.navigation.rightImage = [UIImage imageNamed:@"earnings"];
+    //self.navigation.rightTitle = @"提现";
     
     
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f - 200) ];
@@ -71,17 +81,19 @@
     [self.view addSubview:_popView];
     _popView.hidden = YES;
     
-    UIAssetsPageCell *principalCell1 = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2, 60) leftUIImage:[UIImage imageNamed:@"昨日入账.png"] titleText:(NSString*)@" 昨日入账（元）" numText:(NSString*) @"0.00"];
-    [principalCell1.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [principalCell1.layer setBorderWidth:0.5f];
-    [_popView addSubview:principalCell1];
+    historyProfitCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2, 60) leftUIImage:[UIImage imageNamed:@"昨日入账.png"] titleText:(NSString*)@" 昨日入账（元）" numText:(NSString*) @"0.00"];
+    [historyProfitCell.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
+    [historyProfitCell.layer setBorderWidth:0.5f];
+    [_popView addSubview:historyProfitCell];
     
-    UIAssetsPageCell *principalCell2 = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(MainWidth/2,0, MainWidth/2, 60) leftUIImage:[UIImage imageNamed:@"排队资金.png"] titleText:(NSString*)@"排队资金（元）" numText:(NSString*) @"0.00"];
-    [principalCell2.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [principalCell2.layer setBorderWidth:0.5f];
-    [_popView addSubview:principalCell2];
-
-
+    futurePrincipalCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(MainWidth/2,0, MainWidth/2, 60) leftUIImage:[UIImage imageNamed:@"排队资金.png"] titleText:(NSString*)@"排队资金（元）" numText:(NSString*) @"0.00"];
+    [futurePrincipalCell.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
+    [futurePrincipalCell.layer setBorderWidth:0.5f];
+    [_popView addSubview:futurePrincipalCell];
+    
+    historyProfitCell.numLabel.text = self.assetInfo.historyProfit;
+    futurePrincipalCell.numLabel.text = self.assetInfo.futurePrincipal;
+    
 }
 
 - (void)popItemMenu:(BOOL)pop
@@ -148,32 +160,33 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString * dentifier = @"cell";
-    UITableViewCell *cell;
-    if (!cell) {
-        if (indexPath.row == 0) {
-            
-            //UITotalAssetsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
-            if (cell == nil) {
-                cell = [[UITotalAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-            }
-        }
-        else if (indexPath.row == 1){
-            cell = [[UIOldAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-        }
-        else if (indexPath.row == 2){
-            cell = [[UIOtherAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];  
-        }
-        else{
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-        }
+ 
+    if (indexPath.row == 0) {
+        //if (cell == nil) {
+            UITotalAssetsTableViewCell *cell = [[UITotalAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
+            cell.money = self.assetInfo.totalAssets;
+        return cell;
+        //}
     }
-
-    return cell;
+    else if (indexPath.row == 1){
+        UIOldAssetsTableViewCell *cell = [[UIOldAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
+        cell.money = self.assetInfo.oldProfit;
+        return cell;
+    }
+    else if (indexPath.row == 2){
+        UIOtherAssetsTableViewCell *cell = [[UIOtherAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
+        cell.principalMoney = self.assetInfo.curPrincipal;
+        cell.receiptsMoney = self.assetInfo.curProfit;
+        return cell;
+    }
+    return nil;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row != 0 ) {
@@ -184,6 +197,27 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
    
+}
+
+-(void)rightButtonClickEvent{
+    //需要判断是否已经设置交易密码
+//    BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,暂时无法提现,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+    [alert show];
+    alert.leftBlock = ^() {
+        NSLog(@"left button clicked");
+        BMSettingTransactionpPasswordViewController *info = [[BMSettingTransactionpPasswordViewController alloc] init];
+        [self.navigationController pushViewController:info
+                                             animated:NO];
+    };
+    alert.rightBlock = ^() {
+        NSLog(@"right button clicked");
+    };
+    alert.dismissBlock = ^() {
+        NSLog(@"Do something interesting after dismiss block");
+    };
 }
 
 - (void)didReceiveMemoryWarning {

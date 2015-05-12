@@ -8,6 +8,7 @@
 
 #import "BMInvestmentViewController.h"
 #import "RadioButton.h"
+#import "BMCancelInvestmentViewController.h"
 
 @interface BMInvestmentViewController ()<UIAlertViewDelegate>{
     UIWebView *manualProductWebView;
@@ -15,6 +16,7 @@
     UIButton *registerButton;
     UILabel * registerLabel;
     RadioButton *radioAgreement;
+    HP_UIButton *investProtolBtn;
     
     BOOL isHasAppointment;
     
@@ -29,9 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"投资首页";
-    
     
     //超额宝介绍
     manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 60, MainWidth - 40*2, 180)];
@@ -43,13 +43,31 @@
     NSString *htmlString1= [NSString stringWithContentsOfFile:filePath1 encoding:NSUTF8StringEncoding error:nil];
     [manualProductWebView loadHTMLString:htmlString1 baseURL:[NSURL URLWithString:filePath1]];
     
-    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(40, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 200, 20) typeCheck:NO];
+    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(40, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 20, 20) typeCheck:NO];
     [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [radioAgreement setTitle:@"已阅读并同意自然人投资协议" forState:UIControlStateNormal];
+    //[radioAgreement setTitle:@"已阅读并同意自然人投资协议" forState:UIControlStateNormal];
     radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];
     radioAgreement.delegate=self;
     radioAgreement.tag=707;
     [self.view addSubview:radioAgreement];
+    
+    //自然人姓名
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 85, 20)];
+    manTitleLabel.text = @"已阅读并同意";
+    manTitleLabel.textAlignment = NSTextAlignmentLeft;
+    manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    manTitleLabel.font = [UIFont systemFontOfSize:14];
+    manTitleLabel.backgroundColor = [UIColor clearColor];
+    manTitleLabel.numberOfLines = 0;
+    [self.view addSubview:manTitleLabel];
+    
+    
+    investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(manTitleLabel.frame.origin.x + manTitleLabel.frame.size.width-5, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 120, 20)];
+    [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    [registerButton addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [investProtolBtn setTitle:@"自然人投资协议" forState:UIControlStateNormal];
+    investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+    [self.view addSubview:investProtolBtn];
     
     
     //确定
@@ -67,29 +85,14 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
     [registerButton.layer setBorderColor:colorref];//边框颜色
-    
     [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-//    [registerButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-//    [registerButton.titleLabel setTextColor:[UIColor whiteColor]];
-    
-//    [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//  [registerButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+//  [registerButton.titleLabel setTextColor:[UIColor whiteColor]];
+//  [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 
     
     [self.view addSubview:registerButton];
-    
-//    NSString *strLabel = @"预约购买";
-//    registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*40, 40)];
-//    registerLabel.textAlignment = NSTextAlignmentCenter;
-//    registerLabel.backgroundColor = [UIColor clearColor];
-//    registerLabel.textColor = [UIColor whiteColor];
-//    registerLabel.font = [UIFont systemFontOfSize:15];
-//
-//    
-//    //CGSize titleSize = [strLabel sizeWithFont:registerLabel.font constrainedToSize:CGSizeMake(MainWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
-//    registerLabel.text = strLabel;
-//    [registerButton addSubview:registerLabel];
-    
 }
 
 
@@ -101,6 +104,10 @@
         case 0:{
             radioAgreement.hidden = true;
             [registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
+            
+            BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
+            [self.navigationController pushViewController:cancelVC animated:YES];
+        
         }break;
         default:
             break;
@@ -120,6 +127,10 @@
             
         }
     }
+    
+}
+
+-(void)touchProtocalButton{
     
 }
 

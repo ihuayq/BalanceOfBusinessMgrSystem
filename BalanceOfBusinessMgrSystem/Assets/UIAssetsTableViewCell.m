@@ -34,6 +34,11 @@
     return self;
 }
 
+
+-(void)setMoney:(NSString *)money{
+    _money = money;
+    moneyLabel.text = _money;
+}
 @end
 
 
@@ -61,6 +66,11 @@
     return self;
 }
 
+-(void)setMoney:(NSString *)money{
+    _money = money;
+    moneyLabel.text = _money;
+}
+
 @end
 
 
@@ -80,11 +90,22 @@
         receiptsCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake( self.contentView.size.width/2,0 ,self.contentView.size.width/2, self.contentView.size.height*2 -9)  leftUIImage:[UIImage imageNamed:@"累计收益.png"] titleText:(NSString*)@"理财收益（元）" numText:(NSString*) @"0.00"];
         [receiptsCell.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
         [receiptsCell.layer setBorderWidth:0.5f];
-        receiptsCell.backgroundColor = [UIColor orangeColor];
         [self.contentView addSubview:receiptsCell];
         
     }
     return self;
 }
+
+
+-(void)setPrincipalMoney:(NSString *)principalMoney{
+    _principalMoney = principalMoney;
+    principalCell.numLabel.text = principalMoney;
+}
+
+-(void)setReceiptsMoney:(NSString *)receiptsMoney{
+    _receiptsMoney = receiptsMoney;
+    receiptsCell.numLabel.text = receiptsMoney;
+}
+
 @end
 

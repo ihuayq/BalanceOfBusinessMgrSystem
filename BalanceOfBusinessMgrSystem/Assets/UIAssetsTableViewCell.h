@@ -14,6 +14,8 @@
     UILabel * titleLabel;
     UILabel * moneyLabel;
 }
+
+@property (nonatomic,copy) NSString * money;
 @end
 
 
@@ -21,6 +23,8 @@
     UILabel * titleLabel;
     UILabel * moneyLabel;
 }
+
+@property (nonatomic,copy) NSString * money;
 @end
 
 
@@ -29,4 +33,8 @@
     UIAssetsPageCell *principalCell;
     UIAssetsPageCell *receiptsCell;
 }
+
+@property (nonatomic,copy) NSString * principalMoney;
+@property (nonatomic,copy) NSString * receiptsMoney;
+
 @end

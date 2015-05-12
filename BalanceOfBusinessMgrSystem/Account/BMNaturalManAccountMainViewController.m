@@ -54,7 +54,11 @@
 }
 
 -(void)touchExitButton{
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登陆、1的登陆
     
+    [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void) initGroup{

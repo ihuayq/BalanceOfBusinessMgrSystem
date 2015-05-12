@@ -10,6 +10,6 @@
 #import "HP_Common4IOS.h"
 #import "ControllerConfig.h"
 
-@interface BMCancelInvestmentViewController : FMBaseViewController
+@interface BMCancelInvestmentViewController : FMBaseViewController<UITextFieldDelegate>
 
 @end

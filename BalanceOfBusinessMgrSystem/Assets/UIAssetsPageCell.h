@@ -10,14 +10,15 @@
 
 @interface UIAssetsPageCell : UIView {
     
-    UIImageView *imageLeftView;
-    
-    UILabel * titleLabel;
-    //Reiceipts 收益
-    UILabel * numLabel;
+
 }
 
-@property (nonatomic,assign) UIColor * backColor;
+@property (nonatomic,strong)   UIImageView *imageLeftView;
+
+@property (nonatomic,strong)   UILabel * titleLabel;
+//Reiceipts 收益
+@property (nonatomic,strong)   UILabel * numLabel;
+
 
 - (id)initWithFrame:(CGRect)frame leftUIImage:(UIImage *)leftUIImage titleText:(NSString*) titleText numText:(NSString*) numText;
 

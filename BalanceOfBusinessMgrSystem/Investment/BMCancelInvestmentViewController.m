@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.navigation.title = @"取消预约";
     
     //初始化label
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 40,0,0)];
@@ -32,11 +33,11 @@
     CGSize size = CGSizeMake(300,400);
     //计算实际frame大小，并将label的frame变成实际大小
     CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap];
-    [label setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 100, labelsize.width, labelsize.height)];
+    [label setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 30, labelsize.width, labelsize.height)];
     label.text = s;
     [self.view addSubview:label];
     
-    HP_UIImageView *bgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 90,MainWidth-40, 40)];
+    HP_UIImageView *bgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, MainHeight -350,MainWidth-40, 40)];
     [bgImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView];
     
@@ -45,17 +46,30 @@
     [bgImageView addSubview:passImage];
 
     
-    passWordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(90, 30, 110, 40)];
+    passWordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(30, 0, 140, 40)];
     [passWordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passWordTextField.backgroundColor = [UIColor clearColor];
     passWordTextField.clearButtonMode = UITextFieldViewModeAlways;
     passWordTextField.placeholder = @"请输入6位交易密码";
-    passWordTextField.font = [UIFont systemFontOfSize:14];
+    passWordTextField.font = [UIFont systemFontOfSize:16];
     passWordTextField.delegate = self;
     passWordTextField.keyboardType = UIKeyboardTypeNumberPad;
     passWordTextField.borderStyle = UITextBorderStyleNone;
     passWordTextField.secureTextEntry=NO;
     [bgImageView addSubview:passWordTextField];
+    
+    //确定
+    HP_UIButton *forgetPassWordButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+//    [forgetPassWordButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
+//    [forgetPassWordButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+//    [forgetPassWordButton setBackgroundColor:[UIColor blueColor]];
+    [forgetPassWordButton setFrame:CGRectMake(MainWidth - 120,MainHeight -300, 2*50, 40)];
+    [forgetPassWordButton addTarget:self action:@selector(touchForgetPassWordButton) forControlEvents:UIControlEventTouchUpInside];
+    [forgetPassWordButton setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    [forgetPassWordButton setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+    
+    //cancelButton.enabled = false;
+    [self.view addSubview:forgetPassWordButton];
     
     //确定
     HP_UIButton *cancelButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
@@ -65,6 +79,9 @@
     [cancelButton setFrame:CGRectMake(40,MainHeight -200, MainWidth-2*40, 40)];
     [cancelButton addTarget:self action:@selector(touchCanceButton) forControlEvents:UIControlEventTouchUpInside];
     [cancelButton setTitle:@"确认取消" forState:UIControlStateNormal];
+    [cancelButton.layer setMasksToBounds:YES];
+    [cancelButton.layer setCornerRadius:cancelButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    
     //cancelButton.enabled = false;
     [self.view addSubview:cancelButton];
     
@@ -74,11 +91,62 @@
 //    registerLabel.backgroundColor = [UIColor clearColor];
 //    registerLabel.textColor = [UIColor whiteColor];
 //    registerLabel.font = [UIFont systemFontOfSize:15];
-    
-    
     //CGSize titleSize = [strLabel sizeWithFont:registerLabel.font constrainedToSize:CGSizeMake(MainWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
     
 }
+
+
+-(void)touchForgetPassWordButton{
+    
+}
+
+
+-(void)touchCanceButton{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark - UITextFieldDelegate
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+    }];
+    
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self touchesBegan:nil withEvent:nil];
+    return YES;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField==passWordTextField)
+    {
+        if (string.length > 0)
+        {
+            if ([string isEqualToString:@" "])
+            {
+                return NO;
+            }
+            return textField.text.length < 20;
+        }
+    }
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [passWordTextField resignFirstResponder];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
+    }];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

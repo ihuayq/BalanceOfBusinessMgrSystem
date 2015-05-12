@@ -12,6 +12,7 @@
 #import "SettingLoginPassWordViewController.h"
 #import "BMCommercialTenantMainViewController.h"
 #import "BMNaturalManMainViewController.h"
+#import "ProgressHUD.h"
 
 @interface LoginViewController ()<RadioButtonDelegate>{
     BOOL isSupplerSelected;
@@ -364,6 +365,7 @@
 
 -(void)touchLoginButton
 {
+    //[ProgressHUD show:@"登陆中"];
     //商户登陆
     if( self.isSupplerSelected ){
         BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
@@ -378,7 +380,6 @@
         [self.navigationController pushViewController:settingVc animated:NO];
 
     }
-    
     return;
     
 //    if(![self checkName:nameTextField.text])
@@ -430,6 +431,10 @@
             
             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
             
+
+            //商户还是自然人
+            [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
+            //
             [Dict setObject:[responseJSONDictionary objectForKey:@"userid"] forKey:USER_ID];
             [Dict setObject:[responseJSONDictionary objectForKey:MOBILE] forKey:USER_MOBILE];
             [Dict setObject:[responseJSONDictionary objectForKey:AUTHSTATUS] forKey:AUTHSTATUS];
@@ -443,25 +448,20 @@
             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
             [[NSUserDefaults standardUserDefaults]setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
             
+            //[[NSUserDefaults standardUserDefaults] objectForKey:keyAndVAlueString]isEqualToString:keyAndVAlueString]
             
-//            MainViewController * mainview=[[MainViewController alloc]init];
-//            mainview.transferDict=responseJSONDictionary;
-//            [mainview showAlertView];
-//            [self.navigationController pushViewController:mainview animated:NO];
-            
-//            DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Congratulations" contentText:@"You have bought something" leftButtonTitle:@"Ok" rightButtonTitle:@"Fine"];
-//            [alert show];
-//            alert.leftBlock = ^() {
-//                NSLog(@"left button clicked");
-//            };
-//            alert.rightBlock = ^() {
-//                NSLog(@"right button clicked");
-//            };
-//            alert.dismissBlock = ^() {
-//                NSLog(@"Do something interesting after dismiss block");
-//            };
-            SettingLoginPassWordViewController * mainview=[[SettingLoginPassWordViewController alloc]init];
-            [self.navigationController pushViewController:mainview animated:NO];
+            //是否商户1 还是自然人0 登陆
+            if( self.isSupplerSelected ){
+                BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+                [self.navigationController pushViewController:mainview animated:NO];
+            }
+            //自然人登陆
+            else
+            {
+                SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+                [self.navigationController pushViewController:settingVc animated:NO];
+            }
+
         }
         else
         {

@@ -10,7 +10,6 @@
 #import "FMBaseViewController.h"
 #import "HP_Common4IOS.h"
 #import "ControllerConfig.h"
-@class HP_UITextField;
 
 @interface SettingLoginPassWordViewController : HP_BaseViewController<UITextFieldDelegate,UIAlertViewDelegate>
 {

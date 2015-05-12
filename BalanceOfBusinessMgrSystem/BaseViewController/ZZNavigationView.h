@@ -20,6 +20,7 @@
 @property (nonatomic,retain) UIImage * headerImage;
 @property (nonatomic,copy) NSString * title;
 @property (nonatomic,retain) UIImage * rightImage;
+@property (nonatomic,copy) NSString * rightTitle;
 @property (nonatomic,assign) UIColor * navigaionBackColor;
 @property (nonatomic) NSInteger type;
 @end
