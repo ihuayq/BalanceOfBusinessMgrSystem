@@ -166,15 +166,19 @@
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, CONFIRM_PASSWORD_OUTLET_POSITION + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchChangePasswordButton) forControlEvents:UIControlEventTouchUpInside];
+    [registerButton setTitle:@"确定" forState:UIControlStateNormal];
+    [registerButton.layer setMasksToBounds:YES];
+    [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    
     [self.view addSubview:registerButton];
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确认";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [registerButton addSubview:registerLabel];
+//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
+//    registerLabel.textAlignment = NSTextAlignmentCenter;
+//    registerLabel.backgroundColor = [UIColor clearColor];
+//    registerLabel.text = @"确认";
+//    registerLabel.textColor = [UIColor whiteColor];
+//    registerLabel.font = [UIFont systemFontOfSize:15];
+//    [registerButton addSubview:registerLabel];
 }
 
 

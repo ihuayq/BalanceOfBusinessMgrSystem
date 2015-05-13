@@ -367,20 +367,23 @@
 {
     //[ProgressHUD show:@"登陆中"];
     //商户登陆
-    if( self.isSupplerSelected ){
-        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-        //mainview.transferDict=responseJSONDictionary;
-        //[mainview showAlertView];
-        [self.navigationController pushViewController:mainview animated:NO];
-    }
-    //自然人登陆
-    else
-    {
-        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-        [self.navigationController pushViewController:settingVc animated:NO];
-
-    }
-    return;
+//    if( self.isSupplerSelected ){
+//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//        //mainview.transferDict=responseJSONDictionary;
+//        //[mainview showAlertView];
+//        [self.navigationController pushViewController:mainview animated:NO];
+//    }
+//    //自然人登陆
+//    else
+//    {
+//        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+//        [self.navigationController pushViewController:settingVc animated:NO];
+//
+//    }
+//    return;
+    
+    nameTextField.text = @"15294700571";
+    passwordTextField.text = @"123";
     
 //    if(![self checkName:nameTextField.text])
 //    {
@@ -390,7 +393,7 @@
 //    {
 //        return;
 //    }
-    
+    //http://192.168.1.110:8080/superMoney-core/nature/loginIn?signature=B77FE63F2B12D2965717E04E0A4C3A0A&phoneNum=15294700571&password=123"
     //http://192.168.1.107:8080/superMoney-core/nature/loginIn?signature=B77FE63F2B12D2965717E04E0A4C3A0A&phoneNum=15294700571&password=123
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -400,27 +403,26 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [connDictionary setObject:@"B77FE63F2B12D2965717E04E0A4C3A0A" forKey:@"signature"];
+    //[connDictionary setObject:@"B77FE63F2B12D2965717E04E0A4C3A0A" forKey:@"signature"];
+
+    //[connDictionary setObject:@"1" forKey:@"logintype"];
     
-    //[connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
-    [connDictionary setObject:@"15294700571" forKey:@"phoneNum"];
-    
-//    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
-//    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-    //[connDictionary setObject:encodedValue forKey:@"password"];
+    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
+    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
+    [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
+    [connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
     //[connDictionary setObject:passwordTextField.text forKey:@"password"];
-    [connDictionary setObject:@"123" forKey:@"password"];
-    
    
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
  
-    //[connDictionary setObject:string3des forKey:@"passwd"];
+    [connDictionary setObject:string3des forKey:@"passwd_3des"];
+    
     
     //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,userloginURL];
-    NSString *url =[NSString stringWithFormat:@"http://192.168.1.107:8080/superMoney-core/nature/loginIn?"];
+    NSString *url =[NSString stringWithFormat:@"http://192.168.1.110:8080/superMoney-core/nature/loginIn?"];
     
     NSLog(@"connDictionary:%@",connDictionary);
-    //[self showProgressViewWithMessage:@"登录中..."];
+    [self showProgressViewWithMessage:@"登录中..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
     {
         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
@@ -435,13 +437,30 @@
             //商户还是自然人
             [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
             //
-            [Dict setObject:[responseJSONDictionary objectForKey:@"userid"] forKey:USER_ID];
-            [Dict setObject:[responseJSONDictionary objectForKey:MOBILE] forKey:USER_MOBILE];
-            [Dict setObject:[responseJSONDictionary objectForKey:AUTHSTATUS] forKey:AUTHSTATUS];
-            [Dict setObject:[responseJSONDictionary objectForKey:BANKBINDSTAUS] forKey:BANKBINDSTAUS];
-            [Dict setObject:[responseJSONDictionary objectForKey:PLATFORMUSERID] forKey:PLATFORMUSERID];
-            [Dict setObject:[responseJSONDictionary objectForKey:USERTYPE] forKey:USERTYPE];
-            [Dict setObject:[self delStringNull:[responseJSONDictionary objectForKey:INVITECODE]] forKey:USER_INVITECODE];
+            //[Dict setObject:[responseJSONDictionary objectForKey:@"userid"] forKey:USER_ID];
+            
+            //Dict setObject:[responseJSONDictionary objectForKey:@"userid"] forKey:USER_ID];
+            
+            [Dict setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"personId"];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"precipitationMarke"];
+            
+            
+            
+//           [Dict setObject:[responseJSONDictionary objectForKey:MOBILE] forKey:USER_MOBILE];
+//           [Dict setObject:[responseJSONDictionary objectForKey:AUTHSTATUS] forKey:AUTHSTATUS];
+//           [Dict setObject:[responseJSONDictionary objectForKey:BANKBINDSTAUS] forKey:BANKBINDSTAUS];
+//           [Dict setObject:[responseJSONDictionary objectForKey:PLATFORMUSERID] forKey:PLATFORMUSERID];
+//           [Dict setObject:[responseJSONDictionary objectForKey:USERTYPE] forKey:USERTYPE];
+//           [Dict setObject:[self delStringNull:[responseJSONDictionary objectForKey:INVITECODE]] forKey:USER_INVITECODE];
+            
+//            naturalMark = 1;
+//            payMark = 1;
+//            precipitationMarke = 0;
+            
             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
             
             

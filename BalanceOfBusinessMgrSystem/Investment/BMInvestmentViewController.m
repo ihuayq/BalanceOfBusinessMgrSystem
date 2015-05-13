@@ -15,6 +15,7 @@
     
     UIButton *registerButton;
     UILabel * registerLabel;
+    UILabel * manTitleLabel;
     RadioButton *radioAgreement;
     HP_UIButton *investProtolBtn;
     
@@ -52,7 +53,7 @@
     [self.view addSubview:radioAgreement];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 85, 20)];
+     manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 85, 20)];
     manTitleLabel.text = @"已阅读并同意";
     manTitleLabel.textAlignment = NSTextAlignmentLeft;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -90,9 +91,34 @@
 //  [registerButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
 //  [registerButton.titleLabel setTextColor:[UIColor whiteColor]];
 //  [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+        [self setAppointmentInfo:YES];
+    }
+    else{
+        [self setAppointmentInfo:NO];
+    }
 
     
     [self.view addSubview:registerButton];
+}
+
+-(void)setAppointmentInfo:(BOOL)bHasAppointment{
+    if (!bHasAppointment) {
+         [registerButton setTitle:@"预约购买" forState:UIControlStateNormal];
+        manTitleLabel.hidden = NO;
+        radioAgreement.hidden = NO;
+        investProtolBtn.hidden= NO;
+    }else{
+        [registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
+        manTitleLabel.hidden = YES;
+        radioAgreement.hidden = YES;
+        investProtolBtn.hidden = YES;
+        [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"appointment"];
+        registerButton.enabled = YES;
+    }
+   
 }
 
 
@@ -102,12 +128,9 @@
     NSLog(@"buttonIndex is : %i",(int)buttonIndex);
     switch (buttonIndex) {
         case 0:{
-            radioAgreement.hidden = true;
-            [registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
-            
-            BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
-            [self.navigationController pushViewController:cancelVC animated:YES];
-        
+            //radioAgreement.hidden = true;
+            //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
+            [self setAppointmentInfo:YES];
         }break;
         default:
             break;
@@ -124,7 +147,6 @@
         }
         else{
             registerButton.enabled = false;
-            
         }
     }
     
@@ -135,9 +157,75 @@
 }
 
 -(void)touchDatingButton{
-    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+        BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
+        [self.navigationController pushViewController:cancelVC animated:YES];
+    }
+    else{
+        [self requestNetWork];
+    }
+}
 
-    [[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+-(void)requestNetWork{
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    [self showProgressViewWithMessage:@"正在请求预约..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+//             buyInvestProjectView=[[BuyInvestProjectView alloc]init];
+//             buyInvestProjectView.navgDelegate=self.navigationController;
+//             buyInvestProjectView.type=0;
+//             
+//             [buyInvestProjectView.transferDict setObject:[responseJSONDictionary objectForKey:@"partnerbalance"] forKey:@"partnerbalance"];
+//             [buyInvestProjectView.transferDict setObject:[responseJSONDictionary objectForKey:@"userbalance"] forKey:@"userbalance"];
+//             //"leastbuyshare": "最小起买份额"
+//             [buyInvestProjectView.transferDict setValue:[dataDict objectForKey:@"leastbuyshare"] forKey:@"leastbuyshare"];
+//             [buyInvestProjectView.transferDict setValue:[dataDict objectForKey:@"unitprice"] forKey:@"unitprice"];
+//             [buyInvestProjectView.transferDict setObject:[dataDict objectForKey:@"bidno"] forKey:@"bidno"];
+//             
+//             
+//             [buyInvestProjectView viewDidLoad];
+//             [buyInvestProjectView.okBuyButton addTarget:self action:@selector(touchbuyInvestProjectViewokBuyButton) forControlEvents:UIControlEventTouchUpInside];
+//             [self.view addSubview:buyInvestProjectView];
+             //[[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"appointment"];
+             //发送网络请求，请求预约
+             [[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
 
 }
 

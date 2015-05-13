@@ -54,7 +54,7 @@
             return ;
         }
         
-        NSString *ret = [NSString stringWithFormat:@"%@",[jsonDictionary objectForKey:@"ret"]];
+        NSString *ret = [NSString stringWithFormat:@"%@",[jsonDictionary objectForKey:@"flag"]];
         NSString *msg = [NNString delStringNull:[jsonDictionary objectForKey:@"msg"]];
         if (msg.length==0)
         {

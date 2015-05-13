@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "HP_Common4IOS.h"
-#import "HP_UITextField.h"
+#import "ControllerConfig.h"
 
-@interface BMWithDrawsCashViewController : FMBaseViewController<UITextFieldDelegate>
+@interface BMWithDrawsCashViewController : HP_BaseViewController<UITextFieldDelegate>
 
 @end

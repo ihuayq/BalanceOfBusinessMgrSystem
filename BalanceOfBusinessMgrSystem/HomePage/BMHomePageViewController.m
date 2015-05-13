@@ -51,6 +51,7 @@
     [avestButton setFrame:CGRectMake(MainWidth/2 + 40, MainHeight -48.5 - 100 , 80, 40)];
     [avestButton addTarget:self action:@selector(touchConfirmButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:avestButton];
+    avestButton.hidden = YES;
     
     UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
     registerLabel.textAlignment = NSTextAlignmentCenter;

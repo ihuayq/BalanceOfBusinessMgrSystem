@@ -33,9 +33,16 @@
 
 @implementation BMAssetsMainPageViewController
 @synthesize tableView = _tableView;
+
+
 //资产收益
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AssetChange:) name:@"AssetChange" object:nil];
+
+
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigation.navigaionBackColor =  [UIColor orangeColor];
@@ -93,6 +100,16 @@
     
     historyProfitCell.numLabel.text = self.assetInfo.historyProfit;
     futurePrincipalCell.numLabel.text = self.assetInfo.futurePrincipal;
+    
+}
+
+- (void)AssetChange:(NSNotification *)text{
+    NSLog(@"%@",text.userInfo[@"textOne"]);
+    NSLog(@"－－－－－接收到通知------");
+    
+    historyProfitCell.numLabel.text = self.assetInfo.historyProfit;
+    futurePrincipalCell.numLabel.text = self.assetInfo.futurePrincipal;
+    [_tableView reloadData];
     
 }
 
@@ -201,23 +218,23 @@
 
 -(void)rightButtonClickEvent{
     //需要判断是否已经设置交易密码
-//    BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
-//    [self.navigationController pushViewController:vc animated:YES];
+    BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
     
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,暂时无法提现,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
-    [alert show];
-    alert.leftBlock = ^() {
-        NSLog(@"left button clicked");
-        BMSettingTransactionpPasswordViewController *info = [[BMSettingTransactionpPasswordViewController alloc] init];
-        [self.navigationController pushViewController:info
-                                             animated:NO];
-    };
-    alert.rightBlock = ^() {
-        NSLog(@"right button clicked");
-    };
-    alert.dismissBlock = ^() {
-        NSLog(@"Do something interesting after dismiss block");
-    };
+//    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,暂时无法提现,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+//    [alert show];
+//    alert.leftBlock = ^() {
+//        NSLog(@"left button clicked");
+//        BMSettingTransactionpPasswordViewController *info = [[BMSettingTransactionpPasswordViewController alloc] init];
+//        [self.navigationController pushViewController:info
+//                                             animated:NO];
+//    };
+//    alert.rightBlock = ^() {
+//        NSLog(@"right button clicked");
+//    };
+//    alert.dismissBlock = ^() {
+//        NSLog(@"Do something interesting after dismiss block");
+//    };
 }
 
 - (void)didReceiveMemoryWarning {

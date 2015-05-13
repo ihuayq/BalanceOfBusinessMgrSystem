@@ -46,17 +46,17 @@
     [bgImageView addSubview:passImage];
 
     
-    passWordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(30, 0, 140, 40)];
+    passWordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(30, MainHeight -350, 140, 40)];
     [passWordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passWordTextField.backgroundColor = [UIColor clearColor];
     passWordTextField.clearButtonMode = UITextFieldViewModeAlways;
     passWordTextField.placeholder = @"请输入6位交易密码";
     passWordTextField.font = [UIFont systemFontOfSize:16];
     passWordTextField.delegate = self;
-    passWordTextField.keyboardType = UIKeyboardTypeNumberPad;
+    passWordTextField.keyboardType = UIKeyboardTypeEmailAddress;
     passWordTextField.borderStyle = UITextBorderStyleNone;
     passWordTextField.secureTextEntry=NO;
-    [bgImageView addSubview:passWordTextField];
+    [self.view addSubview:passWordTextField];
     
     //确定
     HP_UIButton *forgetPassWordButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
@@ -100,9 +100,90 @@
     
 }
 
+-(void)requestNetWork{
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
+    [connDictionary setObject:passWordTextField.text forKey:@"transactionpassword"];
+    //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"transactionpassword"]
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    [self showProgressViewWithMessage:@"正在请求取消预约..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             //发送网络请求，请求预约
+             //[[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+             [self.navigationController popViewControllerAnimated:YES];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+    
+}
+
+
+- (BOOL)checkPassWordString:(NSString *)str
+{
+    
+    NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (msgstring.length==0)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    
+    
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
+    BOOL isMatch = [pred evaluateWithObject:str];
+    
+    if (!isMatch)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 -(void)touchCanceButton{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (![self checkPassWordString:passWordTextField.text])
+    {
+        return;
+    }
+    
+    [self requestNetWork];
+    
 }
 
 #pragma mark -
