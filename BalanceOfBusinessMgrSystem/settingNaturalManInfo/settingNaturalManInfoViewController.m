@@ -198,6 +198,59 @@
                                          animated:NO];
 }
 
+-(void)touchSendCheckCodeButton{
+    
+}
+#pragma mark -
+#pragma mark - UITextFieldDelegate
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+    }];
+    
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self touchesBegan:nil withEvent:nil];
+    return YES;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField==nameTextField)
+    {
+        if (string.length > 0)
+        {
+            
+            return textField.text.length < 20;
+        }
+    }
+    if (textField==passCodeTextField)
+    {
+        if (string.length > 0)
+        {
+            if ([string isEqualToString:@" "])
+            {
+                return NO;
+            }
+            return textField.text.length < 20;
+        }
+    }
+    return YES;
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [nameTextField resignFirstResponder];
+    [passCodeTextField resignFirstResponder];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.view setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -305,7 +305,8 @@
 
 -(void)touchChangePasswordButton
 {
-
+    SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
+    [self.navigationController pushViewController:mainview animated:YES];
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {
         return;

@@ -7,6 +7,7 @@
 //
 
 #import "BMSettingTransactionpPasswordViewController.h"
+#import "SettingLoginPassWord2ViewController.h"
 
 
 @interface BMSettingTransactionpPasswordViewController ()
@@ -329,8 +330,8 @@
 
 -(void)touchChangePasswordButton
 {
-//    SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
-//    [self.navigationController pushViewController:mainview animated:YES];
+    SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
+    [self.navigationController pushViewController:mainview animated:YES];
     
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {

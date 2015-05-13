@@ -367,20 +367,20 @@
 {
     //[ProgressHUD show:@"登陆中"];
     //商户登陆
-//    if( self.isSupplerSelected ){
-//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-//        //mainview.transferDict=responseJSONDictionary;
-//        //[mainview showAlertView];
-//        [self.navigationController pushViewController:mainview animated:NO];
-//    }
-//    //自然人登陆
-//    else
-//    {
-//        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-//        [self.navigationController pushViewController:settingVc animated:NO];
-//
-//    }
-//    return;
+    if( self.isSupplerSelected ){
+        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+        //mainview.transferDict=responseJSONDictionary;
+        //[mainview showAlertView];
+        [self.navigationController pushViewController:mainview animated:NO];
+    }
+    //自然人登陆
+    else
+    {
+        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+        [self.navigationController pushViewController:settingVc animated:NO];
+
+    }
+    return;
     
     nameTextField.text = @"15294700571";
     passwordTextField.text = @"123";
@@ -477,16 +477,16 @@
             //自然人登陆
             else
             {
-                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isinitialloginpassword"]isEqualToString:@"1"]) {
+                
+                if ([[NSUserDefaults standardUserDefaults] objectForKey:@"isinitiallogin"]) {
                     SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-                    [self.navigationController pushViewController:settingVc animated:YES];
+                    [self.navigationController pushViewController:settingVc animated:NO];
+                }else{
+                    BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
+                    [self.navigationController pushViewController:Vc animated:NO];
                 }
-                else{
-                    BMNaturalManMainViewController* settingVc=[[BMNaturalManMainViewController alloc]init];
-                    [self.navigationController pushViewController:settingVc animated:YES];
-                }
-               
             }
+
 
         }
         else

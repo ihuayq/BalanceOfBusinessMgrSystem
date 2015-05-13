@@ -33,7 +33,9 @@
     
     UILabel * canDrawCashNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth - 220 ,NAVIGATION_OUTLET_HEIGHT + 50, 200,20)];
     canDrawCashNumberLabel.textAlignment = NSTextAlignmentCenter;
-    canDrawCashNumberLabel.text = @"1800.000";
+    
+    canDrawCashNumberLabel.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"totalmoney"];
+    
     canDrawCashNumberLabel.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:canDrawCashNumberLabel];
     
@@ -72,7 +74,8 @@
     
     UILabel * CardNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(CardLabel.frame.origin.x + CardLabel.frame.size.width ,line2.frame.size.height + line2.frame.origin.y + 5, 180,20)];
     CardNumLabel.textAlignment = NSTextAlignmentLeft;
-    CardNumLabel.text = @"3408812345";
+    //CardNumLabel.text = @"3408812345";
+    CardNumLabel.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceCardNo"];
     CardNumLabel.font = [UIFont systemFontOfSize:18];
     //registerLabel.frame = CGRectMake(MainWidth/2 - registerLabel.frame.size.width/2, MainHeight/2 - registerLabel.frame.size.height/2, registerLabel.frame.size.width, registerLabel.frame.size.height);
     [self.view addSubview:CardNumLabel];
