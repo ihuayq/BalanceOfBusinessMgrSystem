@@ -12,6 +12,7 @@
 
 
 #define ORIGINAL_KEY @"9964DYByKL967c3308imytCB"    //最原始秘钥(MD5)(3des)
+//#define ORIGINAL_KEY @"12345678912345678912345678912345"
 #define LOGINSECRET @"@4!@#$%@"
 
 #define DAILI_ID @"app_key"     //v1.0.1增加的代理ID

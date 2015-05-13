@@ -40,7 +40,7 @@
     NSString *s = @"登陆密码设置成功，下次登陆请使用新密码，点击确认返回主页";
     UIFont *font = [UIFont systemFontOfSize:18];
     //设置一个行高上限
-    CGSize size = CGSizeMake(300,400);
+    CGSize size = CGSizeMake(300,200);
     //计算实际frame大小，并将label的frame变成实际大小
     CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap];
     [label setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 100, labelsize.width, labelsize.height)];
@@ -48,22 +48,44 @@
     [self.view addSubview:label];
     
     
+//    //确定
+//    UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+//    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
+//    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+//    [registerButton setBackgroundColor:[UIColor clearColor]];
+//    [registerButton setFrame:CGRectMake(40, 400, MainWidth/2 - 2*40, 40)];
+//    [registerButton addTarget:self action:@selector(touchConfirmButton) forControlEvents:UIControlEventTouchUpInside];
+//    [registerButton setTitle:@"确定" forState:UIControlStateNormal];
+//    [self.view addSubview:registerButton];
+//    
+//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2 - 2*40, 40)];
+//    registerLabel.textAlignment = NSTextAlignmentCenter;
+//    registerLabel.backgroundColor = [UIColor clearColor];
+//    registerLabel.text = @"确认";
+//    registerLabel.textColor = [UIColor whiteColor];
+//    registerLabel.font = [UIFont systemFontOfSize:15];
+//    [registerButton addSubview:registerLabel];
+    
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
-    [registerButton setFrame:CGRectMake(MainWidth/2 - 20, 400, 80, 40)];
+    [registerButton setFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 300, MainWidth-2*40, 40)];
     [registerButton addTarget:self action:@selector(touchConfirmButton) forControlEvents:UIControlEventTouchUpInside];
+    [registerButton setTitle:@"确定" forState:UIControlStateNormal];
+    [registerButton.layer setMasksToBounds:YES];
+    [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    
     [self.view addSubview:registerButton];
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确认";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [registerButton addSubview:registerLabel];
+//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
+//    registerLabel.textAlignment = NSTextAlignmentCenter;
+//    registerLabel.backgroundColor = [UIColor clearColor];
+//    registerLabel.text = @"确认";
+//    registerLabel.textColor = [UIColor whiteColor];
+//    registerLabel.font = [UIFont systemFontOfSize:15];
+//    [registerButton addSubview:registerLabel];
 }
 
 

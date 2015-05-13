@@ -103,14 +103,79 @@
     //cancelButton.enabled = false;
     [self.view addSubview:okButton];
     
+}
+
+-(void)requestNetWork{
 
     
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
+    //[connDictionary setObject:passWordTextField.text forKey:@"transactionpassword"];
+    //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"transactionpassword"]
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    [self showProgressViewWithMessage:@"正在请求取消预约..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             //发送网络请求，请求预约
+             [self.navigationController popViewControllerAnimated:YES];
+             
+             
+             ////向资产界面传递资产的变动信息
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"11123",@"textOne",@"11123",@"textTwo", nil];
+             //创建通知
+             NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dict];
+             //通过通知中心发送通知
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
+             [self.navigationController popViewControllerAnimated:YES];
+             
+             BMWithDrawsCashSuccessViewController *vc = [[BMWithDrawsCashSuccessViewController alloc] init];
+             [self.navigationController pushViewController:vc animated:YES];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
     
 }
 
 -(void)touchOkButton{
-    BMWithDrawsCashSuccessViewController *vc = [[BMWithDrawsCashSuccessViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    ////向资产界面传递资产的变动信息
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"11123",@"textOne",@"11123",@"textTwo", nil];
+    //创建通知
+    NSNotification *notification =[NSNotification notificationWithName:@"AssetChange" object:nil userInfo:dict];
+    //通过通知中心发送通知
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self.navigationController popViewControllerAnimated:YES];
+    //[self requestNetWork];
 }
 
 #pragma mark -

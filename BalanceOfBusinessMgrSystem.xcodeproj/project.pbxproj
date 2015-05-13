@@ -421,6 +421,7 @@
 		88F18AE61AFB50D4007FE83B /* 确定_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88F189F61AFB50D4007FE83B /* 确定_@2x.png */; };
 		88F18AEC1AFB8904007FE83B /* BMAccountMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */; };
 		88F6F2D61AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F6F2D51AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m */; };
+		88FB7B9C1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -970,6 +971,8 @@
 		88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAccountMainViewController.m; sourceTree = "<group>"; };
 		88F6F2D41AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingLoginPassWord2ViewController.h; sourceTree = "<group>"; };
 		88F6F2D51AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingLoginPassWord2ViewController.m; sourceTree = "<group>"; };
+		88FB7B9A1B02F727008F285A /* ModifySingleNaturalManInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySingleNaturalManInfoViewController.h; sourceTree = "<group>"; };
+		88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySingleNaturalManInfoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1029,6 +1032,8 @@
 				88D406E81B007FFC00418ACC /* NaturalManInfoTableViewCell.h */,
 				88D406E91B007FFC00418ACC /* NaturalManInfoTableViewCell.m */,
 				88D406EB1B00830600418ACC /* Model */,
+				88FB7B9A1B02F727008F285A /* ModifySingleNaturalManInfoViewController.h */,
+				88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */,
 			);
 			path = settingNaturalManInfo;
 			sourceTree = "<group>";
@@ -2392,6 +2397,7 @@
 				88EF06F91AF8A3EF006B09B0 /* MD5Utils.m in Sources */,
 				88E963281B019E3100C04664 /* BMWithDrawsCashViewController.m in Sources */,
 				88EF06F31AF8A3EE006B09B0 /* HP_NSDateUtils.m in Sources */,
+				88FB7B9C1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m in Sources */,
 				8889BAAF1AFCA635001BF5E2 /* SCNavTabBarController.m in Sources */,
 				88E7A7C61AF9DE1D00B44364 /* FMBaseViewController.m in Sources */,
 				8889BAB11AFCA635001BF5E2 /* SCPopView.m in Sources */,
