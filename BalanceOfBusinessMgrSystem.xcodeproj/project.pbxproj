@@ -420,6 +420,9 @@
 		88F18AE51AFB50D4007FE83B /* 确定@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88F189F51AFB50D4007FE83B /* 确定@2x.png */; };
 		88F18AE61AFB50D4007FE83B /* 确定_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88F189F61AFB50D4007FE83B /* 确定_@2x.png */; };
 		88F18AEC1AFB8904007FE83B /* BMAccountMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */; };
+		88F474571B04C12100B6DE39 /* AssetDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F474561B04C12100B6DE39 /* AssetDetailTableViewController.m */; };
+		88F4745D1B04C23800B6DE39 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F4745A1B04C23800B6DE39 /* CircleView.m */; };
+		88F4745E1B04C23800B6DE39 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F4745C1B04C23800B6DE39 /* EGORefreshTableHeaderView.m */; };
 		88F6F2D61AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F6F2D51AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m */; };
 		88FB7B9C1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */; };
 /* End PBXBuildFile section */
@@ -969,6 +972,12 @@
 		88F189F61AFB50D4007FE83B /* 确定_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "确定_@2x.png"; sourceTree = "<group>"; };
 		88F18AEA1AFB8904007FE83B /* BMAccountMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAccountMainViewController.h; sourceTree = "<group>"; };
 		88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAccountMainViewController.m; sourceTree = "<group>"; };
+		88F474551B04C12100B6DE39 /* AssetDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDetailTableViewController.h; sourceTree = "<group>"; };
+		88F474561B04C12100B6DE39 /* AssetDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetDetailTableViewController.m; sourceTree = "<group>"; };
+		88F474591B04C23800B6DE39 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
+		88F4745A1B04C23800B6DE39 /* CircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleView.m; sourceTree = "<group>"; };
+		88F4745B1B04C23800B6DE39 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
+		88F4745C1B04C23800B6DE39 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		88F6F2D41AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingLoginPassWord2ViewController.h; sourceTree = "<group>"; };
 		88F6F2D51AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingLoginPassWord2ViewController.m; sourceTree = "<group>"; };
 		88FB7B9A1B02F727008F285A /* ModifySingleNaturalManInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySingleNaturalManInfoViewController.h; sourceTree = "<group>"; };
@@ -1153,6 +1162,8 @@
 		88E7C28A1AFC574200F7B58C /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				88F474551B04C12100B6DE39 /* AssetDetailTableViewController.h */,
+				88F474561B04C12100B6DE39 /* AssetDetailTableViewController.m */,
 				88E9637E1B02005000C04664 /* Model */,
 				8889BA971AFC5F8A001BF5E2 /* UIView+Additions.h */,
 				8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */,
@@ -1560,6 +1571,7 @@
 		88EF0B251AF8E397006B09B0 /* ThirdPartLib */ = {
 			isa = PBXGroup;
 			children = (
+				88F474581B04C23800B6DE39 /* RefreshTableHeaderView */,
 				88E963781B01F2DD00C04664 /* ProgressHUD */,
 				7A21E54F1AFE3E5700C8C023 /* RFSegmentView */,
 				8889BABE1AFCC09A001BF5E2 /* NALLabelsMatrix */,
@@ -1899,6 +1911,17 @@
 				88F189E51AFB50D4007FE83B /* 5come4.png */,
 			);
 			path = welcome;
+			sourceTree = "<group>";
+		};
+		88F474581B04C23800B6DE39 /* RefreshTableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				88F474591B04C23800B6DE39 /* CircleView.h */,
+				88F4745A1B04C23800B6DE39 /* CircleView.m */,
+				88F4745B1B04C23800B6DE39 /* EGORefreshTableHeaderView.h */,
+				88F4745C1B04C23800B6DE39 /* EGORefreshTableHeaderView.m */,
+			);
+			path = RefreshTableHeaderView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2350,6 +2373,7 @@
 				88EF073E1AF8C023006B09B0 /* NSString+HexToData.m in Sources */,
 				88EF06E91AF8A3EE006B09B0 /* HP_UITextField.m in Sources */,
 				88ED8CDD1AF84FEB00B82BE7 /* AppDelegate.m in Sources */,
+				88F4745D1B04C23800B6DE39 /* CircleView.m in Sources */,
 				88EF06F81AF8A3EF006B09B0 /* HP_UserDefaultsUtils.m in Sources */,
 				88EF03101AF8A375006B09B0 /* ASIInputStream.m in Sources */,
 				88EF030F1AF8A375006B09B0 /* ASIHTTPRequest.m in Sources */,
@@ -2360,6 +2384,7 @@
 				88EF06F71AF8A3EF006B09B0 /* HP_UIImageUtils.m in Sources */,
 				88EF06ED1AF8A3EE006B09B0 /* CoreTelephony.m in Sources */,
 				8889BAB01AFCA635001BF5E2 /* SCNavTabBar.m in Sources */,
+				88F4745E1B04C23800B6DE39 /* EGORefreshTableHeaderView.m in Sources */,
 				88E9632E1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.m in Sources */,
 				88EF030E1AF8A375006B09B0 /* ASIFormDataRequest.m in Sources */,
 				88EF03121AF8A375006B09B0 /* Reachability.m in Sources */,
@@ -2389,6 +2414,7 @@
 				88E9637D1B01F2DD00C04664 /* ProgressHUD.m in Sources */,
 				7A21E55D1AFF584B00C8C023 /* settingNaturalManInfoViewController.m in Sources */,
 				88E963811B02010000C04664 /* TotalAssetInfoModel.m in Sources */,
+				88F474571B04C12100B6DE39 /* AssetDetailTableViewController.m in Sources */,
 				88EF073F1AF8C023006B09B0 /* NSString+Utf8Encoding.m in Sources */,
 				88F185511AFB1612007FE83B /* PopAnimation.m in Sources */,
 				88EF07421AF8C0BD006B09B0 /* NSData+Addition.m in Sources */,

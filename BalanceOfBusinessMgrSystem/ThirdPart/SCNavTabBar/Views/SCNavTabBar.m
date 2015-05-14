@@ -125,8 +125,9 @@
     
     for (NSString *title in titles)
     {
-        CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
-        NSNumber *width = [NSNumber numberWithFloat:size.width + 40.0f];
+        //CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
+        //NSNumber *width = [NSNumber numberWithFloat:size.width + 40.0f];
+        NSNumber *width = [[NSNumber alloc] initWithInt:MainWidth/titles.count];
         [widths addObject:width];
     }
     

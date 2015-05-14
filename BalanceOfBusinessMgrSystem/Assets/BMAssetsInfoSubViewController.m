@@ -10,6 +10,7 @@
 #import "NALLabelsMatrix.h"
 #import "RFSegmentView.h"
 #import "SCNavTabBarController.h"
+#import "AssetDetailTableViewController.h"
 
 @interface BMAssetsInfoSubViewController ()<RFSegmentViewDelegate>{
     UIScrollView * _scrollView;
@@ -50,11 +51,11 @@
 //    [matrix addRecord:[[NSArray alloc] initWithObjects:@"Long Fields", @"The quick brown fox jumps over the little lazy dog.", @"some new value",@"hello",  nil]];
     
     
-    NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"原创",@"电视剧",@"动漫",@"电影",nil];
+    NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"预约",@"派息",@"成交",@"提现",nil];
     NSMutableArray *chooseControllerArray = [NSMutableArray arrayWithCapacity:4];
     for (NSInteger index = 0; index < 4; index++)
     {
-        UITableViewController * mc = [[UITableViewController alloc] init];
+        AssetDetailTableViewController * mc = [[AssetDetailTableViewController alloc] init];
         mc.title = [chooseArray objectAtIndex:(NSUInteger)index];
         [chooseControllerArray addObject:mc];
     }
