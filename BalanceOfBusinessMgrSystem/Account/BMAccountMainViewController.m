@@ -8,6 +8,7 @@
 
 #import "BMAccountMainViewController.h"
 #import "BMAccountCellInfo.h"
+#import "BMSettingTransactionpPasswordViewController.h"
 
 @interface BMAccountMainViewController (){
     NSMutableArray *_group;//cell数组
@@ -153,7 +154,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if( indexPath.section == 3)
+    {
+        BMSettingTransactionpPasswordViewController *vc = [[BMSettingTransactionpPasswordViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 

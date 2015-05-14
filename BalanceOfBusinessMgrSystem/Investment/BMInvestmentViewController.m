@@ -9,6 +9,7 @@
 #import "BMInvestmentViewController.h"
 #import "RadioButton.h"
 #import "BMCancelInvestmentViewController.h"
+#import "BMSettingTransactionpPasswordViewController.h"
 
 @interface BMInvestmentViewController ()<UIAlertViewDelegate>{
     UIWebView *manualProductWebView;
@@ -20,8 +21,6 @@
     HP_UIButton *investProtolBtn;
     
     BOOL isHasAppointment;
-    
-    
 }
 
 @end
@@ -70,7 +69,6 @@
     investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
     [self.view addSubview:investProtolBtn];
     
-    
     //确定
     registerButton = [HP_UIButton buttonWithType:UIButtonTypeRoundedRect];
 //  [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
@@ -87,21 +85,32 @@
     CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
     [registerButton.layer setBorderColor:colorref];//边框颜色
     [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.view addSubview:registerButton];
     
 //  [registerButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
 //  [registerButton.titleLabel setTextColor:[UIColor whiteColor]];
 //  [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
-    
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+    NSLog(@"THE APPOINTMENT IS %@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ]objectForKey:@"appointment"]);
+    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]objectForKey:@"appointment"] isEqualToString:@"1"]) {
         [self setAppointmentInfo:YES];
     }
     else{
         [self setAppointmentInfo:NO];
     }
 
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AppointmentChange:) name:@"AppointmentChange" object:nil];
     
-    [self.view addSubview:registerButton];
+
+}
+
+- (void)AppointmentChange:(NSNotification *)text{
+    NSLog(@"%@",text.userInfo[@"AppointmentChange"]);
+    NSLog(@"－－－－－接收到通知------");
+    
+    [self setAppointmentInfo:NO];
+    
 }
 
 -(void)setAppointmentInfo:(BOOL)bHasAppointment{
@@ -110,12 +119,15 @@
         manTitleLabel.hidden = NO;
         radioAgreement.hidden = NO;
         investProtolBtn.hidden= NO;
+        registerButton.enabled = NO;
+
+        [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"0" forKey:@"appointment"];
     }else{
         [registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
         manTitleLabel.hidden = YES;
         radioAgreement.hidden = YES;
         investProtolBtn.hidden = YES;
-        [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"appointment"];
+        [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"appointment"];
         registerButton.enabled = YES;
     }
    
@@ -130,7 +142,7 @@
         case 0:{
             //radioAgreement.hidden = true;
             //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
-            [self setAppointmentInfo:YES];
+            
         }break;
         default:
             break;
@@ -139,7 +151,6 @@
 
 
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
-    
     if (radiobutton.tag == 707) {
         NSLog(@"btn is selected:%d",boolchange);
         if (boolchange == true) {
@@ -149,21 +160,29 @@
             registerButton.enabled = false;
         }
     }
-    
 }
 
 -(void)touchProtocalButton{
     
 }
 
+
 -(void)touchDatingButton{
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+    // 查看是否设置了支付密码
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
+//         BMSettingTransactionpPasswordViewController *VC = [[BMSettingTransactionpPasswordViewController alloc] init];
+//        [self.navigationController pushViewController:VC animated:YES];
+//        return;
+//    }
+    
+    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
         BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
         [self.navigationController pushViewController:cancelVC animated:YES];
     }
     else{
         [self requestNetWork];
     }
+    return;
 }
 
 -(void)requestNetWork{
@@ -176,11 +195,14 @@
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     
-    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
-    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:@"1" forKey:@"status"];
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    NSString *url =[NSString stringWithFormat:@"%@",DrawCashURL];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
     
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"正在请求预约..."];
@@ -192,6 +214,8 @@
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
+             
+             [self setAppointmentInfo:YES];
 //             buyInvestProjectView=[[BuyInvestProjectView alloc]init];
 //             buyInvestProjectView.navgDelegate=self.navigationController;
 //             buyInvestProjectView.type=0;

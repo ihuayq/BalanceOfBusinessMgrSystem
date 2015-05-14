@@ -359,6 +359,12 @@
     
     [self touchesBegan:nil withEvent:nil];
     
+    
+//    getMessageCode
+//    韩韶茹  14:49:37
+//    String personId = request.getParameter("personId");
+//    String phoneNum = request.getParameter("phoneNum");
+//    String signature = request.getParameter("signature");
 
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];

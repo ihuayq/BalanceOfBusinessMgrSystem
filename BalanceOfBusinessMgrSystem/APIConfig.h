@@ -6,7 +6,7 @@
 //  Copyright (c) 2013年 aaa. All rights reserved.
 //
 
-#define ZHENGSHI
+
 
 #ifdef ZHENGSHI
 
@@ -16,9 +16,25 @@
 
 #else
 
-#define HostURL @"http://192.168.0.120/interfaces.php?app=ios&v=103&op=" //测试服务器
-#define ShareURL_ZX @"http://192.168.0.120/trust/projectintro.php?"//分享
-#define HelpCenterURL_ZX @"http://192.168.0.120/trust/apphelp.php?action="//帮助中心
+#define HostURL @"http://192.168.1.110:8080/superMoney-core/nature/loginIn?" //测试服务器
+#define DrawCashURL @"http://192.168.1.110:8080/superMoney-core/nature/saveInfo?"//沉淀
+#define MessageCodeURL @"http://192.168.1.110:8080/superMoney-core/nature/getMessageCode?"// 获取验证码
+#define PayPasswdURL @"http://192.168.1.110:8080/superMoney-core/nature/setPayPass?"// 获取验证码
+
+#define WithDrawURL @"http://192.168.1.110:8080/superMoney-core/nature/withdraw?"// 提现
+#define AssetInfoUrl @"http://192.168.1.110:8080/superMoney-core/nature/queryDetail?" //资产变动信息查询
+
+
+
+
+
+
+
+
+
+//#define HostURL @"http://192.168.0.120/interfaces.php?app=ios&v=103&op=" //测试服务器
+//#define ShareURL_ZX @"http://192.168.0.120/trust/projectintro.php?"//分享
+//#define HelpCenterURL_ZX @"http://192.168.0.120/trust/apphelp.php?action="//帮助中心
 
 #endif
 

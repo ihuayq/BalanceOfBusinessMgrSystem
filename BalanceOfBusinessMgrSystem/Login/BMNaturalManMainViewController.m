@@ -42,6 +42,19 @@
     homePageVC = [[BMHomePageViewController alloc] init];
     investViewVC = [[BMInvestmentViewController alloc] init];
     earningVC = [[BMAssetsMainPageViewController alloc] init];
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"];
+    //NSLog(@"the balanceInfo is: %@",dic);
+    
+    TotalAssetInfoModel *asset = [[TotalAssetInfoModel alloc] init];
+    asset.totalAssets   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalAmount"]];
+    asset.oldProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"yesterdayRevenue"]];
+    asset.curPrincipal   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"inAmount"]];
+    asset.curProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"accruedIncome"]];
+    asset.historyProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"yesterdayNetAmount"]];
+    asset.futurePrincipal   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"queueMoney"]];
+    earningVC.assetInfo = asset;
+    //NSLog(@"the asset is: %@",earningVC.assetInfo);
+    
     accountVC = [[BMAccountMainViewController alloc] init];
     
     NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];

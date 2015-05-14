@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HP_Common4IOS.h"
+#import "ControllerConfig.h"
 
-@interface BMAssetsInfoSubViewController : FMBaseViewController
+@interface BMAssetsInfoSubViewController : HP_BaseViewController<UITextFieldDelegate>
 
 @end

@@ -110,12 +110,19 @@
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
-    [connDictionary setObject:passWordTextField.text forKey:@"transactionpassword"];
-    //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"transactionpassword"]
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:@"0" forKey:@"status"];
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    //支付密码
+    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passWordTextField.text];//3DES加密
+    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
+    [connDictionary setObject:encodedValue forKey:@"pay_passwd_3des_encode"];
+    
+    //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"transactionpassword"]
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+     NSString *url =[NSString stringWithFormat:@"%@",DrawCashURL];
     
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"正在请求取消预约..."];
@@ -126,6 +133,13 @@
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             ////向资产界面传递资产的变动信息
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"cancelSuccess", nil];
+             //创建通知
+             NSNotification *notification =[NSNotification notificationWithName:@"AppointmentChange" object:nil userInfo:dict];
+             //通过通知中心发送通知
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
              
              //发送网络请求，请求预约
              //[[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
@@ -149,38 +163,49 @@
     
 }
 
-
-- (BOOL)checkPassWordString:(NSString *)str
+- (BOOL)checkPassword:(NSString *)str1 checkPassword2:(NSString*)str2
 {
     
-    NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (msgstring.length==0)
+    NSString* msgstring1=[str1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    // NSString* msgstring2=[str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (msgstring1.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入支付密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
+//    if (msgstring1.length<6)
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
+//    if (![self checkPassWordString:str1])
+//    {
+//        return NO;
+//    }
     
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch)
+    if (![str1 isEqualToString:str2])
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
-    
-    return YES;
+//    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
+    return YES; 
 }
 
 
 -(void)touchCanceButton{
-    if (![self checkPassWordString:passWordTextField.text])
-    {
-        return;
-    }
+//    if (![self checkPassWordString:passWordTextField.text])
+//    {
+//        return;
+//    }
     
     [self requestNetWork];
     
@@ -222,9 +247,9 @@
 {
     [passWordTextField resignFirstResponder];
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [self.view setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
+//    }];
 }
 
 

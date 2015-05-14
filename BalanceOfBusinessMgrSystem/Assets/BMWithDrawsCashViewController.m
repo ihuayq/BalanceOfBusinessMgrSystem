@@ -34,8 +34,10 @@
     UILabel * canDrawCashNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth - 220 ,NAVIGATION_OUTLET_HEIGHT + 50, 200,20)];
     canDrawCashNumberLabel.textAlignment = NSTextAlignmentCenter;
     
-    canDrawCashNumberLabel.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"totalmoney"];
     
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"];
+    NSLog(@"the balanceInfo is: %@",dic);
+    canDrawCashNumberLabel.text =  [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalAmount"]];
     canDrawCashNumberLabel.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:canDrawCashNumberLabel];
     
@@ -75,7 +77,9 @@
     UILabel * CardNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(CardLabel.frame.origin.x + CardLabel.frame.size.width ,line2.frame.size.height + line2.frame.origin.y + 5, 180,20)];
     CardNumLabel.textAlignment = NSTextAlignmentLeft;
     //CardNumLabel.text = @"3408812345";
-    CardNumLabel.text =  [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceCardNo"];
+    
+    NSLog(@"the balance card no :%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]);
+    CardNumLabel.text =  [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]];
     CardNumLabel.font = [UIFont systemFontOfSize:18];
     //registerLabel.frame = CGRectMake(MainWidth/2 - registerLabel.frame.size.width/2, MainHeight/2 - registerLabel.frame.size.height/2, registerLabel.frame.size.width, registerLabel.frame.size.height);
     [self.view addSubview:CardNumLabel];
@@ -119,16 +123,24 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+
     
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:@"userId"];
-    //[connDictionary setObject:passWordTextField.text forKey:@"transactionpassword"];
-    //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"transactionpassword"]
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
+    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
+    [connDictionary setObject:encodedValue forKey:@"pay_passwd_3des_encode"];
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    [connDictionary setObject:nameTextField.text forKey:@"drawcash"];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
+    
+    NSString *url =[NSString stringWithFormat:@"%@",WithDrawURL];
+    
     
     NSLog(@"connDictionary:%@",connDictionary);
-    [self showProgressViewWithMessage:@"正在请求取消预约..."];
+    [self showProgressViewWithMessage:@"正在请求提现..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
@@ -137,19 +149,21 @@
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
-             //发送网络请求，请求预约
-             [self.navigationController popViewControllerAnimated:YES];
-             
-             
-             ////向资产界面传递资产的变动信息
-             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"11123",@"textOne",@"11123",@"textTwo", nil];
+             //缓存最新的资产信息
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+             //向资产界面传递资产的变动信息
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"balanceInfo",@"textOne", nil];
              //创建通知
-             NSNotification *notification =[NSNotification notificationWithName:@"tongzhi" object:nil userInfo:dict];
+             NSNotification *notification =[NSNotification notificationWithName:@"AssetChange" object:nil userInfo:dict];
              //通过通知中心发送通知
              [[NSNotificationCenter defaultCenter] postNotification:notification];
-             [self.navigationController popViewControllerAnimated:YES];
+             //[self.navigationController popViewControllerAnimated:YES];
+             
              
              BMWithDrawsCashSuccessViewController *vc = [[BMWithDrawsCashSuccessViewController alloc] init];
+             vc.money = nameTextField.text;
+             vc.time  = [responseJSONDictionary objectForKey:@"deadLinetime"];
+             vc.cardNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ]objectForKey:@"balanceCardNo"];
              [self.navigationController pushViewController:vc animated:YES];
          }
          else
@@ -172,13 +186,13 @@
 
 -(void)touchOkButton{
     ////向资产界面传递资产的变动信息
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"11123",@"textOne",@"11123",@"textTwo", nil];
-    //创建通知
-    NSNotification *notification =[NSNotification notificationWithName:@"AssetChange" object:nil userInfo:dict];
-    //通过通知中心发送通知
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
-    [self.navigationController popViewControllerAnimated:YES];
-    //[self requestNetWork];
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"11123",@"textOne",@"11123",@"textTwo", nil];
+//    //创建通知
+//    NSNotification *notification =[NSNotification notificationWithName:@"AssetChange" object:nil userInfo:dict];
+//    //通过通知中心发送通知
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self requestNetWork];
 }
 
 #pragma mark -

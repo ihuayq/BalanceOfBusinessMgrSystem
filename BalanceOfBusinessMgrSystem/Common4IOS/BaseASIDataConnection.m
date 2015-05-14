@@ -45,9 +45,11 @@
     [request setCompletionBlock:^{
         
         HP_JSONUtils *jsonUtils = [[HP_JSONUtils alloc] init];
-       // NSLog(@"-----%@",_request.responseString);
+        NSLog(@"-----%@",_request.responseString);
         NSDictionary *jsonDictionary = [jsonUtils getDictionaryFromJSONString:_request.responseString encoding:NSUTF8StringEncoding];
         jsonDictionary=[NNString delStringNullOfDictionary:jsonDictionary];
+        
+        NSLog(@"jsonDictionary-----%@",jsonDictionary);
         if ([jsonDictionary isKindOfClass:[NSNull class]])
         {
             failedBlock(_request,_request.error,[self getErrorStringWithErrorCode:_request.error.code]);

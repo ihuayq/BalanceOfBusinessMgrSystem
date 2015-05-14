@@ -1,4 +1,4 @@
-//
+
 //  BMEarningMainPageViewController.m
 //  BalanceOfBusinessMgrSystem
 //
@@ -41,7 +41,6 @@
     
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AssetChange:) name:@"AssetChange" object:nil];
-
 
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -106,6 +105,16 @@
 - (void)AssetChange:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"textOne"]);
     NSLog(@"－－－－－接收到通知------");
+    
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"];
+    NSLog(@"the balanceInfo is: %@",dic);
+    
+    self.assetInfo.totalAssets   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalAmount"]];
+    self.assetInfo.oldProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"yesterdayRevenue"]];
+    self.assetInfo.curPrincipal   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"inAmount"]];
+    self.assetInfo.curProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"accruedIncome"]];
+    self.assetInfo.historyProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"yesterdayNetAmount"]];
+    self.assetInfo.futurePrincipal   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"queueMoney"]];
     
     historyProfitCell.numLabel.text = self.assetInfo.historyProfit;
     futurePrincipalCell.numLabel.text = self.assetInfo.futurePrincipal;
@@ -182,12 +191,14 @@
         //if (cell == nil) {
             UITotalAssetsTableViewCell *cell = [[UITotalAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
             cell.money = self.assetInfo.totalAssets;
+        NSLog(@"money:%@",self.assetInfo.totalAssets);
         return cell;
         //}
     }
     else if (indexPath.row == 1){
         UIOldAssetsTableViewCell *cell = [[UIOldAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
         cell.money = self.assetInfo.oldProfit;
+        NSLog(@"Profit:%@",cell.money);
         return cell;
     }
     else if (indexPath.row == 2){
@@ -218,23 +229,28 @@
 
 -(void)rightButtonClickEvent{
     //需要判断是否已经设置交易密码
-    BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
     
-//    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,暂时无法提现,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
-//    [alert show];
-//    alert.leftBlock = ^() {
-//        NSLog(@"left button clicked");
-//        BMSettingTransactionpPasswordViewController *info = [[BMSettingTransactionpPasswordViewController alloc] init];
-//        [self.navigationController pushViewController:info
-//                                             animated:NO];
-//    };
-//    alert.rightBlock = ^() {
-//        NSLog(@"right button clicked");
-//    };
-//    alert.dismissBlock = ^() {
-//        NSLog(@"Do something interesting after dismiss block");
-//    };
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"1"]) {
+        BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,暂时无法提现,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        [alert show];
+        alert.leftBlock = ^() {
+            NSLog(@"left button clicked");
+            BMSettingTransactionpPasswordViewController *info = [[BMSettingTransactionpPasswordViewController alloc] init];
+            [self.navigationController pushViewController:info
+                                                 animated:NO];
+        };
+        alert.rightBlock = ^() {
+            NSLog(@"right button clicked");
+            [self.navigationController popViewControllerAnimated:YES];
+        };
+        alert.dismissBlock = ^() {
+            NSLog(@"Do something interesting after dismiss block");
+        };
+    }
 }
 
 - (void)didReceiveMemoryWarning {

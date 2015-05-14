@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Investment/BMInvestmentViewController.m"
-            timestampString = "453181741.404344"
+            filePath = "BalanceOfBusinessMgrSystem/Account/BMSettingTransactionpPasswordViewController.m"
+            timestampString = "453282679.533874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "-requestNetWork"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "-touchSettingPasswordButton"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,77 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Investment/BMCancelInvestmentViewController.m"
-            timestampString = "453190566.858009"
+            filePath = "BalanceOfBusinessMgrSystem/Account/BMSettingTransactionpPasswordViewController.m"
+            timestampString = "453281213.408376"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "-textFieldShouldReturn:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Login/LoginViewController.m"
-            timestampString = "453203532.187677"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "-touchLoginButton"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Login/LoginViewController.m"
-            timestampString = "453207817.813934"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
-            landmarkName = "-touchLoginButton"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Login/LoginViewController.m"
-            timestampString = "453207817.813934"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
-            landmarkName = "-touchLoginButton"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Login/LoginViewController.m"
-            timestampString = "453207817.813934"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "441"
-            endingLineNumber = "441"
-            landmarkName = "-touchLoginButton"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "-touchSettingPasswordButton"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

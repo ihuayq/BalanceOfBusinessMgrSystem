@@ -10,7 +10,9 @@
 #import "SettingLoginPassWord2ViewController.h"
 
 
-@interface BMSettingTransactionpPasswordViewController ()
+@interface BMSettingTransactionpPasswordViewController (){
+    NSString *phoneNum;
+}
 
 @end
 
@@ -73,7 +75,8 @@
 //    [self.view addSubview:notePsdLabel];
     
     UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(notePsdLabel.frame.origin.x+ labelsize.width, NAVIGATION_OUTLET_HEIGHT + 20, 240, labelsize.height)];
-    telLabel.text = @"17701315969";
+    //手机号码
+    telLabel.text = phoneNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phonenum"];
     telLabel.textAlignment = NSTextAlignmentLeft;
     telLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telLabel.font = [UIFont systemFontOfSize:18];
@@ -203,7 +206,56 @@
 }
 
 -(void)touchSettingPasswordButton{
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    
+    [self touchesBegan:nil withEvent:nil];
+    
+    //网络请求
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
+    
+    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
+    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
+    [connDictionary setObject:encodedValue forKey:@"payPassword"];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    NSLog(@"connDictionary:%@",connDictionary);
+    
+    NSString *url =[NSString stringWithFormat:@"%@",PayPasswdURL];
+    
+    [self showProgressViewWithMessage:@"正在设置登录密码..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             //[self timeCountdown];
+             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+             [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"payMark"];
+             [self.navigationController popViewControllerAnimated:YES];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+
+    
+    
+
 }
 
 
@@ -225,13 +277,17 @@
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    //[connDictionary setObject:[dataDict objectForKey:QPOS_PHONE_NO] forKey:@"mobile"];
-    //[connDictionary setObject:[dataDict objectForKey:QPOS_MERCHANT_NO] forKey:@"platformmerno"];
-    [connDictionary setObject:@"register" forKey:@"type"];
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phonenum"]forKey:@"phonenum"];
+    
+    //[connDictionary setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
+    
+    //[connDictionary setObject:@"register" forKey:@"type"];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,sendcodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@",MessageCodeURL];
     
     [self showProgressViewWithMessage:@"正在获取验证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)

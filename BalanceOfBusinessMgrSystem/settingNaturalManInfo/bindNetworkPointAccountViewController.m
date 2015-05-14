@@ -125,6 +125,9 @@
     registerLabel.font = [UIFont systemFontOfSize:15];
     [avestButton addSubview:registerLabel];
     
+    //开始网络加载网点和账号信息
+    
+    
     
 }
 

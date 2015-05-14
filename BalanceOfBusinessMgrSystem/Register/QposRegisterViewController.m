@@ -360,6 +360,9 @@
     
     [connDictionary setObject:[dataDict objectForKey:QPOS_PHONE_NO] forKey:@"mobile"];
     [connDictionary setObject:[dataDict objectForKey:QPOS_MERCHANT_NO] forKey:@"platformmerno"];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:@"0" forKey:@"status"];
 
     [connDictionary setObject:@"register" forKey:@"type"];
     

@@ -64,7 +64,8 @@
 
 #define USERINFO @"userinfomation" //用户信息
 #define MOBILE @"mobile"  //
-#define USER_ID @"user_id"  //商户id
+//#define USER_ID @"user_id"  //商户id
+#define USER_ID @"personId"  //商户id
 #define USER_NAME @"user_name"//用户姓名
 #define USER_MOBILE @"user_mobile"
 #define USER_STATUS @"user_status"

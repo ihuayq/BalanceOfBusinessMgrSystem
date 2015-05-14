@@ -12,4 +12,5 @@
 
 @interface BMWithDrawsCashViewController : HP_BaseViewController<UITextFieldDelegate>
 
+@property (nonatomic,copy) NSString *totalMoney;
 @end

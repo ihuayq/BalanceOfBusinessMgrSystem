@@ -52,6 +52,8 @@
 
 
 #define mima_tishiyu_6_20 @"6-20字符，必须包含数字、字母(区分大小写)。"
+#define mima_shuzi_6 @"6位数字。"
+
 #define queding @"确定"
 #define GoBackVC 444
 #define GetDataOK 100

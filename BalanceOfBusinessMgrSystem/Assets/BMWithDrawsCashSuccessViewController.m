@@ -19,9 +19,9 @@
     self.navigation.title = @"提现";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
-    self.money = @"134567.98";
-    self.cardNum = @"345608124553535";
-    self.time = @"1989:04:12";
+//    self.money = @"134567.98";
+//    self.cardNum = @"345608124553535";
+//    self.time = @"1989:04:12";
     
     //
 //    UILabel * drawCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 ,NAVIGATION_OUTLET_HEIGHT + 100, 200,20)];
@@ -49,7 +49,6 @@
     drawCashNumberLabel.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:drawCashNumberLabel];
     
-    //
 //    UILabel * timeNoteLabel = [[UILabel alloc] initWithFrame:CGRectMake( 5 ,drawCashLabel.frame.size.height + drawCashLabel.frame.origin.y + 10, 200,20)];
 //    timeNoteLabel.textAlignment = NSTextAlignmentCenter;
 //    timeNoteLabel.text = @"预计到账时间:";
@@ -130,7 +129,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    //Dispose of any resources that can be recreated.
 }
 
 /*

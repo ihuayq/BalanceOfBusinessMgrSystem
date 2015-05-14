@@ -398,9 +398,6 @@
 
 -(void)touchRegisterButton
 {
-    
-
-    
     if (![self checkTel:telTextField.text])
     {
         return;

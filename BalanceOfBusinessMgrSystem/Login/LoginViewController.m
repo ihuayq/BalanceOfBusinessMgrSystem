@@ -201,6 +201,8 @@
     loginLabel.font = [UIFont systemFontOfSize:15];
     [loginButton addSubview:loginLabel];
     
+
+    
 //    UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
 //    [registerButton setBackgroundImage:[UIImage imageNamed:@"garybn"] forState:UIControlStateNormal];
 //    [registerButton setBackgroundImage:[UIImage imageNamed:@"garybndj"] forState:UIControlStateHighlighted];
@@ -365,25 +367,25 @@
 
 -(void)touchLoginButton
 {
+    nameTextField.text = @"18666625107";
+    passwordTextField.text = @"123";
     //[ProgressHUD show:@"登陆中"];
     //商户登陆
-    if( self.isSupplerSelected ){
-        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-        //mainview.transferDict=responseJSONDictionary;
-        //[mainview showAlertView];
-        [self.navigationController pushViewController:mainview animated:NO];
-    }
-    //自然人登陆
-    else
-    {
-        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-        [self.navigationController pushViewController:settingVc animated:NO];
+//    if( self.isSupplerSelected ){
+//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//        //mainview.transferDict=responseJSONDictionary;
+//        //[mainview showAlertView];
+//        [self.navigationController pushViewController:mainview animated:NO];
+//    }
+//    //自然人登陆
+//    else
+//    {
+//        SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+//        [self.navigationController pushViewController:settingVc animated:NO];
+//
+//    }
+//    return;
 
-    }
-    return;
-    
-    nameTextField.text = @"15294700571";
-    passwordTextField.text = @"123";
     
 //    if(![self checkName:nameTextField.text])
 //    {
@@ -394,7 +396,6 @@
 //        return;
 //    }
     //http://192.168.1.110:8080/superMoney-core/nature/loginIn?signature=B77FE63F2B12D2965717E04E0A4C3A0A&phoneNum=15294700571&password=123"
-    //http://192.168.1.107:8080/superMoney-core/nature/loginIn?signature=B77FE63F2B12D2965717E04E0A4C3A0A&phoneNum=15294700571&password=123
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -441,14 +442,16 @@
             
             //Dict setObject:[responseJSONDictionary objectForKey:@"userid"] forKey:USER_ID];
             
-            [Dict setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"personId"];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];
+            [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"precipitationMarke"];
             
+            [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登陆
+            //[Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//支付密码
+            [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
             
+            [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+
             
 //           [Dict setObject:[responseJSONDictionary objectForKey:MOBILE] forKey:USER_MOBILE];
 //           [Dict setObject:[responseJSONDictionary objectForKey:AUTHSTATUS] forKey:AUTHSTATUS];
@@ -457,11 +460,8 @@
 //           [Dict setObject:[responseJSONDictionary objectForKey:USERTYPE] forKey:USERTYPE];
 //           [Dict setObject:[self delStringNull:[responseJSONDictionary objectForKey:INVITECODE]] forKey:USER_INVITECODE];
             
-//            naturalMark = 1;
-//            payMark = 1;
-//            precipitationMarke = 0;
-            
             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
+            [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//支付密码
             
             
             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
@@ -513,9 +513,9 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+//    }];
 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
