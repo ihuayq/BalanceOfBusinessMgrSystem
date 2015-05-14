@@ -36,7 +36,7 @@
         noteModifyLabel.text  = @"可修改";
     }
     else{
-        noteModifyLabel.text  = @" 不可修改";
+        noteModifyLabel.text  = @"不可修改";
     }
 }
 

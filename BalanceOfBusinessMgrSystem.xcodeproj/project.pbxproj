@@ -25,6 +25,9 @@
 		7A21E57C1AFF954000C8C023 /* BankAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A21E57B1AFF954000C8C023 /* BankAccountTableViewCell.m */; };
 		7A21E57F1AFFB63600C8C023 /* bindBalanceAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A21E57E1AFFB63600C8C023 /* bindBalanceAccountViewController.m */; };
 		7A21E5821AFFB88B00C8C023 /* bindAccountConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */; };
+		7AF494EF1B04E2D90096EDE0 /* FMLoadMoreFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494EE1B04E2D90096EDE0 /* FMLoadMoreFooterView.m */; };
+		7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494F11B04E6F00096EDE0 /* AssetDetailTableViewCell.m */; };
+		7AF494F81B04EA0D0096EDE0 /* AssetRecordItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494F71B04EA0D0096EDE0 /* AssetRecordItemInfo.m */; };
 		8889BA991AFC5F8A001BF5E2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */; };
 		8889BA9C1AFC6ACD001BF5E2 /* UIAssetsPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA9B1AFC6ACD001BF5E2 /* UIAssetsPageCell.m */; };
 		8889BAA01AFC8F48001BF5E2 /* 理财本金@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8889BA9F1AFC8F48001BF5E2 /* 理财本金@2x.png */; };
@@ -465,6 +468,12 @@
 		7A21E57E1AFFB63600C8C023 /* bindBalanceAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindBalanceAccountViewController.m; sourceTree = "<group>"; };
 		7A21E5801AFFB88B00C8C023 /* bindAccountConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bindAccountConfirmViewController.h; sourceTree = "<group>"; };
 		7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindAccountConfirmViewController.m; sourceTree = "<group>"; };
+		7AF494ED1B04E2D90096EDE0 /* FMLoadMoreFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMLoadMoreFooterView.h; sourceTree = "<group>"; };
+		7AF494EE1B04E2D90096EDE0 /* FMLoadMoreFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMLoadMoreFooterView.m; sourceTree = "<group>"; };
+		7AF494F01B04E6F00096EDE0 /* AssetDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDetailTableViewCell.h; sourceTree = "<group>"; };
+		7AF494F11B04E6F00096EDE0 /* AssetDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetDetailTableViewCell.m; sourceTree = "<group>"; };
+		7AF494F61B04EA0D0096EDE0 /* AssetRecordItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetRecordItemInfo.h; sourceTree = "<group>"; };
+		7AF494F71B04EA0D0096EDE0 /* AssetRecordItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetRecordItemInfo.m; sourceTree = "<group>"; };
 		8889BA971AFC5F8A001BF5E2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		8889BA9A1AFC6ACD001BF5E2 /* UIAssetsPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAssetsPageCell.h; sourceTree = "<group>"; };
@@ -1162,6 +1171,10 @@
 		88E7C28A1AFC574200F7B58C /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				7AF494ED1B04E2D90096EDE0 /* FMLoadMoreFooterView.h */,
+				7AF494EE1B04E2D90096EDE0 /* FMLoadMoreFooterView.m */,
+				7AF494F01B04E6F00096EDE0 /* AssetDetailTableViewCell.h */,
+				7AF494F11B04E6F00096EDE0 /* AssetDetailTableViewCell.m */,
 				88F474551B04C12100B6DE39 /* AssetDetailTableViewController.h */,
 				88F474561B04C12100B6DE39 /* AssetDetailTableViewController.m */,
 				88E9637E1B02005000C04664 /* Model */,
@@ -1243,6 +1256,8 @@
 		88E9637E1B02005000C04664 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7AF494F61B04EA0D0096EDE0 /* AssetRecordItemInfo.h */,
+				7AF494F71B04EA0D0096EDE0 /* AssetRecordItemInfo.m */,
 				88E9637F1B02010000C04664 /* TotalAssetInfoModel.h */,
 				88E963801B02010000C04664 /* TotalAssetInfoModel.m */,
 			);
@@ -2333,6 +2348,7 @@
 				8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */,
 				88F1853D1AFB0F85007FE83B /* BMInvestmentViewController.m in Sources */,
 				88EF06F21AF8A3EE006B09B0 /* HP_NSDataUtils.m in Sources */,
+				7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */,
 				88EF06EF1AF8A3EE006B09B0 /* HP_JSONUtils.m in Sources */,
 				88EF07391AF8BD48006B09B0 /* BaseASIDataConnection.m in Sources */,
 				88EF07231AF8B112006B09B0 /* LoginViewController.m in Sources */,
@@ -2407,6 +2423,7 @@
 				88ED8CDA1AF84FEB00B82BE7 /* main.m in Sources */,
 				88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */,
 				88EF05CC1AF8A3EC006B09B0 /* UIImage+Common4IOS.m in Sources */,
+				7AF494EF1B04E2D90096EDE0 /* FMLoadMoreFooterView.m in Sources */,
 				88EF07471AF8C218006B09B0 /* GTMBase64.m in Sources */,
 				88EF06FB1AF8A3EF006B09B0 /* NSString+MD5Addition.m in Sources */,
 				88E7A7C91AF9DEBB00B44364 /* SettingLoginPassWordViewController.m in Sources */,
@@ -2427,6 +2444,7 @@
 				8889BAAF1AFCA635001BF5E2 /* SCNavTabBarController.m in Sources */,
 				88E7A7C61AF9DE1D00B44364 /* FMBaseViewController.m in Sources */,
 				8889BAB11AFCA635001BF5E2 /* SCPopView.m in Sources */,
+				7AF494F81B04EA0D0096EDE0 /* AssetRecordItemInfo.m in Sources */,
 				88EF030C1AF8A375006B09B0 /* ASIDataDecompressor.m in Sources */,
 				88EF07331AF8B119006B09B0 /* QposRegisterViewController.m in Sources */,
 				88F185631AFB3D74007FE83B /* BMHomePageViewController.m in Sources */,

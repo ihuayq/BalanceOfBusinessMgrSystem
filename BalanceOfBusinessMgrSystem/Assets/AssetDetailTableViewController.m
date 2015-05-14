@@ -7,7 +7,7 @@
 //
 
 #import "AssetDetailTableViewController.h"
-//#import "FMLoadMoreFooterView.h"
+#import "FMLoadMoreFooterView.h"
 //#import "FMSongListTableViewCell.h"
 //#import "FMMusicViewController.h"
 //#import "FMTDMovieModel.h"
@@ -22,7 +22,7 @@
 {
     BOOL isLoadingMore;
     BOOL isCanLoadMore;
-    //FMLoadMoreFooterView * footerView;
+    FMLoadMoreFooterView * footerView;
     NSMutableArray * array ;
     int list_total;
     int channelId;
@@ -125,10 +125,12 @@
     cell.textLabel.text = @"huayq";
     return cell;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 80;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    FMTDMovieModel* model = [array objectAtIndex:indexPath.row];
@@ -160,24 +162,24 @@
 }
 -(void)loadMore
 {
-//    if (isLoadingMore) {
-//        [footerView.activeView startAnimating];
-//        list_total+=10;
-//        [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.1];
-//        isLoadingMore = NO;
-//        footerView.titleLabel.text = @"获取中...";
-//    }
+    if (isLoadingMore) {
+        [footerView.activeView startAnimating];
+        list_total+=10;
+        [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.1];
+        isLoadingMore = NO;
+        footerView.titleLabel.text = @"获取中...";
+    }
 }
 -(void)loadMoreData
 {
     if (list_total>50){
-        //        if (pageNum ==2) {
-        //            pageNum =1;
-        //            list_total =20;
-        //        }else{
-        //            list_total = 20;
-        //            pageNum =2;
-        //        }
+        //if (pageNum ==2) {
+        //    pageNum =1;
+        //    list_total =20;
+        //}else{
+        //    list_total = 20;
+        //    pageNum =2;
+        //}
         isCanLoadMore = YES; // signal that there won't be any more items to load
     }else{
         isCanLoadMore = NO;
@@ -186,6 +188,8 @@
     if (isCanLoadMore) {
         [self loadMoreCompleted];
     }else{
+        
+        
 //        MCDataEngine * network = [MCDataEngine new];
 //        [network getTDMovieListWith:pageNum :list_total :channelId :sort WithCompletionHandler:^(FMTDMovieList *movieList) {
 //            [ProgressHUD dismiss];
@@ -204,7 +208,7 @@
     if (isCanLoadMore) {
         _tableView.tableFooterView = nil;
     }else{
-//        [footerView.activeView stopAnimating];
+        [footerView.activeView stopAnimating];
     }
 }
 
@@ -251,23 +255,23 @@
 #pragma mark -
 #pragma mark EGORefreshTableHeaderDelegate Methods
 
-//- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-//    
-//    [self reloadTableViewDataSource];
-//    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-//    
-//}
-//
-//- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-//    
-//    return _reloading; // should return if data source model is reloading
-//    
-//}
-//
-//- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-//    
-//    return [NSDate date]; // should return date data source was last changed
-//    
-//}
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+    
+    [self reloadTableViewDataSource];
+    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+    
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+    
+    return _reloading; // should return if data source model is reloading
+    
+}
+
+- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+    
+    return [NSDate date]; // should return date data source was last changed
+    
+}
 
 @end
