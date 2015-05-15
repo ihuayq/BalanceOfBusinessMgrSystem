@@ -9,6 +9,7 @@
 #import "SCNavTabBarController.h"
 #import "CommonMacro.h"
 #import "SCNavTabBar.h"
+#import "AssetDetailTableViewController.h"
 
 @interface SCNavTabBarController () <UIScrollViewDelegate, SCNavTabBarDelegate>
 {
@@ -165,7 +166,8 @@
 //    NSLog(@"new val %ld",_currentIndex);
     
     if (_navTabBar.currentItemIndex != _currentIndex) {
-
+         AssetDetailTableViewController *viewController = (AssetDetailTableViewController *)_subViewControllers[_currentIndex];
+        [viewController refreshViewData];
     }
     _navTabBar.currentItemIndex = _currentIndex;
 

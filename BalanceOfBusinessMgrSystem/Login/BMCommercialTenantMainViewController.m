@@ -58,21 +58,24 @@
     nc1.tabBarItem.image = [UIImage imageNamed:@"home_page"];
     nc2.tabBarItem.image = [UIImage imageNamed:@"account"];
     
-    
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您需要授权一个自然人后使用自然人账号登陆进行投资操作,是否现在授权自然人?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
-    [alert show];
-    alert.leftBlock = ^() {
-        NSLog(@"left button clicked");
-        settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
-        [self.navigationController pushViewController:info
-                                             animated:NO];
-    };
-    alert.rightBlock = ^() {
-        NSLog(@"right button clicked");
-    };
-    alert.dismissBlock = ^() {
-        NSLog(@"Do something interesting after dismiss block");
-    };
+    //if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"addNaturalMark"]  isEqualToString:@"0"]) {
+        //设置自然人
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您需要授权一个自然人后使用自然人账号登陆进行投资操作,是否现在授权自然人?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        [alert show];
+        alert.leftBlock = ^() {
+            NSLog(@"left button clicked");
+            settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+            [self.navigationController pushViewController:info
+                                                 animated:NO];
+        };
+        alert.rightBlock = ^() {
+            NSLog(@"right button clicked");
+        };
+        alert.dismissBlock = ^() {
+            NSLog(@"Do something interesting after dismiss block");
+        };
+    //}
+
     
 }
 

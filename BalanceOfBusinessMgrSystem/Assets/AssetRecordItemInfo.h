@@ -15,4 +15,5 @@
 @property (nonatomic,copy) NSString *ThirdItem;
 @property (nonatomic,copy) NSString *FourthItem;
 
+@property (nonatomic,assign) uint count;
 @end

@@ -10,80 +10,84 @@
 
 @implementation AssetDetailTableViewCell
 
+@synthesize labelCount = _labelCount;
 -(void)setModel:(AssetRecordItemInfo *)model_
 {
     _model = model_;
     
-    CGSize FirstTitleSize = [model_.FirstItem sizeWithFont:FirstLabel.font constrainedToSize:CGSizeMake(MainWidth/4, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
+    float width = MainWidth/_labelCount;
+    
+    CGSize FirstTitleSize = [model_.FirstItem sizeWithFont:FirstLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
     if (FirstTitleSize.width>MainWidth/4) {
         FirstTitleSize.width = MainWidth/4;
     }
-    FirstLabel.frame = CGRectMake(MainWidth/4*0, 0, FirstTitleSize.width, FirstTitleSize.height);
+    FirstLabel.frame = CGRectMake(width*0, 0, width, FirstTitleSize.height+16);
     FirstLabel.text = model_.FirstItem ;
     
-    CGSize SecondTitleSize = [model_.SecondItem sizeWithFont:SecondLabel.font constrainedToSize:CGSizeMake(MainWidth/4, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
-    if (SecondTitleSize.width>MainWidth/4) {
-        SecondTitleSize.width = MainWidth/4;
+    CGSize SecondTitleSize = [model_.SecondItem sizeWithFont:SecondLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
+    if (SecondTitleSize.width>width) {
+        SecondTitleSize.width = width;
     }
-    SecondLabel.frame = CGRectMake(MainWidth/4*1, 0, SecondTitleSize.width, SecondTitleSize.height);
+    SecondLabel.frame = CGRectMake(width*1, 0, width, SecondTitleSize.height+16);
     SecondLabel.text = model_.SecondItem ;
     
-    CGSize ThirdTitleSize = [model_.ThirdItem sizeWithFont:FirstLabel.font constrainedToSize:CGSizeMake(MainWidth/4, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
-    if (ThirdTitleSize.width>MainWidth/4) {
-        ThirdTitleSize.width = MainWidth/4;
+    CGSize ThirdTitleSize = [model_.ThirdItem sizeWithFont:FirstLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
+    if (ThirdTitleSize.width>width) {
+        ThirdTitleSize.width = width;
     }
-    ThirdLabel.frame = CGRectMake(MainWidth/4*2, 0, ThirdTitleSize.width, ThirdTitleSize.height);
+    ThirdLabel.frame = CGRectMake(width*2, 0, width, ThirdTitleSize.height+16);
     ThirdLabel.text = model_.ThirdItem ;
     
-    CGSize FourthTitleSize = [model_.FourthItem sizeWithFont:FourthLabel.font constrainedToSize:CGSizeMake(MainWidth/4, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
-    if (FourthTitleSize.width>MainWidth/4) {
-        FourthTitleSize.width = MainWidth/4;
+    if (_labelCount == 4) {
+        CGSize FourthTitleSize = [model_.FourthItem sizeWithFont:FourthLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
+        if (FourthTitleSize.width>width) {
+            FourthTitleSize.width = width;
+        }
+        FourthLabel.frame = CGRectMake(width*3, 0, width, FourthTitleSize.height+16);
+        FourthLabel.text = model_.FourthItem ;
     }
-    FourthLabel.frame = CGRectMake(MainWidth/4*3, 0, FourthTitleSize.width, FourthTitleSize.height);
-    FourthLabel.text = model_.FourthItem ;
-    
-
-
 }
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withColumCount:(uint)columCount
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        NSNumber *width = [[NSNumber alloc] initWithInt:MainWidth/4];
+        _labelCount = columCount;
+        //NSNumber *width = [[NSNumber alloc] initWithInt:MainWidth/_labelCount];
+        float width = MainWidth/_labelCount;
         
         //初始化label
-        FirstLabel =  [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/4*0,0,0,0)];;
-        FirstLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        FirstLabel =  [[UILabel alloc] initWithFrame:CGRectMake(width*0,0,0,0)];;
         FirstLabel.textAlignment = NSTextAlignmentCenter;
         FirstLabel.backgroundColor = [UIColor clearColor];
-        FirstLabel.textColor = [UIColor whiteColor];
-        FirstLabel.font = [UIFont systemFontOfSize:16.0f];
+        //FirstLabel.textColor = [UIColor whiteColor];
+        FirstLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:FirstLabel];
         
-        SecondLabel =  [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/4*1,0,0,0)];;
-        SecondLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        SecondLabel =  [[UILabel alloc] initWithFrame:CGRectMake(width*1,0,0,0)];;
         SecondLabel.textAlignment = NSTextAlignmentCenter;
         SecondLabel.backgroundColor = [UIColor clearColor];
-        SecondLabel.textColor = [UIColor whiteColor];
-        SecondLabel.font = [UIFont systemFontOfSize:16.0f];
+        //SecondLabel.textColor = [UIColor whiteColor];
+        SecondLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:SecondLabel];
         
-        ThirdLabel =  [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/4*2,0,0,0)];;
-        ThirdLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+        ThirdLabel =  [[UILabel alloc] initWithFrame:CGRectMake(width*2,0,0,0)];;
         ThirdLabel.textAlignment = NSTextAlignmentCenter;
         ThirdLabel.backgroundColor = [UIColor clearColor];
-        ThirdLabel.textColor = [UIColor whiteColor];
-        ThirdLabel.font = [UIFont systemFontOfSize:16.0f];
+        //ThirdLabel.textColor = [UIColor whiteColor];
+        ThirdLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:ThirdLabel];
         
-        FourthLabel =  [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/4*3,0,0,0)];;
-        FourthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        FourthLabel.textAlignment = NSTextAlignmentCenter;
-        FourthLabel.backgroundColor = [UIColor clearColor];
-        FourthLabel.textColor = [UIColor whiteColor];
-        FourthLabel.font = [UIFont systemFontOfSize:16.0f];
-        [self.contentView addSubview:FourthLabel];
+        if (_labelCount == 4) {
+            FourthLabel =  [[UILabel alloc] initWithFrame:CGRectMake(width*3,0,0,0)];;
+            FourthLabel.textAlignment = NSTextAlignmentCenter;
+            FourthLabel.backgroundColor = [UIColor clearColor];
+            //FourthLabel.textColor = [UIColor whiteColor];
+            FourthLabel.font = [UIFont systemFontOfSize:14.0f];
+            [self.contentView addSubview:FourthLabel];
+        }
+
         
     }
     return self;

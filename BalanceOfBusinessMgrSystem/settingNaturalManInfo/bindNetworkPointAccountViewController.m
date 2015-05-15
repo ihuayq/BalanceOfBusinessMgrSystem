@@ -41,8 +41,8 @@
     [group addObject:contact1];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10, 50, 60)];
-    manTitleLabel.text = @"自然人1";
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 30, 50, 20)];
+    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -50,8 +50,8 @@
     manTitleLabel.numberOfLines = 0;
     [self.view addSubview:manTitleLabel];
     
-    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 40)];
-    manNameLabel.text = @"lisi";
+    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
+    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
     manNameLabel.textAlignment = NSTextAlignmentCenter;
     manNameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manNameLabel.font = [UIFont systemFontOfSize:14];
@@ -60,7 +60,7 @@
     [self.view addSubview:manNameLabel];
     
     //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 50)];
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x + 5 , NAVIGATION_OUTLET_HEIGHT + 30, 90, 20)];
     identifyTitleLabel.text = @"身份证号码:";
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -69,8 +69,8 @@
     identifyTitleLabel.numberOfLines = 0;
     [self.view addSubview:identifyTitleLabel];
     
-    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 50)];
-    identifyLabel.text = @"340882198804230456";
+    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 30,150, 20)];
+    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
     identifyLabel.textAlignment = NSTextAlignmentCenter;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
@@ -79,7 +79,7 @@
     [self.view addSubview:identifyLabel];
     
     //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 60, 40)];
+    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 70, 40)];
     telephoneTitleLabel.text = @"手机号码:";
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -89,7 +89,7 @@
     [self.view addSubview:telephoneTitleLabel];
     
     telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 150,40)];
-    telephoneLabel.text = @"17701315969";
+    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneLabel.font = [UIFont systemFontOfSize:14];
@@ -126,11 +126,73 @@
     [avestButton addSubview:registerLabel];
     
     //开始网络加载网点和账号信息
-    
-    
-    
 }
 
+-(void)requestNetWork{
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    //    queryDetail
+    //    韩韶茹  17:25:24
+    //    String signature = request.getParameter("signature");
+    //    String querType = request.getParameter("queryFlag");
+    //    String personId = request.getParameter("personId");
+    //    String pageNow = request.getParameter("pageNow");
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:@"1" forKey:@"pageNow"];
+
+    NSString *url =[NSString stringWithFormat:@"%@",AssetInfoUrl];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    //[self showProgressViewWithMessage:@"正在请求数据..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             for (int i = 0 ; i< 10; i++) {
+                 //缓存最新的信息
+                 //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetInfo"] forKey:@"assetInfo"];
+//                 AssetRecordItemInfo *asset = [AssetRecordItemInfo new];
+//                 asset.FirstItem = @"预约" ;
+//                 asset.SecondItem = @"2015-04-08" ;
+//                 asset.ThirdItem = @"10000.00" ;
+//                 asset.FourthItem = @"";
+//                 
+//                 [array addObject:asset];
+             }
+             
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+    
+}
 
 -(void)touchOkButton{
     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];

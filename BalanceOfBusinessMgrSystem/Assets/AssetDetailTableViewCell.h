@@ -17,5 +17,9 @@
 }
 
 @property (nonatomic,strong) AssetRecordItemInfo *model;
+@property (nonatomic,assign) uint labelCount;
+
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier withColumCount:(uint)columCount;
 
 @end

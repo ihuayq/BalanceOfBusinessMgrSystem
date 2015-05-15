@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "SCNavTabBar.h"
 #import "EGORefreshTableHeaderView.h"
+#import "HP_Common4IOS.h"
+#import "ControllerConfig.h"
 
 
-@interface AssetDetailTableViewController : UIViewController<EGORefreshTableHeaderDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface AssetDetailTableViewController : HP_BaseViewController<EGORefreshTableHeaderDelegate,UITableViewDelegate,UITableViewDataSource>
 {
     UITableView * _tableView;
     

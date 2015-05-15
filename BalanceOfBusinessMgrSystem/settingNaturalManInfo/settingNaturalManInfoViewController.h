@@ -10,6 +10,6 @@
 #import "HP_Common4IOS.h"
 #import "ControllerConfig.h"
 
-@interface settingNaturalManInfoViewController : FMBaseViewController
+@interface settingNaturalManInfoViewController : HP_BaseViewController
 
 @end

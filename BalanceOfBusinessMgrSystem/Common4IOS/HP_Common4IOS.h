@@ -44,6 +44,8 @@
 #import "UIImage+Common4IOS.h"
 #import "UIImageView+AFNetworking.h"
 
+#import "NSString+Utf8Encoding.h"
+
 #import "NSString+MD5Addition.h"
 #import "UIDevice-Hardware.h"
 

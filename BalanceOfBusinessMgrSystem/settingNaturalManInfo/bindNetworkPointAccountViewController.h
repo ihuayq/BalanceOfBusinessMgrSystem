@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HP_Common4IOS.h"
+#import "ControllerConfig.h"
 
-@interface bindNetworkPointAccountViewController : FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
+@interface bindNetworkPointAccountViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
 @end

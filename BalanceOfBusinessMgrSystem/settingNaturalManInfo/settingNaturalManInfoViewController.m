@@ -27,12 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     self.navigation.title = @"设置自然人";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
     [self initUI];
-    
 }
 
 -(void) initUI
@@ -100,7 +98,6 @@
     telephoneTextField.secureTextEntry=YES;
     [self.view addSubview:telephoneTextField];
     
-    
     //短信验证码
     HP_UIImageView *bgImageView40 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 40,40, 40)];
     [bgImageView40 setImage:[UIImage imageNamed:@"email"]];
@@ -109,14 +106,6 @@
     HP_UIImageView *bg3ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20+40, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 40,190, 40)];
     [bg3ImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bg3ImageView];
-    
-//    UILabel * checkwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 40, 70, 40)];
-//    checkwordLabel.text = @"验证码:";
-//    checkwordLabel.textAlignment = NSTextAlignmentLeft;
-//    checkwordLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-//    checkwordLabel.font = [UIFont systemFontOfSize:14];
-//    checkwordLabel.backgroundColor = [UIColor clearColor];
-//    [self.view addSubview:checkwordLabel];
     
     passCodeTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(20+40, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 40, 110, 40)];
     [passCodeTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
@@ -129,7 +118,6 @@
     passCodeTextField.borderStyle = UITextBorderStyleNone;
     passCodeTextField.secureTextEntry=NO;
     [self.view addSubview:passCodeTextField];
-    
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
@@ -165,7 +153,6 @@
     radioAgreement.tag=707;
     [self.view addSubview:radioAgreement];
     
-    
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
@@ -193,14 +180,135 @@
 }
 
 -(void)touchCommitButton{
+    
+    //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
+    NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+    
+    [Dict setObject:@"userid" forKey:USER_ID];
+    [Dict setObject:[NSString stringWithFormat:@"1"] forKey:@"no"];
+    [Dict setObject:@"华永奇" forKey:@"name"];
+    [Dict setObject:@"18612450658" forKey:@"phonenum"];
+    [Dict setObject:@"340881198904120838"  forKey:@"identifyno" ];
+    [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
+    
     settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
     [self.navigationController pushViewController:info
                                          animated:NO];
+    
+    if (![self checkTel:telephoneTextField.text])
+    {
+        return;
+    }
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    //网络请求
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
+    [connDictionary setObject:nameTextField.text forKey:@"name"];
+    [connDictionary setObject:dentifierTextField.text forKey:@"identifyno"];
+    [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
+
+
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    NSLog(@"connDictionary:%@",connDictionary);
+    
+    NSString *url =[NSString stringWithFormat:@"%@",MessageCodeURL];
+    
+    [self showProgressViewWithMessage:@"正在获取验证码..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary = [self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             
+             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
+             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+             
+             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"name"] forKey:@"name"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
+             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
+             
+             settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+             [self.navigationController pushViewController:info
+                                                  animated:NO];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
+         
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+    
+
 }
 
 -(void)touchSendCheckCodeButton{
+    if (![self checkTel:telephoneTextField.text])
+    {
+        return;
+    }
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
     
+    [self touchesBegan:nil withEvent:nil];
+    
+    
+    //网络请求
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
+    //[connDictionary setObject:@"register" forKey:@"type"];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    NSLog(@"connDictionary:%@",connDictionary);
+    
+    NSString *url =[NSString stringWithFormat:@"%@",MessageCodeURL];
+    
+    [self showProgressViewWithMessage:@"正在获取验证码..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             //[self timeCountdown];
+             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
+         
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
 }
+
+
 #pragma mark -
 #pragma mark - UITextFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField
@@ -250,6 +358,33 @@
         [self.view setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
     }];
 }
+
+- (BOOL)checkTel:(NSString *)str
+{
+    
+    NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (msgstring.length==0)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入手机号码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    
+    NSString *regex = PhoneNoRegex;
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    BOOL isMatch = [pred evaluateWithObject:str];
+    
+    if (!isMatch)
+    {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alert show];
+        return NO;
+        
+    }
+    return YES;
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
