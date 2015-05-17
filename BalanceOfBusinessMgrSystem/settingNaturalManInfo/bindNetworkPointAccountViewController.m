@@ -10,14 +10,18 @@
 #import "BankAccountTableViewCell.h"
 #import "BMAccountCellInfo.h"
 #import "bindBalanceAccountViewController.h"
+#import "BankAccountItem.h"
+#import "ItemButton.h"
 
 @interface bindNetworkPointAccountViewController (){
     UITableView * tableView;
-     NSMutableArray *group;//cell数组
     
     UILabel * manNameLabel;
     UILabel * identifyLabel;
     UILabel * telephoneLabel;
+    
+    NSMutableArray *group;//cell数组
+    NSMutableArray *groupSelected;
 }
 
 @end
@@ -32,16 +36,17 @@
     
     //test group
     group=[[NSMutableArray alloc]init];
+    groupSelected = [[NSMutableArray alloc]init];
     
-    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
-    [group addObject:contact0];
-    
-    
-    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
-    [group addObject:contact1];
+//    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
+//    [group addObject:contact0];
+//    
+//    
+//    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
+//    [group addObject:contact1];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 30, 50, 20)];
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -60,7 +65,7 @@
     [self.view addSubview:manNameLabel];
     
     //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x + 5 , NAVIGATION_OUTLET_HEIGHT + 30, 90, 20)];
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x + 5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 20)];
     identifyTitleLabel.text = @"身份证号码:";
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -69,7 +74,7 @@
     identifyTitleLabel.numberOfLines = 0;
     [self.view addSubview:identifyTitleLabel];
     
-    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 30,150, 20)];
+    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 20)];
     identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
     identifyLabel.textAlignment = NSTextAlignmentCenter;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -79,7 +84,7 @@
     [self.view addSubview:identifyLabel];
     
     //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 70, 40)];
+    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 70, 20)];
     telephoneTitleLabel.text = @"手机号码:";
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -88,7 +93,7 @@
     telephoneTitleLabel.numberOfLines = 0;
     [self.view addSubview:telephoneTitleLabel];
     
-    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 150,40)];
+    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 100,20)];
     telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -102,7 +107,7 @@
     [self.view addSubview:seporatorLine];
     
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 130.0f) style:UITableViewStyleGrouped];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 150.0f) style:UITableViewStyleGrouped];
     tableView.delegate =self;
     tableView.dataSource = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -113,19 +118,32 @@
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0f - 100 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
+    [avestButton setTitle:@"确定" forState:UIControlStateNormal];
+    [avestButton.layer setMasksToBounds:YES];
+    [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth - 80, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确定";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [avestButton addSubview:registerLabel];
     
     //开始网络加载网点和账号信息
+    [self testLoadingFile];
+    //[self requestNetWork];
+}
+-(void)testLoadingFile{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"bankcard" ofType:@"plist"];
+    //NSDictionary *drinkDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
+    NSArray *array = [[NSArray alloc] initWithContentsOfFile:path];
+    
+    for ( NSDictionary *dic in array) {
+        //NSDictionary *dic=[array objectAtIndex:0];
+        BankAccountItem *item = [BankAccountItem new];
+        item.accountName = [dic objectForKey:@"accoutname"];
+        item.bankName = [dic objectForKey:@"bankname"];
+        item.bankCardNumber = [dic objectForKey:@"bankcardno"];
+        item.bSelected = NO;
+        [group addObject:item];
+    }
 }
 
 -(void)requestNetWork{
@@ -138,12 +156,6 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    //    queryDetail
-    //    韩韶茹  17:25:24
-    //    String signature = request.getParameter("signature");
-    //    String querType = request.getParameter("queryFlag");
-    //    String personId = request.getParameter("personId");
-    //    String pageNow = request.getParameter("pageNow");
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:@"1" forKey:@"pageNow"];
@@ -154,7 +166,7 @@
     
     
     NSLog(@"connDictionary:%@",connDictionary);
-    //[self showProgressViewWithMessage:@"正在请求数据..."];
+    [self showProgressViewWithMessage:@"正在请求账号数据..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
@@ -166,15 +178,13 @@
              for (int i = 0 ; i< 10; i++) {
                  //缓存最新的信息
                  //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetInfo"] forKey:@"assetInfo"];
-//                 AssetRecordItemInfo *asset = [AssetRecordItemInfo new];
-//                 asset.FirstItem = @"预约" ;
-//                 asset.SecondItem = @"2015-04-08" ;
-//                 asset.ThirdItem = @"10000.00" ;
-//                 asset.FourthItem = @"";
-//                 
-//                 [array addObject:asset];
+//               AssetRecordItemInfo *asset = [AssetRecordItemInfo new];
+//               asset.FirstItem = @"预约" ;
+//               asset.SecondItem = @"2015-04-08" ;
+//               asset.ThirdItem = @"10000.00" ;
+//               asset.FourthItem = @"";
+//               [array addObject:asset];
              }
-             
          }
          else
          {
@@ -195,7 +205,16 @@
 }
 
 -(void)touchOkButton{
+    if ( groupSelected.count == 0 ) {
+        //提示框
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        alertView.tag = 999;
+        [alertView show];
+        return;
+    }
+    
     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+    info.group = group;
     [self.navigationController pushViewController:info
                                          animated:NO];
 }
@@ -209,7 +228,7 @@
     //#warning Potentially incomplete method implementation.
     // Return the number of sections.
     
-    return group.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -217,7 +236,7 @@
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     NSLog(@"计算每组(组%i)行数",section);
-    return 1;
+    return group.count;
 }
 
 
@@ -226,21 +245,47 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    BankAccountTableViewCell *contact=group[indexPath.row];
+    BankAccountItem *item=group[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
-        //cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
-        
-        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
+        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
+        ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:NO];
+        button.backgroundColor = [UIColor clearColor ];
+        [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = button;
     }
-    cell.title=@"张三";
-    cell.bankName = @"建行";
-    cell.bankCardNumber = @"12334456";
+    cell.title= item.accountName;
+    cell.bankName = item.bankName;
+    cell.bankCardNumber = item.bankCardNumber;
     return cell;
 }
+
+- (void)buttonPressedAction:(id)sender
+{
+    ItemButton *button = (ItemButton *)sender;
+    [button switchStatus];
+    
+    UITableViewCell* cell = (UITableViewCell*)[button superview];
+    NSInteger row = [tableView indexPathForCell:cell].row;
+    NSNumber *num = [NSNumber numberWithInteger:row];
+    if (button.selected == YES) {
+        
+        [groupSelected addObject:num];
+    }else{
+        [groupSelected removeObject:num];
+    }
+    NSLog(@"the selected group is:%@",groupSelected);
+}
+
+//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    UITableViewCell *Cell = [tableView cellForRowAtIndexPath:indexPath];
+//    [Cell setSelected:NO animated:NO];
+////    [(UIButton *)Cell.accessoryView setHighlighted:NO];
+//    return indexPath;
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -249,11 +294,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 
-#pragma mark 设置分组标题内容高度
+//#pragma mark 设置分组标题内容高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 0.01f;
 }

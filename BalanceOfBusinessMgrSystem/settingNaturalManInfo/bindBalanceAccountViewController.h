@@ -9,4 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface bindBalanceAccountViewController :FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong) NSMutableArray *balanceAccountSelect;
+@property (nonatomic,strong) NSMutableArray *group;
 @end

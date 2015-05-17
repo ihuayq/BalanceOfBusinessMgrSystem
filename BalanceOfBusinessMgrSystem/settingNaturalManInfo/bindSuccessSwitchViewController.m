@@ -38,35 +38,40 @@
     [switchButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [switchButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [switchButton setBackgroundColor:[UIColor greenColor]];
-    [switchButton setFrame:CGRectMake(80, MainHeight -48.5 - 100 , 80, 40)];
+    [switchButton setFrame:CGRectMake(80, MainHeight/2 , 80, 40)];
     [switchButton addTarget:self action:@selector(touchSwitchButton) forControlEvents:UIControlEventTouchUpInside];
+    [switchButton setTitle:@"切换" forState:UIControlStateNormal];
+    [switchButton.layer setMasksToBounds:YES];
+    [switchButton.layer setCornerRadius:switchButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:switchButton];
     
-    UILabel * switchLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,80, 40)];
-    switchLabel.textAlignment = NSTextAlignmentCenter;
-    switchLabel.backgroundColor = [UIColor clearColor];
-    switchLabel.text = @"切换";
-    switchLabel.textColor = [UIColor whiteColor];
-    switchLabel.font = [UIFont systemFontOfSize:15];
-    [switchButton addSubview:switchLabel];
+//    UILabel * switchLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,80, 40)];
+//    switchLabel.textAlignment = NSTextAlignmentCenter;
+//    switchLabel.backgroundColor = [UIColor clearColor];
+//    switchLabel.text = @"切换";
+//    switchLabel.textColor = [UIColor whiteColor];
+//    switchLabel.font = [UIFont systemFontOfSize:15];
+//    [switchButton addSubview:switchLabel];
 
-    
     //继续添加自然人
     UIButton *addMoreButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [addMoreButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [addMoreButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [addMoreButton setBackgroundColor:[UIColor greenColor]];
-    [addMoreButton setFrame:CGRectMake(switchButton.frame.origin.x + switchButton.frame.size.width + 20 , MainHeight -48.5 - 100 , 100, 40)];
+    [addMoreButton setFrame:CGRectMake(switchButton.frame.origin.x + switchButton.frame.size.width + 20 , MainHeight/2 , 100, 40)];
     [addMoreButton addTarget:self action:@selector(touchAddMoreButton) forControlEvents:UIControlEventTouchUpInside];
+    [addMoreButton setTitle:@"继续添加自然人" forState:UIControlStateNormal];
+    [addMoreButton.layer setMasksToBounds:YES];
+    [addMoreButton.layer setCornerRadius:addMoreButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:addMoreButton];
     
-    UILabel * addMoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,100, 40)];
-    addMoreLabel.textAlignment = NSTextAlignmentCenter;
-    addMoreLabel.backgroundColor = [UIColor clearColor];
-    addMoreLabel.text = @"继续添加自然人";
-    addMoreLabel.textColor = [UIColor whiteColor];
-    addMoreLabel.font = [UIFont systemFontOfSize:15];
-    [addMoreButton addSubview:addMoreLabel];
+//    UILabel * addMoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0,100, 40)];
+//    addMoreLabel.textAlignment = NSTextAlignmentCenter;
+//    addMoreLabel.backgroundColor = [UIColor clearColor];
+//    addMoreLabel.text = @"继续添加自然人";
+//    addMoreLabel.textColor = [UIColor whiteColor];
+//    addMoreLabel.font = [UIFont systemFontOfSize:15];
+//    [addMoreButton addSubview:addMoreLabel];
 }
 
 -(void)touchSwitchButton{

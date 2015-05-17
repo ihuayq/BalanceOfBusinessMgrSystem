@@ -10,19 +10,25 @@
 #import "BankAccountTableViewCell.h"
 #import "BMAccountCellInfo.h"
 #import "bindAccountConfirmViewController.h"
+#import "BankAccountItem.h"
+#import "ItemButton.h"
 
 @interface bindBalanceAccountViewController (){
     UITableView * tableView;
-    NSMutableArray *group;//cell数组
+    
     
     UILabel * manNameLabel;
     UILabel * identifyLabel;
     UILabel * telephoneLabel;
+    
+    
 }
 
 @end
 
 @implementation bindBalanceAccountViewController
+@synthesize group = group;
+@synthesize balanceAccountSelect = balanceAccountSelect;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -32,18 +38,11 @@
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
     //test group
-    group=[[NSMutableArray alloc]init];
-    
-    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
-    [group addObject:contact0];
-    
-    
-    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
-    [group addObject:contact1];
+    //group=[[NSMutableArray alloc]init];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10, 50, 60)];
-    manTitleLabel.text = @"自然人1";
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
+    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -51,8 +50,8 @@
     manTitleLabel.numberOfLines = 0;
     [self.view addSubview:manTitleLabel];
     
-    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 40)];
-    manNameLabel.text = @"lisi";
+    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
+    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
     manNameLabel.textAlignment = NSTextAlignmentCenter;
     manNameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manNameLabel.font = [UIFont systemFontOfSize:14];
@@ -61,7 +60,7 @@
     [self.view addSubview:manNameLabel];
     
     //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 50)];
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x + 5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 20)];
     identifyTitleLabel.text = @"身份证号码:";
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -70,8 +69,8 @@
     identifyTitleLabel.numberOfLines = 0;
     [self.view addSubview:identifyTitleLabel];
     
-    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 50)];
-    identifyLabel.text = @"340882198804230456";
+    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 20)];
+    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
     identifyLabel.textAlignment = NSTextAlignmentCenter;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
@@ -80,7 +79,7 @@
     [self.view addSubview:identifyLabel];
     
     //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 60, 40)];
+    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 70, 20)];
     telephoneTitleLabel.text = @"手机号码:";
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -89,8 +88,8 @@
     telephoneTitleLabel.numberOfLines = 0;
     [self.view addSubview:telephoneTitleLabel];
     
-    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 150,40)];
-    telephoneLabel.text = @"17701315969";
+    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 100,20)];
+    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneLabel.font = [UIFont systemFontOfSize:14];
@@ -103,7 +102,7 @@
     [self.view addSubview:seporatorLine];
     
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 130.0f) style:UITableViewStyleGrouped];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 150.0f) style:UITableViewStyleGrouped];
     tableView.delegate =self;
     tableView.dataSource = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -114,7 +113,7 @@
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0 - 100 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:avestButton];
     
@@ -140,8 +139,8 @@
 {
     //#warning Potentially incomplete method implementation.
     // Return the number of sections.
+    return 1;
     
-    return group.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -149,7 +148,7 @@
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     NSLog(@"计算每组(组%i)行数",section);
-    return 1;
+    return group.count;
 }
 
 
@@ -158,21 +157,70 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    BankAccountTableViewCell *contact=group[indexPath.row];
+    BankAccountItem *item=group[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
-        //cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
-        
-        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
+        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
+        ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:item.bSelected];
+        button.backgroundColor = [UIColor clearColor ];
+        [button addTarget:self action:@selector(buttonPressedAction:forEvent:)  forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = button;
     }
-    cell.title=@"张三";
-    cell.bankName = @"建行";
-    cell.bankCardNumber = @"12334456";
+    cell.title= item.accountName;
+    cell.bankName = item.bankName;
+    cell.bankCardNumber = item.bankCardNumber;
+    ItemButton* curBtn = (ItemButton*)[cell accessoryView];
+    curBtn.isSelected = item.bSelected;
     return cell;
 }
+
+- (void)buttonPressedAction:(id)sender forEvent:(UIEvent*)event
+{
+    ItemButton *button = (ItemButton *)sender;
+    [button switchStatus];
+    
+    UITableViewCell* cell = (UITableViewCell*)[button superview];
+    NSInteger row = [tableView indexPathForCell:cell].row;
+    //NSNumber *num = [NSNumber numberWithInteger:row];
+//    if (button.selected == YES) {
+//        [balanceAccountSelect addObject:num];
+//    }else{
+//        [balanceAccountSelect removeObject:num];
+//    }
+    
+    for (int i = 0 ;i < group.count ;i++) {
+        BankAccountItem *item=group[i];
+        if (i == row) {
+            item.bSelected = button.isSelected;
+
+        }else{
+            item.bSelected = NO;
+        }
+
+    }
+    [tableView reloadData];
+    //NSLog(@"the selected group is:%@",balanceAccountSelect);
+}
+
+//- (IBAction)checkBoxTapped:(id)sender forEvent:(UIEvent*)event
+//{
+//    NSSet *touches = [event allTouches];
+//    UITouch *touch = [touches anyObject];
+//    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+//    
+//    // Lookup the index path of the cell whose checkbox was modified.
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
+//    
+//    if (indexPath != nil) {
+//        // Update our data source array with the new checked state.
+//        NSMutableDictionary *selectedItem = self.dataArray[(NSUInteger)indexPath.row];
+//        selectedItem[@"checked"] = @([(Checkbox*)sender isChecked]);
+//    }
+//    
+//    // Accessibility
+//    [self updateAccessibilityForCell:[self.tableView cellForRowAtIndexPath:indexPath]];
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -181,7 +229,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    //    Checkbox *targetCheckbox = (Checkbox*)[targetCell accessoryView];
+    //    targetCheckbox.checked = !targetCheckbox.checked;
 }
 
 #pragma mark 设置分组标题内容高度

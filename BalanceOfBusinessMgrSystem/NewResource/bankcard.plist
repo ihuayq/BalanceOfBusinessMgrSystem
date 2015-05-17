@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>accoutname</key>
+		<string> 华永奇</string>
+		<key>bankname</key>
+		<string>建设银行</string>
+		<key>bankcardno</key>
+		<string>622202020021856998</string>
+	</dict>
+	<dict>
+		<key>bankname</key>
+		<string>招商银行</string>
+		<key>accoutname</key>
+		<string> 华永奇</string>
+		<key>bankcardno</key>
+		<string>544002020021856998</string>
+	</dict>
+	<dict>
+		<key>bankname</key>
+		<string>中国银行</string>
+		<key>accoutname</key>
+		<string>韩少茹</string>
+		<key>bankcardno</key>
+		<string>382202020021856998</string>
+	</dict>
+</array>
+</plist>

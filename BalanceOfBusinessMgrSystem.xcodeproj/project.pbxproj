@@ -25,6 +25,9 @@
 		7A21E57C1AFF954000C8C023 /* BankAccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A21E57B1AFF954000C8C023 /* BankAccountTableViewCell.m */; };
 		7A21E57F1AFFB63600C8C023 /* bindBalanceAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A21E57E1AFFB63600C8C023 /* bindBalanceAccountViewController.m */; };
 		7A21E5821AFFB88B00C8C023 /* bindAccountConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */; };
+		7AD621E11B08221400369E14 /* bankcard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7AD621E01B08221400369E14 /* bankcard.plist */; };
+		7AD621E41B08311A00369E14 /* BankAccountItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD621E31B08311A00369E14 /* BankAccountItem.m */; };
+		7AD621E71B083CB700369E14 /* ItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD621E61B083CB700369E14 /* ItemButton.m */; };
 		7AF494EF1B04E2D90096EDE0 /* FMLoadMoreFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494EE1B04E2D90096EDE0 /* FMLoadMoreFooterView.m */; };
 		7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494F11B04E6F00096EDE0 /* AssetDetailTableViewCell.m */; };
 		7AF494F81B04EA0D0096EDE0 /* AssetRecordItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494F71B04EA0D0096EDE0 /* AssetRecordItemInfo.m */; };
@@ -70,8 +73,8 @@
 		88E963571B01E83800C04664 /* 修改.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963331B01E83800C04664 /* 修改.png */; };
 		88E963581B01E83800C04664 /* 切换按钮——点击前.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963341B01E83800C04664 /* 切换按钮——点击前.png */; };
 		88E963591B01E83800C04664 /* 切换按钮——点击后.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963351B01E83800C04664 /* 切换按钮——点击后.png */; };
-		88E9635A1B01E83800C04664 /* 列表 ——  选择前.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963361B01E83800C04664 /* 列表 ——  选择前.png */; };
-		88E9635B1B01E83800C04664 /* 列表 ——  选择后.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963371B01E83800C04664 /* 列表 ——  选择后.png */; };
+		88E9635A1B01E83800C04664 /* 列表-选择前@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963361B01E83800C04664 /* 列表-选择前@2x.png */; };
+		88E9635B1B01E83800C04664 /* 列表-选择后@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963371B01E83800C04664 /* 列表-选择后@2x.png */; };
 		88E9635C1B01E83800C04664 /* 失败.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963381B01E83800C04664 /* 失败.png */; };
 		88E9635D1B01E83800C04664 /* 姓名.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963391B01E83800C04664 /* 姓名.png */; };
 		88E9635E1B01E83800C04664 /* 密码.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633A1B01E83800C04664 /* 密码.png */; };
@@ -468,6 +471,11 @@
 		7A21E57E1AFFB63600C8C023 /* bindBalanceAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindBalanceAccountViewController.m; sourceTree = "<group>"; };
 		7A21E5801AFFB88B00C8C023 /* bindAccountConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bindAccountConfirmViewController.h; sourceTree = "<group>"; };
 		7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindAccountConfirmViewController.m; sourceTree = "<group>"; };
+		7AD621E01B08221400369E14 /* bankcard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bankcard.plist; sourceTree = "<group>"; };
+		7AD621E21B08311A00369E14 /* BankAccountItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BankAccountItem.h; path = settingNaturalManInfo/BankAccountItem.h; sourceTree = "<group>"; };
+		7AD621E31B08311A00369E14 /* BankAccountItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BankAccountItem.m; path = settingNaturalManInfo/BankAccountItem.m; sourceTree = "<group>"; };
+		7AD621E51B083CB700369E14 /* ItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemButton.h; sourceTree = "<group>"; };
+		7AD621E61B083CB700369E14 /* ItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemButton.m; sourceTree = "<group>"; };
 		7AF494ED1B04E2D90096EDE0 /* FMLoadMoreFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMLoadMoreFooterView.h; sourceTree = "<group>"; };
 		7AF494EE1B04E2D90096EDE0 /* FMLoadMoreFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMLoadMoreFooterView.m; sourceTree = "<group>"; };
 		7AF494F01B04E6F00096EDE0 /* AssetDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -542,8 +550,8 @@
 		88E963331B01E83800C04664 /* 修改.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "修改.png"; sourceTree = "<group>"; };
 		88E963341B01E83800C04664 /* 切换按钮——点击前.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切换按钮——点击前.png"; sourceTree = "<group>"; };
 		88E963351B01E83800C04664 /* 切换按钮——点击后.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "切换按钮——点击后.png"; sourceTree = "<group>"; };
-		88E963361B01E83800C04664 /* 列表 ——  选择前.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "列表 ——  选择前.png"; sourceTree = "<group>"; };
-		88E963371B01E83800C04664 /* 列表 ——  选择后.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "列表 ——  选择后.png"; sourceTree = "<group>"; };
+		88E963361B01E83800C04664 /* 列表-选择前@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "列表-选择前@2x.png"; sourceTree = "<group>"; };
+		88E963371B01E83800C04664 /* 列表-选择后@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "列表-选择后@2x.png"; sourceTree = "<group>"; };
 		88E963381B01E83800C04664 /* 失败.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "失败.png"; sourceTree = "<group>"; };
 		88E963391B01E83800C04664 /* 姓名.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "姓名.png"; sourceTree = "<group>"; };
 		88E9633A1B01E83800C04664 /* 密码.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密码.png"; sourceTree = "<group>"; };
@@ -1037,12 +1045,16 @@
 				7A21E5751AFF8E1200C8C023 /* settingNaturalManInfoSuccessViewController.m */,
 				7A21E5771AFF90DE00C8C023 /* bindNetworkPointAccountViewController.h */,
 				7A21E5781AFF90DE00C8C023 /* bindNetworkPointAccountViewController.m */,
-				7A21E57A1AFF954000C8C023 /* BankAccountTableViewCell.h */,
-				7A21E57B1AFF954000C8C023 /* BankAccountTableViewCell.m */,
 				7A21E57D1AFFB63600C8C023 /* bindBalanceAccountViewController.h */,
 				7A21E57E1AFFB63600C8C023 /* bindBalanceAccountViewController.m */,
 				7A21E5801AFFB88B00C8C023 /* bindAccountConfirmViewController.h */,
 				7A21E5811AFFB88B00C8C023 /* bindAccountConfirmViewController.m */,
+				7AD621E51B083CB700369E14 /* ItemButton.h */,
+				7AD621E61B083CB700369E14 /* ItemButton.m */,
+				88FB7B9A1B02F727008F285A /* ModifySingleNaturalManInfoViewController.h */,
+				88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */,
+				7A21E57A1AFF954000C8C023 /* BankAccountTableViewCell.h */,
+				7A21E57B1AFF954000C8C023 /* BankAccountTableViewCell.m */,
 				88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */,
 				88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */,
 				88D406E31B007F0200418ACC /* NaturalManInfoMgrViewController.h */,
@@ -1050,8 +1062,6 @@
 				88D406E81B007FFC00418ACC /* NaturalManInfoTableViewCell.h */,
 				88D406E91B007FFC00418ACC /* NaturalManInfoTableViewCell.m */,
 				88D406EB1B00830600418ACC /* Model */,
-				88FB7B9A1B02F727008F285A /* ModifySingleNaturalManInfoViewController.h */,
-				88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */,
 			);
 			path = settingNaturalManInfo;
 			sourceTree = "<group>";
@@ -1071,6 +1081,7 @@
 				7A21E5681AFF61F000C8C023 /* 昨日入账@2x.png */,
 				7A21E5691AFF61F000C8C023 /* 理财本金@2x.png */,
 				7A21E56A1AFF61F000C8C023 /* 累计收益@2x.png */,
+				7AD621E01B08221400369E14 /* bankcard.plist */,
 			);
 			path = NewResource;
 			sourceTree = "<group>";
@@ -1120,6 +1131,8 @@
 			children = (
 				88D406EC1B00834B00418ACC /* NaturalManItemModel.h */,
 				88D406ED1B00834B00418ACC /* NaturalManItemModel.m */,
+				7AD621E21B08311A00369E14 /* BankAccountItem.h */,
+				7AD621E31B08311A00369E14 /* BankAccountItem.m */,
 			);
 			name = Model;
 			path = ..;
@@ -1209,8 +1222,8 @@
 				88E963331B01E83800C04664 /* 修改.png */,
 				88E963341B01E83800C04664 /* 切换按钮——点击前.png */,
 				88E963351B01E83800C04664 /* 切换按钮——点击后.png */,
-				88E963361B01E83800C04664 /* 列表 ——  选择前.png */,
-				88E963371B01E83800C04664 /* 列表 ——  选择后.png */,
+				88E963361B01E83800C04664 /* 列表-选择前@2x.png */,
+				88E963371B01E83800C04664 /* 列表-选择后@2x.png */,
 				88E963381B01E83800C04664 /* 失败.png */,
 				88E963391B01E83800C04664 /* 姓名.png */,
 				88E9633A1B01E83800C04664 /* 密码.png */,
@@ -2207,7 +2220,7 @@
 				88E9635C1B01E83800C04664 /* 失败.png in Resources */,
 				88F18A1D1AFB50D4007FE83B /* 4@2x.png in Resources */,
 				88E963731B01E83800C04664 /* 选择前.png in Resources */,
-				88E9635A1B01E83800C04664 /* 列表 ——  选择前.png in Resources */,
+				88E9635A1B01E83800C04664 /* 列表-选择前@2x.png in Resources */,
 				88F18A021AFB50D4007FE83B /* 04@2x.png in Resources */,
 				88E963761B01E83800C04664 /* 首页@2x.png in Resources */,
 				88F18A191AFB50D4007FE83B /* 2@2x.png in Resources */,
@@ -2264,7 +2277,7 @@
 				88F18A601AFB50D4007FE83B /* celltop.png in Resources */,
 				88F18A6C1AFB50D4007FE83B /* earnings@2x.png in Resources */,
 				88F18A7D1AFB50D4007FE83B /* huidaodingbu.png in Resources */,
-				88E9635B1B01E83800C04664 /* 列表 ——  选择后.png in Resources */,
+				88E9635B1B01E83800C04664 /* 列表-选择后@2x.png in Resources */,
 				88EF00C51AF8604A006B09B0 /* Main.storyboard in Resources */,
 				88F18AA41AFB50D4007FE83B /* point.png in Resources */,
 				88F189FF1AFB50D4007FE83B /* 01@2x.png in Resources */,
@@ -2291,6 +2304,7 @@
 				88F18AB41AFB50D4007FE83B /* select.jpg in Resources */,
 				88F18A341AFB50D4007FE83B /* 9@2x.png in Resources */,
 				88F18A201AFB50D4007FE83B /* 560x540_IC卡left.png in Resources */,
+				7AD621E11B08221400369E14 /* bankcard.plist in Resources */,
 				8889BAB61AFCA789001BF5E2 /* sanjiaobiao.png in Resources */,
 				88E963561B01E83800C04664 /* UI规范.jpg in Resources */,
 				88F18AB31AFB50D4007FE83B /* searchbn.png in Resources */,
@@ -2347,6 +2361,7 @@
 				88EF07351AF8B119006B09B0 /* SetPayMoneyPasswordViewController.m in Sources */,
 				8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */,
 				88F1853D1AFB0F85007FE83B /* BMInvestmentViewController.m in Sources */,
+				7AD621E41B08311A00369E14 /* BankAccountItem.m in Sources */,
 				88EF06F21AF8A3EE006B09B0 /* HP_NSDataUtils.m in Sources */,
 				7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */,
 				88EF06EF1AF8A3EE006B09B0 /* HP_JSONUtils.m in Sources */,
@@ -2384,6 +2399,7 @@
 				8889BABD1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m in Sources */,
 				88EF06F11AF8A3EE006B09B0 /* HP_NSBundleUtils.m in Sources */,
 				88E7A7C01AF9DCEB00B44364 /* DXAlertView.m in Sources */,
+				7AD621E71B083CB700369E14 /* ItemButton.m in Sources */,
 				88E7A7C71AF9DE1D00B44364 /* ZZNavigationView.m in Sources */,
 				88EF06FA1AF8A3EF006B09B0 /* NNString.m in Sources */,
 				88EF073E1AF8C023006B09B0 /* NSString+HexToData.m in Sources */,

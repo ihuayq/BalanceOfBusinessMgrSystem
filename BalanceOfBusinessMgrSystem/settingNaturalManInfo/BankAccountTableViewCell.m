@@ -67,17 +67,17 @@
         titleLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:titleLabel];
         
-        bankNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2-10, 120, 20)];
+        bankNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2-30, self.bounds.size.height/2-10, 120, 20)];
         bankNameLabel.textAlignment = NSTextAlignmentLeft;
         bankNameLabel.backgroundColor = [UIColor clearColor];
-        bankNameLabel.textColor = [UIColor blackColor];
+        bankNameLabel.textColor = [UIColor grayColor];
         bankNameLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:bankNameLabel];
         
-        bankCardNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2 + 10 , 120, 20)];
+        bankCardNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2-15-40, self.bounds.size.height/2 + 10 , 180, 20)];
         bankCardNumberLabel.textAlignment = NSTextAlignmentLeft;
         bankCardNumberLabel.backgroundColor = [UIColor clearColor];
-        bankCardNumberLabel.textColor = [UIColor blackColor];
+        bankCardNumberLabel.textColor = [UIColor grayColor];
         bankCardNumberLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:bankCardNumberLabel];
         
