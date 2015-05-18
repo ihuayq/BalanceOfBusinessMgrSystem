@@ -121,8 +121,7 @@
     //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"transactionpassword"]
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
-    //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
-     NSString *url =[NSString stringWithFormat:@"%@",DrawCashURL];
+     NSString *url =[NSString stringWithFormat:@"%@%@",IP,DrawCashURL];
     
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"正在请求取消预约..."];

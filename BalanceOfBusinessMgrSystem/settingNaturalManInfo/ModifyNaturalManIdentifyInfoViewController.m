@@ -1,37 +1,39 @@
 //
-//  settingNaturalManInfoViewController.m
+//  ModifyNaturalManIdentifyInfoViewController.m
 //  BalanceOfBusinessMgrSystem
 //
-//  Created by 华永奇 on 15/5/10.
+//  Created by huayq on 15/5/18.
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "settingNaturalManInfoViewController.h"
+#import "ModifyNaturalManIdentifyInfoViewController.h"
 #import "RadioButton.h"
 #import "settingNaturalManInfoSuccessViewController.h"
+#import "ModifyNaturalmanSuccessViewController.h"
 
-@interface settingNaturalManInfoViewController (){
-    HP_UITextField * nameTextField;
-    HP_UITextField * dentifierTextField;
-    HP_UITextField * telephoneTextField;
-    HP_UITextField * passCodeTextField;
-    HP_UITextField * passwordTextField;
-    
-    HP_UIButton *sendCheckCodeButton;
-    UILabel *sendLabel;
-    
-    RadioButton *radioAgreement;
+@interface ModifyNaturalManIdentifyInfoViewController (){
+
+HP_UITextField * nameTextField;
+HP_UITextField * dentifierTextField;
+HP_UITextField * telephoneTextField;
+HP_UITextField * passCodeTextField;
+HP_UIButton *sendCheckCodeButton;
+UILabel *sendLabel;
+
+RadioButton *radioAgreement;
 }
 
 @end
 
-@implementation settingNaturalManInfoViewController
+@implementation ModifyNaturalManIdentifyInfoViewController
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigation.title = @"设置自然人";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.title = @"修改自然人信息";
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
     
     [self initUI];
 }
@@ -42,12 +44,20 @@
     HP_UIImageView *bgImageView10 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
     [bgImageView10 setImage:[UIImage imageNamed:@"姓名"]];
     
+    UILabel *bgLabel10 = [[UILabel alloc] initWithFrame:CGRectMake(bgImageView10.frame.origin.x + bgImageView10.frame.size.width +5, 10, 30, 20)];
+    bgLabel10.textAlignment = NSTextAlignmentCenter;
+    bgLabel10.backgroundColor = [UIColor clearColor];
+    bgLabel10.text = @"姓名";
+    bgLabel10.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
+    bgLabel10.font = [UIFont systemFontOfSize:15];
+    
     HP_UIImageView *bgImageView11 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20 , NAVIGATION_OUTLET_HEIGHT + 20,MainWidth-40, 40)];
     [bgImageView11 setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView11 ];
     [bgImageView11 addSubview:bgImageView10];
+    [bgImageView11 addSubview:bgLabel10];
     
-    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, NAVIGATION_OUTLET_HEIGHT + 20, 200, 40)];
+    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, NAVIGATION_OUTLET_HEIGHT + 20, 200, 40)];
     [nameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     nameTextField.backgroundColor = [UIColor clearColor];
     nameTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -63,12 +73,20 @@
     HP_UIImageView *bgImageView20 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
     [bgImageView20 setImage:[UIImage imageNamed:@"身份证"]];
     
+    UILabel *bgLabel20 = [[UILabel alloc] initWithFrame:CGRectMake(bgImageView20.frame.origin.x + bgImageView20.frame.size.width +5,10, 60, 20)];
+    bgLabel20.textAlignment = NSTextAlignmentCenter;
+    bgLabel20.backgroundColor = [UIColor clearColor];
+    bgLabel20.text = @"身份证号";
+    bgLabel20.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
+    bgLabel20.font = [UIFont systemFontOfSize:15];
+    
     HP_UIImageView *bgImageView21 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20,MainWidth-40, 40)];
     [bgImageView21 setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView21];
     [bgImageView21 addSubview:bgImageView20];
+    [bgImageView21 addSubview:bgLabel20];
     
-    dentifierTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 200, 40)];
+    dentifierTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(140, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 200, 40)];
     [dentifierTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     dentifierTextField.backgroundColor = [UIColor clearColor];
     dentifierTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -85,16 +103,24 @@
     HP_UIImageView *bgImageView30 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
     [bgImageView30 setImage:[UIImage imageNamed:@"手机号"]];
     
+    UILabel *bgLabel30 = [[UILabel alloc] initWithFrame:CGRectMake(bgImageView30.frame.origin.x + bgImageView30.frame.size.width +5, 10, 50, 20)];
+    bgLabel30.textAlignment = NSTextAlignmentCenter;
+    bgLabel30.backgroundColor = [UIColor clearColor];
+    bgLabel30.text = @"手机号";
+    bgLabel30.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
+    bgLabel30.font = [UIFont systemFontOfSize:15];
+    
     HP_UIImageView *bgImageView31 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20,MainWidth-40, 40)];
     [bgImageView31 setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView31];
     [bgImageView31 addSubview:bgImageView30];
+    [bgImageView31 addSubview:bgLabel30];
     
-    telephoneTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20, 200, 40)];
+    telephoneTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(120, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20, 200, 40)];
     [telephoneTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     telephoneTextField.backgroundColor = [UIColor clearColor];
     telephoneTextField.clearButtonMode = UITextFieldViewModeAlways;
-    telephoneTextField.placeholder = @"请输入手机号码";
+    telephoneTextField.placeholder = @"请输入手机号码";//直接用手机号替换
     telephoneTextField.font = [UIFont systemFontOfSize:14];
     telephoneTextField.delegate = self;
     telephoneTextField.keyboardType = UIKeyboardTypeDefault;
@@ -105,7 +131,6 @@
     //短信验证码
     HP_UIImageView *bgImageView40 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
     [bgImageView40 setImage:[UIImage imageNamed:@"短信验证"]];
-   
     
     HP_UIImageView *bg3ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 20,190, 40)];
     [bg3ImageView setImage:[UIImage imageNamed:@"textlayer"]];
@@ -121,7 +146,7 @@
     passCodeTextField.delegate = self;
     passCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     passCodeTextField.borderStyle = UITextBorderStyleNone;
-    passCodeTextField.secureTextEntry=NO;
+    passCodeTextField.secureTextEntry = NO;
     [self.view addSubview:passCodeTextField];
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
@@ -130,84 +155,20 @@
     [sendCheckCodeButton setBackgroundColor:[HP_UIColorUtils clearColor]];
     [sendCheckCodeButton setFrame:CGRectMake(215, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 20, 85, 40)];
     [sendCheckCodeButton addTarget:self action:@selector(touchSendCheckCodeButton) forControlEvents:UIControlEventTouchUpInside];
+    [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.view addSubview:sendCheckCodeButton];
-    
-    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-    sendCheckCodeLabel.text = @"获取验证码";
-    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
-    
-    sendLabel = [[UILabel alloc] initWithFrame:CGRectMake(30,sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20, 285, 40)];
-    sendLabel.textAlignment = NSTextAlignmentCenter;
-    sendLabel.backgroundColor = [UIColor clearColor];
-    sendLabel.text = @"验证码已发送，有效期30分钟";
-    sendLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendLabel.font = [UIFont systemFontOfSize:15];
-    sendLabel.hidden = YES;
-    [self.view  addSubview:sendLabel];
-    
-    //商户登陆密码
-    HP_UIImageView *bgImageView60 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
-    [bgImageView60 setImage:[UIImage imageNamed:@"密码"]];
-    
-    HP_UIImageView *bgImageView61 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20,MainWidth-40, 40)];
-    [bgImageView61 setImage:[UIImage imageNamed:@"textlayer"]];
-    [self.view addSubview:bgImageView61];
-    [bgImageView61 addSubview:bgImageView60];
-    
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20, 200, 40)];
-    [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
-    passwordTextField.backgroundColor = [UIColor clearColor];
-    passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    passwordTextField.placeholder = @"请输入商户登陆密码";
-    passwordTextField.font = [UIFont systemFontOfSize:14];
-    passwordTextField.delegate = self;
-    passwordTextField.keyboardType = UIKeyboardTypeDefault;
-    passwordTextField.borderStyle = UITextBorderStyleNone;
-    passwordTextField.secureTextEntry=YES;
-    [self.view addSubview:passwordTextField];
-    
-    //自然人姓名
-    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(36, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 20, 20) typeCheck:NO];
-    [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //[radioAgreement setTitle:@"已阅读并同意自然人投资协议" forState:UIControlStateNormal];
-    radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];
-    radioAgreement.delegate=self;
-    radioAgreement.tag=707;
-    [self.view addSubview:radioAgreement];
-    
-    
-    UILabel*agreeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 120, 20)];
-    agreeTitleLabel.text = @"我已阅读并且同意";
-    agreeTitleLabel.textAlignment = NSTextAlignmentLeft;
-    agreeTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    agreeTitleLabel.font = [UIFont systemFontOfSize:14];
-    agreeTitleLabel.backgroundColor = [UIColor clearColor];
-    agreeTitleLabel.numberOfLines = 0;
-    [self.view addSubview:agreeTitleLabel];
-    
-    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-5, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 120, 20)];
-    [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
-    [investProtolBtn setTitle:@"投资授权协议" forState:UIControlStateNormal];
-    investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
-    [self.view addSubview:investProtolBtn];
-    
+
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
-    [registerButton setFrame:CGRectMake(20, radioAgreement.frame.origin.y+radioAgreement.frame.size.height+ 20, MainWidth-2*20, 40)];
+    [registerButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0f - 60 , MainWidth - 80, 40)];
     [registerButton addTarget:self action:@selector(touchCommitButton) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"提交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:registerButton];
-    
 }
 
 
@@ -215,10 +176,6 @@
     int flags = 0;
     if (tagselect==708) {
     }
-    
-}
-
--(void)touchProtocalButton{
     
 }
 
@@ -248,8 +205,8 @@
     [connDictionary setObject:nameTextField.text forKey:@"name"];
     [connDictionary setObject:dentifierTextField.text forKey:@"identifyno"];
     [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
-
-
+    
+    
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
@@ -264,57 +221,21 @@
          {
              responseJSONDictionary = [self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
              
-//             commercialId = M0060013;
-//             flag = 100;
-//             idCard = 1;
-//             methods = FALSE;
-//             personId = 7;
-//             personName = "\U8d75XX";
-//             phoneNum = 13000000011;
-//             websiteList =     (
-//                                {
-//                                    balanceAccount = "<null>";
-//                                    cashControl = "<null>";
-//                                    createTime = 1430701662000;
-//                                    depositBank = "<null>";
-//                                    merchantCode = M0060013;
-//                                    pubaccname = "\U5f20\U946b";
-//                                    pubbanknamedet = "<null>";
-//                                    pubcity = "<null>";
-//                                    pubprovince = "<null>";
-//                                    siteId = 1;
-//                                    siteNum = 00042672;
-//                                    websiteMark = "";
-//                                    websiteName = "\U5218\U6615\U5b8f\U8fbe\U7535\U5668\U7ecf\U9500\U90e8";
-//                                    websiteState = ACTIVE;
-//                                },
-
+             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
 //             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
 //             
-//             //商户还是自然人
-//
-//             [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
-//             NSArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
-//             [Dict setObject:results forKey:@"natureInfo"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+//             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"name"] forKey:@"name"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
+//             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
 //             
-//             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:SUPPLYER_INFO];
-//             
-//             
-//             
-             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
-             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-             
-             [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
-             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"name"] forKey:@"name"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
-             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
-             
-             settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-             [self.navigationController pushViewController:info
-                                                  animated:NO];
+//             settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+//             [self.navigationController pushViewController:info
+//                                                  animated:NO];
+             ModifyNaturalmanSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+             [self.navigationController pushViewController:info   animated:NO];
          }
          else
          {
@@ -328,7 +249,7 @@
          [alertView show];
      }];
     
-
+    
 }
 
 -(void)touchSendCheckCodeButton{
@@ -347,7 +268,6 @@
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
     [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
     //[connDictionary setObject:@"register" forKey:@"type"];
@@ -456,7 +376,6 @@
         
     }
     return YES;
-    
 }
 
 

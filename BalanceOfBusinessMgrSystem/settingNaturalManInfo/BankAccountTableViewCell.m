@@ -104,29 +104,30 @@
         titleLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:titleLabel];
         
-        bankNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2-10, 120, 20)];
+        bankNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2-30, self.bounds.size.height/2-10, 120, 20)];
         bankNameLabel.textAlignment = NSTextAlignmentLeft;
         bankNameLabel.backgroundColor = [UIColor clearColor];
-        bankNameLabel.textColor = [UIColor blackColor];
+        bankNameLabel.textColor = [UIColor grayColor];
         bankNameLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:bankNameLabel];
         
-        bankCardNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2, self.bounds.size.height/2 + 10 , 120, 20)];
+        bankCardNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width/2-15-40, self.bounds.size.height/2 + 10 , 180, 20)];
         bankCardNumberLabel.textAlignment = NSTextAlignmentLeft;
         bankCardNumberLabel.backgroundColor = [UIColor clearColor];
-        bankCardNumberLabel.textColor = [UIColor blackColor];
+        bankCardNumberLabel.textColor = [UIColor grayColor];
         bankCardNumberLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:bankCardNumberLabel];
         
-        selectButton=[[RadioButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 40, self.bounds.size.height/2, 15, 15) typeCheck:NO];
-        [selectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        selectButton.titleLabel.font=[UIFont systemFontOfSize:12];
-        selectButton.delegate=self;
-        selectButton.tag=707;
-        if (!hasSelectBtn) {
-            selectButton.hidden = YES;
+
+        if (hasSelectBtn) {
+            selectButton=[[RadioButton alloc] initWithFrame:CGRectMake(self.bounds.size.width - 40, self.bounds.size.height/2, 15, 15) typeCheck:NO];
+            [selectButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            selectButton.titleLabel.font=[UIFont systemFontOfSize:12];
+            selectButton.delegate=self;
+            selectButton.tag=707;
+            [self.contentView addSubview:selectButton];
         }
-        [self.contentView addSubview:selectButton];
+        
         
     }
     return self;

@@ -224,7 +224,7 @@
     [connDictionary setObject:@"1" forKey:@"pageNow"];
     [connDictionary setObject:[NSString stringWithFormat:@"%d",channelId] forKey:@"queryFlag"];
     
-    NSString *url =[NSString stringWithFormat:@"%@",AssetInfoUrl];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,AssetInfoUrl];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     

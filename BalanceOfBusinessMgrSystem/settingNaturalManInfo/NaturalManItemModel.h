@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface NaturalManItemModel : NSObject
+@property (nonatomic,assign) uint nPosition;
 
+@property (nonatomic,copy) NSString *personID;
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSString *manName;
 @property (nonatomic,copy) NSString *identifyNumber;

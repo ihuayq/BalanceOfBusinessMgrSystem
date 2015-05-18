@@ -10,4 +10,7 @@
 
 @interface bindAccountConfirmViewController:FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
 
+@property (nonatomic,strong) NSMutableArray *balanceAccountSelected;
+@property (nonatomic,strong) NSMutableArray *networkAccountSelected;
+
 @end

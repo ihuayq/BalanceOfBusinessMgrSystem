@@ -43,15 +43,10 @@
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, label.frame.size.height + label.frame.origin.y + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(bindNetworkPoint) forControlEvents:UIControlEventTouchUpInside];
+    [registerButton setTitle:@"绑定网点账户" forState:UIControlStateNormal];
+    [registerButton.layer setMasksToBounds:YES];
+    [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:registerButton];
-    
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"绑定网点账户";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [registerButton addSubview:registerLabel];
     
 }
 

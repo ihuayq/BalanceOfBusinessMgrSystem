@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ModifySingleNaturalManInfoViewController : UIViewController
+@interface ModifySingleNaturalManInfoViewController : FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,copy) NSString *natureName;
+@property (nonatomic,copy) NSString *identifyNo;
+@property (nonatomic,copy) NSString *telephoneNo;
+@property (nonatomic,assign) uint nPos;
+
 
 @end

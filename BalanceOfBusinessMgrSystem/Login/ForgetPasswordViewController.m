@@ -136,8 +136,7 @@
     passwordTextField.borderStyle = UITextBorderStyleNone;
     passwordTextField.secureTextEntry=YES;
     [self.view addSubview:passwordTextField];
-    
-    
+
 //    UILabel * tishiLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 100+40, MainWidth, 40)];
 //    tishiLable.text =mima_tishiyu_6_20;
 //    tishiLable.textAlignment = NSTextAlignmentCenter;
@@ -145,7 +144,6 @@
 //    tishiLable.font = [UIFont systemFontOfSize:14];
 //    tishiLable.backgroundColor = [UIColor clearColor];
 //    [self.view addSubview:tishiLable];
-    
     
     //-----------
     HP_UIImageView *bg4ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 10,MainWidth-40, 40)];
@@ -224,30 +222,6 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,sendcodeURL];
     
-    
-//    [self showProgressViewWithMessage:@"正在获取验证码..."];
-//    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-//     {
-//         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
-//         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-//         if([ret isEqualToString:@"100"])
-//         {
-//             [self timeCountdown];
-//             timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
-//            
-//         }
-//         else
-//         {
-//             
-//             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-//         }
-//     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
-//         
-//         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
-//         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-//         alertView.tag = 999;
-//         [alertView show];
-//     }];
 }
 
 

@@ -136,7 +136,7 @@
     
     //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
     
-    NSString *url =[NSString stringWithFormat:@"%@",WithDrawURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,WithDrawURL];
     
     
     NSLog(@"connDictionary:%@",connDictionary);

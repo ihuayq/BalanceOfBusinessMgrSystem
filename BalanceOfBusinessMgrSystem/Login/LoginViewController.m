@@ -361,22 +361,28 @@
 
 -(void)touchLoginButton
 {
-    nameTextField.text = @"18666625107";
-    //passwordTextField.text = @"123";
+
     //[ProgressHUD show:@"登陆中"];
     //商户登陆
     if( self.isSupplerSelected ){
-        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-        [self.navigationController pushViewController:mainview animated:NO];
+//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//        [self.navigationController pushViewController:mainview animated:NO];
+//        return;
+        nameTextField.text = @"Mer00060013";
+        passwordTextField.text = @"register";
+        [self supplyerLoginRequest];
+        return;
     }
     //自然人登陆
     else
     {
-        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
-        [self.navigationController pushViewController:Vc animated:NO];
+        nameTextField.text = @"18666625107";
+        passwordTextField.text = @"654321";
+//        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
+//        [self.navigationController pushViewController:Vc animated:NO];
 
     }
-    return;
+
     
 //    if(![self checkName:nameTextField.text])
 //    {
@@ -407,7 +413,7 @@
     //[connDictionary setObject:string3des forKey:@"passwd_3des"];
     
     
-    NSString *url =[NSString stringWithFormat:@"%@",HostURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,HostURL];
     //NSString *url =[NSString stringWithFormat:@"http://192.168.1.110:8080/superMoney-core/nature/loginIn?"];
     
     NSLog(@"connDictionary:%@",connDictionary);
@@ -496,15 +502,16 @@
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
-    [connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
+    [connDictionary setObject:nameTextField.text forKey:@"commercialId"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
-    [connDictionary setObject:string3des forKey:@"passwd_3des"];
+    //[connDictionary setObject:string3des forKey:@"passwd_3des"];
     
     
-    //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,userloginURL];
-    NSString *url =[NSString stringWithFormat:@"http://192.168.1.110:8080/superMoney-core/nature/loginIn?"];
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,CommercialHostURL];
+    //http://192.168.1.107:8080/superMoney-core/commercia/commerCiainfo?commercialId=Mxxxxx&passwd_3des_encode=xxxxx
+
     
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"登录中..."];
@@ -521,11 +528,13 @@
              //商户还是自然人
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"accountinfo"] forKey:@"accountinfo"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"addNaturalMark"] forKey:@"addNaturalMark"];//是否添加自然人标记
+             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
+             NSArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
+             [Dict setObject:results forKey:@"natureInfo"];
              
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:SUPPLYER_INFO];
-             //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//支付密码
+             
+             //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addnpflag"];//添加自然人标记
              
              BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
              [self.navigationController pushViewController:mainview animated:NO];

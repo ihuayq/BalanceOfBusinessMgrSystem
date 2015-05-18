@@ -64,7 +64,7 @@
     
     investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(manTitleLabel.frame.origin.x + manTitleLabel.frame.size.width-5, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 120, 20)];
     [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    [registerButton addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
     [investProtolBtn setTitle:@"自然人投资协议" forState:UIControlStateNormal];
     investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
     [self.view addSubview:investProtolBtn];
@@ -198,7 +198,7 @@
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:@"1" forKey:@"status"];
     
-    NSString *url =[NSString stringWithFormat:@"%@",DrawCashURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,DrawCashURL];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     

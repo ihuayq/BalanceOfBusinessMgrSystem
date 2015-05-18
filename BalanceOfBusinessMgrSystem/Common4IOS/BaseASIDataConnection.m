@@ -49,7 +49,7 @@
         NSDictionary *jsonDictionary = [jsonUtils getDictionaryFromJSONString:_request.responseString encoding:NSUTF8StringEncoding];
         jsonDictionary=[NNString delStringNullOfDictionary:jsonDictionary];
         
-        NSLog(@"jsonDictionary-----%@",jsonDictionary);
+        //NSLog(@"jsonDictionary-----%@",jsonDictionary);
         if ([jsonDictionary isKindOfClass:[NSNull class]])
         {
             failedBlock(_request,_request.error,[self getErrorStringWithErrorCode:_request.error.code]);

@@ -128,6 +128,18 @@
 
 -(void)touchOkButton{
     bindAccountConfirmViewController *vc = [[bindAccountConfirmViewController alloc ] init];
+    vc.networkAccountSelected = self.networkAccountSelect;
+    
+    //遍历选中的数据
+    //vc.balanceAccountSelected = group;
+    NSMutableArray *selectGroup = [NSMutableArray new];
+    for (BankAccountItem *item in group) {
+        if (item.bSelected == YES) {
+            [selectGroup addObject:item];
+            vc.balanceAccountSelected = selectGroup;
+            break;
+        }
+    }
     [self.navigationController pushViewController:vc animated:NO];
 }
 
@@ -161,7 +173,7 @@
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
-        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
+        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
         ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:item.bSelected];
         button.backgroundColor = [UIColor clearColor ];
         [button addTarget:self action:@selector(buttonPressedAction:forEvent:)  forControlEvents:UIControlEventTouchUpInside];

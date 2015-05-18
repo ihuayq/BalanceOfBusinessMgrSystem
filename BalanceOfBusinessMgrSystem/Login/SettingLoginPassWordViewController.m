@@ -203,7 +203,7 @@
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@",SetLoginPasswdURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,SetLoginPasswdURL];
     
     [self showProgressViewWithMessage:@"正在设置登录密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -259,7 +259,7 @@
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@",MessageCodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
     
     [self showProgressViewWithMessage:@"正在获取验证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)

@@ -38,13 +38,6 @@
     group=[[NSMutableArray alloc]init];
     groupSelected = [[NSMutableArray alloc]init];
     
-//    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
-//    [group addObject:contact0];
-//    
-//    
-//    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
-//    [group addObject:contact1];
-    
     //自然人姓名
     UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
@@ -127,8 +120,8 @@
     
     
     //开始网络加载网点和账号信息
-    [self testLoadingFile];
-    //[self requestNetWork];
+    //[self testLoadingFile];
+    [self requestNetWork];
 }
 -(void)testLoadingFile{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"bankcard" ofType:@"plist"];
@@ -155,12 +148,16 @@
     }
     [self touchesBegan:nil withEvent:nil];
     
+    //http://192.168.1.107:8080/superMoney-core/commercia/getCommercialWebsiteInfo?commercialId=M0060013&personId=7
+    
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:@"1" forKey:@"pageNow"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    //commercialId=M0060013&personId=7
 
-    NSString *url =[NSString stringWithFormat:@"%@",AssetInfoUrl];
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,AccountURL];
+    
+    [connDictionary setObject:@"7" forKey:@"personId"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
@@ -174,17 +171,32 @@
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             NSMutableDictionary* info = [[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO];
+             [info setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID ] forKey:SUPPLYER_ID];
+                                          
+             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
+             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
              
-             for (int i = 0 ; i< 10; i++) {
-                 //缓存最新的信息
-                 //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetInfo"] forKey:@"assetInfo"];
-//               AssetRecordItemInfo *asset = [AssetRecordItemInfo new];
-//               asset.FirstItem = @"预约" ;
-//               asset.SecondItem = @"2015-04-08" ;
-//               asset.ThirdItem = @"10000.00" ;
-//               asset.FourthItem = @"";
-//               [array addObject:asset];
+             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+             //[Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"websiteList"] forKey:@"accountinfo"];
+             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
+             
+             NSArray *array = [responseJSONDictionary objectForKey:@"websiteList"];
+             for ( NSDictionary *dic in array) {
+                 //NSDictionary *dic=[array objectAtIndex:0];
+                 BankAccountItem *item = [BankAccountItem new];
+                 item.accountName = [dic objectForKey:@"pubAccName"];
+                 item.bankName = [dic objectForKey:@"pubBankNameDet"];
+                 item.bankCardNumber = [dic objectForKey:@"balanceAccount"];
+                 item.bSelected = NO;
+                 [group addObject:item];
              }
+             [tableView reloadData];
+             
          }
          else
          {
@@ -214,6 +226,7 @@
     }
     
     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+    info.networkAccountSelect = groupSelected;
     info.group = group;
     [self.navigationController pushViewController:info
                                          animated:NO];
@@ -222,7 +235,6 @@
 
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //#warning Potentially incomplete method implementation.
@@ -249,7 +261,7 @@
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
-        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
+        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
         ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:NO];
         button.backgroundColor = [UIColor clearColor ];
         [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
@@ -268,12 +280,12 @@
     
     UITableViewCell* cell = (UITableViewCell*)[button superview];
     NSInteger row = [tableView indexPathForCell:cell].row;
-    NSNumber *num = [NSNumber numberWithInteger:row];
+    //NSNumber *num = [NSNumber numberWithInteger:row];
     if (button.selected == YES) {
         
-        [groupSelected addObject:num];
+        [groupSelected addObject:group[row]];
     }else{
-        [groupSelected removeObject:num];
+        [groupSelected removeObject:group[row]];
     }
     NSLog(@"the selected group is:%@",groupSelected);
 }

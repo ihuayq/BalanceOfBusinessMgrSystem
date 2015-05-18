@@ -11,6 +11,8 @@
 #import "BMAccountCellInfo.h"
 #import "bindBalanceAccountViewController.h"
 #import "bindSuccessSwitchViewController.h"
+#import "ItemButton.h"
+#import "BankAccountItem.h"
 
 @interface bindAccountConfirmViewController (){
     UITableView * tableView;
@@ -28,13 +30,13 @@
 - (void) initGroup{
     group = [[NSMutableArray alloc]init];
     
-    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
-    BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"网点账户信息" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact0, nil]];
+    //BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
+    BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"网点账户信息" andDetail:@"With names beginning with C" andContacts:self.networkAccountSelected];
     [group addObject:group0];
     
     
-    BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"自然人信息管理"];
-    BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"结算账户信息" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1, nil]];
+    //BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"自然人信息管理"];
+    BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"结算账户信息" andDetail:@"With names beginning with C" andContacts:self.balanceAccountSelected];
     [group addObject:group1];
     
 }
@@ -127,20 +129,12 @@
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
-    
-//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth - 80, 40)];
-//    registerLabel.textAlignment = NSTextAlignmentCenter;
-//    registerLabel.backgroundColor = [UIColor clearColor];
-//    registerLabel.text = @"确定";
-//    registerLabel.textColor = [UIColor whiteColor];
-//    registerLabel.font = [UIFont systemFontOfSize:15];
-//    [avestButton addSubview:registerLabel];
 }
 
 
 -(void)touchOkButton{
-        bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc ] init];
-        [self.navigationController pushViewController:vc animated:NO];
+    bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:NO];
 }
 
 
@@ -160,7 +154,10 @@
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     NSLog(@"计算每组(组%i)行数",section);
-    return 3;
+    BMAccountCellGroup *sec=group[section];
+   
+    
+    return sec.groups.count;
 }
 
 
@@ -169,15 +166,16 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    //BMAccountCellGroup *contact=group[indexPath.row];
+    BMAccountCellGroup *contact=group[indexPath.section];
+    BankAccountItem *item=contact.groups[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
-        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier hasSelectBtn:NO];
+        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
     }
-    cell.title=@"张三";
-    cell.bankName = @"建行";
-    cell.bankCardNumber = @"12334456";
+    cell.title= item.accountName;
+    cell.bankName = item.bankName;
+    cell.bankCardNumber = item.bankCardNumber;
     return cell;
 }
 
