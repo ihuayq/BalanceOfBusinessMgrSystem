@@ -377,12 +377,23 @@
     else
     {
         nameTextField.text = @"18666625107";
-        passwordTextField.text = @"654321";
+        passwordTextField.text = @"123456";
 //        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
 //        [self.navigationController pushViewController:Vc animated:NO];
 
     }
-
+//    //验证身份证
+//    - (BOOL)checkshenfenzhengString:(NSString *)str;
+//    //验证手机号
+//    - (BOOL)checkMobileString:(NSString *)string;
+//    //验证密码
+//    - (BOOL)checkPassWordString:(NSString *)str;
+//    
+//    //验证邮箱
+//    - (BOOL)checkEmailString:(NSString *)EmailString;
+//    
+//    //验证邮编
+//    - (BOOL)checkPostcodeString:(NSString *)string;
     
 //    if(![self checkName:nameTextField.text])
 //    {
@@ -468,6 +479,12 @@
                     [self.navigationController pushViewController:Vc animated:NO];
                 }
             }
+            
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"one", nil];
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
 
 
         }
@@ -528,13 +545,27 @@
              //商户还是自然人
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
+             [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_LOGIN_ID] forKey:SUPPLYER_LOGIN_ID];
+
              [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
-             NSArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
+             NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
              [Dict setObject:results forKey:@"natureInfo"];
              
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:SUPPLYER_INFO];
              
+             //test
+//             NSMutableDictionary* Dict2=[[NSMutableDictionary alloc]initWithCapacity:0];
+//             [Dict2 setObject:@"huayq" forKey:@"name"];
+//             [[NSUserDefaults standardUserDefaults]setObject:Dict2 forKey:@"curNatureMenInfo"];
+             
              //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addnpflag"];//添加自然人标记
+             //向资产界面传递资产的变动信息
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"one", nil];
+             //创建通知
+             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+             //通过通知中心发送通知
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
+             
              
              BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
              [self.navigationController pushViewController:mainview animated:NO];

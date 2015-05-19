@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HP_Common4IOS.h"
+#import "HP_UITextField.h"
 
-@interface LoginSubViewController : UIViewController
+@interface LoginSubViewController : HP_BaseViewController<UITextFieldDelegate,UIAlertViewDelegate>
+{
+    HP_UITextField * nameTextField;
+    HP_UITextField * passwordTextField;
+}
 
 @end

@@ -128,18 +128,23 @@
 
 -(void)touchOkButton{
     bindAccountConfirmViewController *vc = [[bindAccountConfirmViewController alloc ] init];
-    vc.networkAccountSelected = self.networkAccountSelect;
+    NSMutableArray *networkAccountGroup = [NSMutableArray new];
+    for (BankAccountItem *item in group) {
+        if (item.bNetworkSelected == YES) {
+            [networkAccountGroup addObject:item];
+        }
+    }
+    vc.networkAccountSelected = networkAccountGroup;
     
     //遍历选中的数据
-    //vc.balanceAccountSelected = group;
     NSMutableArray *selectGroup = [NSMutableArray new];
     for (BankAccountItem *item in group) {
         if (item.bSelected == YES) {
             [selectGroup addObject:item];
-            vc.balanceAccountSelected = selectGroup;
             break;
         }
     }
+    vc.balanceAccountSelected = selectGroup;
     [self.navigationController pushViewController:vc animated:NO];
 }
 

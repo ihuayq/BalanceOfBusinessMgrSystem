@@ -123,7 +123,7 @@
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight-60, MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0 - 60, MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
     [avestButton setTitle:@"确认" forState:UIControlStateNormal];
     [avestButton.layer setMasksToBounds:YES];
@@ -133,10 +133,85 @@
 
 
 -(void)touchOkButton{
-    bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:NO];
+    [self requestNetWork];
 }
 
+-(void)requestNetWork{
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    [connDictionary setObject:@"7" forKey:@"personId"];
+    
+    NSString *strNetwork = @"";
+    BMAccountCellGroup *networkGroup=group[0];
+    for ( BankAccountItem *item in networkGroup.groups) {
+        if (item.bNetworkSelected == YES) {
+           
+            strNetwork = [strNetwork stringByAppendingString: item.siteNum];
+            strNetwork = [strNetwork stringByAppendingString: @"@"];
+        }
+    }
+    strNetwork = [strNetwork substringToIndex:strNetwork.length-1];
+    [connDictionary setObject:strNetwork forKey:@"siteNum"];
+    
+    NSString *strBalance= @"";
+    BMAccountCellGroup *balanceGroup=group[0];
+    for ( BankAccountItem *item in balanceGroup.groups) {
+        if (item.bSelected == YES) {
+            strBalance = [strBalance stringByAppendingString: item.bankCardNumber];
+            strBalance = [strBalance stringByAppendingString: @"@"];
+        }
+    }
+    
+    strBalance = [strBalance substringToIndex:strBalance.length - 1];
+    [connDictionary setObject:strBalance forKey:@"accountId"];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,SavaAccountURL];
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    [self showProgressViewWithMessage:@"正在请求账号数据..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
+             NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
+             NSMutableArray *results = [responseJSONDictionary objectForKey:@"naturalPersonList"];
+             [data setObject:results forKey:@"natureInfo"];
+             //[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] setObject:results forKey:@"natureInfo"];
+
+             bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
+             [self.navigationController pushViewController:vc animated:NO];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+}
 
 
 #pragma mark - Table view data source
@@ -156,7 +231,6 @@
     NSLog(@"计算每组(组%i)行数",section);
     BMAccountCellGroup *sec=group[section];
    
-    
     return sec.groups.count;
 }
 

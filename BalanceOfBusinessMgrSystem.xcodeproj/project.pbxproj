@@ -31,6 +31,9 @@
 		7AF494EF1B04E2D90096EDE0 /* FMLoadMoreFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494EE1B04E2D90096EDE0 /* FMLoadMoreFooterView.m */; };
 		7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494F11B04E6F00096EDE0 /* AssetDetailTableViewCell.m */; };
 		7AF494F81B04EA0D0096EDE0 /* AssetRecordItemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF494F71B04EA0D0096EDE0 /* AssetRecordItemInfo.m */; };
+		880649781B0B4000007D9E28 /* ModifyLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880649771B0B4000007D9E28 /* ModifyLoginPasswordViewController.m */; };
+		8806497B1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */; };
+		8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */; };
 		8889BA991AFC5F8A001BF5E2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */; };
 		8889BA9C1AFC6ACD001BF5E2 /* UIAssetsPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA9B1AFC6ACD001BF5E2 /* UIAssetsPageCell.m */; };
 		8889BAA01AFC8F48001BF5E2 /* 理财本金@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8889BA9F1AFC8F48001BF5E2 /* 理财本金@2x.png */; };
@@ -66,7 +69,6 @@
 		88E7C2981AFC594800F7B58C /* StyledTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7C2971AFC594800F7B58C /* StyledTableViewCell.m */; };
 		88E963281B019E3100C04664 /* BMWithDrawsCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E963271B019E3100C04664 /* BMWithDrawsCashViewController.m */; };
 		88E9632B1B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E9632A1B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.m */; };
-		88E9632E1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E9632D1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.m */; };
 		88E963541B01E83800C04664 /* 1  商户登录--顶图.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963301B01E83800C04664 /* 1  商户登录--顶图.png */; };
 		88E963551B01E83800C04664 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963311B01E83800C04664 /* 1.png */; };
 		88E963561B01E83800C04664 /* UI规范.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88E963321B01E83800C04664 /* UI规范.jpg */; };
@@ -485,6 +487,12 @@
 		7AF494F11B04E6F00096EDE0 /* AssetDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetDetailTableViewCell.m; sourceTree = "<group>"; };
 		7AF494F61B04EA0D0096EDE0 /* AssetRecordItemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetRecordItemInfo.h; sourceTree = "<group>"; };
 		7AF494F71B04EA0D0096EDE0 /* AssetRecordItemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetRecordItemInfo.m; sourceTree = "<group>"; };
+		880649761B0B4000007D9E28 /* ModifyLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyLoginPasswordViewController.h; sourceTree = "<group>"; };
+		880649771B0B4000007D9E28 /* ModifyLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyLoginPasswordViewController.m; sourceTree = "<group>"; };
+		880649791B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSettingTransactionpPasswordViewController.h; sourceTree = "<group>"; };
+		8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSettingTransactionpPasswordViewController.m; sourceTree = "<group>"; };
+		8806497C1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCreateTransactionpPasswordViewController.h; sourceTree = "<group>"; };
+		8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCreateTransactionpPasswordViewController.m; sourceTree = "<group>"; };
 		8889BA971AFC5F8A001BF5E2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		8889BA9A1AFC6ACD001BF5E2 /* UIAssetsPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAssetsPageCell.h; sourceTree = "<group>"; };
@@ -545,8 +553,6 @@
 		88E963271B019E3100C04664 /* BMWithDrawsCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMWithDrawsCashViewController.m; sourceTree = "<group>"; };
 		88E963291B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMWithDrawsCashSuccessViewController.h; sourceTree = "<group>"; };
 		88E9632A1B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMWithDrawsCashSuccessViewController.m; sourceTree = "<group>"; };
-		88E9632C1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMSettingTransactionpPasswordViewController.h; sourceTree = "<group>"; };
-		88E9632D1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSettingTransactionpPasswordViewController.m; sourceTree = "<group>"; };
 		88E963301B01E83800C04664 /* 1  商户登录--顶图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1  商户登录--顶图.png"; sourceTree = "<group>"; };
 		88E963311B01E83800C04664 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		88E963321B01E83800C04664 /* UI规范.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "UI规范.jpg"; sourceTree = "<group>"; };
@@ -1636,8 +1642,12 @@
 				88E7C2881AFC425300F7B58C /* BMAccountCellInfo.m */,
 				7A21E5561AFF4F1700C8C023 /* BMNaturalManAccountMainViewController.h */,
 				7A21E5571AFF4F1700C8C023 /* BMNaturalManAccountMainViewController.m */,
-				88E9632C1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.h */,
-				88E9632D1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.m */,
+				880649761B0B4000007D9E28 /* ModifyLoginPasswordViewController.h */,
+				880649771B0B4000007D9E28 /* ModifyLoginPasswordViewController.m */,
+				880649791B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.h */,
+				8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */,
+				8806497C1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.h */,
+				8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -2385,6 +2395,7 @@
 				88EF07231AF8B112006B09B0 /* LoginViewController.m in Sources */,
 				88F18AEC1AFB8904007FE83B /* BMAccountMainViewController.m in Sources */,
 				88EF06F01AF8A3EE006B09B0 /* HP_NetWorkUtils.m in Sources */,
+				8806497B1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m in Sources */,
 				88D406F31B00BC2F00418ACC /* BMCancelInvestmentViewController.m in Sources */,
 				88EF07221AF8B112006B09B0 /* ForgetPasswordViewController.m in Sources */,
 				88E7C2951AFC57A200F7B58C /* UIAssetsTableViewCell.m in Sources */,
@@ -2431,9 +2442,9 @@
 				88EF03081AF8A375006B09B0 /* AFURLConnectionOperation.m in Sources */,
 				88EF06F71AF8A3EF006B09B0 /* HP_UIImageUtils.m in Sources */,
 				88EF06ED1AF8A3EE006B09B0 /* CoreTelephony.m in Sources */,
+				8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */,
 				8889BAB01AFCA635001BF5E2 /* SCNavTabBar.m in Sources */,
 				88F4745E1B04C23800B6DE39 /* EGORefreshTableHeaderView.m in Sources */,
-				88E9632E1B01D18800C04664 /* BMSettingTransactionpPasswordViewController.m in Sources */,
 				88EF030E1AF8A375006B09B0 /* ASIFormDataRequest.m in Sources */,
 				88EF03121AF8A375006B09B0 /* Reachability.m in Sources */,
 				8889BA991AFC5F8A001BF5E2 /* UIView+Additions.m in Sources */,
@@ -2462,6 +2473,7 @@
 				88E7A7C91AF9DEBB00B44364 /* SettingLoginPassWordViewController.m in Sources */,
 				88EF06E61AF8A3EE006B09B0 /* HP_UILabel.m in Sources */,
 				88E9637D1B01F2DD00C04664 /* ProgressHUD.m in Sources */,
+				880649781B0B4000007D9E28 /* ModifyLoginPasswordViewController.m in Sources */,
 				7A21E55D1AFF584B00C8C023 /* settingNaturalManInfoViewController.m in Sources */,
 				88E963811B02010000C04664 /* TotalAssetInfoModel.m in Sources */,
 				88F474571B04C12100B6DE39 /* AssetDetailTableViewController.m in Sources */,

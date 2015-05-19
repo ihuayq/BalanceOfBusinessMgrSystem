@@ -54,9 +54,9 @@
     nameTextField.placeholder = @"请输入姓名";
     nameTextField.font = [UIFont systemFontOfSize:14];
     nameTextField.delegate = self;
-    nameTextField.keyboardType = UIKeyboardTypeDefault;
+    nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
     nameTextField.borderStyle = UITextBorderStyleNone;
-    nameTextField.secureTextEntry=YES;
+    //nameTextField.secureTextEntry=YES;
     [self.view addSubview:nameTextField];
     
     //设置身份证信息
@@ -77,7 +77,7 @@
     dentifierTextField.delegate = self;
     dentifierTextField.keyboardType = UIKeyboardTypeDefault;
     dentifierTextField.borderStyle = UITextBorderStyleNone;
-    dentifierTextField.secureTextEntry=YES;
+    //dentifierTextField.secureTextEntry=YES;
     [self.view addSubview:dentifierTextField];
     
     //设置手机号码
@@ -99,7 +99,7 @@
     telephoneTextField.delegate = self;
     telephoneTextField.keyboardType = UIKeyboardTypeDefault;
     telephoneTextField.borderStyle = UITextBorderStyleNone;
-    telephoneTextField.secureTextEntry=YES;
+    //telephoneTextField.secureTextEntry=YES;
     [self.view addSubview:telephoneTextField];
     
     //短信验证码
@@ -119,9 +119,9 @@
     passCodeTextField.placeholder = @"请输入验证码";
     passCodeTextField.font = [UIFont systemFontOfSize:14];
     passCodeTextField.delegate = self;
-    passCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+    passCodeTextField.keyboardType = UIKeyboardTypeEmailAddress;
     passCodeTextField.borderStyle = UITextBorderStyleNone;
-    passCodeTextField.secureTextEntry=NO;
+    //passCodeTextField.secureTextEntry=NO;
     [self.view addSubview:passCodeTextField];
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
@@ -166,8 +166,8 @@
     passwordTextField.font = [UIFont systemFontOfSize:14];
     passwordTextField.delegate = self;
     passwordTextField.keyboardType = UIKeyboardTypeDefault;
-    passwordTextField.borderStyle = UITextBorderStyleNone;
-    passwordTextField.secureTextEntry=YES;
+    passwordTextField.borderStyle = UIKeyboardTypeEmailAddress;
+    //passwordTextField.secureTextEntry=YES;
     [self.view addSubview:passwordTextField];
     
     //自然人姓名
@@ -224,10 +224,10 @@
 
 -(void)touchCommitButton{
     //test
-    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
-    return;
+//    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+//    [self.navigationController pushViewController:info
+//                                         animated:NO];
+//    return;
     
     if (![self checkTel:telephoneTextField.text])
     {
@@ -240,29 +240,37 @@
     }
     [self touchesBegan:nil withEvent:nil];
     
+    //phoneNum=13131311315&idCard=xxxxxxxx&personName=&commercialId=M0060013&code=xxxxx&passwd_3des_encode=xxxxx
+
+    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
-    [connDictionary setObject:nameTextField.text forKey:@"name"];
-    [connDictionary setObject:dentifierTextField.text forKey:@"identifyno"];
-    [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_LOGIN_ID]forKey:SUPPLYER_LOGIN_ID];
+    [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
+    [connDictionary setObject:[nameTextField.text URLEncodedString] forKey:@"personName"];
+    [connDictionary setObject:dentifierTextField.text forKey:@"idCard"];
+    [connDictionary setObject:passCodeTextField.text forKey:@"code"];
+    
+    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
+    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
+    [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
 
-
+     NSLog(@"the sort string is:%@",[NNString getRightString_BysortArray_dic:connDictionary]);
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,settingNatureMenURL];
     
-    [self showProgressViewWithMessage:@"正在获取验证码..."];
+    [self showProgressViewWithMessage:@"正在设置自然人..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
          [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
          if([ret isEqualToString:@"100"])
          {
-             responseJSONDictionary = [self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+               responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
 //             commercialId = M0060013;
 //             flag = 100;
@@ -305,11 +313,11 @@
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
              
-             [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
-             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"name"] forKey:@"name"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
+             //[Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"no"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
+             //[Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
              
              settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
@@ -348,13 +356,16 @@
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
+   
+    
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
+    [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
     //[connDictionary setObject:@"register" forKey:@"type"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
+    //http://192.168.1.102:8080/superMoney-core/commercia/sendPhoneVerification?phoneNum=18501251875
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,passCodeURL];
     
     [self showProgressViewWithMessage:@"正在获取验证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -386,9 +397,9 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+//    }];
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

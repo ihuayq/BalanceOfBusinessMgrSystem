@@ -1,24 +1,21 @@
 //
-//  BMSettingTransactionpPasswordViewController.m
+//  BMCreateTransactionpPasswordViewController.m
 //  BalanceOfBusinessMgrSystem
 //
-//  Created by huayq on 15/5/12.
+//  Created by huayq on 15/5/19.
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "BMSettingTransactionpPasswordViewController.h"
-#import "SettingLoginPassWord2ViewController.h"
+#import "BMCreateTransactionpPasswordViewController.h"
 
-
-@interface BMSettingTransactionpPasswordViewController (){
+@interface BMCreateTransactionpPasswordViewController ()
+{
     NSString *phoneNum;
 }
 
 @end
 
-@implementation BMSettingTransactionpPasswordViewController
-
-
+@implementation BMCreateTransactionpPasswordViewController
 
 @synthesize transmitDict;
 @synthesize sendLabel = sendLabel;
@@ -47,7 +44,6 @@
 }
 
 
-#define OLD_PASSWORD_OUTLET_POSITION oldPasswordTextField.frame.origin.y + oldPasswordTextField.frame.size.height
 #define PASSWORD_OUTLET_POSITION passwordTextField.frame.origin.y + passwordTextField.frame.size.height
 #define CONFIRM_PASSWORD_OUTLET_POSITION passwordTextField2.frame.origin.y + passwordTextField2.frame.size.height
 #define RECEIVE_PASSWORD_OUTLET_POSITION sendCheckCodeButton.frame.origin.y + sendCheckCodeButton.frame.size.height
@@ -77,37 +73,11 @@
     [self.view addSubview:telLabel];
     
     //交易密码
-    HP_UIImageView *oldbgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 20,MainWidth-40, 40)];
-    [oldbgImageView setImage:[UIImage imageNamed:@"textlayer"]];
-    [self.view addSubview:oldbgImageView];
-    
-    UILabel * oldPasswordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 20, 80, 40)];
-    oldPasswordLabel.text = @"原交易密码:";
-    oldPasswordLabel.textAlignment = NSTextAlignmentLeft;
-    oldPasswordLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    oldPasswordLabel.font = [UIFont systemFontOfSize:14];
-    oldPasswordLabel.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:oldPasswordLabel];
-    
-    oldPasswordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, NAVIGATION_OUTLET_HEIGHT + 20, 200, 40)];
-    [oldPasswordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
-    oldPasswordTextField.backgroundColor = [UIColor clearColor];
-    oldPasswordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    oldPasswordTextField.placeholder = @"请输入原交易密码";
-    oldPasswordTextField.font = [UIFont systemFontOfSize:14];
-    oldPasswordTextField.delegate = self;
-    oldPasswordTextField.keyboardType = UIKeyboardTypeDefault;
-    oldPasswordTextField.borderStyle = UITextBorderStyleNone;
-    oldPasswordTextField.secureTextEntry=YES;
-    [self.view addSubview:oldPasswordTextField];
-    
-    
-    //交易密码
-    HP_UIImageView *bgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, OLD_PASSWORD_OUTLET_POSITION + 20,MainWidth-40, 40)];
+    HP_UIImageView *bgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 90,MainWidth-40, 40)];
     [bgImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView];
     
-    UILabel * passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, OLD_PASSWORD_OUTLET_POSITION + 20, 70, 40)];
+    UILabel * passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 90, 70, 40)];
     passwordLabel.text = @"交易密码:";
     passwordLabel.textAlignment = NSTextAlignmentLeft;
     passwordLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -115,7 +85,7 @@
     passwordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passwordLabel];
     
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, OLD_PASSWORD_OUTLET_POSITION + 20, 200, 40)];
+    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, NAVIGATION_OUTLET_HEIGHT + 90, 200, 40)];
     [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -178,6 +148,7 @@
     passCodeTextField3.secureTextEntry=NO;
     [self.view addSubview:passCodeTextField3];
     
+    
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
     [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateHighlighted];
@@ -232,26 +203,10 @@
     
     [self touchesBegan:nil withEvent:nil];
     
-//    String oldPayPwd = request.getParameter("oldPayPassword");
-//    String payPwd = request.getParameter("payPassword");
-//    String verificationCode = request.getParameter("verificationCode");
-//    String personId = request.getParameter("personId");
-//    String signature = request.getParameter("signature");
-//    HP_UITextField * passwordTextField;
-//    HP_UITextField * passwordTextField2;
-//    HP_UITextField * passCodeTextField3;
-//    HP_UIButton *sendCheckCodeButton;
-//    HP_UITextField *oldPasswordTextField;
-    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
-    
-    //旧的密码
-    NSString* string3desOld=[[[NSData alloc] init] encrypyConnectDes:oldPasswordTextField.text];//3DES加密
-    NSString *encodedValueOld = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3desOld];//编码encode
-    [connDictionary setObject:encodedValueOld forKey:@"oldPayPassword"];
     
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
@@ -260,7 +215,7 @@
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,ModifyPayPasswdURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,PayPasswdURL];
     
     [self showProgressViewWithMessage:@"正在设置登录密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -285,6 +240,10 @@
          alertView.tag = 999;
          [alertView show];
      }];
+    
+    
+    
+    
 }
 
 
@@ -308,9 +267,9 @@
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phonenum"]forKey:@"phonenum"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phonenum"]forKey:@"phonenum"];
     
-     [connDictionary setObject:@"18612450658" forKey:@"phonenum"];
+    //[connDictionary setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
     
     //[connDictionary setObject:@"register" forKey:@"type"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
@@ -415,9 +374,6 @@
 
 -(void)touchChangePasswordButton
 {
-    SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
-    [self.navigationController pushViewController:mainview animated:YES];
-    
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {
         return;
@@ -578,6 +534,7 @@
     [passCodeTextField3 resignFirstResponder];
     
 }
+
 
 
 @end

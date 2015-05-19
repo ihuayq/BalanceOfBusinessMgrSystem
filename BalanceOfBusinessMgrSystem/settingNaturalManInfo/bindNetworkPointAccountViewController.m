@@ -16,6 +16,7 @@
 @interface bindNetworkPointAccountViewController (){
     UITableView * tableView;
     
+    UILabel * manTitleLabel;
     UILabel * manNameLabel;
     UILabel * identifyLabel;
     UILabel * telephoneLabel;
@@ -39,7 +40,7 @@
     groupSelected = [[NSMutableArray alloc]init];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
+    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -87,7 +88,7 @@
     [self.view addSubview:telephoneTitleLabel];
     
     telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 100,20)];
-    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
+    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneLabel.font = [UIFont systemFontOfSize:14];
@@ -123,6 +124,7 @@
     //[self testLoadingFile];
     [self requestNetWork];
 }
+
 -(void)testLoadingFile{
     NSString *path = [[NSBundle mainBundle] pathForResource:@"bankcard" ofType:@"plist"];
     //NSDictionary *drinkDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
@@ -153,11 +155,11 @@
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    //commercialId=M0060013&personId=7
 
     NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,AccountURL];
     
-    [connDictionary setObject:@"7" forKey:@"personId"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
+    //[connDictionary setObject:@"7" forKey:@"personId"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
@@ -171,14 +173,18 @@
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             NSMutableDictionary* info = [[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO];
-             [info setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID ] forKey:SUPPLYER_ID];
+//             NSMutableDictionary* info = [[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO];
+//             id hi = [responseJSONDictionary objectForKey:SUPPLYER_ID];
+//             [info setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID]  forKey:SUPPLYER_ID];
+//             [info setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:SUPPLYER_ID]]  forKey:@"huayq"];
+//             [info setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:SUPPLYER_ID]]  forKey:SUPPLYER_ID];
+             //[info objectForKey:SUPPLYER_ID] = [NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:SUPPLYER_ID]];
                                           
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
              
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
-             //[Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
+             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"personId"]] forKey:@"no"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
@@ -192,9 +198,11 @@
                  item.accountName = [dic objectForKey:@"pubAccName"];
                  item.bankName = [dic objectForKey:@"pubBankNameDet"];
                  item.bankCardNumber = [dic objectForKey:@"balanceAccount"];
+                 item.siteNum = [dic objectForKey:@"siteNum"];
                  item.bSelected = NO;
                  [group addObject:item];
              }
+             [self refreshData];
              [tableView reloadData];
              
          }
@@ -213,20 +221,26 @@
          alertView.tag = 999;
          [alertView show];
      }];
-    
+}
+
+-(void)refreshData{
+    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
+    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
+    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
+    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
 }
 
 -(void)touchOkButton{
-    if ( groupSelected.count == 0 ) {
-        //提示框
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        alertView.tag = 999;
-        [alertView show];
-        return;
-    }
+//    if ( groupSelected.count == 0 ) {
+//        //提示框
+//        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//        alertView.tag = 999;
+//        [alertView show];
+//        return;
+//    }
     
     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
-    info.networkAccountSelect = groupSelected;
+    //info.networkAccountSelect = groupSelected;
     info.group = group;
     [self.navigationController pushViewController:info
                                          animated:NO];
@@ -280,14 +294,28 @@
     
     UITableViewCell* cell = (UITableViewCell*)[button superview];
     NSInteger row = [tableView indexPathForCell:cell].row;
-    //NSNumber *num = [NSNumber numberWithInteger:row];
+    
+    BankAccountItem *item=group[row];
     if (button.selected == YES) {
-        
-        [groupSelected addObject:group[row]];
+        item.bNetworkSelected = YES;
     }else{
-        [groupSelected removeObject:group[row]];
+        item.bNetworkSelected = NO;
     }
-    NSLog(@"the selected group is:%@",groupSelected);
+    
+    
+//    ItemButton *button = (ItemButton *)sender;
+//    [button switchStatus];
+//    
+//    UITableViewCell* cell = (UITableViewCell*)[button superview];
+//    NSInteger row = [tableView indexPathForCell:cell].row;
+//    //NSNumber *num = [NSNumber numberWithInteger:row];
+//    if (button.selected == YES) {
+//        
+//        [groupSelected addObject:group[row]];
+//    }else{
+//        [groupSelected removeObject:group[row]];
+//    }
+//    NSLog(@"the selected group is:%@",groupSelected);
 }
 
 //- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{

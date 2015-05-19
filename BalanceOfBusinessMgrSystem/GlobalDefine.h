@@ -67,8 +67,9 @@
 //#define USER_ID @"user_id"  //商户id
 #define USER_ID @"personId"  // 自然人id
 
-#define SUPPLYER_INFO @"supplyerInfo"  //商户id
+#define SUPPLYER_INFO @"supplyerInfo"  //商户
 #define SUPPLYER_ID @"commercialId"  //商户id
+#define SUPPLYER_LOGIN_ID @"loginid"  //商户登陆id
 
 #define USER_NAME @"user_name"//用户姓名
 #define USER_MOBILE @"user_mobile"

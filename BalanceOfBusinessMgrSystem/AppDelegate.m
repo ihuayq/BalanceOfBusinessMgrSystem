@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "BMCommercialTenantMainViewController.h"
+#import "BMNaturalManMainViewController.h"
 
 @interface AppDelegate ()
 
@@ -34,12 +36,37 @@
         [self initWindowRootViewController];
     }
     
-
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
     
     return YES;
 }
 
+- (void)LoginInitMainwidow:(NSNotification *)text{
+    NSLog(@"%@",text.userInfo[@"one"]);
+    NSLog(@"－－－－－接收到通知------");
+    
+    //是否商户1 还是自然人0 登陆 logintype
+//    if( [text.userInfo[@"one"] isEqualToString:@"1"]){
+//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//        self.window.rootViewController = mainview;
+//        //[self.navigationController pushViewController:mainview animated:NO];
+//    }
+//    //自然人登陆
+//    else
+//    {
+//        
+////        if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
+////            SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+////            [self.navigationController pushViewController:settingVc animated:NO];
+////        }else{
+////            BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
+////            [self.navigationController pushViewController:Vc animated:NO];
+////        }
+//    }
 
+    
+}
 
 #pragma mark
 -(void)initWelcomePage
