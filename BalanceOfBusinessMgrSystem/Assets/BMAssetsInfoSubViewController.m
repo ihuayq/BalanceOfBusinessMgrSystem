@@ -65,7 +65,7 @@
     [self.view addSubview:navTabBarController.view];
     [self addChildViewController:navTabBarController];
     
-    //[self requestNetWork];
+    //[self requestNetWor                       k];
     //[_scrollView addSubview:matrix];
   
 }

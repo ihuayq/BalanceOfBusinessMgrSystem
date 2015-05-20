@@ -28,7 +28,6 @@
 -(void)setModel:(NaturalManItemModel *)model_
 {
     _model = model_;
-    //titleLabel.text = _model.title;
     manNameLabel.text  = _model.manName;
     identifyNumberLabel.text  = _model.identifyNumber;
     telephoneNumberLabel.text  = _model.telephoneNumber;

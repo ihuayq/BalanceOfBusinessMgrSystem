@@ -10,6 +10,7 @@
 #import "NaturalManInfoTableViewCell.h"
 #import "ModifySingleNaturalManInfoViewController.h"
 #import "settingNaturalManInfoViewController.h"
+#import "Globle.h"
 
 @interface NaturalManInfoMgrViewController (){
     UITableView *tableView;
@@ -36,6 +37,19 @@
     
     [self loadData];
     
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NatureManListChange:) name:@"NatureManListChange" object:nil];
+    
+}
+
+- (void)NatureManListChange:(NSNotification *)text{
+    NSLog(@"%@,%@",text.userInfo[@"personName"],text.userInfo[@"idCard"]);
+    NSLog(@"－－－－－接收到通知--NatureManListChange----");
+    
+    NaturalManInfoTableViewCell *cell = [tableView cellForRowAtIndexPath:[Globle shareGloble].index];
+    cell.model.identifyNumber = text.userInfo[@"idCard"];
+    cell.model.manName = text.userInfo[@"personName"];
+    cell.model = cell.model;
 }
 
 -(void)loadData{
@@ -52,12 +66,6 @@
         NSLog(@"%@",sub);
         
         NaturalManItemModel *item = [NaturalManItemModel new];
-//     idCard = 1;
-//     personId = 7;
-//     personName = "\U8d75XX";
-//     phoneNum = 13000000011;
-//     status = "\U6b63\U5e38";
-//     updateAccFlag = 0;r
         item.nPosition = ++nCount;
         item.personID = [NSString stringWithFormat:@"%@",[sub objectForKey:@"personId"]];
         item.telephoneNumber = [NSString stringWithFormat:@"%@",[sub objectForKey:@"phoneNum"]];
@@ -129,12 +137,11 @@
     UIButton *button = (UIButton *)sender;
     NaturalManInfoTableViewCell* cell = (NaturalManInfoTableViewCell*)[button superview];
     //NSInteger row = [tableView indexPathForCell:cell].row;
-    
+    [Globle shareGloble].index = [tableView indexPathForCell:cell];
+    //纪录从修改自然人入口进入
+    [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
     ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
-    vc.nPos = cell.model.nPosition;
-    vc.natureName = cell.model.manName;
-    vc.identifyNo = cell.model.identifyNumber;
-    vc.telephoneNo = cell.model.telephoneNumber;
+    vc.model = cell.model;
     [self.navigationController pushViewController:vc
                                          animated:NO];
 }

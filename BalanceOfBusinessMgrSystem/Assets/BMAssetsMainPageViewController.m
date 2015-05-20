@@ -13,7 +13,7 @@
 #import "BMAssetsInfoSubViewController.h"
 #import "BMWithDrawsCashViewController.h"
 #import "DXAlertView.h"
-#import "BMSettingTransactionpPasswordViewController.h"
+#import "BMCreateTransactionpPasswordViewController.h"
 
 
 @interface BMAssetsMainPageViewController (){
@@ -239,7 +239,7 @@
         [alert show];
         alert.leftBlock = ^() {
             NSLog(@"left button clicked");
-            BMSettingTransactionpPasswordViewController *info = [[BMSettingTransactionpPasswordViewController alloc] init];
+            BMCreateTransactionpPasswordViewController *info = [[BMCreateTransactionpPasswordViewController alloc] init];
             [self.navigationController pushViewController:info
                                                  animated:NO];
         };

@@ -8,6 +8,7 @@
 
 #import "settingNaturalManInfoSuccessViewController.h"
 #import "bindNetworkPointAccountViewController.h"
+#import "Globle.h"
 
 @interface settingNaturalManInfoSuccessViewController ()
 
@@ -51,6 +52,8 @@
 }
 
 -(void)bindNetworkPoint{
+    [Globle shareGloble].whichBalanceAccountEntranceType = ADD_NATUREMAN_ENTRANCE;//结算账号入口类型
+    //@property (nonatomic,assign) BOOL isCanModifyBalanceAccount;////结算账号可修改类型
     bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
     [self.navigationController pushViewController:info
                                          animated:NO];

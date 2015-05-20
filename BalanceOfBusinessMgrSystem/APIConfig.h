@@ -17,7 +17,7 @@
 #else
 
 //自然人
-#define IP @"http://192.168.1.106:8080/"
+#define IP @"http://192.168.1.107:8080/"
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
 #define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
@@ -33,12 +33,16 @@
 
 
 //商户登陆
-#define CommercialIP @"http://192.168.1.102:8080/"
+#define CommercialIP @"http://192.168.1.103:8080/"
 #define CommercialHostURL @"superMoney-core/commercia/commerCiainfo?"
 #define AccountURL @"superMoney-core/commercia/getCommercialWebsiteInfo?"
 #define SavaAccountURL @"/superMoney-core/commercia/saveAccountWebsite?"
 #define passCodeURL @"/superMoney-core/commercia/sendPhoneVerification?"
-#define settingNatureMenURL @"/superMoney-core/commercia/assignNatural?"
+#define settingNatureMenURL @"/superMoney-core/commercia/assignNatural?" //添加自然人
+#define ModifyNatureMenIdentifyURL @"superMoney-core/commercia/updateNaturalPersonDo?" //修改自然人身份证等信息
+#define ModifyNatureMenURL @"/superMoney-core/commercia/getUpdateNaturalPersonInfo?"  //获取自然人账号信息
+
+
 
 
 //#define HostURL @"http://192.168.0.120/interfaces.php?app=ios&v=103&op=" //测试服务器

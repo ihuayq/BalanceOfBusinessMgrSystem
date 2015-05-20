@@ -12,6 +12,7 @@
 #import "bindAccountConfirmViewController.h"
 #import "BankAccountItem.h"
 #import "ItemButton.h"
+#import "Globle.h"
 
 @interface bindBalanceAccountViewController (){
     UITableView * tableView;
@@ -21,7 +22,7 @@
     UILabel * identifyLabel;
     UILabel * telephoneLabel;
     
-    
+    BOOL isSelectedButtonEnable;
 }
 
 @end
@@ -124,6 +125,19 @@
     registerLabel.textColor = [UIColor whiteColor];
     registerLabel.font = [UIFont systemFontOfSize:15];
     [avestButton addSubview:registerLabel];
+    
+    //选定结算账户的接口是否可用状态
+    if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE ) {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"modifyAccFlag"] isEqualToString:@"1"]) {
+            isSelectedButtonEnable = TRUE;
+        }
+        else{
+            isSelectedButtonEnable =  NO;
+        }
+    }
+    else{
+        isSelectedButtonEnable = TRUE;
+    }
 }
 
 -(void)touchOkButton{
@@ -176,6 +190,7 @@
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
     BankAccountItem *item=group[indexPath.row];
     
+    //在修改自然人的时候会共用此界面
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
         cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
@@ -189,6 +204,8 @@
     cell.bankCardNumber = item.bankCardNumber;
     ItemButton* curBtn = (ItemButton*)[cell accessoryView];
     curBtn.isSelected = item.bSelected;
+    //是否可用
+    curBtn.enabled = isSelectedButtonEnable;
     return cell;
 }
 

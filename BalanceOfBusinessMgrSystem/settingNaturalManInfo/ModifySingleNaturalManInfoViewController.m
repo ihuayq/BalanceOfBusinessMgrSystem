@@ -11,6 +11,8 @@
 #import "ModifyNaturalManIdentifyInfoViewController.h"
 #import "BankAccountItem.h"
 #import "ItemButton.h"
+#import "NaturalManItemModel.h"
+#import "bindBalanceAccountViewController.h"
 
 
 @interface ModifySingleNaturalManInfoViewController ()
@@ -30,6 +32,10 @@
 @end
 
 @implementation ModifySingleNaturalManInfoViewController
+@synthesize model = _model;
+-(void)setModel:(NaturalManItemModel *)model_{
+    _model = model_;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,7 +51,7 @@
     manHeadLabel.backgroundColor = [UIColor clearColor];
     manHeadLabel.textColor = [UIColor blackColor];
     manHeadLabel.font = [UIFont systemFontOfSize:16.0f];
-    manHeadLabel.text = [NSString stringWithFormat:@"自然人%d:",self.nPos];
+    manHeadLabel.text = [NSString stringWithFormat:@"自然人%d:",self.model.nPosition];
     [self.view addSubview:manHeadLabel];
     
     manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(manHeadLabel.frame.origin.x + manHeadLabel.frame.size.width, NAVIGATION_OUTLET_HEIGHT + 20 , 120, 20)];
@@ -53,7 +59,7 @@
     manNameLabel.backgroundColor = [UIColor clearColor];
     manNameLabel.textColor = [UIColor lightGrayColor];
     manNameLabel.font = [UIFont systemFontOfSize:16.0f];
-    manNameLabel.text = self.natureName;
+    manNameLabel.text = self.model.manName;
     [self.view addSubview:manNameLabel];
     
     //身份证号码
@@ -70,17 +76,17 @@
     identifyNumberLabel.backgroundColor = [UIColor clearColor];
     identifyNumberLabel.textColor = [UIColor lightGrayColor];
     identifyNumberLabel.font = [UIFont systemFontOfSize:16.0f];
-    identifyNumberLabel.text = self.identifyNo;
+    identifyNumberLabel.text = self.model.identifyNumber;
     [self.view addSubview:identifyNumberLabel];
     
-//    //修改身份证信息
-//    UIButton *modifyButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-//    [modifyButton setBackgroundImage:[UIImage imageNamed:@"modify"] forState:UIControlStateNormal];
-//    [modifyButton setBackgroundImage:[UIImage imageNamed:@"modify"] forState:UIControlStateHighlighted];
-//    [modifyButton setFrame:CGRectMake(identifyNumberLabel.frame.origin.x + identifyNumberLabel.frame.size.width +5, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 5, 20, 20)];
-//    [modifyButton addTarget:self action:@selector(touchModifyIdentifyButton) forControlEvents:UIControlEventTouchUpInside];
-//    [modifyButton setTitle:@"修改" forState:UIControlStateNormal];
-//    [self.view addSubview:modifyButton];
+    //修改身份证信息
+    UIButton *modifyButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    [modifyButton setBackgroundImage:[UIImage imageNamed:@"modify"] forState:UIControlStateNormal];
+    [modifyButton setBackgroundImage:[UIImage imageNamed:@"modify"] forState:UIControlStateHighlighted];
+    [modifyButton setFrame:CGRectMake(identifyNumberLabel.frame.origin.x + identifyNumberLabel.frame.size.width +5, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 5, 20, 20)];
+    [modifyButton addTarget:self action:@selector(touchModifyIdentifyButton) forControlEvents:UIControlEventTouchUpInside];
+    [modifyButton setTitle:@"修改" forState:UIControlStateNormal];
+    [self.view addSubview:modifyButton];
     
     //手机号码
     UILabel *teleHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, identifyHeadLabel.frame.origin.y + identifyHeadLabel.frame.size.height + 5, 80, 20)];
@@ -96,7 +102,7 @@
     telephoneNumberLabel.backgroundColor = [UIColor clearColor];
     telephoneNumberLabel.textColor = [UIColor lightGrayColor];
     telephoneNumberLabel.font = [UIFont systemFontOfSize:16.0f];
-    telephoneNumberLabel.text = self.telephoneNo;
+    telephoneNumberLabel.text = self.model.telephoneNumber;
     [self.view addSubview:telephoneNumberLabel];
     
 
@@ -122,7 +128,8 @@
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
     
-    [self testLoadingFile];
+    //[self testLoadingFile];
+    [self requestNetWork];
 }
 
 -(void)testLoadingFile{
@@ -141,18 +148,95 @@
     }
 }
 
--(void)touchCommitButton{
+-(void)requestNetWork{
     
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+
+    //http://192.168.1.102:8080/superMoney-core/commercia/getUpdateNaturalPersonInfo?personId=7&commercialId=M0060013
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,ModifyNatureMenURL];
+    
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
+    [connDictionary setObject:self.model.personID forKey:@"personId"];
+//     [connDictionary setObject:self.model.identifyNumber forKey:@"personId"];
+//     [connDictionary setObject:self.model.manName forKey:@"personId"];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    [self showProgressViewWithMessage:@"正在请求账号数据..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             id flag = [responseJSONDictionary objectForKey:@"modifyAccFlag"];
+             [[NSUserDefaults standardUserDefaults]setObject:flag forKey:@"modifyAccFlag"];
+             
+             NSArray *array = [responseJSONDictionary objectForKey:@"websiteList"];
+             for ( NSDictionary *dic in array) {
+                 //NSDictionary *dic=[array objectAtIndex:0];
+                 BankAccountItem *item = [BankAccountItem new];
+                 item.accountName = [dic objectForKey:@"pubAccName"];
+                 item.bankName = [dic objectForKey:@"pubBankNameDet"];
+                 item.bankCardNumber = [dic objectForKey:@"balanceAccount"];
+                 item.siteNum = [dic objectForKey:@"siteNum"];
+                 item.bSelected = [[dic objectForKey:@"selectedAccFlag"]  boolValue] ;//结算账号选定标记
+                 item.bNetworkSelected = [[dic objectForKey:@"selectedFlag"] boolValue];//网点账号选定标记
+                 [group addObject:item];
+             }
+             [tableView reloadData];
+             
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+}
+
+
+-(void)touchCommitButton{
+    bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+    info.group = group;
+    [self.navigationController pushViewController:info animated:NO];
 }
 
 
 -(void)touchModifyIdentifyButton{
     ModifyNaturalManIdentifyInfoViewController *vc = [[ModifyNaturalManIdentifyInfoViewController alloc] init];
+    vc.model = self.model;
+    [vc returnText:^(NSString *nameText, NSString *identifyText) {
+        manNameLabel.text  = nameText;
+        identifyNumberLabel.text = identifyText;
+    }];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     //#warning Potentially incomplete method implementation.
@@ -198,14 +282,13 @@
     
     UITableViewCell* cell = (UITableViewCell*)[button superview];
     NSInteger row = [tableView indexPathForCell:cell].row;
-    //NSNumber *num = [NSNumber numberWithInteger:row];
+    
+    BankAccountItem *item=group[row];
     if (button.selected == YES) {
-        
-        [groupSelected addObject:group[row]];
+        item.bNetworkSelected = YES;
     }else{
-        [groupSelected removeObject:group[row]];
+        item.bNetworkSelected = NO;
     }
-    NSLog(@"the selected group is:%@",groupSelected);
 }
 
 //- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -237,45 +320,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01f;
 }
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-//{
-//    //#warning Incomplete method implementation.
-//    // Return the number of rows in the section.
-//    NSLog(@"计算每组(组%i)行数",(int)section);
-//    return 6;
-//}
-//
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    NSString * dentifier = @"cell";
-//    //NSIndexPath是一个结构体，记录了组和行信息
-//    NSLog(@"生成单元格(组：%d,行%d)",(int)indexPath.section,(int)indexPath.row);
-//    
-//    BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
-//    if (cell == nil) {
-//        //cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
-//        
-//        cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
-//        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        
-//    }
-//    cell.title=@"张三";
-//    cell.bankName = @"建行";
-//    cell.bankCardNumber = @"12334456";
-//    return cell;
-//}
-//
-//-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return 60;
-//}
-//
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    
-//}
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

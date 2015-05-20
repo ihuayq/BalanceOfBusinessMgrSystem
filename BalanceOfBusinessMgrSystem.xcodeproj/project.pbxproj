@@ -69,7 +69,7 @@
 		88E7C2981AFC594800F7B58C /* StyledTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7C2971AFC594800F7B58C /* StyledTableViewCell.m */; };
 		88E963281B019E3100C04664 /* BMWithDrawsCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E963271B019E3100C04664 /* BMWithDrawsCashViewController.m */; };
 		88E9632B1B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E9632A1B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.m */; };
-		88E963541B01E83800C04664 /* 1  商户登录--顶图.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963301B01E83800C04664 /* 1  商户登录--顶图.png */; };
+		88E963541B01E83800C04664 /* loginpage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963301B01E83800C04664 /* loginpage@2x.png */; };
 		88E963551B01E83800C04664 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963311B01E83800C04664 /* 1.png */; };
 		88E963561B01E83800C04664 /* UI规范.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88E963321B01E83800C04664 /* UI规范.jpg */; };
 		88E963571B01E83800C04664 /* 修改.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963331B01E83800C04664 /* 修改.png */; };
@@ -86,8 +86,8 @@
 		88E963621B01E83800C04664 /* 投资@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633E1B01E83800C04664 /* 投资@2x.png */; };
 		88E963631B01E83800C04664 /* 按钮中的下一步.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633F1B01E83800C04664 /* 按钮中的下一步.png */; };
 		88E963641B01E83800C04664 /* 提示.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963401B01E83800C04664 /* 提示.png */; };
-		88E963651B01E83800C04664 /* 橙色按钮 ——  点击前.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963411B01E83800C04664 /* 橙色按钮 ——  点击前.png */; };
-		88E963661B01E83800C04664 /* 橙色按钮 ——  点击后.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963421B01E83800C04664 /* 橙色按钮 ——  点击后.png */; };
+		88E963651B01E83800C04664 /* redbn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963411B01E83800C04664 /* redbn@2x.png */; };
+		88E963661B01E83800C04664 /* redbndj@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963421B01E83800C04664 /* redbndj@2x.png */; };
 		88E963671B01E83800C04664 /* 短信验证@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963431B01E83800C04664 /* 短信验证@2x.png */; };
 		88E963681B01E83800C04664 /* 继续添加按钮 ——点击前.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963441B01E83800C04664 /* 继续添加按钮 ——点击前.png */; };
 		88E963691B01E83800C04664 /* 继续添加按钮 ——点击后.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963451B01E83800C04664 /* 继续添加按钮 ——点击后.png */; };
@@ -183,7 +183,6 @@
 		88EF07A51AF8D025006B09B0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88EF07A41AF8D025006B09B0 /* IOKit.framework */; };
 		88EF53561B09B838004DAEC6 /* ModifyNaturalManIdentifyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EF53551B09B838004DAEC6 /* ModifyNaturalManIdentifyInfoViewController.m */; };
 		88EF53591B09C921004DAEC6 /* ModifyNaturalmanSuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EF53581B09C921004DAEC6 /* ModifyNaturalmanSuccessViewController.m */; };
-		88EF535C1B09DA95004DAEC6 /* LoginSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EF535B1B09DA95004DAEC6 /* LoginSubViewController.m */; };
 		88F185301AFB0913007FE83B /* BMCommercialTenantMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F1852F1AFB0913007FE83B /* BMCommercialTenantMainViewController.m */; };
 		88F1853D1AFB0F85007FE83B /* BMInvestmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F1853C1AFB0F85007FE83B /* BMInvestmentViewController.m */; };
 		88F1854F1AFB1612007FE83B /* NavigationInteractiveTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F1854A1AFB1612007FE83B /* NavigationInteractiveTransition.m */; };
@@ -431,6 +430,7 @@
 		88F18AE51AFB50D4007FE83B /* 确定@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88F189F51AFB50D4007FE83B /* 确定@2x.png */; };
 		88F18AE61AFB50D4007FE83B /* 确定_@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88F189F61AFB50D4007FE83B /* 确定_@2x.png */; };
 		88F18AEC1AFB8904007FE83B /* BMAccountMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */; };
+		88F348B81B0C2F6400CF7EDE /* Globle.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F348B71B0C2F6400CF7EDE /* Globle.m */; };
 		88F474571B04C12100B6DE39 /* AssetDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F474561B04C12100B6DE39 /* AssetDetailTableViewController.m */; };
 		88F4745D1B04C23800B6DE39 /* CircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F4745A1B04C23800B6DE39 /* CircleView.m */; };
 		88F4745E1B04C23800B6DE39 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F4745C1B04C23800B6DE39 /* EGORefreshTableHeaderView.m */; };
@@ -553,7 +553,7 @@
 		88E963271B019E3100C04664 /* BMWithDrawsCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMWithDrawsCashViewController.m; sourceTree = "<group>"; };
 		88E963291B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMWithDrawsCashSuccessViewController.h; sourceTree = "<group>"; };
 		88E9632A1B01AB5900C04664 /* BMWithDrawsCashSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMWithDrawsCashSuccessViewController.m; sourceTree = "<group>"; };
-		88E963301B01E83800C04664 /* 1  商户登录--顶图.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1  商户登录--顶图.png"; sourceTree = "<group>"; };
+		88E963301B01E83800C04664 /* loginpage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginpage@2x.png"; sourceTree = "<group>"; };
 		88E963311B01E83800C04664 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		88E963321B01E83800C04664 /* UI规范.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "UI规范.jpg"; sourceTree = "<group>"; };
 		88E963331B01E83800C04664 /* 修改.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "修改.png"; sourceTree = "<group>"; };
@@ -570,8 +570,8 @@
 		88E9633E1B01E83800C04664 /* 投资@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投资@2x.png"; sourceTree = "<group>"; };
 		88E9633F1B01E83800C04664 /* 按钮中的下一步.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "按钮中的下一步.png"; sourceTree = "<group>"; };
 		88E963401B01E83800C04664 /* 提示.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "提示.png"; sourceTree = "<group>"; };
-		88E963411B01E83800C04664 /* 橙色按钮 ——  点击前.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "橙色按钮 ——  点击前.png"; sourceTree = "<group>"; };
-		88E963421B01E83800C04664 /* 橙色按钮 ——  点击后.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "橙色按钮 ——  点击后.png"; sourceTree = "<group>"; };
+		88E963411B01E83800C04664 /* redbn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redbn@2x.png"; sourceTree = "<group>"; };
+		88E963421B01E83800C04664 /* redbndj@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redbndj@2x.png"; sourceTree = "<group>"; };
 		88E963431B01E83800C04664 /* 短信验证@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "短信验证@2x.png"; sourceTree = "<group>"; };
 		88E963441B01E83800C04664 /* 继续添加按钮 ——点击前.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "继续添加按钮 ——点击前.png"; sourceTree = "<group>"; };
 		88E963451B01E83800C04664 /* 继续添加按钮 ——点击后.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "继续添加按钮 ——点击后.png"; sourceTree = "<group>"; };
@@ -748,8 +748,6 @@
 		88EF53551B09B838004DAEC6 /* ModifyNaturalManIdentifyInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyNaturalManIdentifyInfoViewController.m; sourceTree = "<group>"; };
 		88EF53571B09C921004DAEC6 /* ModifyNaturalmanSuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyNaturalmanSuccessViewController.h; sourceTree = "<group>"; };
 		88EF53581B09C921004DAEC6 /* ModifyNaturalmanSuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyNaturalmanSuccessViewController.m; sourceTree = "<group>"; };
-		88EF535A1B09DA95004DAEC6 /* LoginSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginSubViewController.h; sourceTree = "<group>"; };
-		88EF535B1B09DA95004DAEC6 /* LoginSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginSubViewController.m; sourceTree = "<group>"; };
 		88F1852E1AFB0913007FE83B /* BMCommercialTenantMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCommercialTenantMainViewController.h; sourceTree = "<group>"; };
 		88F1852F1AFB0913007FE83B /* BMCommercialTenantMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCommercialTenantMainViewController.m; sourceTree = "<group>"; };
 		88F1853B1AFB0F85007FE83B /* BMInvestmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMInvestmentViewController.h; sourceTree = "<group>"; };
@@ -1004,6 +1002,8 @@
 		88F189F61AFB50D4007FE83B /* 确定_@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "确定_@2x.png"; sourceTree = "<group>"; };
 		88F18AEA1AFB8904007FE83B /* BMAccountMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAccountMainViewController.h; sourceTree = "<group>"; };
 		88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAccountMainViewController.m; sourceTree = "<group>"; };
+		88F348B61B0C2F6400CF7EDE /* Globle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globle.h; sourceTree = "<group>"; };
+		88F348B71B0C2F6400CF7EDE /* Globle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Globle.m; sourceTree = "<group>"; };
 		88F474551B04C12100B6DE39 /* AssetDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetDetailTableViewController.h; sourceTree = "<group>"; };
 		88F474561B04C12100B6DE39 /* AssetDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetDetailTableViewController.m; sourceTree = "<group>"; };
 		88F474591B04C23800B6DE39 /* CircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleView.h; sourceTree = "<group>"; };
@@ -1235,7 +1235,7 @@
 		88E9632F1B01E83800C04664 /* 设计师－切图 */ = {
 			isa = PBXGroup;
 			children = (
-				88E963301B01E83800C04664 /* 1  商户登录--顶图.png */,
+				88E963301B01E83800C04664 /* loginpage@2x.png */,
 				88E963311B01E83800C04664 /* 1.png */,
 				88E963321B01E83800C04664 /* UI规范.jpg */,
 				88E963331B01E83800C04664 /* 修改.png */,
@@ -1252,8 +1252,8 @@
 				88E9633E1B01E83800C04664 /* 投资@2x.png */,
 				88E9633F1B01E83800C04664 /* 按钮中的下一步.png */,
 				88E963401B01E83800C04664 /* 提示.png */,
-				88E963411B01E83800C04664 /* 橙色按钮 ——  点击前.png */,
-				88E963421B01E83800C04664 /* 橙色按钮 ——  点击后.png */,
+				88E963411B01E83800C04664 /* redbn@2x.png */,
+				88E963421B01E83800C04664 /* redbndj@2x.png */,
 				88E963431B01E83800C04664 /* 短信验证@2x.png */,
 				88E963441B01E83800C04664 /* 继续添加按钮 ——点击前.png */,
 				88E963451B01E83800C04664 /* 继续添加按钮 ——点击后.png */,
@@ -1334,6 +1334,8 @@
 				88ED8CDB1AF84FEB00B82BE7 /* AppDelegate.h */,
 				88EF07141AF8AD98006B09B0 /* GlobalDefine.h */,
 				88EF07361AF8B29B006B09B0 /* APIConfig.h */,
+				88F348B61B0C2F6400CF7EDE /* Globle.h */,
+				88F348B71B0C2F6400CF7EDE /* Globle.m */,
 				88EF07151AF8AF0F006B09B0 /* ControllerConfig.h */,
 				88ED8CDC1AF84FEB00B82BE7 /* AppDelegate.m */,
 				88ED8CDE1AF84FEB00B82BE7 /* ViewController.h */,
@@ -1571,8 +1573,6 @@
 				88EF071A1AF8B112006B09B0 /* ForgetPasswordViewController.m */,
 				88EF071B1AF8B112006B09B0 /* LoginViewController.h */,
 				88EF071C1AF8B112006B09B0 /* LoginViewController.m */,
-				88EF535A1B09DA95004DAEC6 /* LoginSubViewController.h */,
-				88EF535B1B09DA95004DAEC6 /* LoginSubViewController.m */,
 				88EF071D1AF8B112006B09B0 /* MainViewController.h */,
 				88EF071E1AF8B112006B09B0 /* MainViewController.m */,
 				88EF071F1AF8B112006B09B0 /* UserInformationManagementViewController.h */,
@@ -2149,7 +2149,7 @@
 				88F18A501AFB50D4007FE83B /* ccb.png in Resources */,
 				88F18A2C1AFB50D4007FE83B /* 5@2x.png in Resources */,
 				88F18A971AFB50D4007FE83B /* redbndj.png in Resources */,
-				88E963661B01E83800C04664 /* 橙色按钮 ——  点击后.png in Resources */,
+				88E963661B01E83800C04664 /* redbndj@2x.png in Resources */,
 				88F18A251AFB50D4007FE83B /* 560x540_闪灰.png in Resources */,
 				88F18AB51AFB50D4007FE83B /* selectdj.png in Resources */,
 				88F18A131AFB50D4007FE83B /* 200x120_闪红1.png in Resources */,
@@ -2334,7 +2334,7 @@
 				88E963561B01E83800C04664 /* UI规范.jpg in Resources */,
 				88F18AB31AFB50D4007FE83B /* searchbn.png in Resources */,
 				88F18A211AFB50D4007FE83B /* 560x540_iPhoneTop.png in Resources */,
-				88E963541B01E83800C04664 /* 1  商户登录--顶图.png in Resources */,
+				88E963541B01E83800C04664 /* loginpage@2x.png in Resources */,
 				88F18A591AFB50D4007FE83B /* cell3dj.png in Resources */,
 				88F18A5D1AFB50D4007FE83B /* cellmid.png in Resources */,
 				88F18A061AFB50D4007FE83B /* 08@2x.png in Resources */,
@@ -2348,7 +2348,7 @@
 				88F18A861AFB50D4007FE83B /* ic卡.png in Resources */,
 				88E9636E1B01E83800C04664 /* 资产-点击.png in Resources */,
 				88F189FB1AFB50D4007FE83B /* 005.png in Resources */,
-				88E963651B01E83800C04664 /* 橙色按钮 ——  点击前.png in Resources */,
+				88E963651B01E83800C04664 /* redbn@2x.png in Resources */,
 				88E9636B1B01E83800C04664 /* 蓝色按钮-点击后.png in Resources */,
 				88F18A531AFB50D4007FE83B /* cell0dj.png in Resources */,
 				88F189FC1AFB50D4007FE83B /* 006.png in Resources */,
@@ -2462,7 +2462,6 @@
 				88EF05D01AF8A3EC006B09B0 /* HP_UIKeyboardCoView.m in Sources */,
 				88EF06E51AF8A3EE006B09B0 /* HP_UIImageView.m in Sources */,
 				88D406EE1B00834B00418ACC /* NaturalManItemModel.m in Sources */,
-				88EF535C1B09DA95004DAEC6 /* LoginSubViewController.m in Sources */,
 				88EF06EC1AF8A3EE006B09B0 /* HP_BaseViewController.m in Sources */,
 				88ED8CDA1AF84FEB00B82BE7 /* main.m in Sources */,
 				88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */,
@@ -2478,6 +2477,7 @@
 				88E963811B02010000C04664 /* TotalAssetInfoModel.m in Sources */,
 				88F474571B04C12100B6DE39 /* AssetDetailTableViewController.m in Sources */,
 				88EF073F1AF8C023006B09B0 /* NSString+Utf8Encoding.m in Sources */,
+				88F348B81B0C2F6400CF7EDE /* Globle.m in Sources */,
 				88F185511AFB1612007FE83B /* PopAnimation.m in Sources */,
 				88EF07421AF8C0BD006B09B0 /* NSData+Addition.m in Sources */,
 				88EF06EB1AF8A3EE006B09B0 /* HP_BaseTabBarController.m in Sources */,

@@ -355,9 +355,6 @@
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    
-   
-    
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
     [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
     //[connDictionary setObject:@"register" forKey:@"type"];

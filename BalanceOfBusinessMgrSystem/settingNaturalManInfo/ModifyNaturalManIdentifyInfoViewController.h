@@ -9,8 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "HP_Common4IOS.h"
 #import "ControllerConfig.h"
+typedef void (^ReturnTextBlock)(NSString *nameText,NSString *identifyText);
 
-
+@class NaturalManItemModel;
 @interface ModifyNaturalManIdentifyInfoViewController : HP_BaseViewController
+
+@property (nonatomic,strong) NaturalManItemModel *model;
+
+@property (nonatomic, copy) ReturnTextBlock returnTextBlock;
+
+- (void)returnText:(ReturnTextBlock)block;
 
 @end

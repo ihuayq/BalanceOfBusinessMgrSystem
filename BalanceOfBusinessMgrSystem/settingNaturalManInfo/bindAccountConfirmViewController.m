@@ -13,6 +13,9 @@
 #import "bindSuccessSwitchViewController.h"
 #import "ItemButton.h"
 #import "BankAccountItem.h"
+#import "Globle.h"
+#import "DXAlertView.h"
+#import "ModifyNaturalmanSuccessViewController.h"
 
 @interface bindAccountConfirmViewController (){
     UITableView * tableView;
@@ -159,8 +162,11 @@
             strNetwork = [strNetwork stringByAppendingString: @"@"];
         }
     }
-    strNetwork = [strNetwork substringToIndex:strNetwork.length-1];
-    [connDictionary setObject:strNetwork forKey:@"siteNum"];
+    if (strNetwork.length > 2) {
+        strNetwork = [strNetwork substringToIndex:strNetwork.length-1];
+        [connDictionary setObject:strNetwork forKey:@"siteNum"];
+    }
+
     
     NSString *strBalance= @"";
     BMAccountCellGroup *balanceGroup=group[0];
@@ -170,9 +176,11 @@
             strBalance = [strBalance stringByAppendingString: @"@"];
         }
     }
-    
-    strBalance = [strBalance substringToIndex:strBalance.length - 1];
-    [connDictionary setObject:strBalance forKey:@"accountId"];
+    if ( strBalance.length > 2 ) {
+        strBalance = [strBalance substringToIndex:strBalance.length - 1];
+        [connDictionary setObject:strBalance forKey:@"accountId"];
+    }
+
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
     NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,SavaAccountURL];
@@ -193,8 +201,31 @@
              [data setObject:results forKey:@"natureInfo"];
              //[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] setObject:results forKey:@"natureInfo"];
 
-             bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
-             [self.navigationController pushViewController:vc animated:NO];
+             if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE ){
+                 ModifyNaturalmanSuccessViewController*vc = [[ModifyNaturalmanSuccessViewController alloc] init];
+                 [self.navigationController pushViewController:vc animated:NO];
+//                 DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"自然人信息修改成功，是否现在去进行投资理财" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+//                 [alert show];
+//                 alert.leftBlock = ^() {
+//                     NSLog(@"left button clicked");
+//                     LoginViewController*info = [[LoginViewController alloc] init];
+//                     [self.navigationController pushViewController:info
+//                                                          animated:NO];
+//                 };
+//                 alert.rightBlock = ^() {
+//                     NSLog(@"right button clicked");
+//                     [self.navigationController  popViewControllerAnimated:YES];
+//                 };
+//                 alert.dismissBlock = ^() {
+//                     NSLog(@"Do something interesting after dismiss block");
+//                     [self.navigationController  popViewControllerAnimated:YES];
+//                 };
+             }
+             else{
+                 bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
+                 [self.navigationController pushViewController:vc animated:NO];
+             }
+
          }
          else
          {
@@ -242,6 +273,8 @@
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
     BMAccountCellGroup *contact=group[indexPath.section];
     BankAccountItem *item=contact.groups[indexPath.row];
+    
+
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {

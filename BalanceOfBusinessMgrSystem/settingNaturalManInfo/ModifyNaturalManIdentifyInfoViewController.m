@@ -10,6 +10,7 @@
 #import "RadioButton.h"
 #import "settingNaturalManInfoSuccessViewController.h"
 #import "ModifyNaturalmanSuccessViewController.h"
+#import "NaturalManItemModel.h"
 
 @interface ModifyNaturalManIdentifyInfoViewController (){
 
@@ -20,14 +21,17 @@ HP_UITextField * passCodeTextField;
 HP_UIButton *sendCheckCodeButton;
 UILabel *sendLabel;
 
-RadioButton *radioAgreement;
+
 }
 
 @end
 
 @implementation ModifyNaturalManIdentifyInfoViewController
 
-
+@synthesize model = _model;
+-(void)setModel:(NaturalManItemModel *)model_{
+    _model = model_;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,12 +65,13 @@ RadioButton *radioAgreement;
     [nameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     nameTextField.backgroundColor = [UIColor clearColor];
     nameTextField.clearButtonMode = UITextFieldViewModeAlways;
-    nameTextField.placeholder = @"请输入姓名";
+    //nameTextField.placeholder = @"请输入姓名";
     nameTextField.font = [UIFont systemFontOfSize:14];
     nameTextField.delegate = self;
     nameTextField.keyboardType = UIKeyboardTypeDefault;
     nameTextField.borderStyle = UITextBorderStyleNone;
-    nameTextField.secureTextEntry=YES;
+    //nameTextField.secureTextEntry=YES;
+    nameTextField.text = self.model.manName;
     [self.view addSubview:nameTextField];
     
     //设置身份证信息
@@ -90,12 +95,14 @@ RadioButton *radioAgreement;
     [dentifierTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     dentifierTextField.backgroundColor = [UIColor clearColor];
     dentifierTextField.clearButtonMode = UITextFieldViewModeAlways;
-    dentifierTextField.placeholder = @"请输入身份证信息";
+    //dentifierTextField.placeholder = @"请输入身份证信息";
     dentifierTextField.font = [UIFont systemFontOfSize:14];
     dentifierTextField.delegate = self;
     dentifierTextField.keyboardType = UIKeyboardTypeDefault;
     dentifierTextField.borderStyle = UITextBorderStyleNone;
-    dentifierTextField.secureTextEntry=YES;
+    //dentifierTextField.secureTextEntry=YES;
+    dentifierTextField.text = self.model.identifyNumber;
+    
     [self.view addSubview:dentifierTextField];
     
     //设置手机号码
@@ -120,12 +127,13 @@ RadioButton *radioAgreement;
     [telephoneTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     telephoneTextField.backgroundColor = [UIColor clearColor];
     telephoneTextField.clearButtonMode = UITextFieldViewModeAlways;
-    telephoneTextField.placeholder = @"请输入手机号码";//直接用手机号替换
+    //telephoneTextField.placeholder = @"请输入手机号码";//直接用手机号替换
     telephoneTextField.font = [UIFont systemFontOfSize:14];
     telephoneTextField.delegate = self;
     telephoneTextField.keyboardType = UIKeyboardTypeDefault;
     telephoneTextField.borderStyle = UITextBorderStyleNone;
-    telephoneTextField.secureTextEntry=YES;
+    //telephoneTextField.secureTextEntry=YES;
+    telephoneTextField.text = self.model.telephoneNumber;
     [self.view addSubview:telephoneTextField];
     
     //短信验证码
@@ -171,20 +179,19 @@ RadioButton *radioAgreement;
     [self.view addSubview:registerButton];
 }
 
+- (void)returnText:(ReturnTextBlock)block {
+    self.returnTextBlock = block;
+}
 
-- (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
-    int flags = 0;
-    if (tagselect==708) {
-    }
+- (void)viewWillDisappear:(BOOL)animated {
     
+    if (self.returnTextBlock != nil) {
+        self.returnTextBlock(nameTextField.text,dentifierTextField.text);
+    }
 }
 
 -(void)touchCommitButton{
     //test
-    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
-    return;
     
     if (![self checkTel:telephoneTextField.text])
     {
@@ -201,41 +208,50 @@ RadioButton *radioAgreement;
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
-    [connDictionary setObject:nameTextField.text forKey:@"name"];
-    [connDictionary setObject:dentifierTextField.text forKey:@"identifyno"];
-    [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
-    
+    [connDictionary setObject:self.model.personID forKey:@"personID"];
+    [connDictionary setObject:self.model.telephoneNumber forKey:@"phoneNum"];
+    [connDictionary setObject:[nameTextField.text URLEncodedString] forKey:@"personName"];
+    [connDictionary setObject:dentifierTextField.text forKey:@"idCard"];
+    [connDictionary setObject:passCodeTextField.text forKey:@"code"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,ModifyNatureMenIdentifyURL];
     
-    [self showProgressViewWithMessage:@"正在获取验证码..."];
+    [self showProgressViewWithMessage:@"正在设置自然人信息..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
          [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
          if([ret isEqualToString:@"100"])
          {
-             responseJSONDictionary = [self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             responseJSONDictionary = [self delStringNull:responseJSONDictionary];
              
-             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
-//             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-//             
-//             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
-//             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"no"]] forKey:@"no"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"name"] forKey:@"name"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
-//             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
-//             
-//             settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-//             [self.navigationController pushViewController:info
-//                                                  animated:NO];
-             ModifyNaturalmanSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-             [self.navigationController pushViewController:info   animated:NO];
+             //重新设置自然人信息
+             NSArray *results = [[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:@"natureInfo"];
+             for (NSDictionary * sub in results) {
+                 NSLog(@"%@",sub);
+                 
+                 NSString *strPersonID = [NSString stringWithFormat:@"%@",[sub objectForKey:@"personId"]];
+                 if ([ strPersonID isEqualToString:self.model.personID] ) {
+                     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:sub];
+                     [data setObject:[[sub objectForKey:@"personName"] URLDecodedString] forKey:@"personName"];
+                     [data setObject:[sub objectForKey:@"idCard"] forKey:@"idCard"];
+                     break;
+                 }
+             }
+             
+             //发送通知
+             //向NaturalManInfoMgrViewController
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:nameTextField.text,@"personName",dentifierTextField.text,@"idCard", nil];
+             //创建通知
+             NSNotification *notification =[NSNotification notificationWithName:@"NatureManListChange" object:nil userInfo:dict];
+             //通过通知中心发送通知
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
+             
+             [self.navigationController popViewControllerAnimated:YES];
+             
          }
          else
          {
@@ -248,8 +264,6 @@ RadioButton *radioAgreement;
          alertView.tag = 999;
          [alertView show];
      }];
-    
-    
 }
 
 -(void)touchSendCheckCodeButton{
@@ -265,16 +279,16 @@ RadioButton *radioAgreement;
     
     [self touchesBegan:nil withEvent:nil];
     
-    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    [connDictionary setObject:telephoneTextField.text forKey:@"phonenum"];
-    //[connDictionary setObject:@"register" forKey:@"type"];
+    [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
+
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,passCodeURL];
+    
     
     [self showProgressViewWithMessage:@"正在获取验证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -286,6 +300,9 @@ RadioButton *radioAgreement;
              //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
              //[self timeCountdown];
              //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+//             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"成功" message:@"是否现在去进行投资理财" delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+//             alertView.tag = 999;
+//             [alertView show];
          }
          else
          {

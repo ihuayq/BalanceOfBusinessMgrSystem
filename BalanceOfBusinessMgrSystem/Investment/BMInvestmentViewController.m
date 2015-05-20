@@ -169,11 +169,11 @@
 
 -(void)touchDatingButton{
     // 查看是否设置了支付密码
-//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
-//         BMSettingTransactionpPasswordViewController *VC = [[BMSettingTransactionpPasswordViewController alloc] init];
-//        [self.navigationController pushViewController:VC animated:YES];
-//        return;
-//    }
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
+         BMSettingTransactionpPasswordViewController *VC = [[BMSettingTransactionpPasswordViewController alloc] init];
+        [self.navigationController pushViewController:VC animated:YES];
+        return;
+    }
     
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
         BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];

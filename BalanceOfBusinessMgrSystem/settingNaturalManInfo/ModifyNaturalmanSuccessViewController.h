@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ModifyNaturalmanSuccessViewController : UIViewController
+@interface ModifyNaturalmanSuccessViewController : FMBaseViewController
 
 @end

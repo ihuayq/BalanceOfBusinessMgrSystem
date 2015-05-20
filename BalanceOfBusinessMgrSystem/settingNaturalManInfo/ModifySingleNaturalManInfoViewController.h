@@ -7,13 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HP_Common4IOS.h"
+#import "ControllerConfig.h"
+@class NaturalManItemModel;
+@interface ModifySingleNaturalManInfoViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
-@interface ModifySingleNaturalManInfoViewController : FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic,strong) NaturalManItemModel *model;
 
 @property (nonatomic,copy) NSString *natureName;
 @property (nonatomic,copy) NSString *identifyNo;
 @property (nonatomic,copy) NSString *telephoneNo;
-@property (nonatomic,assign) uint nPos;
+@property (nonatomic,assign) uint nPos;//personid
 
 
 @end
