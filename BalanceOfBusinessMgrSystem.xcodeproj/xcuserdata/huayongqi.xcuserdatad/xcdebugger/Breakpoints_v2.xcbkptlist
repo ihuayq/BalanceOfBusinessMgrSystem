@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BalanceOfBusinessMgrSystem/Login/LoginViewController.m"
-            timestampString = "453217634.775317"
+            timestampString = "453823652.970275"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
-            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
+            landmarkName = "-supplyerLoginRequest"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

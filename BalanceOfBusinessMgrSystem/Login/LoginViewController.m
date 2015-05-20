@@ -158,8 +158,27 @@
 
 - (UIColor *)getRandomColor
 {
-    UIColor *color = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
+    //UIColor *color = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
+    UIColor *color = [self getColor:@"f9551c"];
     return color;
+}
+
+- (UIColor *)getColor:(NSString*)hexColor
+{
+    unsigned int red,green,blue;
+    NSRange range;
+    range.length = 2;
+    
+    range.location = 0;
+    [[NSScanner scannerWithString:[hexColor substringWithRange:range]]scanHexInt:&red];
+    
+    range.location = 2;
+    [[NSScanner scannerWithString:[hexColor substringWithRange:range]]scanHexInt:&green];
+    
+    range.location = 4;
+    [[NSScanner scannerWithString:[hexColor substringWithRange:range]]scanHexInt:&blue];
+    
+    return [UIColor colorWithRed:(float)(red/255.0f)green:(float)(green / 255.0f) blue:(float)(blue / 255.0f)alpha:1.0f];
 }
 
 -(void)checkboxClick:(UIButton *)btn
