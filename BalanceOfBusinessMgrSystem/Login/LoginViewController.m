@@ -100,7 +100,7 @@
     [self.view addSubview:bgImageView11 ];
     [bgImageView11 addSubview:bgImageView10];
 
-    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, segmentView.frame.size.height + segmentView.frame.origin.y + 20, 200, 40)];
+    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, segmentView.frame.size.height + segmentView.frame.origin.y + 20, 240, 40)];
     [nameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     nameTextField.backgroundColor = [UIColor clearColor];
     nameTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -122,7 +122,7 @@
     [bgImageView21 addSubview:bgImageView20];
 
 
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60,nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 200, 40)];
+    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60,nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 240, 40)];
     [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -154,6 +154,18 @@
     [loginButton.layer setMasksToBounds:YES];
     [loginButton.layer setCornerRadius:loginButton.frame.size.height/2.0f];
     [self.view addSubview:loginButton];
+    
+    //商户登陆
+    if( self.isSupplerSelected ){
+        nameTextField.text = @"Mer00060013";
+        passwordTextField.text = @"register";
+    }
+    //自然人登陆
+    else
+    {
+        nameTextField.text = @"18666625107";
+        passwordTextField.text = @"123456";
+    }
 }
 
 - (UIColor *)getRandomColor
@@ -353,7 +365,7 @@
     else
     {
         nameTextField.text = @"18666625107";
-        passwordTextField.text = @"123456";
+        passwordTextField.text = @"654321";
 //        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
 //        [self.navigationController pushViewController:Vc animated:NO];
 
@@ -417,7 +429,7 @@
             //商户还是自然人
             [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
+            [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
             [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登陆
             //[Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//支付密码

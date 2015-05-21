@@ -37,7 +37,8 @@
 #define CurVervionString [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 //#define Default_Phone_Imei [UIDevice uniqueGlobalDeviceIdentifier]//无效
-
+#define UIColorFromRGB(rgbValue)        [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0f green:((float)((rgbValue & 0xFF00) >> 8))/255.0f blue:((float)(rgbValue & 0xFF))/255.0f alpha:1.0f]
+#define UISTYLECOLOR UIColorFromRGB(0xF9551C);
 
 #define Default_Phone_UUID [UIDevice currentDevice].identifierForVendor.UUIDString
 #define Default_Phone_UUID_MD5 [MD5Utils md5:Default_Phone_UUID]

@@ -264,8 +264,8 @@
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
         cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
-        ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:NO];
-        button.backgroundColor = [UIColor clearColor ];
+        ItemButton *button = [[ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:NO];
+        button.backgroundColor = [UIColor clearColor];
         [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
     }

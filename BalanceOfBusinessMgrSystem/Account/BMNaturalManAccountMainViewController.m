@@ -64,10 +64,9 @@
 - (void) initGroup{
     _group=[[NSMutableArray alloc]init];
     
-    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前账号角色信息"];
+    BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
     BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact0, nil]];
     [_group addObject:group0];
-    
     
     BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"自然人信息管理"];
     BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1, nil]];
@@ -98,9 +97,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    NSLog(@"计算每组(组%i)行数",section);
     BMAccountCellGroup *group1=_group[section];
     return group1.groups.count;
 }
@@ -109,17 +105,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString * dentifier = @"cell";
-    //NSIndexPath是一个结构体，记录了组和行信息
-    NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
     BMAccountCellGroup *group=_group[indexPath.section];
     BMAccountCellInfo *contact=group.groups[indexPath.row];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
+        if(indexPath.section != 0 )
+        {
             cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
-
+        }
+        else {
+            [self setAccount:cell];
+        }
     }
+    
+    if (indexPath.section == 0) {
+        return cell;
+    }
+    
     cell.textLabel.text=contact.title;
     return cell;
 }
@@ -129,16 +133,58 @@
     return 60;
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0 && indexPath.row == 1) {
-        
-    }
+-(void)setAccount:(UITableViewCell *)cell{
+    //自然人姓名
+    UILabel *TitleLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 80, 20)];
+    TitleLabel1.text = [NSString stringWithFormat:@"当前账号"];
+    TitleLabel1.textAlignment = NSTextAlignmentCenter;
+    TitleLabel1.font = [UIFont systemFontOfSize:15];
+    TitleLabel1.numberOfLines = 0;
+    [cell addSubview:TitleLabel1];
     
-    NaturalManInfoMgrViewController *vc = [[NaturalManInfoMgrViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:NO];
+    UILabel *accountLabel = [[UILabel alloc] initWithFrame:CGRectMake( MainWidth - 100, 10, 100, 20)];
+    accountLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID];
+    accountLabel.textAlignment = NSTextAlignmentCenter;
+    accountLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    accountLabel.font = [UIFont systemFontOfSize:14];
+    accountLabel.backgroundColor = [UIColor clearColor];
+    accountLabel.numberOfLines = 0;
+    [cell addSubview:accountLabel];
+    
+    //身份证号码
+    UILabel * TitleLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(10, 30, 100, 20)];
+    TitleLabel2.text = @"角色";
+    TitleLabel2.textAlignment = NSTextAlignmentCenter;
+    TitleLabel2.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    TitleLabel2.font = [UIFont systemFontOfSize:14];
+    TitleLabel2.backgroundColor = [UIColor clearColor];
+    TitleLabel2.numberOfLines = 0;
+    [cell addSubview:TitleLabel2];
+    
+    UILabel *manInfo = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth - 80, 30, 50, 20)];
+    manInfo.text = @"商户";
+    manInfo.textAlignment = NSTextAlignmentCenter;
+    manInfo.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    manInfo.font = [UIFont systemFontOfSize:14];
+    manInfo.backgroundColor = [UIColor clearColor];
+    manInfo.numberOfLines = 0;
+    [cell addSubview:manInfo];
+    
 }
 
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if( indexPath.section == 1  )
+    {
+        NaturalManInfoMgrViewController *vc = [[NaturalManInfoMgrViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:NO];
+    }
+    else if (indexPath.section == 2)
+    {
+        //关于超额宝
+    }
+}
 
 #pragma mark 返回每组头标题名称
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -152,8 +198,6 @@
 -(NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
     NSLog(@"生成尾部（组%i）详情",section);
     return @"";
-    //    BMAccountCellGroup *tgroup=_group[section];
-    //    return tgroup.detail;
 }
 
 
@@ -170,8 +214,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 10;
 }
-
-
 
 /*
 #pragma mark - Navigation

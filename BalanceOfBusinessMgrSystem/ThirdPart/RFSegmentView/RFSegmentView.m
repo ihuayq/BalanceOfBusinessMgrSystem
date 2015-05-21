@@ -10,6 +10,8 @@
 
 #define RGB_Color(r,g,b)    RGBA_Color(r,g,b,1)
 #define RGBA_Color(r,g,b,a) ([UIColor colorWithRed:r/255 green:g/255 blue:b/255 alpha:a])
+#define UIColorFromRGB(rgbValue)        [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0f green:((float)((rgbValue & 0xFF00) >> 8))/255.0f blue:((float)(rgbValue & 0xFF))/255.0f alpha:1.0f]
+
 #define kDefaultTintColor   RGB_Color(3, 116, 255)
 #define kLeftMargin         0
 #define kItemHeight         60
@@ -26,6 +28,7 @@
 @property(nonatomic)         NSInteger index;
 @property(nonatomic)         BOOL isSelected;
 @property(nonatomic)         id   delegate;
+@property(nonatomic ,strong)    UIView          *line;                 // underscore show which item selected
 
 @end
 
@@ -37,8 +40,12 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _titleLabel.textAlignment   = NSTextAlignmentCenter;
         _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.font = [UIFont systemFontOfSize:14];
+        _titleLabel.font = [UIFont systemFontOfSize:18];
         [self addSubview:_titleLabel];
+        
+        _line = [[UIView alloc] initWithFrame:CGRectMake(2.0f, frame.size.height - 3.0f, frame.size.width - 4.0f, 3.0f)];
+        _line.backgroundColor = UIColorFromRGB(0xF9551C);
+        
         
         self.norColor        = norColor;
         self.selColor        = selColor;
@@ -55,12 +62,14 @@
         _selColor = selColor;
         
         if (_isSelected) {
-            self.titleLabel.textColor = self.norColor;
+            self.titleLabel.textColor = self.selColor;
+            [self addSubview:_line];
             //self.backgroundColor = self.selColor;
         }
         else
         {
-            self.titleLabel.textColor = self.selColor;
+            self.titleLabel.textColor = self.norColor;
+            [_line removeFromSuperview];
             //self.backgroundColor = self.norColor;
         }
 
@@ -71,12 +80,14 @@
 {
     _isSelected = isSelected;
     if (_isSelected) {
-        self.titleLabel.textColor = self.norColor;
+       self.titleLabel.textColor = self.selColor;
+        [self addSubview:_line];
         //self.backgroundColor = self.selColor;
     }
     else
     {
-        self.titleLabel.textColor = self.selColor;
+         self.titleLabel.textColor = self.norColor;
+        [_line removeFromSuperview];
         //self.backgroundColor = self.norColor;
     }
     
@@ -149,19 +160,19 @@
             }
             
             //add Ver lines
-            init_x = 0;
-            for (NSInteger i = 0; i<items.count-1; i++) {
-                init_x += itemWidth;
-                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(init_x, 0, kBorderLineWidth, itemHeight)];
-                lineView.backgroundColor = kDefaultTintColor;
-                [self.bgView addSubview:lineView];
-                
-                //save all lines
-                if (!self.linesArray) {
-                    self.linesArray = [[NSMutableArray alloc] initWithCapacity:items.count];
-                }
-                [self.linesArray addObject:lineView];
-            }
+//            init_x = 0;
+//            for (NSInteger i = 0; i<items.count-1; i++) {
+//                init_x += itemWidth;
+//                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(init_x, 0, kBorderLineWidth, itemHeight)];
+//                lineView.backgroundColor = kDefaultTintColor;
+//                [self.bgView addSubview:lineView];
+//                
+//                //save all lines
+//                if (!self.linesArray) {
+//                    self.linesArray = [[NSMutableArray alloc] initWithCapacity:items.count];
+//                }
+//                [self.linesArray addObject:lineView];
+//            }
             
         }
         else
@@ -193,10 +204,10 @@
             [item setNeedsDisplay];
         }
         
-        for (NSInteger i = 0; i<self.linesArray.count; i++) {
-            UIView *lineView = self.linesArray[i];
-            lineView.backgroundColor = tintColor;
-        }
+//        for (NSInteger i = 0; i<self.linesArray.count; i++) {
+//            UIView *lineView = self.linesArray[i];
+//            lineView.backgroundColor = tintColor;
+//        }
     }
     
 }

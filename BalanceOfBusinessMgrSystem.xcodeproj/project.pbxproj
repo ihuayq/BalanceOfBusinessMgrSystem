@@ -80,12 +80,12 @@
 		88E9635C1B01E83800C04664 /* 失败.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963381B01E83800C04664 /* 失败.png */; };
 		88E9635D1B01E83800C04664 /* 姓名@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963391B01E83800C04664 /* 姓名@2x.png */; };
 		88E9635E1B01E83800C04664 /* 密码@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633A1B01E83800C04664 /* 密码@2x.png */; };
-		88E9635F1B01E83800C04664 /* 成功.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633B1B01E83800C04664 /* 成功.png */; };
+		88E9635F1B01E83800C04664 /* 成功@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633B1B01E83800C04664 /* 成功@2x.png */; };
 		88E963601B01E83800C04664 /* 手机号@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633C1B01E83800C04664 /* 手机号@2x.png */; };
 		88E963611B01E83800C04664 /* 投资-点击.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633D1B01E83800C04664 /* 投资-点击.png */; };
 		88E963621B01E83800C04664 /* 投资@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633E1B01E83800C04664 /* 投资@2x.png */; };
 		88E963631B01E83800C04664 /* 按钮中的下一步.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E9633F1B01E83800C04664 /* 按钮中的下一步.png */; };
-		88E963641B01E83800C04664 /* 提示.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963401B01E83800C04664 /* 提示.png */; };
+		88E963641B01E83800C04664 /* 提示@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963401B01E83800C04664 /* 提示@2x.png */; };
 		88E963651B01E83800C04664 /* redbn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963411B01E83800C04664 /* redbn@2x.png */; };
 		88E963661B01E83800C04664 /* redbndj@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963421B01E83800C04664 /* redbndj@2x.png */; };
 		88E963671B01E83800C04664 /* 短信验证@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E963431B01E83800C04664 /* 短信验证@2x.png */; };
@@ -436,6 +436,10 @@
 		88F4745E1B04C23800B6DE39 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F4745C1B04C23800B6DE39 /* EGORefreshTableHeaderView.m */; };
 		88F6F2D61AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F6F2D51AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m */; };
 		88FB7B9C1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */; };
+		88FF789B1B0D835300E4E861 /* leijishouyi@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88FF78971B0D835300E4E861 /* leijishouyi@2x.png */; };
+		88FF789C1B0D835300E4E861 /* licaibenjin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88FF78981B0D835300E4E861 /* licaibenjin@2x.png */; };
+		88FF789D1B0D835300E4E861 /* paiduizijin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88FF78991B0D835300E4E861 /* paiduizijin@2x.png */; };
+		88FF789E1B0D835300E4E861 /* zuoriruzhangjine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88FF789A1B0D835300E4E861 /* zuoriruzhangjine@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -564,12 +568,12 @@
 		88E963381B01E83800C04664 /* 失败.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "失败.png"; sourceTree = "<group>"; };
 		88E963391B01E83800C04664 /* 姓名@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "姓名@2x.png"; sourceTree = "<group>"; };
 		88E9633A1B01E83800C04664 /* 密码@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "密码@2x.png"; sourceTree = "<group>"; };
-		88E9633B1B01E83800C04664 /* 成功.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "成功.png"; sourceTree = "<group>"; };
+		88E9633B1B01E83800C04664 /* 成功@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "成功@2x.png"; sourceTree = "<group>"; };
 		88E9633C1B01E83800C04664 /* 手机号@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "手机号@2x.png"; sourceTree = "<group>"; };
 		88E9633D1B01E83800C04664 /* 投资-点击.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投资-点击.png"; sourceTree = "<group>"; };
 		88E9633E1B01E83800C04664 /* 投资@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "投资@2x.png"; sourceTree = "<group>"; };
 		88E9633F1B01E83800C04664 /* 按钮中的下一步.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "按钮中的下一步.png"; sourceTree = "<group>"; };
-		88E963401B01E83800C04664 /* 提示.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "提示.png"; sourceTree = "<group>"; };
+		88E963401B01E83800C04664 /* 提示@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "提示@2x.png"; sourceTree = "<group>"; };
 		88E963411B01E83800C04664 /* redbn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redbn@2x.png"; sourceTree = "<group>"; };
 		88E963421B01E83800C04664 /* redbndj@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redbndj@2x.png"; sourceTree = "<group>"; };
 		88E963431B01E83800C04664 /* 短信验证@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "短信验证@2x.png"; sourceTree = "<group>"; };
@@ -1014,6 +1018,10 @@
 		88F6F2D51AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingLoginPassWord2ViewController.m; sourceTree = "<group>"; };
 		88FB7B9A1B02F727008F285A /* ModifySingleNaturalManInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifySingleNaturalManInfoViewController.h; sourceTree = "<group>"; };
 		88FB7B9B1B02F727008F285A /* ModifySingleNaturalManInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifySingleNaturalManInfoViewController.m; sourceTree = "<group>"; };
+		88FF78971B0D835300E4E861 /* leijishouyi@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "leijishouyi@2x.png"; sourceTree = "<group>"; };
+		88FF78981B0D835300E4E861 /* licaibenjin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "licaibenjin@2x.png"; sourceTree = "<group>"; };
+		88FF78991B0D835300E4E861 /* paiduizijin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paiduizijin@2x.png"; sourceTree = "<group>"; };
+		88FF789A1B0D835300E4E861 /* zuoriruzhangjine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zuoriruzhangjine@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1246,12 +1254,16 @@
 				88E963381B01E83800C04664 /* 失败.png */,
 				88E963391B01E83800C04664 /* 姓名@2x.png */,
 				88E9633A1B01E83800C04664 /* 密码@2x.png */,
-				88E9633B1B01E83800C04664 /* 成功.png */,
+				88E9633B1B01E83800C04664 /* 成功@2x.png */,
 				88E9633C1B01E83800C04664 /* 手机号@2x.png */,
 				88E9633D1B01E83800C04664 /* 投资-点击.png */,
 				88E9633E1B01E83800C04664 /* 投资@2x.png */,
 				88E9633F1B01E83800C04664 /* 按钮中的下一步.png */,
-				88E963401B01E83800C04664 /* 提示.png */,
+				88FF78971B0D835300E4E861 /* leijishouyi@2x.png */,
+				88FF78981B0D835300E4E861 /* licaibenjin@2x.png */,
+				88FF78991B0D835300E4E861 /* paiduizijin@2x.png */,
+				88FF789A1B0D835300E4E861 /* zuoriruzhangjine@2x.png */,
+				88E963401B01E83800C04664 /* 提示@2x.png */,
 				88E963411B01E83800C04664 /* redbn@2x.png */,
 				88E963421B01E83800C04664 /* redbndj@2x.png */,
 				88E963431B01E83800C04664 /* 短信验证@2x.png */,
@@ -2070,6 +2082,7 @@
 				88F18AE61AFB50D4007FE83B /* 确定_@2x.png in Resources */,
 				88F18AA01AFB50D4007FE83B /* more@2x.png in Resources */,
 				88F18A361AFB50D4007FE83B /* abc.png in Resources */,
+				88FF789B1B0D835300E4E861 /* leijishouyi@2x.png in Resources */,
 				88E963581B01E83800C04664 /* 切换按钮——点击前.png in Resources */,
 				88F18A771AFB50D4007FE83B /* 收费标准.html in Resources */,
 				88F18A081AFB50D4007FE83B /* 0@2x.png in Resources */,
@@ -2119,6 +2132,7 @@
 				88E963591B01E83800C04664 /* 切换按钮——点击后.png in Resources */,
 				88F18ACA1AFB50D4007FE83B /* 002_3@2x.png in Resources */,
 				88F18A7C1AFB50D4007FE83B /* 转让.html in Resources */,
+				88FF789C1B0D835300E4E861 /* licaibenjin@2x.png in Resources */,
 				88F18A831AFB50D4007FE83B /* IC_7.png in Resources */,
 				88F18A031AFB50D4007FE83B /* 05@2x.png in Resources */,
 				88F18A801AFB50D4007FE83B /* IC_2.png in Resources */,
@@ -2164,6 +2178,7 @@
 				7A21E56D1AFF61F000C8C023 /* sanjiaobiao.png in Resources */,
 				88F18A8C1AFB50D4007FE83B /* juhongquanzi.png in Resources */,
 				88F18AB81AFB50D4007FE83B /* shizi.png in Resources */,
+				88FF789D1B0D835300E4E861 /* paiduizijin@2x.png in Resources */,
 				88F18A661AFB50D4007FE83B /* ctib.png in Resources */,
 				88E963611B01E83800C04664 /* 投资-点击.png in Resources */,
 				88F18A421AFB50D4007FE83B /* anim_hand_card-正面.png in Resources */,
@@ -2233,7 +2248,8 @@
 				88E963671B01E83800C04664 /* 短信验证@2x.png in Resources */,
 				88F18AC11AFB50D4007FE83B /* us001.png in Resources */,
 				88F18A991AFB50D4007FE83B /* send.png in Resources */,
-				88E9635F1B01E83800C04664 /* 成功.png in Resources */,
+				88E9635F1B01E83800C04664 /* 成功@2x.png in Resources */,
+				88FF789E1B0D835300E4E861 /* zuoriruzhangjine@2x.png in Resources */,
 				88F18A371AFB50D4007FE83B /* aboutminizhifutong.png in Resources */,
 				88F18A721AFB50D4007FE83B /* 二级市场.html in Resources */,
 				88F189FD1AFB50D4007FE83B /* 007.png in Resources */,
@@ -2258,7 +2274,7 @@
 				88F18A9A1AFB50D4007FE83B /* senddj.png in Resources */,
 				88F18AA91AFB50D4007FE83B /* rechange_1_1.png in Resources */,
 				88ED8CE51AF84FEB00B82BE7 /* Images.xcassets in Resources */,
-				88E963641B01E83800C04664 /* 提示.png in Resources */,
+				88E963641B01E83800C04664 /* 提示@2x.png in Resources */,
 				88F18AAD1AFB50D4007FE83B /* n.png in Resources */,
 				88F18A241AFB50D4007FE83B /* 560x540_盒子_蓝280.png in Resources */,
 				88F18AD81AFB50D4007FE83B /* whatiszhifutongchongzhi.png in Resources */,

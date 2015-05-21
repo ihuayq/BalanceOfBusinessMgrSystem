@@ -25,12 +25,11 @@
     // Do any additional setup after loading the view.
     self.navigation.title = @"资产变动明细";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
-    //self.navigation.rightImage = [UIImage imageNamed:@"earnings.png"];
-    
-    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT, ScreenWidth, 30) items:@[@"预约",@"派息",@"成交",@"提现"]];
-    segmentView.tintColor = [self getRandomColor];
-    segmentView.delegate = self;
-    [self.view addSubview:segmentView];
+
+//    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT, ScreenWidth, 30) items:@[@"预约",@"派息",@"成交",@"提现"]];
+//    segmentView.tintColor = [self getRandomColor];
+//    segmentView.delegate = self;
+//    [self.view addSubview:segmentView];
     
 //    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT+30, self.view.frame.size.width, MainHeight-48.5f - NAVIGATION_OUTLET_HEIGHT)];
 //    //    _scrollView.backgroundColor = [UIColor lightGrayColor];
@@ -61,7 +60,7 @@
     }
     
     SCNavTabBarController *navTabBarController = [[SCNavTabBarController alloc] initWithSubViewControllers:chooseControllerArray andParentViewController:self showArrowButton:NO];
-    [navTabBarController.view setFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight- -48.5f)];
+    [navTabBarController.view setFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight - 44.0f -48.5f)];
     [self.view addSubview:navTabBarController.view];
     [self addChildViewController:navTabBarController];
     

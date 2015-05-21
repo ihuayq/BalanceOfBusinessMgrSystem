@@ -45,7 +45,6 @@
     
     radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(40, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 20, 20) typeCheck:NO];
     [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //[radioAgreement setTitle:@"已阅读并同意自然人投资协议" forState:UIControlStateNormal];
     radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];
     radioAgreement.delegate=self;
     radioAgreement.tag=707;
@@ -71,9 +70,9 @@
     
     //确定
     registerButton = [HP_UIButton buttonWithType:UIButtonTypeRoundedRect];
-//  [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-//  [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
-    [registerButton setBackgroundColor:[UIColor redColor]];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
+//    [registerButton setBackgroundColor:[UIColor redColor]];
     [registerButton setFrame:CGRectMake(40,radioAgreement.frame.origin.y+ radioAgreement.frame.size.height + 40, MainWidth-2*40, 40)];
     [registerButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
     registerButton.enabled = false;

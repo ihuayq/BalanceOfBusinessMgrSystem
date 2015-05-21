@@ -46,61 +46,73 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"我的资产";
-    self.navigation.rightImage = [UIImage imageNamed:@"earnings"];
-    //self.navigation.rightTitle = @"提现";
-    
-    
+
+    HP_UIButton *okButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    //[okButton setBackgroundColor:[UIColor redColor]];
+    [okButton setFrame: CGRectMake(self.navigation.frame.size.width-44, self.navigation.frame.size.height/2-12, 44, 44)];
+    [okButton addTarget:self action:@selector(touchRightButton) forControlEvents:UIControlEventTouchUpInside];
+    [okButton setTitle:@"提现" forState:UIControlStateNormal];
+    okButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [self.navigation addSubview:okButton];
+
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f - 200) ];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:_tableView];
     
+     //预约资金
     _datingIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height + self.tableView.frame.origin.y , MainWidth, 60)];
     [_datingIndicatorView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
     [_datingIndicatorView.layer setBorderWidth:0.5f];
     [self.view addSubview:_datingIndicatorView];
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - 35 ,0, 75,20)];
+    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - 35 ,8, 75,20)];
     registerLabel.textAlignment = NSTextAlignmentCenter;
-    //registerLabel.backgroundColor = [UIColor clearColor];
     registerLabel.text = @"预约金额";
-    //registerLabel.textColor = [UIColor whiteColor];
     registerLabel.font = [UIFont systemFontOfSize:18];
     //registerLabel.frame = CGRectMake(MainWidth/2 - registerLabel.frame.size.width/2, MainHeight/2 - registerLabel.frame.size.height/2, registerLabel.frame.size.width, registerLabel.frame.size.height);
     [_datingIndicatorView addSubview:registerLabel];
     
-    UIImage *noteImage = [UIImage imageNamed:@"sanjiaobiao.png"];
+    UIImage *noteImage = [UIImage imageNamed:@"sanjiaobiao"];
     _arrowButton  = [[UIImageView alloc]  initWithFrame:CGRectMake(MainWidth/2 - noteImage.size.width/2, _datingIndicatorView.bounds.size.height - noteImage.size.height, noteImage.size.width, noteImage.size.height)];
     //imageLeftView.frame =  CGRectMake(0, 0, leftUIImage.size.width, leftUIImage.size.height);
     [_arrowButton setImage:noteImage];
      _arrowButton.userInteractionEnabled = YES;
     [_datingIndicatorView addSubview:_arrowButton];
-    
-   
+
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(functionButtonPressed)];
     [_arrowButton addGestureRecognizer:tapGestureRecognizer];
     
-    _popView = [[UIDatingAssetsViewTips alloc] initWithFrame:CGRectMake(0, _datingIndicatorView.frame.size.height + _datingIndicatorView.frame.origin.y, MainWidth, 60)];
-    [_popView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [_popView.layer setBorderWidth:0.5f];
+    //隐藏资金部分
+    _popView = [[UIDatingAssetsViewTips alloc] initWithFrame:CGRectMake(0, _datingIndicatorView.frame.size.height + _datingIndicatorView.frame.origin.y, MainWidth, 80)];
+//    [_popView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
+//    [_popView.layer setBorderWidth:0.5f];
     [self.view addSubview:_popView];
     _popView.hidden = YES;
     
-    historyProfitCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2, 60) leftUIImage:[UIImage imageNamed:@"昨日入账.png"] titleText:(NSString*)@" 昨日入账（元）" numText:(NSString*) @"0.00"];
-    [historyProfitCell.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [historyProfitCell.layer setBorderWidth:0.5f];
-    [_popView addSubview:historyProfitCell];
+    UIView *verticaLine = [[UIView alloc]initWithFrame:CGRectMake(0,80,MainWidth,0.5f)];
+    verticaLine.backgroundColor = [UIColor lightGrayColor];
+    [_popView addSubview:verticaLine];
     
-    futurePrincipalCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(MainWidth/2,0, MainWidth/2, 60) leftUIImage:[UIImage imageNamed:@"排队资金.png"] titleText:(NSString*)@"排队资金（元）" numText:(NSString*) @"0.00"];
-    [futurePrincipalCell.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [futurePrincipalCell.layer setBorderWidth:0.5f];
+    historyProfitCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2, 80) leftUIImage:[UIImage imageNamed:@"zuoriruzhangjine"] titleText:(NSString*)@"昨日入账（元）" numText:(NSString*) @"0.00"];
+    [_popView addSubview:historyProfitCell];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(MainWidth/2,0, 0.5, 80)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [_popView addSubview:line];
+    
+    futurePrincipalCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(MainWidth/2,0, MainWidth/2, 80) leftUIImage:[UIImage imageNamed:@"paiduizijin"] titleText:(NSString*)@"排队资金（元）" numText:(NSString*) @"0.00"];
     [_popView addSubview:futurePrincipalCell];
     
-    historyProfitCell.numLabel.text = self.assetInfo.historyProfit;
-    futurePrincipalCell.numLabel.text = self.assetInfo.futurePrincipal;
+    historyProfitCell.moneyNum = self.assetInfo.historyProfit;
+    futurePrincipalCell.moneyNum = self.assetInfo.futurePrincipal;
     
 }
+
+-(void)touchRightButton{
+    [self rightButtonClickEvent];
+}
+
 
 - (void)AssetChange:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"textOne"]);
@@ -116,8 +128,8 @@
     self.assetInfo.historyProfit   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"yesterdayNetAmount"]];
     self.assetInfo.futurePrincipal   = [NSString stringWithFormat:@"%@",[dic objectForKey:@"queueMoney"]];
     
-    historyProfitCell.numLabel.text = self.assetInfo.historyProfit;
-    futurePrincipalCell.numLabel.text = self.assetInfo.futurePrincipal;
+    historyProfitCell.moneyNum = self.assetInfo.historyProfit;
+    futurePrincipalCell.moneyNum = self.assetInfo.futurePrincipal;
     [_tableView reloadData];
     
 }
@@ -156,8 +168,6 @@
 {
     _popItemMenu = !_popItemMenu;
     [self popItemMenu:_popItemMenu];
-    
-//    [_delegate shouldPopNavgationItemMenu:_popItemMenu height:[self popMenuHeight]];
 }
 
 - (void)viewShowShadow:(UIView *)view shadowRadius:(CGFloat)shadowRadius shadowOpacity:(CGFloat)shadowOpacity
@@ -188,12 +198,10 @@
     NSString * dentifier = @"cell";
  
     if (indexPath.row == 0) {
-        //if (cell == nil) {
             UITotalAssetsTableViewCell *cell = [[UITotalAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
             cell.money = self.assetInfo.totalAssets;
         NSLog(@"money:%@",self.assetInfo.totalAssets);
         return cell;
-        //}
     }
     else if (indexPath.row == 1){
         UIOldAssetsTableViewCell *cell = [[UIOldAssetsTableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:dentifier];
@@ -212,7 +220,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    if (indexPath.row == 2) {
+        return 80;
+    }
+    return 72;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -229,7 +240,6 @@
 
 -(void)rightButtonClickEvent{
     //需要判断是否已经设置交易密码
-    
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"1"]) {
         BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];

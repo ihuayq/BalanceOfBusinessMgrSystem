@@ -33,7 +33,7 @@
 
 
 //商户登陆
-#define CommercialIP @"http://192.168.1.103:8080/"
+#define CommercialIP @"http://192.168.1.110:8080/"
 #define CommercialHostURL @"superMoney-core/commercia/commerCiainfo?"
 #define AccountURL @"superMoney-core/commercia/getCommercialWebsiteInfo?"
 #define SavaAccountURL @"/superMoney-core/commercia/saveAccountWebsite?"

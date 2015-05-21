@@ -19,6 +19,8 @@
 //Reiceipts 收益
 @property (nonatomic,strong)   UILabel * numLabel;
 
+@property (nonatomic,copy)   NSString * moneyNum;
+
 
 - (id)initWithFrame:(CGRect)frame leftUIImage:(UIImage *)leftUIImage titleText:(NSString*) titleText numText:(NSString*) numText;
 

@@ -20,9 +20,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"取消预约";
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
+    
+    HP_UIImageView *noticeImg = [[HP_UIImageView alloc] initWithFrame:CGRectMake(MainWidth/2-15, NAVIGATION_OUTLET_HEIGHT + 16,30, 30)];
+    [noticeImg setImage:[UIImage imageNamed:@"提示"]];
+    [self.view addSubview:noticeImg];
     
     //初始化label
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 40,0,0)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 60,0,0)];
     //设置自动行数与字符换行
     [label setNumberOfLines:0];
     //label.lineBreakMode = UILineBreakModeWordWrap;
@@ -33,7 +38,7 @@
     CGSize size = CGSizeMake(300,400);
     //计算实际frame大小，并将label的frame变成实际大小
     CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap];
-    [label setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 30, labelsize.width, labelsize.height)];
+    [label setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 60, labelsize.width, labelsize.height)];
     label.text = s;
     [self.view addSubview:label];
     
@@ -41,12 +46,12 @@
     [bgImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView];
     
-    HP_UIImageView *passImage = [[HP_UIImageView alloc] initWithFrame:CGRectMake(30, 30, 40, 40)];
-    [passImage setImage:[UIImage imageNamed:@"密码照"]];
+    HP_UIImageView *passImage = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,6,25,25)];
+    [passImage setImage:[UIImage imageNamed:@"密码"]];
     [bgImageView addSubview:passImage];
 
     
-    passWordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(30, MainHeight -350, 140, 40)];
+    passWordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, MainHeight -350, 240, 40)];
     [passWordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passWordTextField.backgroundColor = [UIColor clearColor];
     passWordTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -55,7 +60,7 @@
     passWordTextField.delegate = self;
     passWordTextField.keyboardType = UIKeyboardTypeEmailAddress;
     passWordTextField.borderStyle = UITextBorderStyleNone;
-    passWordTextField.secureTextEntry=NO;
+    passWordTextField.secureTextEntry=YES;
     [self.view addSubview:passWordTextField];
     
     //确定
@@ -73,8 +78,8 @@
     
     //确定
     HP_UIButton *cancelButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [cancelButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [cancelButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [cancelButton setBackgroundColor:[UIColor redColor]];
     [cancelButton setFrame:CGRectMake(40,MainHeight -200, MainWidth-2*40, 40)];
     [cancelButton addTarget:self action:@selector(touchCanceButton) forControlEvents:UIControlEventTouchUpInside];
@@ -92,7 +97,6 @@
 //    registerLabel.textColor = [UIColor whiteColor];
 //    registerLabel.font = [UIFont systemFontOfSize:15];
     //CGSize titleSize = [strLabel sizeWithFont:registerLabel.font constrainedToSize:CGSizeMake(MainWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
-    
 }
 
 
@@ -214,11 +218,9 @@
 #pragma mark - UITextFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
-    }];
-    
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+//    }];
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

@@ -57,9 +57,9 @@
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
         titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.backgroundColor = [UIColor clearColor];
+        //titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
-        titleLabel.font = [UIFont systemFontOfSize:16.0f];
+        titleLabel.font = [UIFont systemFontOfSize:18.0f];
         [navigationBack addSubview:titleLabel];
         
         headerImageView = [[UIImageView alloc]  initWithFrame:CGRectMake(0,0,0,0)];

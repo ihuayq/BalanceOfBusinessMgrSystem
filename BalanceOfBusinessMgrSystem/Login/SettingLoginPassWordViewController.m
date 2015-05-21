@@ -251,7 +251,7 @@
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phonenum"]forKey:@"phonenum"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     
     //[connDictionary setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
     

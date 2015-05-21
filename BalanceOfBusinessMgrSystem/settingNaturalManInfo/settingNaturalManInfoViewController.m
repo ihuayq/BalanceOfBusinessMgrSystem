@@ -21,6 +21,7 @@
     UILabel *sendLabel;
     
     RadioButton *radioAgreement;
+    UIButton *registerButton;
 }
 
 @end
@@ -39,7 +40,7 @@
 -(void) initUI
 {
     //设置 姓名信息
-    HP_UIImageView *bgImageView10 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
+    HP_UIImageView *bgImageView10 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
     [bgImageView10 setImage:[UIImage imageNamed:@"姓名"]];
     
     HP_UIImageView *bgImageView11 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20 , NAVIGATION_OUTLET_HEIGHT + 20,MainWidth-40, 40)];
@@ -60,7 +61,7 @@
     [self.view addSubview:nameTextField];
     
     //设置身份证信息
-    HP_UIImageView *bgImageView20 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
+    HP_UIImageView *bgImageView20 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
     [bgImageView20 setImage:[UIImage imageNamed:@"身份证"]];
     
     HP_UIImageView *bgImageView21 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20,MainWidth-40, 40)];
@@ -82,7 +83,7 @@
     
     //设置手机号码
     //HP_UIImageView *bgImageView30 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20 , dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 40,40, 40)];
-    HP_UIImageView *bgImageView30 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
+    HP_UIImageView *bgImageView30 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
     [bgImageView30 setImage:[UIImage imageNamed:@"手机号"]];
     
     HP_UIImageView *bgImageView31 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20,MainWidth-40, 40)];
@@ -103,7 +104,7 @@
     [self.view addSubview:telephoneTextField];
     
     //短信验证码
-    HP_UIImageView *bgImageView40 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
+    HP_UIImageView *bgImageView40 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
     [bgImageView40 setImage:[UIImage imageNamed:@"短信验证"]];
    
     
@@ -150,7 +151,7 @@
     [self.view  addSubview:sendLabel];
     
     //商户登陆密码
-    HP_UIImageView *bgImageView60 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
+    HP_UIImageView *bgImageView60 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,6,25,25)];
     [bgImageView60 setImage:[UIImage imageNamed:@"密码"]];
     
     HP_UIImageView *bgImageView61 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20,MainWidth-40, 40)];
@@ -176,7 +177,7 @@
     //[radioAgreement setTitle:@"已阅读并同意自然人投资协议" forState:UIControlStateNormal];
     radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];
     radioAgreement.delegate=self;
-    radioAgreement.tag=707;
+    radioAgreement.tag=708;
     [self.view addSubview:radioAgreement];
     
     
@@ -189,7 +190,7 @@
     agreeTitleLabel.numberOfLines = 0;
     [self.view addSubview:agreeTitleLabel];
     
-    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-5, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 120, 20)];
+    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-15, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 120, 20)];
     [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
     [investProtolBtn setTitle:@"投资授权协议" forState:UIControlStateNormal];
@@ -197,7 +198,7 @@
     [self.view addSubview:investProtolBtn];
     
     //确定
-    UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
@@ -206,6 +207,7 @@
     [registerButton setTitle:@"提交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    registerButton.enabled = false;
     [self.view addSubview:registerButton];
     
 }
@@ -214,6 +216,13 @@
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
     int flags = 0;
     if (tagselect==708) {
+        NSLog(@"btn is selected:%d",boolchange);
+        if (boolchange == true) {
+            registerButton.enabled = true;
+        }
+        else{
+            registerButton.enabled = false;
+        }
     }
     
 }

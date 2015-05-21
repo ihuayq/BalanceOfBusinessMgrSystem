@@ -25,83 +25,90 @@
     self.navigation.title = @"提现";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
-    UILabel * canDrawCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 ,NAVIGATION_OUTLET_HEIGHT + 10, 200,20)];
-    canDrawCashLabel.textAlignment = NSTextAlignmentCenter;
+    UILabel * canDrawCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(10 ,NAVIGATION_OUTLET_HEIGHT + 10, 200,20)];
+    canDrawCashLabel.textAlignment = NSTextAlignmentLeft;
     canDrawCashLabel.text = @"可提现金额（元）";
-    canDrawCashLabel.font = [UIFont systemFontOfSize:18];
+    canDrawCashLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:canDrawCashLabel];
     
-    UILabel * canDrawCashNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth - 220 ,NAVIGATION_OUTLET_HEIGHT + 50, 200,20)];
-    canDrawCashNumberLabel.textAlignment = NSTextAlignmentCenter;
-    
-    
+    UILabel * canDrawCashNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 + 20 ,NAVIGATION_OUTLET_HEIGHT + 30, 200,20)];
+    canDrawCashNumberLabel.textAlignment = NSTextAlignmentLeft;
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"];
     NSLog(@"the balanceInfo is: %@",dic);
     canDrawCashNumberLabel.text =  [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalAmount"]];
-    canDrawCashNumberLabel.font = [UIFont systemFontOfSize:18];
+    canDrawCashNumberLabel.font = [UIFont systemFontOfSize:24];
+    canDrawCashNumberLabel.textColor = UISTYLECOLOR;
     [self.view addSubview:canDrawCashNumberLabel];
     
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0,canDrawCashNumberLabel.frame.size.height + canDrawCashNumberLabel.frame.origin.y+ 5 , MainWidth,1)];
     line.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:line];
     
-    
-    UILabel * realDrawCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 ,line.frame.size.height + line.frame.origin.y+ 20, 160,20)];
-    realDrawCashLabel.textAlignment = NSTextAlignmentCenter;
+    UILabel * realDrawCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(10 ,line.frame.size.height + line.frame.origin.y+ 10, 160,20)];
+    realDrawCashLabel.textAlignment = NSTextAlignmentLeft;
     realDrawCashLabel.text = @"提现金额（元）";
-    realDrawCashLabel.font = [UIFont systemFontOfSize:18];
-    //registerLabel.frame = CGRectMake(MainWidth/2 - registerLabel.frame.size.width/2, MainHeight/2 - registerLabel.frame.size.height/2, registerLabel.frame.size.width, registerLabel.frame.size.height);
-    [self.view addSubview:realDrawCashLabel];
+    realDrawCashLabel.font = [UIFont systemFontOfSize:15];
+     [self.view addSubview:realDrawCashLabel];
     
-    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(20, realDrawCashLabel.frame.size.height + realDrawCashLabel.frame.origin.y + 5, MainWidth - 20*2, 40)];
-    nameTextField.borderStyle = UITextBorderStyleLine;
-    [nameTextField setInsets:UIEdgeInsetsMake(25, 5, 0, 0)];
+    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(20, realDrawCashLabel.frame.size.height + realDrawCashLabel.frame.origin.y + 5, MainWidth - 20*2, 60)];
     nameTextField.backgroundColor = [UIColor clearColor];
     nameTextField.clearButtonMode = UITextFieldViewModeAlways;
     nameTextField.placeholder = @"点击输入金额";
-    nameTextField.font = [UIFont systemFontOfSize:14];
+    nameTextField.font = [UIFont systemFontOfSize:24];
     nameTextField.delegate = self;
     nameTextField.keyboardType = UIKeyboardTypeDefault;
+    [nameTextField setBorderStyle:UITextBorderStyleRoundedRect];
+//    [nameTextField.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
+//    [nameTextField.layer setBorderWidth:0.5f];
     [self.view addSubview:nameTextField];
     
-    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0,nameTextField.frame.size.height + nameTextField.frame.origin.y + 5, MainWidth,1)];
+    UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0,nameTextField.frame.size.height + nameTextField.frame.origin.y + 10, MainWidth,0.5F)];
     line2.backgroundColor = [UIColor lightGrayColor];
     [self.view addSubview:line2];
     
-    UILabel * CardLabel = [[UILabel alloc] initWithFrame:CGRectMake(5 ,line2.frame.size.height + line2.frame.origin.y + 5, 140,20)];
-    CardLabel.textAlignment = NSTextAlignmentCenter;
+    UILabel * CardLabel = [[UILabel alloc] initWithFrame:CGRectMake(10 ,line2.frame.size.height + line2.frame.origin.y + 10, 140,20)];
+    CardLabel.textAlignment = NSTextAlignmentLeft;
     CardLabel.text = @"提现银行卡号：";
-    CardLabel.font = [UIFont systemFontOfSize:18];
+    CardLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:CardLabel];
     
-    UILabel * CardNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(CardLabel.frame.origin.x + CardLabel.frame.size.width ,line2.frame.size.height + line2.frame.origin.y + 5, 180,20)];
+    UILabel * CardNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(CardLabel.frame.origin.x + CardLabel.frame.size.width - 20 ,line2.frame.size.height + line2.frame.origin.y + 10, 180,20)];
     CardNumLabel.textAlignment = NSTextAlignmentLeft;
-    //CardNumLabel.text = @"3408812345";
-    
     NSLog(@"the balance card no :%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]);
     CardNumLabel.text =  [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]];
-    CardNumLabel.font = [UIFont systemFontOfSize:18];
-    //registerLabel.frame = CGRectMake(MainWidth/2 - registerLabel.frame.size.width/2, MainHeight/2 - registerLabel.frame.size.height/2, registerLabel.frame.size.width, registerLabel.frame.size.height);
+    
+    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:CardNumLabel.text];
+    if (modifyStr.length > 10) {
+        [modifyStr replaceCharactersInRange:NSMakeRange(4, modifyStr.length-8) withString:@"******"];
+    }
+    CardNumLabel.text = modifyStr;
+    
+    
+    CardNumLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:CardNumLabel];
     
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(20, CardNumLabel.frame.size.height + CardNumLabel.frame.origin.y + 20,   MainWidth - 20*2, 40)];
-    passwordTextField.borderStyle = UITextBorderStyleLine;
+    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(20, CardNumLabel.frame.size.height + CardNumLabel.frame.origin.y + 5,   MainWidth - 20*2, 40)];
+    [passwordTextField setBorderStyle:UITextBorderStyleRoundedRect];
     [passwordTextField setInsets:UIEdgeInsetsMake(25, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
     passwordTextField.placeholder = @"请输入密码";
-    passwordTextField.font = [UIFont systemFontOfSize:14];
+    passwordTextField.font = [UIFont systemFontOfSize:15];
     passwordTextField.delegate = self;
     passwordTextField.keyboardType = UIKeyboardTypeDefault;
+    passwordTextField.secureTextEntry = YES;
     [self.view addSubview:passwordTextField];
     
+    UIView *line3 = [[UIView alloc] initWithFrame:CGRectMake(0,passwordTextField.frame.size.height + passwordTextField.frame.origin.y + 10, MainWidth,0.5F)];
+    line3.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:line3];
     
     //确定
     HP_UIButton *okButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [okButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [okButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [okButton setBackgroundColor:[UIColor redColor]];
-    [okButton setFrame:CGRectMake(40,MainHeight -200, MainWidth-2*40, 40)];
+    [okButton setFrame:CGRectMake(40,MainHeight -180, MainWidth-2*40, 40)];
     [okButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
     [okButton setTitle:@"确认" forState:UIControlStateNormal];
     [okButton.layer setMasksToBounds:YES];
@@ -200,9 +207,9 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+//    }];
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
