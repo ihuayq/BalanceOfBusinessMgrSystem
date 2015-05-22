@@ -25,7 +25,7 @@
     
     UIButton *sendCheckCodeButton;
     UILabel * sendCheckCodeLabel;
-    int jishuqi;
+    int nCout;
     NSTimer* timer;
 }
 

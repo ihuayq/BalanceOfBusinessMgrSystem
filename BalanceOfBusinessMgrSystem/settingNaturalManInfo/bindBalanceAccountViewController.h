@@ -10,7 +10,10 @@
 
 @interface bindBalanceAccountViewController :FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) NSMutableArray *networkAccountSelect;
-@property (nonatomic,strong) NSMutableArray *balanceAccountSelect;
-@property (nonatomic,strong) NSMutableArray *group;
+//@property (nonatomic,strong) NSMutableArray *networkAccountSelect;
+//@property (nonatomic,strong) NSMutableArray *balanceAccountSelect;
+//@property (nonatomic,strong) NSMutableArray *group;
+@property (nonatomic,strong)  NSMutableArray *groupNetWork;//cell数组
+@property (nonatomic,strong)  NSMutableArray *groupBalance;
+
 @end

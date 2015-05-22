@@ -31,7 +31,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.  
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"设置登录密码";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     

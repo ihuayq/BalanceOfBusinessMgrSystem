@@ -33,15 +33,15 @@
 - (void) initGroup{
     group = [[NSMutableArray alloc]init];
     
-    //BMAccountCellInfo *contact0=[BMAccountCellInfo initWithFirstName:@"当前角色信息"];
-    BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"网点账户信息" andDetail:@"With names beginning with C" andContacts:self.networkAccountSelected];
-    [group addObject:group0];
+    if (self.networkAccountSelected.count > 0) {
+        BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"网点账户信息" andDetail:@"With names beginning with C" andContacts:self.networkAccountSelected];
+        [group addObject:group0];
+    }
     
-    
-    //BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"自然人信息管理"];
-    BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"结算账户信息" andDetail:@"With names beginning with C" andContacts:self.balanceAccountSelected];
-    [group addObject:group1];
-    
+    if (self.balanceAccountSelected.count > 0 ) {
+        BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"结算账户信息" andDetail:@"With names beginning with C" andContacts:self.balanceAccountSelected];
+        [group addObject:group1];
+    }
 }
 
 
@@ -153,33 +153,38 @@
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
     [connDictionary setObject:@"7" forKey:@"personId"];
     
-    NSString *strNetwork = @"";
-    BMAccountCellGroup *networkGroup=group[0];
-    for ( BankAccountItem *item in networkGroup.groups) {
-        if (item.bNetworkSelected == YES) {
-           
-            strNetwork = [strNetwork stringByAppendingString: item.siteNum];
-            strNetwork = [strNetwork stringByAppendingString: @"@"];
+    if (self.networkAccountSelected.count > 0) {
+        NSString *strNetwork = @"";
+        BMAccountCellGroup *networkGroup=group[0];
+        for ( BankAccountItem *item in networkGroup.groups) {
+            if (item.bNetworkSelected == YES) {
+                
+                strNetwork = [strNetwork stringByAppendingString: item.siteNum];
+                strNetwork = [strNetwork stringByAppendingString: @"@"];
+            }
         }
-    }
-    if (strNetwork.length > 2) {
-        strNetwork = [strNetwork substringToIndex:strNetwork.length-1];
-        [connDictionary setObject:strNetwork forKey:@"siteNum"];
+        if (strNetwork.length > 2) {
+            strNetwork = [strNetwork substringToIndex:strNetwork.length-1];
+            [connDictionary setObject:strNetwork forKey:@"siteNum"];
+        }
     }
 
-    
-    NSString *strBalance= @"";
-    BMAccountCellGroup *balanceGroup=group[0];
-    for ( BankAccountItem *item in balanceGroup.groups) {
-        if (item.bSelected == YES) {
-            strBalance = [strBalance stringByAppendingString: item.bankCardNumber];
-            strBalance = [strBalance stringByAppendingString: @"@"];
-        }
+
+   if (self.networkAccountSelected.count > 0) {
+       NSString *strBalance= @"";
+       BMAccountCellGroup *balanceGroup=group[1];
+       for ( BankAccountItem *item in balanceGroup.groups) {
+           if (item.bSelected == YES) {
+               strBalance = [strBalance stringByAppendingString: item.bankCardNumber];
+               strBalance = [strBalance stringByAppendingString: @"@"];
+           }
+       }
+       if ( strBalance.length > 2 ) {
+           strBalance = [strBalance substringToIndex:strBalance.length - 1];
+           [connDictionary setObject:strBalance forKey:@"accountId"];
+       }
     }
-    if ( strBalance.length > 2 ) {
-        strBalance = [strBalance substringToIndex:strBalance.length - 1];
-        [connDictionary setObject:strBalance forKey:@"accountId"];
-    }
+
 
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     

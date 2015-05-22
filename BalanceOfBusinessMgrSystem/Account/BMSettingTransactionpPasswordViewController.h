@@ -23,6 +23,9 @@
     HP_UIButton *sendCheckCodeButton;
     HP_UITextField *oldPasswordTextField;
     
+    int nCout;
+    NSTimer* timer;
+    
     
 }
 

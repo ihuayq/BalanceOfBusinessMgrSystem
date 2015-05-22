@@ -18,7 +18,6 @@
     [super viewDidLoad];
    // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"首页";
 
     //超额宝介绍

@@ -50,7 +50,7 @@
     if (self) {
         // Initialization code
         //自然人
-        manHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 2, 72, 20)];
+        manHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 72, 20)];
         manHeadLabel.textAlignment = NSTextAlignmentLeft;
         manHeadLabel.backgroundColor = [UIColor clearColor];
         manHeadLabel.textColor = [UIColor blackColor];
@@ -58,7 +58,7 @@
         //manHeadLabel.text = [NSString stringWithFormat:@"自然人%d:",1];
         [self.contentView addSubview:manHeadLabel];
         
-        manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(manHeadLabel.frame.origin.x + manHeadLabel.frame.size.width, 2, 120, 20)];
+        manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(manHeadLabel.frame.origin.x + manHeadLabel.frame.size.width,5, 120, 20)];
         manNameLabel.textAlignment = NSTextAlignmentLeft;
         manNameLabel.backgroundColor = [UIColor clearColor];
         manNameLabel.textColor = [UIColor lightGrayColor];
@@ -66,7 +66,7 @@
         [self.contentView addSubview:manNameLabel];
         
         //身份证号码
-        UILabel *identifyHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 5, 100, 20)];
+        UILabel *identifyHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 2, 100, 20)];
         identifyHeadLabel.textAlignment = NSTextAlignmentLeft;
         identifyHeadLabel.backgroundColor = [UIColor clearColor];
         identifyHeadLabel.textColor = [UIColor blackColor];
@@ -74,7 +74,7 @@
         identifyHeadLabel.text = @"身份证号码:";
         [self.contentView addSubview:identifyHeadLabel];
         
-        identifyNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyHeadLabel.frame.origin.x + identifyHeadLabel.frame.size.width, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 5, 160, 20)];
+        identifyNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyHeadLabel.frame.origin.x + identifyHeadLabel.frame.size.width, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 2, 200, 20)];
         identifyNumberLabel.textAlignment = NSTextAlignmentLeft;
         identifyNumberLabel.backgroundColor = [UIColor clearColor];
         identifyNumberLabel.textColor = [UIColor lightGrayColor];
@@ -82,7 +82,7 @@
         [self.contentView addSubview:identifyNumberLabel];
         
         //手机号码
-        UILabel *teleHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, identifyNumberLabel.frame.origin.y + identifyNumberLabel.frame.size.height + 5, 80, 20)];
+        UILabel *teleHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, identifyNumberLabel.frame.origin.y + identifyNumberLabel.frame.size.height + 2, 80, 20)];
         teleHeadLabel.textAlignment = NSTextAlignmentLeft;
         teleHeadLabel.backgroundColor = [UIColor clearColor];
         teleHeadLabel.textColor = [UIColor blackColor];
@@ -90,7 +90,7 @@
         teleHeadLabel.text = @"手机号码:";
         [self.contentView addSubview:teleHeadLabel];
         
-        telephoneNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(teleHeadLabel.frame.origin.x + teleHeadLabel.frame.size.width, identifyNumberLabel.frame.origin.y + identifyNumberLabel.frame.size.height + 5, 140, 20)];
+        telephoneNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(teleHeadLabel.frame.origin.x + teleHeadLabel.frame.size.width, identifyNumberLabel.frame.origin.y + identifyNumberLabel.frame.size.height + 2, 140, 20)];
         telephoneNumberLabel.textAlignment = NSTextAlignmentLeft;
         telephoneNumberLabel.backgroundColor = [UIColor clearColor];
         telephoneNumberLabel.textColor = [UIColor lightGrayColor];
@@ -98,7 +98,7 @@
         [self.contentView addSubview:telephoneNumberLabel];
         
         //状态
-        UILabel *statusHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,  telephoneNumberLabel.frame.origin.y + telephoneNumberLabel.frame.size.height + 5, 60, 20)];
+        UILabel *statusHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,  telephoneNumberLabel.frame.origin.y + telephoneNumberLabel.frame.size.height + 2, 60, 20)];
         statusHeadLabel.textAlignment = NSTextAlignmentLeft;
         statusHeadLabel.backgroundColor = [UIColor clearColor];
         statusHeadLabel.textColor = [UIColor blackColor];
@@ -106,7 +106,7 @@
         statusHeadLabel.text = @"状态:";
         [self.contentView addSubview:statusHeadLabel];
         
-        statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(statusHeadLabel.frame.origin.x + statusHeadLabel.frame.size.width, telephoneNumberLabel.frame.origin.y + telephoneNumberLabel.frame.size.height + 5, 120, 20)];
+        statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(statusHeadLabel.frame.origin.x + statusHeadLabel.frame.size.width, telephoneNumberLabel.frame.origin.y + telephoneNumberLabel.frame.size.height + 2, 120, 20)];
         statusLabel.textAlignment = NSTextAlignmentLeft;
         statusLabel.backgroundColor = [UIColor clearColor];
         statusLabel.textColor = [UIColor lightGrayColor];

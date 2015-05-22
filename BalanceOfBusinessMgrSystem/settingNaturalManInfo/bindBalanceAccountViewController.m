@@ -28,8 +28,8 @@
 @end
 
 @implementation bindBalanceAccountViewController
-@synthesize group = group;
-@synthesize balanceAccountSelect = balanceAccountSelect;
+//@synthesize group = group;
+//@synthesize balanceAccountSelect = balanceAccountSelect;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +42,7 @@
     //group=[[NSMutableArray alloc]init];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -111,20 +111,16 @@
     
     //确定
     UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0 - 100 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
+    [avestButton setTitle:@"确定" forState:UIControlStateNormal];
+    [avestButton.layer setMasksToBounds:YES];
+    [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    avestButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:avestButton];
-    
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth - 80, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确定";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [avestButton addSubview:registerLabel];
     
     //选定结算账户的接口是否可用状态
     if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE ) {
@@ -141,9 +137,9 @@
 }
 
 -(void)touchOkButton{
-    bindAccountConfirmViewController *vc = [[bindAccountConfirmViewController alloc ] init];
+    bindAccountConfirmViewController *vc = [[bindAccountConfirmViewController alloc] init];
     NSMutableArray *networkAccountGroup = [NSMutableArray new];
-    for (BankAccountItem *item in group) {
+    for (BankAccountItem *item in self.groupNetWork) {
         if (item.bNetworkSelected == YES) {
             [networkAccountGroup addObject:item];
         }
@@ -152,7 +148,7 @@
     
     //遍历选中的数据
     NSMutableArray *selectGroup = [NSMutableArray new];
-    for (BankAccountItem *item in group) {
+    for (BankAccountItem *item in self.groupBalance) {
         if (item.bSelected == YES) {
             [selectGroup addObject:item];
             break;
@@ -179,7 +175,7 @@
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
     NSLog(@"计算每组(组%i)行数",section);
-    return group.count;
+    return self.groupBalance.count;
 }
 
 
@@ -188,7 +184,7 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    BankAccountItem *item=group[indexPath.row];
+    BankAccountItem *item=self.groupBalance[indexPath.row];
     
     //在修改自然人的时候会共用此界面
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
@@ -223,8 +219,8 @@
 //        [balanceAccountSelect removeObject:num];
 //    }
     
-    for (int i = 0 ;i < group.count ;i++) {
-        BankAccountItem *item=group[i];
+    for (int i = 0 ;i < self.groupBalance.count ;i++) {
+        BankAccountItem *item=self.groupBalance[i];
         if (i == row) {
             item.bSelected = button.isSelected;
 
@@ -236,25 +232,6 @@
     [tableView reloadData];
     //NSLog(@"the selected group is:%@",balanceAccountSelect);
 }
-
-//- (IBAction)checkBoxTapped:(id)sender forEvent:(UIEvent*)event
-//{
-//    NSSet *touches = [event allTouches];
-//    UITouch *touch = [touches anyObject];
-//    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
-//    
-//    // Lookup the index path of the cell whose checkbox was modified.
-//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
-//    
-//    if (indexPath != nil) {
-//        // Update our data source array with the new checked state.
-//        NSMutableDictionary *selectedItem = self.dataArray[(NSUInteger)indexPath.row];
-//        selectedItem[@"checked"] = @([(Checkbox*)sender isChecked]);
-//    }
-//    
-//    // Accessibility
-//    [self updateAccessibilityForCell:[self.tableView cellForRowAtIndexPath:indexPath]];
-//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

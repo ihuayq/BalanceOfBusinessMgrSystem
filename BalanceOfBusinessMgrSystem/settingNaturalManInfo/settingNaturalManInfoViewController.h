@@ -10,6 +10,9 @@
 #import "HP_Common4IOS.h"
 #import "ControllerConfig.h"
 
-@interface settingNaturalManInfoViewController : HP_BaseViewController
+@interface settingNaturalManInfoViewController : HP_BaseViewController{
+    int nCout;
+    NSTimer* timer;
+}
 
 @end

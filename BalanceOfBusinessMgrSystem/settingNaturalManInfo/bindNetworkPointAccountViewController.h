@@ -11,4 +11,9 @@
 #import "ControllerConfig.h"
 
 @interface bindNetworkPointAccountViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic,strong)  NSMutableArray *groupNetWork;//cell数组
+@property (nonatomic,strong)  NSMutableArray *groupBalance;
+
+
 @end

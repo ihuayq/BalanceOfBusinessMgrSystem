@@ -198,6 +198,7 @@
                  item.bNetworkSelected = [[dic objectForKey:@"selectedFlag"] boolValue];//网点账号选定标记
                  [group addObject:item];
              }
+//             {"cpubBankNameDet":"招商银行","websiteList":[{"pubAccName":"张鑫","siteNum":"00020027","pubBankNameDet":"招商银行","balanceAccount":"123"},{"pubAccName":"张鑫","siteNum":"00019998","pubBankNameDet":"民生","balanceAccount":"123"},{"pubAccName":"张鑫","siteNum":"00020024","pubBankNameDet":"民生","balanceAccount":"123"}],"idCard":"13052119851026081X","phoneNum":"18501251873","flag":"100","commercialId":"M0021684","cpubAccName":"0619测试","personId":29,"cbalanceAccount":"123456","commercialName":"0619测试","msg":"获取成功","personName":"赵宇飞"}
              [tableView reloadData];
              
          }
@@ -221,7 +222,7 @@
 
 -(void)touchCommitButton{
     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
-    info.group = group;
+    info.groupBalance = group;
     [self.navigationController pushViewController:info animated:NO];
 }
 

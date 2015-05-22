@@ -27,6 +27,7 @@
 #define SetLoginPasswdURL @"superMoney-core/nature/updateLoginPass?"// 创建登陆密码,第一次登陆时候用
 #define ModifyLoginPasswdURL @"superMoney-core/nature/changeLoginPass?"   //改变登陆密码
 #define ModifyPayPasswdURL @"superMoney-core/nature/changePayPass?"   //改变登陆密码
+#define ForgetLoginPasswdURL @"superMoney-core/nature/forgetPass?"
 
 #define WithDrawURL @"superMoney-core/nature/withdraw?"// 提现
 #define AssetInfoUrl @"superMoney-core/nature/queryDetail?" //资产变动信息查询
@@ -34,6 +35,7 @@
 
 //商户登陆
 #define CommercialIP @"http://192.168.1.110:8080/"
+
 #define CommercialHostURL @"superMoney-core/commercia/commerCiainfo?"
 #define AccountURL @"superMoney-core/commercia/getCommercialWebsiteInfo?"
 #define SavaAccountURL @"/superMoney-core/commercia/saveAccountWebsite?"

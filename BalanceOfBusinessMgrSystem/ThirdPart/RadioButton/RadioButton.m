@@ -54,5 +54,14 @@
 	
 }
 
+-(void)setIsChecked:(BOOL)isChecked_{
+    isChecked = isChecked_;
+    if (isChecked) {
+        [self setImage:[UIImage imageNamed:@"RadioButton_check.png"] forState:UIControlStateNormal];
+    }else {
+        [self setImage:[UIImage imageNamed:@"RadioButton_Not_check.png"] forState:UIControlStateNormal];
+    }
+}
+
 
 @end

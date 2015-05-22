@@ -40,7 +40,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"修改登录密码";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
@@ -61,7 +60,7 @@
     [self.view addSubview:notePsdLabel];
     
     UILabel * telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, NAVIGATION_OUTLET_HEIGHT + 10, 120, 40)];
-    telephoneLabel.text = @"18612450658";
+    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"];
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneLabel.font = [UIFont systemFontOfSize:18];
@@ -82,7 +81,7 @@
     passwordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passwordLabel];
     
-    oldPasswordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(110, notePsdLabel.frame.origin.y + notePsdLabel.frame.size.height +20, 200, 40)];
+    oldPasswordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(110, notePsdLabel.frame.origin.y + notePsdLabel.frame.size.height +20, 190, 40)];
     [oldPasswordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     oldPasswordTextField.backgroundColor = [UIColor clearColor];
     oldPasswordTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -99,7 +98,7 @@
     [bg2ImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bg2ImageView];
     
-    UILabel * passwordLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(30, bgImageView.frame.origin.y + bgImageView.frame.size.height+20, 70, 40)];
+    UILabel * passwordLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(35, bgImageView.frame.origin.y + bgImageView.frame.size.height+20, 65, 40)];
     passwordLabel2.text = @"登陆密码:";
     passwordLabel2.textAlignment = NSTextAlignmentLeft;
     passwordLabel2.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -107,11 +106,11 @@
     passwordLabel2.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passwordLabel2];
     
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(120, bgImageView.frame.origin.y + bgImageView.frame.size.height+20, 200, 40)];
+    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(105, bgImageView.frame.origin.y + bgImageView.frame.size.height+20, 195, 40)];
     [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    passwordTextField.placeholder = @"请确认登陆密码";
+    passwordTextField.placeholder = @"新的登陆密码";
     passwordTextField.font = [UIFont systemFontOfSize:14];
     passwordTextField.delegate = self;
     passwordTextField.keyboardType = UIKeyboardTypeDefault;
@@ -133,7 +132,7 @@
     passwordLabel3.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passwordLabel3];
     
-    passwordTextField2 = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, bg2ImageView.frame.origin.y + bg2ImageView.frame.size.height+20, 200, 40)];
+    passwordTextField2 = [[HP_UITextField alloc] initWithFrame:CGRectMake(125, bg2ImageView.frame.origin.y + bg2ImageView.frame.size.height+20, 175, 40)];
     [passwordTextField2 setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField2.backgroundColor = [UIColor clearColor];
     passwordTextField2.clearButtonMode = UITextFieldViewModeAlways;
@@ -147,8 +146,8 @@
 
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, bg3ImageView.frame.origin.y + bg3ImageView.frame.size.height + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchSettingPasswordButton) forControlEvents:UIControlEventTouchUpInside];
@@ -199,7 +198,7 @@
              //[self timeCountdown];
              //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
              //商户还是自然
-             [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
+             //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
              
              [self.navigationController popViewControllerAnimated:YES];
          }

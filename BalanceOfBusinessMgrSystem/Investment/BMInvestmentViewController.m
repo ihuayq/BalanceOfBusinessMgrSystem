@@ -10,6 +10,7 @@
 #import "RadioButton.h"
 #import "BMCancelInvestmentViewController.h"
 #import "BMSettingTransactionpPasswordViewController.h"
+#import "BMCreateTransactionpPasswordViewController.h"
 
 @interface BMInvestmentViewController ()<UIAlertViewDelegate>{
     UIWebView *manualProductWebView;
@@ -120,13 +121,24 @@
         investProtolBtn.hidden= NO;
         registerButton.enabled = NO;
 
-        [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"0" forKey:@"appointment"];
+        //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"0" forKey:@"appointment"];
+        NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
+        [data setObject:@"0" forKey:@"appointment"];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:USERINFO];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }else{
         [registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
         manTitleLabel.hidden = YES;
+        radioAgreement.isChecked = NO;
         radioAgreement.hidden = YES;
         investProtolBtn.hidden = YES;
-        [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"appointment"];
+        
+//        [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"appointment"];
+        NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
+        [data setObject:@"1" forKey:@"appointment"];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:USERINFO];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         registerButton.enabled = YES;
     }
    
@@ -169,11 +181,12 @@
 -(void)touchDatingButton{
     // 查看是否设置了支付密码
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
-         BMSettingTransactionpPasswordViewController *VC = [[BMSettingTransactionpPasswordViewController alloc] init];
+         BMCreateTransactionpPasswordViewController *VC = [[BMCreateTransactionpPasswordViewController alloc] init];
         [self.navigationController pushViewController:VC animated:YES];
         return;
     }
     
+    NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"]);
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
         BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
         [self.navigationController pushViewController:cancelVC animated:YES];

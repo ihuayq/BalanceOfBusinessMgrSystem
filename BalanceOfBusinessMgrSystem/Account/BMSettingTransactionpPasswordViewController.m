@@ -38,7 +38,6 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"设置交易密码";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
@@ -68,7 +67,7 @@
     
     UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(notePsdLabel.frame.origin.x+ labelsize.width, NAVIGATION_OUTLET_HEIGHT + 20, 240, labelsize.height)];
     //手机号码
-    telLabel.text = phoneNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phonenum"];
+    telLabel.text = phoneNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"];
     telLabel.textAlignment = NSTextAlignmentLeft;
     telLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telLabel.font = [UIFont systemFontOfSize:18];
@@ -77,11 +76,11 @@
     [self.view addSubview:telLabel];
     
     //交易密码
-    HP_UIImageView *oldbgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 20,MainWidth-40, 40)];
+    HP_UIImageView *oldbgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, notePsdLabel.frame.origin.y+ labelsize.height + 20,MainWidth-40, 40)];
     [oldbgImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:oldbgImageView];
     
-    UILabel * oldPasswordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 20, 80, 40)];
+    UILabel * oldPasswordLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, notePsdLabel.frame.origin.y+ labelsize.height + 20, 80, 40)];
     oldPasswordLabel.text = @"原交易密码:";
     oldPasswordLabel.textAlignment = NSTextAlignmentLeft;
     oldPasswordLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -89,7 +88,7 @@
     oldPasswordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:oldPasswordLabel];
     
-    oldPasswordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, NAVIGATION_OUTLET_HEIGHT + 20, 200, 40)];
+    oldPasswordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(110, notePsdLabel.frame.origin.y+ labelsize.height + 20, 190, 40)];
     [oldPasswordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     oldPasswordTextField.backgroundColor = [UIColor clearColor];
     oldPasswordTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -173,26 +172,28 @@
     passCodeTextField3.placeholder = @"请输入验证码";
     passCodeTextField3.font = [UIFont systemFontOfSize:14];
     passCodeTextField3.delegate = self;
-    passCodeTextField3.keyboardType = UIKeyboardTypeNumberPad;
+    passCodeTextField3.keyboardType = UIKeyboardTypeDefault;
     passCodeTextField3.borderStyle = UITextBorderStyleNone;
     passCodeTextField3.secureTextEntry=NO;
     [self.view addSubview:passCodeTextField3];
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateHighlighted];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [sendCheckCodeButton setBackgroundColor:[HP_UIColorUtils clearColor]];
     [sendCheckCodeButton setFrame:CGRectMake(215, CONFIRM_PASSWORD_OUTLET_POSITION+20, 85, 40)];
     [sendCheckCodeButton addTarget:self action:@selector(touchSendCheckCodeButton) forControlEvents:UIControlEventTouchUpInside];
+    [sendCheckCodeButton setTitle: @"获取验证码" forState:UIControlStateNormal];
+    sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
     
-    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-    sendCheckCodeLabel.text = @"获取验证码";
-    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
+//    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
+//    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
+//    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
+//    sendCheckCodeLabel.text = @"获取验证码";
+//    sendCheckCodeLabel.textColor = [UIColor whiteColor];
+//    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
+//    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
     
     
     sendLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, RECEIVE_PASSWORD_OUTLET_POSITION, 285, 40)];
@@ -206,20 +207,36 @@
     
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, CONFIRM_PASSWORD_OUTLET_POSITION + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchSettingPasswordButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerButton];
+    [registerButton setTitle:@"确认" forState:UIControlStateNormal];
+    [registerButton.layer setMasksToBounds:YES];
+    [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确认";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [registerButton addSubview:registerLabel];
+//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
+//    registerLabel.textAlignment = NSTextAlignmentCenter;
+//    registerLabel.backgroundColor = [UIColor clearColor];
+//    registerLabel.text = @"确认";
+//    registerLabel.textColor = [UIColor whiteColor];
+//    registerLabel.font = [UIFont systemFontOfSize:15];
+//    [registerButton addSubview:registerLabel];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    nCout = 60;
+
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    nCout = 0;
+    [self timeCountdown];
+    //[timer invalidate];//取消定时器
+    
 }
 
 -(void)touchSettingPasswordButton{
@@ -231,17 +248,6 @@
     }
     
     [self touchesBegan:nil withEvent:nil];
-    
-//    String oldPayPwd = request.getParameter("oldPayPassword");
-//    String payPwd = request.getParameter("payPassword");
-//    String verificationCode = request.getParameter("verificationCode");
-//    String personId = request.getParameter("personId");
-//    String signature = request.getParameter("signature");
-//    HP_UITextField * passwordTextField;
-//    HP_UITextField * passwordTextField2;
-//    HP_UITextField * passCodeTextField3;
-//    HP_UIButton *sendCheckCodeButton;
-//    HP_UITextField *oldPasswordTextField;
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -263,7 +269,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,ModifyPayPasswdURL];
     
-    [self showProgressViewWithMessage:@"正在设置登录密码..."];
+    [self showProgressViewWithMessage:@"正在设置交易密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
@@ -288,6 +294,27 @@
      }];
 }
 
+-(void)timeCountdown
+{
+    NSLog(@"%d\n",nCout);
+    
+    if (nCout>0)
+    {
+        nCout=nCout-1;
+        [sendCheckCodeButton setTitle:[NSString stringWithFormat:@"获取(%d)",nCout] forState:UIControlStateDisabled];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setEnabled:NO];
+    }
+    else if (nCout==0)
+    {
+        [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setEnabled:YES];
+        nCout=60;
+        [timer invalidate];//取消定时器
+    }
+}
+
 
 -(void)touchSendCheckCodeButton//请求验证码
 {
@@ -309,6 +336,7 @@
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     
     //[connDictionary setObject:@"register" forKey:@"type"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
@@ -325,8 +353,8 @@
          {
              //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
              
-             //[self timeCountdown];
-             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+             [self timeCountdown];
+             timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
          }
          else
          {
@@ -574,7 +602,7 @@
     [passwordTextField resignFirstResponder];
     [passwordTextField2 resignFirstResponder];
     [passCodeTextField3 resignFirstResponder];
-    
+    [oldPasswordTextField resignFirstResponder];
 }
 
 

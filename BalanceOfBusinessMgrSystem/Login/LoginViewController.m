@@ -148,7 +148,7 @@
     [loginButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [loginButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [loginButton setBackgroundColor:[UIColor clearColor]];
-    [loginButton setFrame:CGRectMake(60, MainHeight-140, MainWidth-120, 40)];
+    [loginButton setFrame:CGRectMake(20, MainHeight-140, MainWidth-40, 40)];
     [loginButton addTarget:self action:@selector(touchLoginButton) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登 录" forState:UIControlStateNormal];
     [loginButton.layer setMasksToBounds:YES];
@@ -356,8 +356,8 @@
 //        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
 //        [self.navigationController pushViewController:mainview animated:NO];
 //        return;
-        nameTextField.text = @"Mer00060013";
-        passwordTextField.text = @"register";
+        nameTextField.text = @"Mer00060019";
+        passwordTextField.text = @"redis";
         [self supplyerLoginRequest];
         return;
     }
@@ -365,7 +365,8 @@
     else
     {
         nameTextField.text = @"18666625107";
-        passwordTextField.text = @"654321";
+         passwordTextField.text = @"654321";
+        //passwordTextField.text = @"123456";
 //        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
 //        [self.navigationController pushViewController:Vc animated:NO];
 

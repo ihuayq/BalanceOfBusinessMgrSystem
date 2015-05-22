@@ -14,17 +14,17 @@
 #pragma 设置交易密码
 @interface BMCreateTransactionpPasswordViewController :HP_BaseViewController<UITextFieldDelegate,UIAlertViewDelegate>
 {
-    NSMutableDictionary* transmitDict;//传递过来的参数
-    
-    
     HP_UITextField * passwordTextField;
     HP_UITextField * passwordTextField2;
     HP_UITextField * passCodeTextField3;
     HP_UIButton *sendCheckCodeButton;
     
+    int nCout;
+    NSTimer* timer;
 }
 
+@property(nonatomic,assign) BOOL type;//0表示创建，1表示忘记
 @property(nonatomic,strong)UILabel *sendLabel;
-@property(nonatomic,retain)NSMutableDictionary* transmitDict;
+//@property(nonatomic,retain)NSMutableDictionary* transmitDict;
 
 @end

@@ -25,7 +25,6 @@
     
     [self initGroup];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"账号";
     
     

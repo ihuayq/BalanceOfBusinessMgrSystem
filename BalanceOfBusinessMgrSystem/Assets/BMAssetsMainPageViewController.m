@@ -44,7 +44,6 @@
 
     // Do any additional setup after loading the view.
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"我的资产";
 
     HP_UIButton *okButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];

@@ -16,7 +16,6 @@
     [super viewDidLoad];
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"首页";
 }
 

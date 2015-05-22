@@ -598,7 +598,7 @@
 		88E9637B1B01F2DD00C04664 /* ProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressHUD.m; sourceTree = "<group>"; };
 		88E9637F1B02010000C04664 /* TotalAssetInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalAssetInfoModel.h; sourceTree = "<group>"; };
 		88E963801B02010000C04664 /* TotalAssetInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalAssetInfoModel.m; sourceTree = "<group>"; };
-		88ED8CD41AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BalanceOfBusinessMgrSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88ED8CD41AF84FEB00B82BE7 /* 超额宝.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "超额宝.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		88ED8CD81AF84FEB00B82BE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88ED8CD91AF84FEB00B82BE7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		88ED8CDB1AF84FEB00B82BE7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1320,7 +1320,7 @@
 		88ED8CD51AF84FEB00B82BE7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				88ED8CD41AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem.app */,
+				88ED8CD41AF84FEB00B82BE7 /* 超额宝.app */,
 				88ED8CED1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.xctest */,
 			);
 			name = Products;
@@ -2006,7 +2006,7 @@
 			);
 			name = BalanceOfBusinessMgrSystem;
 			productName = BalanceOfBusinessMgrSystem;
-			productReference = 88ED8CD41AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem.app */;
+			productReference = 88ED8CD41AF84FEB00B82BE7 /* 超额宝.app */;
 			productType = "com.apple.product-type.application";
 		};
 		88ED8CEC1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests */ = {
@@ -2630,7 +2630,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yongqi hua (8CTP6ZG26G)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem",
@@ -2648,7 +2648,8 @@
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/UMSocial_Sdk_3.3.8/Wechat",
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/XINGE",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "超额宝";
+				PROVISIONING_PROFILE = "89391001-b7cd-4173-b0b8-8d3170d89dd0";
 			};
 			name = Debug;
 		};
@@ -2657,7 +2658,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yongqi hua (8CTP6ZG26G)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem",
@@ -2675,7 +2676,8 @@
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/UMSocial_Sdk_3.3.8/Wechat",
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/XINGE",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "超额宝";
+				PROVISIONING_PROFILE = "89391001-b7cd-4173-b0b8-8d3170d89dd0";
 			};
 			name = Release;
 		};

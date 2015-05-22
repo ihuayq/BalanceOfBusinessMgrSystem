@@ -19,26 +19,14 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        
-         jishuqi=60;
-        
     }
     return self;
 }
--(void)viewWillAppear:(BOOL)animated
-{
-    [telTextField resignFirstResponder];
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-    [timer invalidate];//取消定时器
-}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    self.navigation.navigaionBackColor =  [UIColor orangeColor];
     self.navigation.title = @"忘记密码";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
@@ -90,27 +78,29 @@
     passCodeTextField.placeholder = @"请输入验证码";
     passCodeTextField.font = [UIFont systemFontOfSize:14];
     passCodeTextField.delegate = self;
-    passCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+    passCodeTextField.keyboardType = UIKeyboardTypeDefault;
     passCodeTextField.borderStyle = UITextBorderStyleNone;
     passCodeTextField.secureTextEntry=NO;
     [self.view  addSubview:passCodeTextField];
     
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateHighlighted];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [sendCheckCodeButton setBackgroundColor:[HP_UIColorUtils clearColor]];
     [sendCheckCodeButton setFrame:CGRectMake(215, telTextField.frame.origin.y + telTextField.frame.size.height + 10, 85, 40)];
     [sendCheckCodeButton addTarget:self action:@selector(touchSendCheckCodeButton) forControlEvents:UIControlEventTouchUpInside];
+    [sendCheckCodeButton setTitle: @"获取验证码" forState:UIControlStateNormal];
+    sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
     
-    sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-    sendCheckCodeLabel.text = @"点击获取";
-    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
+//    sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
+//    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
+//    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
+//    sendCheckCodeLabel.text = @"点击获取";
+//    sendCheckCodeLabel.textColor = [UIColor whiteColor];
+//    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
+//    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
     
      //新的密码设置
     HP_UIImageView *bg3ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, sendCheckCodeButton.frame.origin.y + sendCheckCodeButton.frame.size.height + 10 ,MainWidth-40, 40)];
@@ -125,7 +115,7 @@
     passwordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passwordLabel];
     
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, sendCheckCodeButton.frame.origin.y + sendCheckCodeButton.frame.size.height + 10, 200, 40)];
+    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(80, sendCheckCodeButton.frame.origin.y + sendCheckCodeButton.frame.size.height + 10, 220, 40)];
     [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -137,13 +127,6 @@
     passwordTextField.secureTextEntry=YES;
     [self.view addSubview:passwordTextField];
 
-//    UILabel * tishiLable = [[UILabel alloc] initWithFrame:CGRectMake(0, 100+40, MainWidth, 40)];
-//    tishiLable.text =mima_tishiyu_6_20;
-//    tishiLable.textAlignment = NSTextAlignmentCenter;
-//    tishiLable.textColor = [HP_UIColorUtils colorWithHexString:TOPBAR_COLOR];
-//    tishiLable.font = [UIFont systemFontOfSize:14];
-//    tishiLable.backgroundColor = [UIColor clearColor];
-//    [self.view addSubview:tishiLable];
     
     //-----------
     HP_UIImageView *bg4ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, passwordTextField.frame.origin.y + passwordTextField.frame.size.height + 10,MainWidth-40, 40)];
@@ -171,23 +154,31 @@
     passwordTextField2.secureTextEntry=YES;
     [self.view addSubview:passwordTextField2];
     
-    
+    //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, passwordTextField2.frame.origin.y + passwordTextField2.frame.size.height + 10 , MainWidth-2*20, 40)];
-    [registerButton addTarget:self action:@selector(touchRegisterButton) forControlEvents:UIControlEventTouchUpInside];
+    [registerButton addTarget:self action:@selector(touchForgetPasswordButton) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerButton];
+    [registerButton setTitle:@"确认" forState:UIControlStateNormal];
+    [registerButton.layer setMasksToBounds:YES];
+    [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f];
+
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    nCout = 60;
     
-    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*30, 40)];
-    registerLabel.textAlignment = NSTextAlignmentCenter;
-    registerLabel.backgroundColor = [UIColor clearColor];
-    registerLabel.text = @"确认";
-    registerLabel.textColor = [UIColor whiteColor];
-    registerLabel.font = [UIFont systemFontOfSize:15];
-    [registerButton addSubview:registerLabel];
-    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    nCout = 0;
+    [self timeCountdown];
+    //[timer invalidate];//取消定时器
     
 }
 
@@ -198,6 +189,7 @@
 
 -(void)touchSendCheckCodeButton//请求验证码
 {
+    
     if (![self checkTel:telTextField.text])
     {
         return;
@@ -211,27 +203,51 @@
     
     [self touchesBegan:nil withEvent:nil];
     
+    
     //网络请求
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:7];
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [connDictionary setObject:telTextField.text forKey:@"phoneNum"];
     
-    [connDictionary setObject:telTextField.text forKey:@"mobile"];
-    [connDictionary setObject:@"repass" forKey:@"type"];
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
-    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,sendcodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,ForgetLoginPasswdURL];
     
+    [self showProgressViewWithMessage:@"正在获取验证码..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"fogetPassPersonId"];
+             
+             [self timeCountdown];
+             timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
 }
 
 
--(void)touchChangePasswordButton
+-(void)touchForgetPasswordButton
 {
-    
-    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
-    {
-        return;
-    }
+//    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
+//    {
+//        return;
+//    }
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -241,51 +257,48 @@
     [self touchesBegan:nil withEvent:nil];
     
     //网络请求
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:7];
-    
-    [connDictionary setObject:telTextField.text forKey:@"mobile"];
-    [connDictionary setObject:@"find" forKey:@"type"];
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fogetPassPersonId"] forKey:USER_ID];
+    [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
+    [connDictionary setObject:telTextField.text forKey:@"phoneNum"];
     
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-    [connDictionary setObject:encodedValue forKey:@"newpass"];
+    [connDictionary setObject:encodedValue forKey:@"newPassword"];
     
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
-    
-    [connDictionary setObject:string3des forKey:@"newpass"];
-    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,setuserpassURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,SetLoginPasswdURL];
     
-    
-    [self showProgressViewWithMessage:@"正在设置新密码..."];
+    [self showProgressViewWithMessage:@"正在设置登录密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
          [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
          if([ret isEqualToString:@"100"])
          {
+             //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             //[self timeCountdown];
+             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+             //商户还是自然
+             //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
              
-             
-             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:@"设置新密码成功" delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-             alertView.tag = 111;
-             [alertView show];
-             
-             
+             [self.navigationController popViewControllerAnimated:YES];
          }
          else
          {
-             
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
      } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
-         
          [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
          UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
          alertView.tag = 999;
          [alertView show];
      }];
+
+    
+
 }
 
 
@@ -428,26 +441,25 @@
          [alertView show];
      }];
 }
+
 -(void)timeCountdown
 {
-    NSLog(@"%d\n",jishuqi);
+    NSLog(@"%d\n",nCout);
     
-    if (jishuqi>0)
+    if (nCout>0)
     {
-        jishuqi=jishuqi-1;
-        sendCheckCodeLabel.text=[NSString stringWithFormat:@"获取(%d)",jishuqi];
-        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateNormal];
+        nCout=nCout-1;
+        [sendCheckCodeButton setTitle:[NSString stringWithFormat:@"获取(%d)",nCout] forState:UIControlStateDisabled];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
         [sendCheckCodeButton setEnabled:NO];
     }
-    else if (jishuqi==0)
+    else if (nCout==0)
     {
-        
-        sendCheckCodeLabel.text=@"点击获取";
-        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
         [sendCheckCodeButton setEnabled:YES];
-        jishuqi=60;
+        nCout=60;
         [timer invalidate];//取消定时器
-        
     }
 }
 

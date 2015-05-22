@@ -7,6 +7,7 @@
 //
 
 #import "BMCancelInvestmentViewController.h"
+#import "BMCreateTransactionpPasswordViewController.h"
 
 @interface BMCancelInvestmentViewController ()
 {
@@ -101,7 +102,8 @@
 
 
 -(void)touchForgetPassWordButton{
-    
+     BMCreateTransactionpPasswordViewController *vc = [[BMCreateTransactionpPasswordViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)requestNetWork{

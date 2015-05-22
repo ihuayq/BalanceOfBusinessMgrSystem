@@ -126,20 +126,22 @@
     [self.view addSubview:passCodeTextField];
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateHighlighted];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [sendCheckCodeButton setBackgroundColor:[HP_UIColorUtils clearColor]];
     [sendCheckCodeButton setFrame:CGRectMake(215, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 20, 85, 40)];
     [sendCheckCodeButton addTarget:self action:@selector(touchSendCheckCodeButton) forControlEvents:UIControlEventTouchUpInside];
+    [sendCheckCodeButton setTitle: @"获取验证码" forState:UIControlStateNormal];
+    sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
     
-    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-    sendCheckCodeLabel.text = @"获取验证码";
-    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
+//    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
+//    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
+//    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
+//    sendCheckCodeLabel.text = @"获取验证码";
+//    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
+//    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
+//    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
     
     sendLabel = [[UILabel alloc] initWithFrame:CGRectMake(30,sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20, 285, 40)];
     sendLabel.textAlignment = NSTextAlignmentCenter;
@@ -212,6 +214,18 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    nCout = 60;
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    nCout = 0;
+    [self timeCountdown];
+    //[timer invalidate];//取消定时器
+    
+}
 
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
     int flags = 0;
@@ -316,9 +330,6 @@
 //             [Dict setObject:results forKey:@"natureInfo"];
 //             
 //             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:SUPPLYER_INFO];
-//             
-//             
-//             
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
              
@@ -327,6 +338,8 @@
              [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
              //[Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
+             
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
              
              settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
@@ -397,6 +410,26 @@
      }];
 }
 
+-(void)timeCountdown
+{
+    NSLog(@"%d\n",nCout);
+    
+    if (nCout>0)
+    {
+        nCout=nCout-1;
+        [sendCheckCodeButton setTitle:[NSString stringWithFormat:@"获取(%d)",nCout] forState:UIControlStateDisabled];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setEnabled:NO];
+    }
+    else if (nCout==0)
+    {
+        [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setEnabled:YES];
+        nCout=60;
+        [timer invalidate];//取消定时器
+    }
+}
 
 #pragma mark -
 #pragma mark - UITextFieldDelegate
@@ -444,6 +477,7 @@
     [dentifierTextField resignFirstResponder];
     [nameTextField resignFirstResponder];
     [passCodeTextField resignFirstResponder];
+    [passwordTextField resignFirstResponder];
     
     [UIView animateWithDuration:0.2 animations:^{
         [self.view setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
