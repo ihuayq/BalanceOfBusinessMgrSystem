@@ -356,8 +356,20 @@
 //        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
 //        [self.navigationController pushViewController:mainview animated:NO];
 //        return;
-        nameTextField.text = @"Mer00060019";
-        passwordTextField.text = @"redis";
+        //商户网点账号
+
+        
+//        只有商户没有网点：loginName=Mer00060019        loginPwd=redis             mercNum=M0060019
+//        nameTextField.text = @"Mer00060019";
+//        passwordTextField.text = @"redis";
+        
+//        有商户有一个网点：loginName=Mer00060013        loginPwd=register         mercNum=M0060013
+//        nameTextField.text = @"Mer00060013";
+//        passwordTextField.text = @"register";
+        
+//        一个商户多个网点：loginName=Mer00021684        loginPwd=test               mercNum=M0021684
+        nameTextField.text = @"Mer00021684";
+        passwordTextField.text = @"test";
         [self supplyerLoginRequest];
         return;
     }
@@ -520,7 +532,7 @@
 
     
     NSLog(@"connDictionary:%@",connDictionary);
-    [self showProgressViewWithMessage:@"登录中..."];
+    //[self showProgressViewWithMessage:@"登录中..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
@@ -552,11 +564,11 @@
              
              //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addnpflag"];//添加自然人标记
              //向资产界面传递资产的变动信息
-             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"one", nil];
-             //创建通知
-             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-             //通过通知中心发送通知
-             [[NSNotificationCenter defaultCenter] postNotification:notification];
+//             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"one", nil];
+//             //创建通知
+//             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//             //通过通知中心发送通知
+//             [[NSNotificationCenter defaultCenter] postNotification:notification];
              
              
              BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];

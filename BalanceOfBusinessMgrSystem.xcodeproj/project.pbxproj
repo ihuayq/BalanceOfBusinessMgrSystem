@@ -2637,6 +2637,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = BalanceOfBusinessMgrSystem/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2648,6 +2649,8 @@
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/UMSocial_Sdk_3.3.8/Wechat",
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/XINGE",
 				);
+				OTHER_CFLAGS = "-DUSE_方案一";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "89391001-b7cd-4173-b0b8-8d3170d89dd0";
 			};
@@ -2665,6 +2668,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = BalanceOfBusinessMgrSystem/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2676,6 +2680,8 @@
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/UMSocial_Sdk_3.3.8/Wechat",
 					"$(PROJECT_DIR)/BalanceOfBusinessMgrSystem/Common4IOS/Plugin/XINGE",
 				);
+				OTHER_CFLAGS = "-DUSE_方案一";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "89391001-b7cd-4173-b0b8-8d3170d89dd0";
 			};

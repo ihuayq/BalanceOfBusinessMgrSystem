@@ -34,14 +34,14 @@
 
 
 //商户登陆
-#define CommercialIP @"http://192.168.1.110:8080/"
+#define CommercialIP @"http://192.168.1.110:8080"
 
-#define CommercialHostURL @"superMoney-core/commercia/commerCiainfo?"
-#define AccountURL @"superMoney-core/commercia/getCommercialWebsiteInfo?"
+#define CommercialHostURL @"/superMoney-core/commercia/commerCiainfo?"
+#define AccountURL @"/superMoney-core/commercia/getCommercialWebsiteInfo?"
 #define SavaAccountURL @"/superMoney-core/commercia/saveAccountWebsite?"
 #define passCodeURL @"/superMoney-core/commercia/sendPhoneVerification?"
 #define settingNatureMenURL @"/superMoney-core/commercia/assignNatural?" //添加自然人
-#define ModifyNatureMenIdentifyURL @"superMoney-core/commercia/updateNaturalPersonDo?" //修改自然人身份证等信息
+#define ModifyNatureMenIdentifyURL @"/superMoney-core/commercia/updateNaturalPersonDo?" //修改自然人身份证等信息
 #define ModifyNatureMenURL @"/superMoney-core/commercia/getUpdateNaturalPersonInfo?"  //获取自然人账号信息
 
 

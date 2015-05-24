@@ -42,14 +42,21 @@
     
 }
 
+
+
 - (void)NatureManListChange:(NSNotification *)text{
-    NSLog(@"%@,%@",text.userInfo[@"personName"],text.userInfo[@"idCard"]);
     NSLog(@"－－－－－接收到通知--NatureManListChange----");
-    
-    NaturalManInfoTableViewCell *cell = [tableView cellForRowAtIndexPath:[Globle shareGloble].index];
-    cell.model.identifyNumber = text.userInfo[@"idCard"];
-    cell.model.manName = text.userInfo[@"personName"];
-    cell.model = cell.model;
+    if ([text.userInfo[@"type"] isEqualToString:@"0"]) {
+        //NSLog(@"%@,%@",text.userInfo[@"personName"],text.userInfo[@"idCard"]);
+        NaturalManInfoTableViewCell *cell = [tableView cellForRowAtIndexPath:[Globle shareGloble].index];
+        cell.model.identifyNumber = text.userInfo[@"idCard"];
+        cell.model.manName = text.userInfo[@"personName"];
+        cell.model = cell.model;
+    }
+    else if ([text.userInfo[@"type"] isEqualToString:@"1"]){
+        [self loadData];
+        [tableView reloadData];
+    }
 }
 
 -(void)loadData{
@@ -60,6 +67,7 @@
     //NSArray *results = [responseJSONDictionary objectForKey:@"assetData"];
     NSArray *results = [[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:@"natureInfo"];
     
+    [group removeAllObjects];
     //数据部
     uint nCount = 0;
     for (NSDictionary * sub in results) {

@@ -54,7 +54,7 @@
     [self initGroup];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 50, 20)];
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -136,7 +136,21 @@
 
 
 -(void)touchOkButton{
-    [self requestNetWork];
+    //商户为false的情况下是后台自动绑定的
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]){
+        if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE){
+            ModifyNaturalmanSuccessViewController*vc = [[ModifyNaturalmanSuccessViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+        else{
+            bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:NO];
+        }
+    }
+    else{
+        [self requestNetWork];
+    }
+    
 }
 
 -(void)requestNetWork{
@@ -204,27 +218,12 @@
              NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
              NSMutableArray *results = [responseJSONDictionary objectForKey:@"naturalPersonList"];
              [data setObject:results forKey:@"natureInfo"];
+             [[NSUserDefaults standardUserDefaults]setObject:data forKey:SUPPLYER_INFO];
              //[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] setObject:results forKey:@"natureInfo"];
 
-             if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE ){
+             if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE){
                  ModifyNaturalmanSuccessViewController*vc = [[ModifyNaturalmanSuccessViewController alloc] init];
                  [self.navigationController pushViewController:vc animated:NO];
-//                 DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"自然人信息修改成功，是否现在去进行投资理财" leftButtonTitle:@"是" rightButtonTitle:@"否"];
-//                 [alert show];
-//                 alert.leftBlock = ^() {
-//                     NSLog(@"left button clicked");
-//                     LoginViewController*info = [[LoginViewController alloc] init];
-//                     [self.navigationController pushViewController:info
-//                                                          animated:NO];
-//                 };
-//                 alert.rightBlock = ^() {
-//                     NSLog(@"right button clicked");
-//                     [self.navigationController  popViewControllerAnimated:YES];
-//                 };
-//                 alert.dismissBlock = ^() {
-//                     NSLog(@"Do something interesting after dismiss block");
-//                     [self.navigationController  popViewControllerAnimated:YES];
-//                 };
              }
              else{
                  bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];

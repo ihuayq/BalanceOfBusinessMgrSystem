@@ -13,6 +13,7 @@
 #import "ItemButton.h"
 #import "NaturalManItemModel.h"
 #import "bindBalanceAccountViewController.h"
+#import "bindAccountConfirmViewController.h"
 
 
 @interface ModifySingleNaturalManInfoViewController ()
@@ -26,10 +27,13 @@
     UITableView *tableView;
     
     NSMutableArray *group;//cell数组
-    NSMutableArray *groupSelected;
+    BOOL isHasNetwork;
+    BOOL isSelectBtnEnable;
+    NSMutableArray *groupBalance;
 }
 
 @end
+
 
 @implementation ModifySingleNaturalManInfoViewController
 @synthesize model = _model;
@@ -44,7 +48,7 @@
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
     group=[[NSMutableArray alloc]init];
-    groupSelected = [[NSMutableArray alloc]init];
+    //groupBalance = [[NSMutableArray alloc]init];
     
     UILabel *manHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,NAVIGATION_OUTLET_HEIGHT + 20, 72, 20)];
     manHeadLabel.textAlignment = NSTextAlignmentLeft;
@@ -183,9 +187,6 @@
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
-             id flag = [responseJSONDictionary objectForKey:@"modifyAccFlag"];
-             [[NSUserDefaults standardUserDefaults]setObject:flag forKey:@"modifyAccFlag"];
-             
              NSArray *array = [responseJSONDictionary objectForKey:@"websiteList"];
              for ( NSDictionary *dic in array) {
                  //NSDictionary *dic=[array objectAtIndex:0];
@@ -198,7 +199,39 @@
                  item.bNetworkSelected = [[dic objectForKey:@"selectedFlag"] boolValue];//网点账号选定标记
                  [group addObject:item];
              }
-//             {"cpubBankNameDet":"招商银行","websiteList":[{"pubAccName":"张鑫","siteNum":"00020027","pubBankNameDet":"招商银行","balanceAccount":"123"},{"pubAccName":"张鑫","siteNum":"00019998","pubBankNameDet":"民生","balanceAccount":"123"},{"pubAccName":"张鑫","siteNum":"00020024","pubBankNameDet":"民生","balanceAccount":"123"}],"idCard":"13052119851026081X","phoneNum":"18501251873","flag":"100","commercialId":"M0021684","cpubAccName":"0619测试","personId":29,"cbalanceAccount":"123456","commercialName":"0619测试","msg":"获取成功","personName":"赵宇飞"}
+             
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
+             if ([[responseJSONDictionary objectForKey:@"methods"] isEqualToString:@"TRUE"]) {
+                 id flag = [responseJSONDictionary objectForKey:@"modifyAccFlag"];
+                 [[NSUserDefaults standardUserDefaults]setObject:flag forKey:@"modifyAccFlag"];
+                 isHasNetwork = YES;
+                 isSelectBtnEnable = YES;
+                 groupBalance=[[NSMutableArray alloc]init];
+                 groupBalance = group ;
+             }
+             //为false的情况
+             else{
+                 isSelectBtnEnable = NO;
+                 
+                 groupBalance=[[NSMutableArray alloc]init];
+                 BankAccountItem *item = [BankAccountItem new];
+                 item.accountName = [responseJSONDictionary objectForKey:@"cpubAccName"];
+                 item.bankName = [responseJSONDictionary objectForKey:@"cpubBankNameDet"];
+                 item.bankCardNumber = [responseJSONDictionary objectForKey:@"cbalanceAccount"];
+                 item.bSelected = YES;
+                 [groupBalance addObject:item];
+                 
+                 if (group.count > 0) {
+                     isHasNetwork = YES;
+                 }
+                 else{
+                     //此时group表示结算账号
+                     group = groupBalance;
+                     isHasNetwork = NO;
+                 }
+             }
+
+             
              [tableView reloadData];
              
          }
@@ -221,9 +254,19 @@
 
 
 -(void)touchCommitButton{
-    bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
-    info.groupBalance = group;
-    [self.navigationController pushViewController:info animated:NO];
+    
+    if (group.count > 0 && isHasNetwork == YES) {
+        bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+        info.groupNetWork = group;
+        info.groupBalance = groupBalance;
+        [self.navigationController pushViewController:info animated:NO];
+    }
+    else{
+        bindAccountConfirmViewController *vc = [[bindAccountConfirmViewController alloc] init];
+        vc.networkAccountSelected = nil;
+        vc.balanceAccountSelected = groupBalance;
+        [self.navigationController pushViewController:vc animated:NO];
+    }
 }
 
 
@@ -265,14 +308,16 @@
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
         cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
-        ItemButton *button = [[ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:NO];
+        ItemButton *button = [[ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:item.bSelected];
         button.backgroundColor = [UIColor clearColor];
         [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
+        button.enabled = isSelectBtnEnable;
     }
     cell.title= item.accountName;
     cell.bankName = item.bankName;
     cell.bankCardNumber = item.bankCardNumber;
+
     return cell;
 }
 

@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, NatureManEntranceType) {
-    ADD_NATUREMAN_ENTRANCE,                  // regular table view
-    MODIFY_NATUREMAN_ENTRANCE                 // preferences style table view
+    ADD_NATUREMAN_ENTRANCE,                  //
+    MODIFY_NATUREMAN_ENTRANCE,                 //
+    NOABLE_MODIFY_NATUREMAN_ENTRANCE
 };
 
 @interface Globle : NSObject

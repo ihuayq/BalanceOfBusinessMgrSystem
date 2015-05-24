@@ -12,8 +12,8 @@
 
 @interface bindNetworkPointAccountViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong)  NSMutableArray *groupNetWork;//cell数组
-@property (nonatomic,strong)  NSMutableArray *groupBalance;
+@property (nonatomic,strong)  NSMutableArray *groupNetWork;//网点账号
+@property (nonatomic,strong)  NSMutableArray *groupBalance;//结算账号
 
 
 @end

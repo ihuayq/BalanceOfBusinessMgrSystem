@@ -62,10 +62,10 @@
     NavigationWithInteract * nc3 = [[NavigationWithInteract alloc] initWithRootViewController:earningVC];
     NavigationWithInteract * nc4 = [[NavigationWithInteract alloc] initWithRootViewController:accountVC];
     
-    nc1.hidesBottomBarWhenPushed = YES;
-    nc2.hidesBottomBarWhenPushed = YES;
-    nc3.hidesBottomBarWhenPushed = YES;
-    nc4.hidesBottomBarWhenPushed = YES;
+//    nc1.hidesBottomBarWhenPushed = YES;
+//    nc2.hidesBottomBarWhenPushed = YES;
+//    nc3.hidesBottomBarWhenPushed = YES;
+//    nc4.hidesBottomBarWhenPushed = YES;
     
     self.viewControllers = [NSArray arrayWithObjects:nc1,nc2,nc3,nc4,nil];
     

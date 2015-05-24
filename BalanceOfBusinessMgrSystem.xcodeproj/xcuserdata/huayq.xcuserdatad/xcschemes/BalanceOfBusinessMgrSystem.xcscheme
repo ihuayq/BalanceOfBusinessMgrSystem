@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
-               BuildableName = "BalanceOfBusinessMgrSystem.app"
+               BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
                BlueprintName = "BalanceOfBusinessMgrSystem"
                ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
-            BuildableName = "BalanceOfBusinessMgrSystem.app"
+            BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
             BlueprintName = "BalanceOfBusinessMgrSystem"
             ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
-            BuildableName = "BalanceOfBusinessMgrSystem.app"
+            BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
             BlueprintName = "BalanceOfBusinessMgrSystem"
             ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
          </BuildableReference>
@@ -96,7 +96,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
-            BuildableName = "BalanceOfBusinessMgrSystem.app"
+            BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
             BlueprintName = "BalanceOfBusinessMgrSystem"
             ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
          </BuildableReference>

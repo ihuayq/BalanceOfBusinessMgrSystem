@@ -244,7 +244,7 @@ UILabel *sendLabel;
              
              //发送通知
              //向NaturalManInfoMgrViewController
-             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:nameTextField.text,@"personName",dentifierTextField.text,@"idCard", nil];
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:nameTextField.text,@"personName",dentifierTextField.text,@"idCard", @"0",@"type",nil];
              //创建通知
              NSNotification *notification =[NSNotification notificationWithName:@"NatureManListChange" object:nil userInfo:dict];
              //通过通知中心发送通知

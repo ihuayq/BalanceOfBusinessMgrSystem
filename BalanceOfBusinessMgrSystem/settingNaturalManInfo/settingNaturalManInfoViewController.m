@@ -295,6 +295,20 @@
          {
                responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
+             NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
+             if (results) {
+                 NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
+                 [data setObject:results forKey:@"natureInfo"];
+                 [[NSUserDefaults standardUserDefaults]setObject:data forKey:SUPPLYER_INFO];
+                 NSLog(@"the SUPPLYER_INFO is:%@",data);
+                 
+                 //向NaturalManInfoMgrViewController
+                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"type",nil];
+                 //创建通知
+                 NSNotification *notification =[NSNotification notificationWithName:@"NatureManListChange" object:nil userInfo:dict];
+                 //通过通知中心发送通知
+                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+             }
 //             commercialId = M0060013;
 //             flag = 100;
 //             idCard = 1;
@@ -303,22 +317,6 @@
 //             personName = "\U8d75XX";
 //             phoneNum = 13000000011;
 //             websiteList =     (
-//                                {
-//                                    balanceAccount = "<null>";
-//                                    cashControl = "<null>";
-//                                    createTime = 1430701662000;
-//                                    depositBank = "<null>";
-//                                    merchantCode = M0060013;
-//                                    pubaccname = "\U5f20\U946b";
-//                                    pubbanknamedet = "<null>";
-//                                    pubcity = "<null>";
-//                                    pubprovince = "<null>";
-//                                    siteId = 1;
-//                                    siteNum = 00042672;
-//                                    websiteMark = "";
-//                                    websiteName = "\U5218\U6615\U5b8f\U8fbe\U7535\U5668\U7ecf\U9500\U90e8";
-//                                    websiteState = ACTIVE;
-//                                },
 
 //             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
 //             

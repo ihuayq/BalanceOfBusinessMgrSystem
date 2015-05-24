@@ -41,12 +41,13 @@
     homePageVC = [[BMHomePageViewController alloc] init];
     accountPageNaturalManVC = [[BMNaturalManAccountMainViewController alloc] init];
     
-    NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
-    NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:accountPageNaturalManVC];
+//    NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
+//    NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:accountPageNaturalManVC];
     
-    
-    nc1.hidesBottomBarWhenPushed = YES;
-    nc2.hidesBottomBarWhenPushed = YES;
+    UINavigationController  * nc1 = [[UINavigationController alloc] initWithRootViewController:homePageVC];
+    UINavigationController * nc2 = [[UINavigationController alloc] initWithRootViewController:accountPageNaturalManVC];
+//    nc1.hidesBottomBarWhenPushed = YES;
+//    nc2.hidesBottomBarWhenPushed = YES;
     
     
     self.viewControllers = [NSArray arrayWithObjects:nc1,nc2,nil];

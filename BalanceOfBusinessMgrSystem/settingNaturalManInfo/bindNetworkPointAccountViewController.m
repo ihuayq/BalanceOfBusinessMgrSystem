@@ -12,6 +12,7 @@
 #import "bindBalanceAccountViewController.h"
 #import "BankAccountItem.h"
 #import "ItemButton.h"
+#import "Globle.h"
 
 @interface bindNetworkPointAccountViewController (){
     UITableView * tableView;
@@ -21,8 +22,8 @@
     UILabel * identifyLabel;
     UILabel * telephoneLabel;
     
-//    NSMutableArray *group;//cell数组
-//    NSMutableArray *groupSelected;
+    BOOL isSelectedButtonEnable;
+
 }
 
 @end
@@ -34,10 +35,6 @@
     // Do any additional setup after loading the view.
     self.navigation.title = @"绑定网点账户";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
-    
-    //test group
-//    group=[[NSMutableArray alloc]init];
-//    groupSelected = [[NSMutableArray alloc]init];
     
     //自然人姓名
     manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
@@ -119,10 +116,17 @@
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
     
+    //选定结算账户的接口是否可用状态
     
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]) {
+        isSelectedButtonEnable =  NO;
+    }
+    else{
+        isSelectedButtonEnable = TRUE;
+    }
+
     //开始网络加载网点和账号信息
     //[self testLoadingFile];
-    //[self requestNetWork];
 }
 
 -(void)testLoadingFile{
@@ -166,7 +170,6 @@
     }
     
     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
-    //info.networkAccountSelect = groupSelected;
     info.groupNetWork = self.groupNetWork;
     info.groupBalance = self.groupBalance;
     [self.navigationController pushViewController:info
@@ -207,6 +210,7 @@
         button.backgroundColor = [UIColor clearColor ];
         [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
+        button.enabled = isSelectedButtonEnable;
     }
     cell.title= item.accountName;
     cell.bankName = item.bankName;

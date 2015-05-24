@@ -122,21 +122,40 @@
     avestButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:avestButton];
     
-    //选定结算账户的接口是否可用状态
-    if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE ) {
-        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"modifyAccFlag"] isEqualToString:@"1"]) {
-            isSelectedButtonEnable = TRUE;
-        }
-        else{
-            isSelectedButtonEnable =  NO;
-        }
+
+ 
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]) {
+        isSelectedButtonEnable =  NO;
     }
     else{
-        isSelectedButtonEnable = TRUE;
+        //选定结算账户的接口是否可用状态
+        if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE) {
+            if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"modifyAccFlag"] isEqualToString:@"1"]) {
+                isSelectedButtonEnable = TRUE;
+            }
+            else{
+                isSelectedButtonEnable =  NO;
+            }
+        }
     }
+   
 }
 
 -(void)touchOkButton{
+    BOOL bHasSelect =  NO;
+    for (BankAccountItem *item in self.groupBalance) {
+        if (item.bSelected == YES) {
+            bHasSelect = YES;
+        }
+    }
+    if ( bHasSelect == NO ) {
+        //提示框
+        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        alertView.tag = 999;
+        [alertView show];
+        return;
+    }
+    
     bindAccountConfirmViewController *vc = [[bindAccountConfirmViewController alloc] init];
     NSMutableArray *networkAccountGroup = [NSMutableArray new];
     for (BankAccountItem *item in self.groupNetWork) {

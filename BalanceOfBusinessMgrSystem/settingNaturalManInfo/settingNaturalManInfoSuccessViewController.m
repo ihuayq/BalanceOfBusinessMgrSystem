@@ -10,7 +10,7 @@
 #import "bindNetworkPointAccountViewController.h"
 #import "Globle.h"
 #import "BankAccountItem.h"
-
+#import "bindBalanceAccountViewController.h"
 @interface settingNaturalManInfoSuccessViewController ()
 
 @end
@@ -45,7 +45,7 @@
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, label.frame.size.height + label.frame.origin.y + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(bindNetworkPoint) forControlEvents:UIControlEventTouchUpInside];
-    [registerButton setTitle:@"绑定网点账户" forState:UIControlStateNormal];
+    [registerButton setTitle:@"绑定账户" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:registerButton];
@@ -54,9 +54,7 @@
 
 -(void)bindNetworkPoint{
     [Globle shareGloble].whichBalanceAccountEntranceType = ADD_NATUREMAN_ENTRANCE;//结算账号入口类型
-    //@property (nonatomic,assign) BOOL isCanModifyBalanceAccount;////结算账号可修改类型
 
-    
     [self requestNetWork];
 }
 
@@ -92,12 +90,6 @@
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             //NSMutableDictionary* info = [[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO];
-             //id hi = [responseJSONDictionary objectForKey:SUPPLYER_ID];
-             //[info setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID]  forKey:SUPPLYER_ID];
-             //[info setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:SUPPLYER_ID]]  forKey:@"huayq"];
-             //[info setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:SUPPLYER_ID]]  forKey:SUPPLYER_ID];
-             //[info objectForKey:SUPPLYER_ID] = [NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:SUPPLYER_ID]];
              
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -110,7 +102,7 @@
              [Dict setObject:[responseJSONDictionary objectForKey:@"websiteList"] forKey:@"accountinfo"];
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
              
-             NSMutableArray *group=[[NSMutableArray alloc]init];
+             NSMutableArray *groupNet=[[NSMutableArray alloc]init];
              NSArray *array = [responseJSONDictionary objectForKey:@"websiteList"];
              for ( NSDictionary *dic in array) {
                  //NSDictionary *dic=[array objectAtIndex:0];
@@ -119,24 +111,49 @@
                  item.bankName = [dic objectForKey:@"pubBankNameDet"];
                  item.bankCardNumber = [dic objectForKey:@"balanceAccount"];
                  item.siteNum = [dic objectForKey:@"siteNum"];
-                 item.bSelected = NO;
-                 [group addObject:item];
+                 //item.bSelected = [[dic objectForKey:@"selectedAccFlag"]  boolValue] ;//结算账号选定标记
+                 item.bNetworkSelected = [[dic objectForKey:@"selectedFlag"] boolValue];//网点账号选定标记
+                 [groupNet addObject:item];
              }
+             //methods为true的时候，即按照网点来结算业务，表示返回网点和结算账户都有，且两者相同
+             //methods为false的时候，按照商户结算，结算账户必有且只有一个，但是商户账户可能有也可能没有，即websiteList可能为空
+             [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
              
              //[self refreshData];
              //[tableView reloadData];
-             if ([[responseJSONDictionary objectForKey:@"methods"] isEqualToString:@"FALSE"]) {
-                 
+             if ([[responseJSONDictionary objectForKey:@"methods"] isEqualToString:@"TRUE"]) {
                  bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
-                 info.groupBalance = group;
+                 info.groupBalance = groupNet;
+                 info.groupNetWork = groupNet;
                  [self.navigationController pushViewController:info
                                                       animated:NO];
              }
+             //为false的情况
              else{
-//                 bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
-//                 info.groupBalance = group;
-//                 [self.navigationController pushViewController:info
-//                                                      animated:NO];
+
+                 NSMutableArray *groupBalance=[[NSMutableArray alloc]init];
+
+                 BankAccountItem *item = [BankAccountItem new];
+                 item.accountName = [responseJSONDictionary objectForKey:@"cpubAccName"];
+                 item.bankName = [responseJSONDictionary objectForKey:@"cpubBankNameDet"];
+                 item.bankCardNumber = [responseJSONDictionary objectForKey:@"cbalanceAccount"];
+                 item.bSelected = YES;
+                 [groupBalance addObject:item];
+                 
+                 if (groupNet.count > 0) {
+                     bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
+                     info.groupBalance = groupBalance;
+                     info.groupNetWork = groupNet;
+                     [self.navigationController pushViewController:info
+                                                          animated:NO];
+                 }
+                 else{
+                     bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+                     info.groupNetWork = groupNet;
+                     info.groupBalance = groupBalance;
+                     [self.navigationController pushViewController:info
+                                                          animated:NO];
+                 }
              }
          }
          else
