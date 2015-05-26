@@ -182,6 +182,7 @@
     // 查看是否设置了交易密码
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
          BMCreateTransactionpPasswordViewController *VC = [[BMCreateTransactionpPasswordViewController alloc] init];
+        VC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:VC animated:YES];
         return;
     }
@@ -189,6 +190,7 @@
     NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"]);
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
         BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
+        cancelVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:cancelVC animated:YES];
     }
     else{

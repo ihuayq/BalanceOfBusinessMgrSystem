@@ -442,11 +442,11 @@
 #pragma mark - UITextFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
-//    [UIView animateWithDuration:0.2 animations:^{
-//        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
-//    }];
-    
+    if (passwordTextField == textField) {
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+        }];
+    }
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

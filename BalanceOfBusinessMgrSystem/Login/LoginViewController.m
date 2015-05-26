@@ -202,6 +202,8 @@
         passwordTextField.placeholder = @"请输入密码";
         self.forgetButton.hidden = NO;
     }
+    nameTextField.text = @"";
+    passwordTextField.text = @"";
 }
 
 -(void)setIsSupplerSelected:(BOOL)isSupplerSelected{
@@ -232,10 +234,10 @@
 
 -(void)touchForgetButton
 {
-    [self touchesBegan:nil withEvent:nil];
-    
     ForgetPasswordViewController * fpw = [[ForgetPasswordViewController alloc] init];
-    [self.navigationController pushViewController:fpw animated:YES];
+        //[self.navigationController pushViewController:fpw animated:YES];
+    //[self presentViewController:fpw animated:YES completion:NULL];
+    [self presentModalViewController:fpw animated:YES];
 }
 
 -(void)touchRegisterButton

@@ -233,6 +233,7 @@
     }
     else{
         BMAssetsInfoSubViewController *vc = [[BMAssetsInfoSubViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
    
@@ -242,6 +243,7 @@
     //需要判断是否已经设置交易密码
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"1"]) {
         BMWithDrawsCashViewController*vc = [[BMWithDrawsCashViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
     else{

@@ -108,7 +108,7 @@
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [okButton setBackgroundColor:[UIColor redColor]];
-    [okButton setFrame:CGRectMake(40,MainHeight -180, MainWidth-2*40, 40)];
+    [okButton setFrame:CGRectMake(20,MainHeight -180, MainWidth-2*20, 40)];
     [okButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
     [okButton setTitle:@"确认" forState:UIControlStateNormal];
     [okButton.layer setMasksToBounds:YES];

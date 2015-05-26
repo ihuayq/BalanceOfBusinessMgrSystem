@@ -187,6 +187,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)previousToViewController
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
 -(void)touchSendCheckCodeButton//请求验证码
 {
     
