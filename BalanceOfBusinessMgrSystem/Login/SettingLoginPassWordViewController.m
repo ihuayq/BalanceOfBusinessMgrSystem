@@ -97,7 +97,7 @@
     [passwordTextField2 setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField2.backgroundColor = [UIColor clearColor];
     passwordTextField2.clearButtonMode = UITextFieldViewModeAlways;
-    passwordTextField2.placeholder = @"请确认登陆密码";
+    passwordTextField2.placeholder = @"请确认登录密码";
     passwordTextField2.font = [UIFont systemFontOfSize:14];
     passwordTextField2.delegate = self;
     passwordTextField2.keyboardType = UIKeyboardTypeDefault;
@@ -126,28 +126,19 @@
     passCodeTextField3.placeholder = @"请输入验证码";
     passCodeTextField3.font = [UIFont systemFontOfSize:14];
     passCodeTextField3.delegate = self;
-    passCodeTextField3.keyboardType = UIKeyboardTypeNumberPad;
+    passCodeTextField3.keyboardType = UIKeyboardTypeDefault;
     passCodeTextField3.borderStyle = UITextBorderStyleNone;
-    passCodeTextField3.secureTextEntry=NO;
     [self.view addSubview:passCodeTextField3];
     
-    
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateHighlighted];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [sendCheckCodeButton setBackgroundColor:[HP_UIColorUtils clearColor]];
     [sendCheckCodeButton setFrame:CGRectMake(215, CONFIRM_PASSWORD_OUTLET_POSITION+20, 85, 40)];
     [sendCheckCodeButton addTarget:self action:@selector(touchSendCheckCodeButton) forControlEvents:UIControlEventTouchUpInside];
+    [sendCheckCodeButton setTitle: @"获取验证码" forState:UIControlStateNormal];
+    sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
-    
-    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-    sendCheckCodeLabel.text = @"获取验证码";
-    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
-
     
     sendLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, RECEIVE_PASSWORD_OUTLET_POSITION, 285, 40)];
     sendLabel.textAlignment = NSTextAlignmentCenter;
@@ -160,8 +151,8 @@
     
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, CONFIRM_PASSWORD_OUTLET_POSITION + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchSettingPasswordButton) forControlEvents:UIControlEventTouchUpInside];
@@ -170,17 +161,20 @@
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     
     [self.view addSubview:registerButton];
-    
-//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
-//    registerLabel.textAlignment = NSTextAlignmentCenter;
-//    registerLabel.backgroundColor = [UIColor clearColor];
-//    registerLabel.text = @"确认";
-//    registerLabel.textColor = [UIColor whiteColor];
-//    registerLabel.font = [UIFont systemFontOfSize:15];
-//    [registerButton addSubview:registerLabel];
 }
 
 -(void)touchSettingPasswordButton{
+    
+    
+    if (![self checkPassCode:passCodeTextField3.text]) {
+        return;
+    }
+    
+    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
+    {
+        return;
+    }
+    
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -193,6 +187,7 @@
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
     
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
@@ -215,9 +210,18 @@
              //[self timeCountdown];
              //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
              //商户还是自然
-             [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
+             //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
+             NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
+             [data setObject:@"1" forKey:@"naturalMark"];
+             [[NSUserDefaults standardUserDefaults] setObject:data forKey:USERINFO];
+             NSLog(@"the USERINFO is:%@",data);
              
-             [self.navigationController popViewControllerAnimated:YES];
+             
+             //[self.navigationController popViewControllerAnimated:YES];
+             //通过通知中心发送通知
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
          }
          else
          {
@@ -231,9 +235,17 @@
      }];
 }
 
+-(void)previousToViewController
+{
+//[self.navigationController popViewControllerAnimated:YES];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
+}
+
 -(void)touchSendCheckCodeButton//请求验证码
 {
-//    if (![self checkTel:telTextField.text])
+//    if (![self checkTel:passwordTextField2.text])
 //    {
 //        return;
 //    }
@@ -245,14 +257,10 @@
     
     [self touchesBegan:nil withEvent:nil];
     
-    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
-    
-    //[connDictionary setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
     
     //[connDictionary setObject:@"register" forKey:@"type"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
@@ -269,8 +277,8 @@
          {
              //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
              
-             //[self timeCountdown];
-             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+             [self timeCountdown];
+             timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
          }
          else
          {
@@ -285,6 +293,40 @@
      }];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    nCout = 60;
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    nCout = 0;
+    [self timeCountdown];
+}
+
+-(void)timeCountdown
+{
+    NSLog(@"%d\n",nCout);
+    
+    if (nCout>0)
+    {
+        nCout=nCout-1;
+        [sendCheckCodeButton setTitle:[NSString stringWithFormat:@"获取(%d)",nCout] forState:UIControlStateDisabled];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setEnabled:NO];
+    }
+    else if (nCout==0)
+    {
+        [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setEnabled:YES];
+        nCout=60;
+        [timer invalidate];//取消定时器
+    }
+}
+
+
 -(void)goToBackView
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -297,13 +339,13 @@
     // NSString* msgstring2=[str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring1.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入支付密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入登录密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
     if (msgstring1.length<6)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"登录密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
@@ -314,20 +356,19 @@
     
     if (![str1 isEqualToString:str2])
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"登录密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
-    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
+//    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
     return YES;
     
 }
-
 
 - (BOOL)checkPassWordString:(NSString *)str
 {
@@ -335,25 +376,30 @@
     NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入登录密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
-    
-    
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch)
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
+//    if (msgstring.length<6)
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"密码输入少于6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
+
+
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
+//    BOOL isMatch = [pred evaluateWithObject:str];
+//
+//    if (!isMatch)
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
     
     return YES;
 }
-
 
 -(void)touchChangePasswordButton
 {
@@ -453,7 +499,7 @@
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
 
 
-             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
+             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
              [[NSUserDefaults standardUserDefaults]setObject:[transmitDict objectForKey:USER_MOBILE] forKey:LAST_LOGIN_NAME];
              [[NSUserDefaults standardUserDefaults] setObject:Register_First forKey:Register_First];
 

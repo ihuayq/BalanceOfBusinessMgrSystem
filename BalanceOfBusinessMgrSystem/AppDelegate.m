@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "BMCommercialTenantMainViewController.h"
 #import "BMNaturalManMainViewController.h"
+#import "SettingLoginPassWordViewController.h"
 
 @interface AppDelegate ()
 
@@ -43,29 +44,35 @@
 }
 
 - (void)LoginInitMainwidow:(NSNotification *)text{
-    NSLog(@"%@",text.userInfo[@"one"]);
+    NSLog(@"%@",text.userInfo[@"login"]);
     NSLog(@"－－－－－接收到通知------");
     
-    //是否商户1 还是自然人0 登陆 logintype
-//    if( [text.userInfo[@"one"] isEqualToString:@"1"]){
-//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-//        self.window.rootViewController = mainview;
-//        //[self.navigationController pushViewController:mainview animated:NO];
-//    }
-//    //自然人登陆
-//    else
-//    {
-//        
-////        if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
-////            SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-////            [self.navigationController pushViewController:settingVc animated:NO];
-////        }else{
-////            BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
-////            [self.navigationController pushViewController:Vc animated:NO];
-////        }
-//    }
-
-    
+    //是否商户1 还是自然人0 登录 logintype
+    if( [text.userInfo[@"login"] isEqualToString:@"1"]){
+        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+        self.window.rootViewController = mainview;
+        //[self.navigationController pushViewController:mainview animated:NO];
+    }
+    //自然人登录
+    else if([text.userInfo[@"login"] isEqualToString:@"0"])
+    {
+        if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
+            SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+            self.window.rootViewController = settingVc;
+            // [self.window.rootViewController presentViewController:settingVc animated:YES completion:NULL];
+            //[self.navigationController pushViewController:settingVc animated:NO];
+        }else{
+            BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
+            self.window.rootViewController = Vc;
+            //[self.navigationController pushViewController:Vc animated:NO];
+        }
+    }
+    //自然人登录
+    else if([text.userInfo[@"login"] isEqualToString:@"2"])
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        self.window.rootViewController = login;
+    }
 }
 
 #pragma mark
@@ -165,7 +172,7 @@
 -(void)initWindowRootViewController
 {
     
-    NSString *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStatus"];//0未登陆、1的登陆
+    NSString *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStatus"];//0未登录、1的登录
     
     NSString* versionString=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSLog(@"keystring %@",versionString);

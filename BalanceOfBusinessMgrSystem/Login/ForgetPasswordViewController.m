@@ -244,10 +244,19 @@
 
 -(void)touchForgetPasswordButton
 {
-//    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
-//    {
-//        return;
-//    }
+    if (![self checkTel:telTextField.text]) {
+         return;
+    }
+    
+    if (![self checkPassCode:passCodeTextField.text]) {
+        return;
+    }
+    
+    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
+    {
+        return;
+    }
+    
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -258,7 +267,14 @@
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"fogetPassPersonId"] forKey:USER_ID];
+    id infp = [[NSUserDefaults standardUserDefaults] objectForKey:@"fogetPassPersonId"];
+    if (infp == nil) {
+        [connDictionary setObject:@"" forKey:USER_ID];
+    }
+    else{
+        [connDictionary setObject:infp forKey:USER_ID];
+    }
+    
     [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
     [connDictionary setObject:telTextField.text forKey:@"phoneNum"];
     
@@ -371,7 +387,7 @@
         [alertview show];
         return NO;
     }
-    if (msgstring.length<6)
+    if (msgstring.length<4)
     {
         UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"验证码输入有误" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];

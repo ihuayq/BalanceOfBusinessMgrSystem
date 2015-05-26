@@ -55,7 +55,7 @@
     
     UILabel *notePsdLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];//这个frame是初设的，没关系，后面还会重新设置其size。
     [notePsdLabel setNumberOfLines:0];
-    NSString *s = @"授权人手机号:";
+    NSString *s = @"自然人手机号:";
     CGSize size = CGSizeMake(320,40);
     CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
     [notePsdLabel setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 20, labelsize.width, labelsize.height)];
@@ -235,6 +235,17 @@
 
 -(void)touchSettingPasswordButton{
     
+
+    
+    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
+    {
+        return;
+    }
+    if (![self checkPassCode:passCodeTextField3.text]) {
+        return;
+    }
+    
+    
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -286,11 +297,6 @@
 
 -(void)touchSendCheckCodeButton//请求验证码
 {
-    
-    //    if (![self checkTel:telTextField.text])
-    //    {
-    //        return;
-    //    }
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -351,13 +357,13 @@
     // NSString* msgstring2=[str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring1.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入支付密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入交易密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
     if (msgstring1.length<6)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
@@ -368,13 +374,13 @@
     
     if (![str1 isEqualToString:str2])
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
 //    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
 //    {
-//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
 //        [alertview show];
 //        return NO;
 //    }
@@ -382,36 +388,39 @@
     
 }
 
-
 - (BOOL)checkPassWordString:(NSString *)str
 {
     
     NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入交易密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
+    //    if (msgstring.length<6)
+    //    {
+    //        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"密码输入少于6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+    //        [alertview show];
+    //        return NO;
+    //    }
     
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch)
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
+    //    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
+    //    BOOL isMatch = [pred evaluateWithObject:str];
+    //
+    //    if (!isMatch)
+    //    {
+    //        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+    //        [alertview show];
+    //        return NO;
+    //    }
     
     return YES;
 }
 
-
 #pragma mark -
 #pragma mark - UITextFieldDelegate
-
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     return [textField resignFirstResponder];

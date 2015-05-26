@@ -56,7 +56,7 @@
     nameTextField.placeholder = @"点击输入金额";
     nameTextField.font = [UIFont systemFontOfSize:24];
     nameTextField.delegate = self;
-    nameTextField.keyboardType = UIKeyboardTypeDefault;
+    nameTextField.keyboardType = UIKeyboardTypeNumberPad;
     [nameTextField setBorderStyle:UITextBorderStyleRoundedRect];
 //    [nameTextField.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
 //    [nameTextField.layer setBorderWidth:0.5f];
@@ -120,7 +120,19 @@
 }
 
 -(void)requestNetWork{
-
+    //金额输入不能为空
+    NSString* msgstring=[nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (msgstring.length==0)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return;
+    }
+    //
+    if (![self checkPassWordString:passwordTextField.text])
+    {
+        return;
+    }
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {

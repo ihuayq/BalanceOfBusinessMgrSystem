@@ -227,8 +227,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row != 0 ) {
-         [tableView deselectRowAtIndexPath:indexPath animated:YES];
+         //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     else{
         BMAssetsInfoSubViewController *vc = [[BMAssetsInfoSubViewController alloc] init];

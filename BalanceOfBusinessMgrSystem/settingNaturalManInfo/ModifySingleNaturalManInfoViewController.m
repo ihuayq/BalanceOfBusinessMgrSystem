@@ -39,6 +39,14 @@
 @synthesize model = _model;
 -(void)setModel:(NaturalManItemModel *)model_{
     _model = model_;
+    
+    NSDictionary* Dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"];
+    NSMutableDictionary* info =[NSMutableDictionary dictionaryWithDictionary:Dict];
+    [info setObject:_model.manName forKey:@"name"];
+    [info setObject:_model.identifyNumber forKey:@"identifyno"];
+    //[info setObject:_model.nPosition forKey:@"no"];
+    [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"curNatureMenInfo"];
+    return;
 }
 
 - (void)viewDidLoad {
@@ -75,7 +83,7 @@
     identifyHeadLabel.text = @"身份证号码:";
     [self.view addSubview:identifyHeadLabel];
     
-    identifyNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyHeadLabel.frame.origin.x + identifyHeadLabel.frame.size.width, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 5, 160, 20)];
+    identifyNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyHeadLabel.frame.origin.x + identifyHeadLabel.frame.size.width, manNameLabel.frame.origin.y + manNameLabel.frame.size.height + 5, 180, 20)];
     identifyNumberLabel.textAlignment = NSTextAlignmentLeft;
     identifyNumberLabel.backgroundColor = [UIColor clearColor];
     identifyNumberLabel.textColor = [UIColor lightGrayColor];
@@ -122,8 +130,8 @@
     
     //确定
     UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0f - 60 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchCommitButton) forControlEvents:UIControlEventTouchUpInside];

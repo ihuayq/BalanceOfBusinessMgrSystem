@@ -56,7 +56,7 @@
     [passWordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passWordTextField.backgroundColor = [UIColor clearColor];
     passWordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    passWordTextField.placeholder = @"请输入6位交易密码";
+    passWordTextField.placeholder = @"请输入交易密码";
     passWordTextField.font = [UIFont systemFontOfSize:16];
     passWordTextField.delegate = self;
     passWordTextField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -66,8 +66,8 @@
     
     //确定
     HP_UIButton *forgetPassWordButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-//    [forgetPassWordButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-//    [forgetPassWordButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+//    [forgetPassWordButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+//    [forgetPassWordButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
 //    [forgetPassWordButton setBackgroundColor:[UIColor blueColor]];
     [forgetPassWordButton setFrame:CGRectMake(MainWidth - 120,MainHeight -300, 2*50, 40)];
     [forgetPassWordButton addTarget:self action:@selector(touchForgetPassWordButton) forControlEvents:UIControlEventTouchUpInside];
@@ -90,19 +90,12 @@
     
     //cancelButton.enabled = false;
     [self.view addSubview:cancelButton];
-    
-//    NSString *strLabel = @"预约购买";
-//    registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*40, 40)];
-//    registerLabel.textAlignment = NSTextAlignmentCenter;
-//    registerLabel.backgroundColor = [UIColor clearColor];
-//    registerLabel.textColor = [UIColor whiteColor];
-//    registerLabel.font = [UIFont systemFontOfSize:15];
-    //CGSize titleSize = [strLabel sizeWithFont:registerLabel.font constrainedToSize:CGSizeMake(MainWidth, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
 }
 
 
 -(void)touchForgetPassWordButton{
-     BMCreateTransactionpPasswordViewController *vc = [[BMCreateTransactionpPasswordViewController alloc] init];
+    BMCreateTransactionpPasswordViewController *vc = [[BMCreateTransactionpPasswordViewController alloc] init];
+    vc.type = 1;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -168,49 +161,12 @@
     
 }
 
-- (BOOL)checkPassword:(NSString *)str1 checkPassword2:(NSString*)str2
-{
-    
-    NSString* msgstring1=[str1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    // NSString* msgstring2=[str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    if (msgstring1.length==0)
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入支付密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
-//    if (msgstring1.length<6)
-//    {
-//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-//        [alertview show];
-//        return NO;
-//    }
-//    if (![self checkPassWordString:str1])
-//    {
-//        return NO;
-//    }
-    
-    if (![str1 isEqualToString:str2])
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
-//    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
-//    {
-//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-//        [alertview show];
-//        return NO;
-//    }
-    return YES; 
-}
-
 
 -(void)touchCanceButton{
-//    if (![self checkPassWordString:passWordTextField.text])
-//    {
-//        return;
-//    }
+    if (![self checkPassWordString:passWordTextField.text])
+    {
+        return;
+    }
     
     [self requestNetWork];
     

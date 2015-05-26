@@ -13,15 +13,12 @@
 #import "NaturalManItemModel.h"
 
 @interface ModifyNaturalManIdentifyInfoViewController (){
-
-HP_UITextField * nameTextField;
-HP_UITextField * dentifierTextField;
-HP_UITextField * telephoneTextField;
-HP_UITextField * passCodeTextField;
-HP_UIButton *sendCheckCodeButton;
-UILabel *sendLabel;
-
-
+    HP_UITextField * nameTextField;
+    HP_UITextField * dentifierTextField;
+    UILabel * telephoneTextField;
+    HP_UITextField * passCodeTextField;
+    HP_UIButton *sendCheckCodeButton;
+    UILabel *sendLabel;
 }
 
 @end
@@ -123,53 +120,60 @@ UILabel *sendLabel;
     [bgImageView31 addSubview:bgImageView30];
     [bgImageView31 addSubview:bgLabel30];
     
-    telephoneTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(120, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20, 200, 40)];
-    [telephoneTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
+    telephoneTextField = [[UILabel alloc] initWithFrame:CGRectMake(100, 10, 180, 20)];
+    telephoneTextField.textAlignment = NSTextAlignmentLeft;
     telephoneTextField.backgroundColor = [UIColor clearColor];
-    telephoneTextField.clearButtonMode = UITextFieldViewModeAlways;
-    //telephoneTextField.placeholder = @"请输入手机号码";//直接用手机号替换
-    telephoneTextField.font = [UIFont systemFontOfSize:14];
-    telephoneTextField.delegate = self;
-    telephoneTextField.keyboardType = UIKeyboardTypeDefault;
-    telephoneTextField.borderStyle = UITextBorderStyleNone;
-    //telephoneTextField.secureTextEntry=YES;
     telephoneTextField.text = self.model.telephoneNumber;
-    [self.view addSubview:telephoneTextField];
+    telephoneTextField.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
+    telephoneTextField.font = [UIFont systemFontOfSize:15];
+     [bgImageView31 addSubview:telephoneTextField];
+//    telephoneTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(120, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20, 200, 40)];
+//    [telephoneTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
+//    telephoneTextField.backgroundColor = [UIColor clearColor];
+//    telephoneTextField.clearButtonMode = UITextFieldViewModeAlways;
+//    //telephoneTextField.placeholder = @"请输入手机号码";//直接用手机号替换
+//    telephoneTextField.font = [UIFont systemFontOfSize:14];
+//    telephoneTextField.delegate = self;
+//    telephoneTextField.keyboardType = UIKeyboardTypeDefault;
+//    telephoneTextField.borderStyle = UITextBorderStyleNone;
+//    telephoneTextField.text = self.model.telephoneNumber;
+//    [self.view addSubview:telephoneTextField];
     
     //短信验证码
     HP_UIImageView *bgImageView40 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
     [bgImageView40 setImage:[UIImage imageNamed:@"短信验证"]];
     
-    HP_UIImageView *bg3ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 20,190, 40)];
+    HP_UIImageView *bg3ImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, bgImageView31.frame.size.height + bgImageView31.frame.origin.y + 20,190, 40)];
     [bg3ImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bg3ImageView];
     [bg3ImageView addSubview:bgImageView40];
     
-    passCodeTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 20, 110, 40)];
+    passCodeTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, bgImageView31.frame.size.height + bgImageView31.frame.origin.y + 20, 110, 40)];
     [passCodeTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passCodeTextField.backgroundColor = [UIColor clearColor];
     passCodeTextField.clearButtonMode = UITextFieldViewModeAlways;
     passCodeTextField.placeholder = @"请输入验证码";
     passCodeTextField.font = [UIFont systemFontOfSize:14];
     passCodeTextField.delegate = self;
-    passCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+    passCodeTextField.keyboardType = UIKeyboardTypeDefault;
     passCodeTextField.borderStyle = UITextBorderStyleNone;
     passCodeTextField.secureTextEntry = NO;
     [self.view addSubview:passCodeTextField];
     
     sendCheckCodeButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
-    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateHighlighted];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [sendCheckCodeButton setBackgroundColor:[HP_UIColorUtils clearColor]];
-    [sendCheckCodeButton setFrame:CGRectMake(215, telephoneTextField.frame.size.height + telephoneTextField.frame.origin.y + 20, 85, 40)];
+    [sendCheckCodeButton setFrame:CGRectMake(215, bgImageView31.frame.size.height + bgImageView31.frame.origin.y + 20, 85, 40)];
     [sendCheckCodeButton addTarget:self action:@selector(touchSendCheckCodeButton) forControlEvents:UIControlEventTouchUpInside];
     [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+     sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
 
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0f - 60 , MainWidth - 80, 40)];
     [registerButton addTarget:self action:@selector(touchCommitButton) forControlEvents:UIControlEventTouchUpInside];

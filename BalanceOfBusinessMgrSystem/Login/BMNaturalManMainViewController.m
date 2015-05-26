@@ -75,10 +75,15 @@
     nc4.tabBarItem.title = @"账号";
     
     
-    nc1.tabBarItem.image = [UIImage imageNamed:@"首页"];
-    nc2.tabBarItem.image = [UIImage imageNamed:@"投资"];
-    nc3.tabBarItem.image = [UIImage imageNamed:@"资产"];
-    nc4.tabBarItem.image = [UIImage imageNamed:@"账号"];
+    nc1.tabBarItem.image = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nc2.tabBarItem.image = [[UIImage imageNamed:@"投资"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nc3.tabBarItem.image = [[UIImage imageNamed:@"资产"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nc4.tabBarItem.image = [[UIImage imageNamed:@"账号"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    nc1.tabBarItem.selectedImage = [UIImage imageNamed:@"首页-normal"];
+    nc2.tabBarItem.selectedImage = [UIImage imageNamed:@"投资-normal"];
+    nc3.tabBarItem.selectedImage = [UIImage imageNamed:@"资产-normal"];
+    nc4.tabBarItem.selectedImage = [UIImage imageNamed:@"账号-normal"];
     
     //self.tabBarController.selectedViewController = nc2;
 }

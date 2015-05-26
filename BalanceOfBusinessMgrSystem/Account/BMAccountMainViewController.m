@@ -10,6 +10,7 @@
 #import "BMAccountCellInfo.h"
 #import "BMSettingTransactionpPasswordViewController.h"
 #import "ModifyLoginPasswordViewController.h"
+#import "ProjectReferViewController.h"
 
 @interface BMAccountMainViewController (){
     NSMutableArray *_group;//cell数组
@@ -36,8 +37,8 @@
     
     //确定
     UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchExitButton) forControlEvents:UIControlEventTouchUpInside];
@@ -49,9 +50,12 @@
 
 -(void)touchExitButton{
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
-    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登陆、1的登陆
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登录、1的登录
     
-    [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
+    //[self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void) initGroup{
@@ -63,7 +67,7 @@
     
     
     BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
-    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"登陆密码"];
+    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"登录密码"];
     BMAccountCellInfo *contact3=[BMAccountCellInfo initWithFirstName:@"交易密码"];
     BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1,contact2,contact3, nil]];
     [_group addObject:group1];
@@ -197,6 +201,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if( indexPath.section == 1  )
     {
         if (indexPath.row == 0) {
@@ -205,17 +210,23 @@
         else if( indexPath.row == 1)
         {
             ModifyLoginPasswordViewController *vc = [[ModifyLoginPasswordViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
         else if( indexPath.row == 2)
         {
             BMSettingTransactionpPasswordViewController *vc = [[BMSettingTransactionpPasswordViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
     else if (indexPath.section == 2)
     {
         //关于超额宝
+        
+        ProjectReferViewController *vc = [[ProjectReferViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
 

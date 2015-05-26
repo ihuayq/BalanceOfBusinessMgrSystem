@@ -37,7 +37,7 @@
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
     //自然人姓名
-    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
+    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -46,7 +46,7 @@
     manTitleLabel.numberOfLines = 0;
     [self.view addSubview:manTitleLabel];
     
-    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(25, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
+    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
     manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
     manNameLabel.textAlignment = NSTextAlignmentCenter;
     manNameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -65,7 +65,7 @@
     identifyTitleLabel.numberOfLines = 0;
     [self.view addSubview:identifyTitleLabel];
     
-    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,150, 20)];
+    identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,180, 20)];
     identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
     identifyLabel.textAlignment = NSTextAlignmentCenter;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];

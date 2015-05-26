@@ -9,7 +9,10 @@
 #import "HP_BaseViewController.h"
 
 
-@interface HP_BaseViewController ()
+@interface HP_BaseViewController ()<MBProgressHUDDelegate>{
+	MBProgressHUD *HUD;
+}
+
 
 @end
 
@@ -121,6 +124,50 @@
     [progressView show];
 }
 
+
+-(void)showMBProgressHUDWithMessage:(NSString *)msg
+{
+//    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+//    [self.navigationController.view addSubview:HUD];
+//    
+//    HUD.delegate = self;
+//    HUD.mode = MBProgressHUDModeText;
+//    HUD.minSize = CGSizeMake(135.f, 135.f);
+//    HUD.labelText = msg;
+//  [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+    
+//    HUD= [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    
+    // Configure for text only and offset down
+    //HUD.mode = MBProgressHUDModeText;
+    HUD.labelText = msg;
+    HUD.minSize = CGSizeMake(135.f, 135.f);
+    HUD.margin = 10.f;
+    HUD.removeFromSuperViewOnHide = YES;
+    [HUD show:YES];
+   
+}
+
+-(void)hidMBProgressHUD
+{
+    //[HUD hide:YES];
+    [HUD hide:YES afterDelay:0.1];
+}
+
+#pragma mark - MBProgressHUDDelegate
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    // Remove HUD from screen when the HUD was hidded
+    [HUD removeFromSuperview];
+    HUD = nil;
+}
+
+- (void)myTask {
+    // Do something usefull in here instead of sleeping ...
+    sleep(3);
+}
+
 -(NSUserDefaults *) getNSUserDefaults
 {
     return [NSUserDefaults standardUserDefaults];
@@ -198,15 +245,15 @@
 //    }
 
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch)
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
+//    BOOL isMatch = [pred evaluateWithObject:str];
+//    
+//    if (!isMatch)
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
     
     return YES;
 }
@@ -242,7 +289,17 @@
     return YES;
 }
 
-
+//验证姓名
+- (BOOL)checkName:(NSString *)str{
+    NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (msgstring.length==0)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入姓名" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    return YES;
+}
 
 
 
@@ -318,4 +375,25 @@
     return YES;
 }
 
+- (BOOL)checkPassCode:(NSString *)str
+{
+    
+    NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (msgstring.length==0)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入验证码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    if (msgstring.length<4)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"验证码输入有误" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    
+    
+    return YES;
+    
+}
 @end

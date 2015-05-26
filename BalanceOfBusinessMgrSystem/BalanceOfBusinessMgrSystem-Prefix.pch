@@ -20,6 +20,7 @@
 #import "GlobalDefine.h"
 #import "APIConfig.h"
 //#import "ControllerConfig.h"
+#import "MBProgressHUD.h"
 
 
 #define ScreenHeight [[UIScreen mainScreen] bounds].size.height

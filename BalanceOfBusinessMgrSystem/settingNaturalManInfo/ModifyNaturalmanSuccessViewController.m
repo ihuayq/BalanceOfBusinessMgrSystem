@@ -35,8 +35,8 @@
     
     //确定
     UIButton *switchButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [switchButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [switchButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [switchButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [switchButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [switchButton setBackgroundColor:[UIColor greenColor]];
     [switchButton setFrame:CGRectMake(40, MainHeight/2 , 80, 40)];
     [switchButton addTarget:self action:@selector(touchSwitchButton) forControlEvents:UIControlEventTouchUpInside];
@@ -47,8 +47,8 @@
     
     //继续添加自然人
     UIButton *addMoreButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [addMoreButton setBackgroundColor:[UIColor greenColor]];
     [addMoreButton setFrame:CGRectMake(switchButton.frame.origin.x + switchButton.frame.size.width + 20 , MainHeight/2 , 80, 40)];
     [addMoreButton addTarget:self action:@selector(touchExitButton) forControlEvents:UIControlEventTouchUpInside];

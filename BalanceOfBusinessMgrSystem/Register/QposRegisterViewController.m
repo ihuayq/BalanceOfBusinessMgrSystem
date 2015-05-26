@@ -555,7 +555,7 @@
                  [Dict setObject:[responseJSONDictionary objectForKey:USERTYPE] forKey:USERTYPE];
                  [Dict setObject:[responseJSONDictionary objectForKey:USER_STATUS] forKey:USER_STATUS];
                  [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
-                 [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
+                 [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
                  [[NSUserDefaults standardUserDefaults]setObject:telTextField.text forKey:LAST_LOGIN_NAME];
                  [[NSUserDefaults standardUserDefaults] setObject:Register_First forKey:Register_First];
                  MainViewController * mainview=[[MainViewController alloc]init];
@@ -599,14 +599,14 @@
     {
         jishuqi=jishuqi-1;
         sendCheckCodeLabel.text=[NSString stringWithFormat:@"获取(%d)",jishuqi];
-        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"senddj"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
         [sendCheckCodeButton setEnabled:NO];
     }
     else if (jishuqi==0)
     {
         
         sendCheckCodeLabel.text=@"点击获取";
-        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"send"] forState:UIControlStateNormal];
+        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
         [sendCheckCodeButton setEnabled:YES];
         jishuqi=60;
         [timer invalidate];//取消定时器

@@ -179,7 +179,7 @@
 
 
 -(void)touchDatingButton{
-    // 查看是否设置了支付密码
+    // 查看是否设置了交易密码
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
          BMCreateTransactionpPasswordViewController *VC = [[BMCreateTransactionpPasswordViewController alloc] init];
         [self.navigationController pushViewController:VC animated:YES];

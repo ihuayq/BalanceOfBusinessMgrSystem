@@ -147,8 +147,8 @@
     
     
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, 250, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchChangePasswordButton) forControlEvents:UIControlEventTouchUpInside];
@@ -318,7 +318,7 @@
 //             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
 //             
 //             
-//             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
+//             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
 //             [[NSUserDefaults standardUserDefaults]setObject:[transmitDict objectForKey:USER_MOBILE] forKey:LAST_LOGIN_NAME];
 //             [[NSUserDefaults standardUserDefaults] setObject:Register_First forKey:Register_First];
 //             

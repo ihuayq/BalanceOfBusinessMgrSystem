@@ -9,6 +9,7 @@
 #import "BMNaturalManAccountMainViewController.h"
 #import "BMAccountCellInfo.h"
 #import "NaturalManInfoMgrViewController.h"
+#import "ProjectReferViewController.h"
 
 @interface BMNaturalManAccountMainViewController ()
 {
@@ -36,8 +37,8 @@
     
     //确定
     UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchExitButton) forControlEvents:UIControlEventTouchUpInside];
@@ -50,9 +51,12 @@
 -(void)touchExitButton{
     //[self.navigationController popToRootViewControllerAnimated:YES];
     [[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
-    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登陆、1的登陆
+    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登录、1的登录
     
-    [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
+   // [self.parentViewController.navigationController popToRootViewControllerAnimated:YES];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (void) initGroup{
@@ -169,14 +173,19 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if( indexPath.section == 1  )
     {
         NaturalManInfoMgrViewController *vc = [[NaturalManInfoMgrViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:NO];
     }
     else if (indexPath.section == 2)
     {
         //关于超额宝
+        ProjectReferViewController *vc = [[ProjectReferViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

@@ -44,8 +44,8 @@
     
     //确定
     UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [avestButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(MainWidth/2 + 40, MainHeight -48.5 - 100 , 80, 40)];
     [avestButton addTarget:self action:@selector(touchConfirmButton) forControlEvents:UIControlEventTouchUpInside];

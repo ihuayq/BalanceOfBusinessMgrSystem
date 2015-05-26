@@ -29,7 +29,7 @@
     self.navigation.rightImage = [UIImage imageNamed:@"addNaturalMan"];
     
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT ,MainWidth, MainHeight-48.5f - 44.0f)];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT ,MainWidth, MainHeight - 44.0f) style:UITableViewStyleGrouped];
     tableView.delegate =self;
     tableView.dataSource = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -94,6 +94,7 @@
 
 -(void)rightButtonClickEvent{
         settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+        self.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:info
                                              animated:NO];
 }
@@ -162,6 +163,17 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+#pragma mark - 代理方法
+#pragma mark 设置分组标题内容高度
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.01f;
+}
+
+#pragma mark 设置尾部说明内容高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01f;
 }
 
 - (void)didReceiveMemoryWarning {

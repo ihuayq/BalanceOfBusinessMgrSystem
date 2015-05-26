@@ -25,7 +25,7 @@
     
     //账号提示
     UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 60, MainWidth - 30*2, 60)];
-    titleLabel.text = @"账户信息绑定成功 ，您现在可以使用此自然人账号登陆设置投资理财相关操作！是否切换自然人账户登录？";
+    titleLabel.text = @"账户信息绑定成功 ，您现在可以使用此自然人账号登录设置投资理财相关操作！是否切换自然人账户登录？";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     titleLabel.font = [UIFont systemFontOfSize:14];
@@ -35,8 +35,8 @@
     
     //确定
     UIButton *switchButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [switchButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [switchButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [switchButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [switchButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [switchButton setBackgroundColor:[UIColor greenColor]];
     [switchButton setFrame:CGRectMake(40, MainHeight/2 , 80, 40)];
     [switchButton addTarget:self action:@selector(touchSwitchButton) forControlEvents:UIControlEventTouchUpInside];
@@ -47,8 +47,8 @@
 
     //继续添加自然人
     UIButton *addMoreButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [addMoreButton setBackgroundColor:[UIColor greenColor]];
     [addMoreButton setFrame:CGRectMake(switchButton.frame.origin.x + switchButton.frame.size.width + 20 , MainHeight/2 , 140, 40)];
     [addMoreButton addTarget:self action:@selector(touchAddMoreButton) forControlEvents:UIControlEventTouchUpInside];

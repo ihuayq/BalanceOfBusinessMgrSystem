@@ -300,8 +300,8 @@
     
     
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setFrame:CGRectMake(20, 360, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchRegisterButton) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"提交注册" forState:UIControlStateNormal];
@@ -575,7 +575,7 @@
                 [Dict setObject:[self delStringNull:[responseJSONDictionary objectForKey:INVITECODE]] forKey:USER_INVITECODE];
                 [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
                
-                [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
+                [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
                 [[NSUserDefaults standardUserDefaults]setObject:telTextField.text forKey:LAST_LOGIN_NAME];
                 [[NSUserDefaults standardUserDefaults] setObject:Register_First forKey:Register_First];
                 

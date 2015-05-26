@@ -135,14 +135,6 @@
     sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
     
-//    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-//    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-//    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-//    sendCheckCodeLabel.text = @"获取验证码";
-//    sendCheckCodeLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-//    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-//    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
-    
     sendLabel = [[UILabel alloc] initWithFrame:CGRectMake(30,sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20, 285, 40)];
     sendLabel.textAlignment = NSTextAlignmentCenter;
     sendLabel.backgroundColor = [UIColor clearColor];
@@ -152,7 +144,7 @@
     sendLabel.hidden = YES;
     [self.view  addSubview:sendLabel];
     
-    //商户登陆密码
+    //商户登录密码
     HP_UIImageView *bgImageView60 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,6,25,25)];
     [bgImageView60 setImage:[UIImage imageNamed:@"密码"]];
     
@@ -165,12 +157,12 @@
     [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    passwordTextField.placeholder = @"请输入商户登陆密码";
+    passwordTextField.placeholder = @"请输入商户登录密码";
     passwordTextField.font = [UIFont systemFontOfSize:14];
     passwordTextField.delegate = self;
     passwordTextField.keyboardType = UIKeyboardTypeDefault;
     passwordTextField.borderStyle = UIKeyboardTypeEmailAddress;
-    //passwordTextField.secureTextEntry=YES;
+    passwordTextField.secureTextEntry=YES;
     [self.view addSubview:passwordTextField];
     
     //自然人姓名
@@ -201,8 +193,8 @@
     
     //确定
     registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, radioAgreement.frame.origin.y+radioAgreement.frame.size.height+ 20, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchCommitButton) forControlEvents:UIControlEventTouchUpInside];
@@ -251,11 +243,28 @@
 //    [self.navigationController pushViewController:info
 //                                         animated:NO];
 //    return;
+    if (![self checkName:nameTextField.text]) {
+        return;
+    }
+    
+    if (![self checkshenfenzhengString:dentifierTextField.text]) {
+        return;
+    }
     
     if (![self checkTel:telephoneTextField.text])
     {
         return;
     }
+    
+    if (![self checkPassCode:passCodeTextField.text]) {
+        return;
+    }
+    
+    if (![self checkPassWordString:passwordTextField.text])
+    {
+        return;
+    }
+    
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];

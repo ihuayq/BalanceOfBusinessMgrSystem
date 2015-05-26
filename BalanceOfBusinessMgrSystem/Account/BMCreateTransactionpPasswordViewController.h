@@ -19,12 +19,15 @@
     HP_UITextField * passCodeTextField3;
     HP_UIButton *sendCheckCodeButton;
     
+    
     int nCout;
     NSTimer* timer;
 }
 
 @property(nonatomic,assign) BOOL type;//0表示创建，1表示忘记
 @property(nonatomic,strong)UILabel *sendLabel;
+@property(nonatomic,strong) NSString *title;
+
 //@property(nonatomic,retain)NSMutableDictionary* transmitDict;
 
 @end

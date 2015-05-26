@@ -45,7 +45,7 @@
 {
     [nameTextField resignFirstResponder];
     [passwordTextField resignFirstResponder];
-    nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+    //nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
     //[[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LAST_LOGIN_NAME];
     [passwordTextField setText:@""];
 }
@@ -84,9 +84,9 @@
     [logoImageView setImage:[UIImage imageNamed:@"loginpage"]];
     [self.view addSubview:logoImageView];
     
-    NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"商户",@"授权人",nil];
+    NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"商户",@"自然人",nil];
 
-    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height, ScreenWidth, 60) items:@[@"商户",@"授权人"]];
+    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height, ScreenWidth, 60) items:@[@"商户",@"自然人"]];
     segmentView.tintColor = [self getRandomColor];
     segmentView.delegate = self;
     [self.view addSubview:segmentView];
@@ -154,18 +154,6 @@
     [loginButton.layer setMasksToBounds:YES];
     [loginButton.layer setCornerRadius:loginButton.frame.size.height/2.0f];
     [self.view addSubview:loginButton];
-    
-    //商户登陆
-    if( self.isSupplerSelected ){
-        nameTextField.text = @"Mer00060013";
-        passwordTextField.text = @"register";
-    }
-    //自然人登陆
-    else
-    {
-        nameTextField.text = @"18666625107";
-        passwordTextField.text = @"123456";
-    }
 }
 
 - (UIColor *)getRandomColor
@@ -193,14 +181,6 @@
     return [UIColor colorWithRed:(float)(red/255.0f)green:(float)(green / 255.0f) blue:(float)(blue / 255.0f)alpha:1.0f];
 }
 
--(void)checkboxClick:(UIButton *)btn
-{
-    btn.selected = !btn.selected;
-    
-    if (btn.selected) {
-        //
-    }
-}
 
 - (void)segmentViewSelectIndex:(NSInteger)index{
     
@@ -218,47 +198,10 @@
         self.forgetButton.hidden = YES;
     }
     else{
-        nameTextField.placeholder = @"请输入用户账号";
+        nameTextField.placeholder = @"请输入手机号码";
         passwordTextField.placeholder = @"请输入密码";
         self.forgetButton.hidden = NO;
     }
-}
-
-- (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
-    int flags = 0;
-    if (tagselect==708) {
-        if (!boolchange) {
-            self.radioSupplyer.isChecked=YES;
-            [self.radioSupplyer setImage:[UIImage imageNamed:@"RadioButton_check.png"] forState:UIControlStateNormal];
-            flags = 707;
-            self.isSupplerSelected = true;
-            
-        }else {
-            self.radioSupplyer.isChecked=NO;
-            [self.radioSupplyer setImage:[UIImage imageNamed:@"RadioButton_Not_check.png"] forState:UIControlStateNormal];
-            flags = 708;
-            self.isSupplerSelected = false;
-        }
-        
-    }else if (tagselect==707) {
-        if (!boolchange) {
-            self.radioMember.isChecked=YES;
-            [self.radioMember setImage:[UIImage imageNamed:@"RadioButton_check.png"] forState:UIControlStateNormal];
-            flags = 708;
-            self.isSupplerSelected = false;
-            
-        }else {
-            self.radioMember.isChecked=NO;
-            [self.radioMember setImage:[UIImage imageNamed:@"RadioButton_Not_check.png"] forState:UIControlStateNormal];
-            flags = 707;
-            self.isSupplerSelected = true;
-        }
-    }
-    
-//    isSupplerSelected = true;
-//    
-//    //保存当前选定的商户
-//    [self updataEnterInfo];
 }
 
 -(void)setIsSupplerSelected:(BOOL)isSupplerSelected{
@@ -270,7 +213,7 @@
         self.forgetButton.hidden = YES;
     }
     else{
-        nameTextField.placeholder = @"请输入用户账号";
+        nameTextField.placeholder = @"请输入手机号码";
         passwordTextField.placeholder = @"请输入密码";
          self.forgetButton.hidden = NO;
     }
@@ -332,33 +275,45 @@
         return NO;
     }
     
-    NSString *regex = PhoneNoRegex;
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch)
-    {
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alert show];
-        return NO;
-        
-    }
+//    NSString *regex = PhoneNoRegex;
+//    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+//    BOOL isMatch = [pred evaluateWithObject:str];
+//    
+//    if (!isMatch)
+//    {
+//        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alert show];
+//        return NO;
+//        
+//    }
     return YES;
 }
 
 
 -(void)touchLoginButton
 {
+    //    //验证身份证
+    //    - (BOOL)checkshenfenzhengString:(NSString *)str;
+    //    //验证手机号
+    //    - (BOOL)checkMobileString:(NSString *)string;
+    //    //验证密码
+    //    - (BOOL)checkPassWordString:(NSString *)str;
+    //
+    //    //验证邮箱
+    //    - (BOOL)checkEmailString:(NSString *)EmailString;
+    //
+    //    //验证邮编
+    //    - (BOOL)checkPostcodeString:(NSString *)string;
+    
 
-    //[ProgressHUD show:@"登陆中"];
-    //商户登陆
+    //商户登录
     if( self.isSupplerSelected ){
-//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-//        [self.navigationController pushViewController:mainview animated:NO];
-//        return;
+#ifdef UIDIRECT
+        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+        [self.navigationController pushViewController:mainview animated:NO];
+        return;
+#endif
         //商户网点账号
-
-        
 //        只有商户没有网点：loginName=Mer00060019        loginPwd=redis             mercNum=M0060019
 //        nameTextField.text = @"Mer00060019";
 //        passwordTextField.text = @"redis";
@@ -367,43 +322,36 @@
 //        nameTextField.text = @"Mer00060013";
 //        passwordTextField.text = @"register";
         
-//        一个商户多个网点：loginName=Mer00021684        loginPwd=test               mercNum=M0021684
+//        一个商户多个网点：loginName=Mer00021684        loginPwd=test            mercNum=M0021684
         nameTextField.text = @"Mer00021684";
-        passwordTextField.text = @"test";
+        passwordTextField.text = @"1";
         [self supplyerLoginRequest];
-        return;
     }
-    //自然人登陆
+    //自然人登录
     else
     {
-        nameTextField.text = @"18666625107";
-         passwordTextField.text = @"654321";
-        //passwordTextField.text = @"123456";
-//        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
-//        [self.navigationController pushViewController:Vc animated:NO];
 
+#ifdef UIDIRECT
+        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
+        [self.navigationController pushViewController:Vc animated:NO];
+        return;
+#endif
+      nameTextField.text = @"17701315969";
+      passwordTextField.text = @"123456";
+        [self natureManLoginRequest];
     }
-//    //验证身份证
-//    - (BOOL)checkshenfenzhengString:(NSString *)str;
-//    //验证手机号
-//    - (BOOL)checkMobileString:(NSString *)string;
-//    //验证密码
-//    - (BOOL)checkPassWordString:(NSString *)str;
-//    
-//    //验证邮箱
-//    - (BOOL)checkEmailString:(NSString *)EmailString;
-//    
-//    //验证邮编
-//    - (BOOL)checkPostcodeString:(NSString *)string;
+}
     
-//    if(![self checkName:nameTextField.text])
-//    {
-//        return;
-//    }
-//    if(![self checkPassword:passwordTextField.text])
-//    {
-//        return;
-//    }
+-(void)natureManLoginRequest{
+    if(![self checkMobileString:nameTextField.text])
+    {
+        return;
+    }
+    if(![self checkPassword:passwordTextField.text])
+    {
+        return;
+    }
+    
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -412,101 +360,99 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    //[connDictionary setObject:@"1" forKey:@"logintype"];
-    
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
+    //[connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"uniqueID"];//设备id
     //[connDictionary setObject:passwordTextField.text forKey:@"password"];
-   
+    
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
- 
+    
     //[connDictionary setObject:string3des forKey:@"passwd_3des"];
     
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,HostURL];
-    //NSString *url =[NSString stringWithFormat:@"http://192.168.1.110:8080/superMoney-core/nature/loginIn?"];
     
     NSLog(@"connDictionary:%@",connDictionary);
-    [self showProgressViewWithMessage:@"登录中..."];
+    //[self showProgressViewWithMessage:@"登录中..."];
+    [self showMBProgressHUDWithMessage:@"登录中..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-    {
-        NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
-        [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-        if([ret isEqualToString:@"100"])
-        {
-            responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-            
-            NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-            //商户还是自然人
-            [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
-            [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
-            [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登陆
-            //[Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//支付密码
-            [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
-            
-            [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
-
-//           [Dict setObject:[responseJSONDictionary objectForKey:MOBILE] forKey:USER_MOBILE];
-//           [Dict setObject:[responseJSONDictionary objectForKey:AUTHSTATUS] forKey:AUTHSTATUS];
-//           [Dict setObject:[responseJSONDictionary objectForKey:BANKBINDSTAUS] forKey:BANKBINDSTAUS];
-//           [Dict setObject:[responseJSONDictionary objectForKey:PLATFORMUSERID] forKey:PLATFORMUSERID];
-//           [Dict setObject:[responseJSONDictionary objectForKey:USERTYPE] forKey:USERTYPE];
-//           [Dict setObject:[self delStringNull:[responseJSONDictionary objectForKey:INVITECODE]] forKey:USER_INVITECODE];
-            
-            [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
-            [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//支付密码
-            
-            [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
-            [[NSUserDefaults standardUserDefaults]setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
-            
-            //是否商户1 还是自然人0 登陆
-            if( self.isSupplerSelected ){
-                BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-                [self.navigationController pushViewController:mainview animated:NO];
-            }
-            //自然人登陆
-            else
-            {
-                
-                if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
-                    SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-                    [self.navigationController pushViewController:settingVc animated:NO];
-                }else{
-                    BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
-                    [self.navigationController pushViewController:Vc animated:NO];
-                }
-            }
-            
-            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"one", nil];
-            //创建通知
-            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
-
-
-        }
-        else
-        {
-            [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-        }
-    } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
-        NSLog(@"error:%@",error.debugDescription);
-        if (![request isCancelled])
-        {
-            [request cancel];
-        }
-        [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-        alertView.tag = 999;
-        [alertView show];
-    }];
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [self hidMBProgressHUD];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+             //商户还是自然人
+             [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
+             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
+             //[Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
+             [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
+             
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+             
+             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
+             
+             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录\
+             [[NSUserDefaults standardUserDefaults]setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
+             
+//             //是否商户1 还是自然人0 登录
+//             if( self.isSupplerSelected ){
+//                 BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//                 [self.navigationController pushViewController:mainview animated:NO];
+//             }
+//             //自然人登录
+//             else
+//             {
+//                 
+//                 if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
+//                     SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
+//                     [self.navigationController pushViewController:settingVc animated:NO];
+//                 }else{
+//                     BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
+//                     [self.navigationController pushViewController:Vc animated:NO];
+//                 }
+//             }
+             
+             //通过通知中心发送通知
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+ 
 }
 
 -(void)supplyerLoginRequest{
+    if(![self checkName:nameTextField.text])
+    {
+        return;
+    }
+    if(![self checkPassword:passwordTextField.text])
+    {
+        return;
+    }
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -521,6 +467,7 @@
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:nameTextField.text forKey:@"commercialId"];
+    //[connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"uniqueID"];//设备id
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
@@ -533,10 +480,12 @@
     
     NSLog(@"connDictionary:%@",connDictionary);
     //[self showProgressViewWithMessage:@"登录中..."];
+    [self showMBProgressHUDWithMessage:@"登录中..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         //[[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         [self hidMBProgressHUD];
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
@@ -571,8 +520,13 @@
 //             [[NSNotificationCenter defaultCenter] postNotification:notification];
              
              
-             BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-             [self.navigationController pushViewController:mainview animated:NO];
+//             BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//             [self.navigationController pushViewController:mainview animated:NO];
+             //通过通知中心发送通知
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"login", nil];
+             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
+
          }
          else
          {

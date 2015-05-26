@@ -21,8 +21,9 @@
     HP_UITextField * passCodeTextField3;
     HP_UIButton *sendCheckCodeButton;
     
-    
-    
+    int nCout;
+    NSTimer* timer;
+ 
 }
 
 @property(nonatomic,strong)UILabel *sendLabel;

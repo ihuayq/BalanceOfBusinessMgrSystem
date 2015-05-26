@@ -58,7 +58,7 @@
     
     UILabel *notePsdLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];//这个frame是初设的，没关系，后面还会重新设置其size。
     [notePsdLabel setNumberOfLines:0];
-    NSString *s = @"授权人手机号:";
+    NSString *s = @"自然人手机号:";
     CGSize size = CGSizeMake(320,40);
     CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
     [notePsdLabel setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 20, labelsize.width, labelsize.height)];
@@ -240,6 +240,19 @@
 }
 
 -(void)touchSettingPasswordButton{
+    if (![self checkPassWordString:oldPasswordTextField.text])
+    {
+        return;
+    }
+    
+    if (![self checkPassCode:passCodeTextField3.text]) {
+        return;
+    }
+    
+    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
+    {
+        return;
+    }
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -318,11 +331,6 @@
 
 -(void)touchSendCheckCodeButton//请求验证码
 {
-    
-    //    if (![self checkTel:telTextField.text])
-    //    {
-    //        return;
-    //    }
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
         [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
@@ -381,13 +389,13 @@
     // NSString* msgstring2=[str2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring1.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入支付密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入交易密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
     if (msgstring1.length<6)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
@@ -398,20 +406,18 @@
     
     if (![str1 isEqualToString:str2])
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码输入不一致" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
     if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"支付密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
     return YES;
-    
 }
-
 
 - (BOOL)checkPassWordString:(NSString *)str
 {
@@ -419,147 +425,31 @@
     NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入交易密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
+    //    if (msgstring.length<6)
+    //    {
+    //        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"密码输入少于6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+    //        [alertview show];
+    //        return NO;
+    //    }
     
     
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
-    BOOL isMatch = [pred evaluateWithObject:str];
-    
-    if (!isMatch)
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
+    //    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
+    //    BOOL isMatch = [pred evaluateWithObject:str];
+    //
+    //    if (!isMatch)
+    //    {
+    //        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"密码输入为%@",mima_tishiyu_6_20] delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+    //        [alertview show];
+    //        return NO;
+    //    }
     
     return YES;
 }
 
-
--(void)touchChangePasswordButton
-{
-    SettingLoginPassWord2ViewController * mainview=[[SettingLoginPassWord2ViewController alloc]init];
-    [self.navigationController pushViewController:mainview animated:YES];
-    
-    if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
-    {
-        return;
-    }
-    if (![HP_NetWorkUtils isNetWorkEnable])
-    {
-        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
-        return;
-    }
-    
-    [self touchesBegan:nil withEvent:nil];
-    
-    //网络请求
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    NSString *url = nil;
-    
-    if ([[self.transmitDict objectForKey:QPOS]isEqualToString:QPOS])
-    {
-        [connDictionary setObject:[transmitDict objectForKey:QPOS_PHONE_NO] forKey:@"mobile"];
-        [connDictionary setObject:[transmitDict objectForKey:QPOS_MERCHANT_NO] forKey:@"platformmerno"];
-        
-        
-        NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:[transmitDict objectForKey:USER_PASSWORD]];//3DES加密
-        NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-        [connDictionary setObject:encodedValue forKey:@"passwd"];
-        
-        
-        NSString* string3des1=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
-        NSString *encodedValue1 = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des1];//编码encode
-        [connDictionary setObject:encodedValue1 forKey:@"paypasswd"];
-        
-        
-        
-        [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
-        
-        [connDictionary setObject:string3des forKey:@"passwd"];
-        [connDictionary setObject:string3des1 forKey:@"paypasswd"];
-        
-        url =[NSString stringWithFormat:@"%@%@",HostURL,merchantregisterURL];
-        
-        
-    }
-    else
-    {
-        [connDictionary setObject:[transmitDict objectForKey:USER_MOBILE] forKey:@"mobile"];
-        [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"devId"];//设备id
-        if ([transmitDict objectForKey:OTHERS_INVITECODE])
-        {
-            [connDictionary setObject:[transmitDict objectForKey:OTHERS_INVITECODE] forKey:INVITECODE];
-        }
-        
-        
-        NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:[transmitDict objectForKey:USER_PASSWORD]];//3DES加密
-        NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-        [connDictionary setObject:encodedValue forKey:@"passwd"];
-        
-        
-        NSString* string3des1=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
-        NSString *encodedValue1 = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des1];//编码encode
-        [connDictionary setObject:encodedValue1 forKey:@"paypasswd"];
-        
-        [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
-        
-        [connDictionary setObject:string3des forKey:@"passwd"];
-        [connDictionary setObject:string3des1 forKey:@"paypasswd"];
-        
-        //不参加签名
-        url =[NSString stringWithFormat:@"%@%@",HostURL,registerURL];
-        
-    }
-    
-    
-    NSLog(@"connDictionary:%@",connDictionary);
-    
-    [self showProgressViewWithMessage:@"正在设置支付码..."];
-    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-     {
-         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-         if([ret isEqualToString:@"100"])
-         {
-             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             
-             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"userid"] forKey:USER_ID];
-             [Dict setObject:[responseJSONDictionary objectForKey:MOBILE] forKey:USER_MOBILE];
-             [Dict setObject:[responseJSONDictionary objectForKey:AUTHSTATUS] forKey:AUTHSTATUS];
-             [Dict setObject:[responseJSONDictionary objectForKey:BANKBINDSTAUS] forKey:BANKBINDSTAUS];
-             [Dict setObject:[responseJSONDictionary objectForKey:PLATFORMUSERID] forKey:PLATFORMUSERID];
-             [Dict setObject:[responseJSONDictionary objectForKey:USERTYPE] forKey:USERTYPE];
-             [Dict setObject:[self delStringNull:[responseJSONDictionary objectForKey:INVITECODE]] forKey:USER_INVITECODE];
-             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
-             
-             
-             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登陆、1的登陆
-             [[NSUserDefaults standardUserDefaults]setObject:[transmitDict objectForKey:USER_MOBILE] forKey:LAST_LOGIN_NAME];
-             [[NSUserDefaults standardUserDefaults] setObject:Register_First forKey:Register_First];
-             
-             //MainViewController * mainview=[[MainViewController alloc]init];
-             //[self.navigationController pushViewController:mainview animated:YES];
-             
-         }
-         else
-         {
-             
-             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-         }
-     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg)
-     {
-         
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
-         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-         alertView.tag = 999;
-         [alertView show];
-     }];
-}
 
 #pragma mark -
 #pragma mark - UITextFieldDelegate

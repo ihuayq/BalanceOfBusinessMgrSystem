@@ -41,11 +41,11 @@
     homePageVC = [[BMHomePageViewController alloc] init];
     accountPageNaturalManVC = [[BMNaturalManAccountMainViewController alloc] init];
     
-//    NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
-//    NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:accountPageNaturalManVC];
+    NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
+    NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:accountPageNaturalManVC];
     
-    UINavigationController  * nc1 = [[UINavigationController alloc] initWithRootViewController:homePageVC];
-    UINavigationController * nc2 = [[UINavigationController alloc] initWithRootViewController:accountPageNaturalManVC];
+//    UINavigationController  * nc1 = [[UINavigationController alloc] initWithRootViewController:homePageVC];
+//    UINavigationController * nc2 = [[UINavigationController alloc] initWithRootViewController:accountPageNaturalManVC];
 //    nc1.hidesBottomBarWhenPushed = YES;
 //    nc2.hidesBottomBarWhenPushed = YES;
     
@@ -55,13 +55,17 @@
     nc1.tabBarItem.title = @"首页";
     nc2.tabBarItem.title = @"账号";
     
+    nc1.tabBarItem.image = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nc2.tabBarItem.image = [[UIImage imageNamed:@"账号"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+
     
-    nc1.tabBarItem.image = [UIImage imageNamed:@"home_page"];
-    nc2.tabBarItem.image = [UIImage imageNamed:@"account"];
+    nc1.tabBarItem.selectedImage = [UIImage imageNamed:@"首页-normal"];
+    nc2.tabBarItem.selectedImage = [UIImage imageNamed:@"账号-normal"];
+
     
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:@"addNaturalMark"]  isEqualToString:@"1"]) {
         //设置自然人
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您需要授权一个自然人后使用自然人账号登陆进行投资操作,是否现在授权自然人?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您需要授权一个自然人后使用自然人账号登录进行投资操作,是否现在授权自然人?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
         [alert show];
         alert.leftBlock = ^() {
             NSLog(@"left button clicked");

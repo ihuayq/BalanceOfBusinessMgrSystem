@@ -40,8 +40,8 @@
     
     //绑定网点账户
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbn"] forState:UIControlStateNormal];
-    [registerButton setBackgroundImage:[UIImage imageNamed:@"lanbndj"] forState:UIControlStateHighlighted];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
     [registerButton setFrame:CGRectMake(20, label.frame.size.height + label.frame.origin.y + 100, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(bindNetworkPoint) forControlEvents:UIControlEventTouchUpInside];

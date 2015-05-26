@@ -56,6 +56,9 @@
 
 -(void)showProgressViewWithMessage:(NSString *)msg;
 
+-(void)showMBProgressHUDWithMessage:(NSString *)msg;
+-(void)hidMBProgressHUD;
+
 //获得NSUserDefaults对象
 -(NSUserDefaults *)getNSUserDefaults;
 
@@ -70,7 +73,8 @@
 
 - (BOOL)checkStringIs:(NSString *)str withmessage:(NSString *)message;
 
-
+//验证姓名
+- (BOOL)checkName:(NSString *)str;
 //验证身份证
 - (BOOL)checkshenfenzhengString:(NSString *)str;
 //验证手机号
@@ -83,5 +87,7 @@
 
 //验证邮编
 - (BOOL)checkPostcodeString:(NSString *)string;
+
+- (BOOL)checkPassCode:(NSString *)str;
 @end
 
