@@ -17,6 +17,7 @@
 #else
 
 //自然人
+//#define IP @"http://192.168.1.107:8080/"
 #define IP @"http://192.168.0.56:8080/"
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器

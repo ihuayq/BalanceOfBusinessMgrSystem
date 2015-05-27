@@ -31,12 +31,24 @@
     SecondLabel.frame = CGRectMake(width*1, 0, width, SecondTitleSize.height+16);
     SecondLabel.text = model_.SecondItem ;
     
-    CGSize ThirdTitleSize = [model_.ThirdItem sizeWithFont:FirstLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
-    if (ThirdTitleSize.width>width) {
-        ThirdTitleSize.width = width;
+    if (model_.nPosition == 0) {
+        CGSize ThirdTitleSize = [model_.ThirdItem sizeWithFont:FirstLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
+        if (ThirdTitleSize.width>width) {
+            ThirdTitleSize.width = width;
+        }
+        ThirdLabel.frame = CGRectMake(width*2, 0, width, ThirdTitleSize.height+16);
+        ThirdLabel.text = model_.ThirdItem ;
     }
-    ThirdLabel.frame = CGRectMake(width*2, 0, width, ThirdTitleSize.height+16);
-    ThirdLabel.text = model_.ThirdItem ;
+    
+    else{
+        [ThirdPicView setFrame:CGRectMake(width*2 + width/2 - 8, 8, 16, 16)];
+        if ([model_.ThirdItem isEqualToString:@"FAIL"]) {
+            [ThirdPicView setImage:[UIImage imageNamed:@"失败"]];
+        }
+        else{
+            [ThirdPicView setImage:[UIImage imageNamed:@"成功"]];
+        }
+    }
     
     if (_labelCount == 4) {
         CGSize FourthTitleSize = [model_.FourthItem sizeWithFont:FourthLabel.font constrainedToSize:CGSizeMake(width, CGFLOAT_MAX) lineBreakMode:NSLineBreakByClipping];
@@ -75,9 +87,11 @@
         ThirdLabel =  [[UILabel alloc] initWithFrame:CGRectMake(width*2,0,0,0)];;
         ThirdLabel.textAlignment = NSTextAlignmentCenter;
         ThirdLabel.backgroundColor = [UIColor clearColor];
-        //ThirdLabel.textColor = [UIColor whiteColor];
         ThirdLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:ThirdLabel];
+        
+        ThirdPicView = [[UIImageView alloc] initWithFrame:CGRectMake(width*2, 0,0,0)];
+        [self.contentView addSubview:ThirdPicView];
         
         if (_labelCount == 4) {
             FourthLabel =  [[UILabel alloc] initWithFrame:CGRectMake(width*3,0,0,0)];;

@@ -23,6 +23,8 @@
     UILabel * telephoneLabel;
     
     BOOL isSelectedButtonEnable;
+    
+    UIButton *avestButton;
 
 }
 
@@ -105,7 +107,7 @@
     [self.view addSubview:tableView];
     
     //确定
-    UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
@@ -115,9 +117,9 @@
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
+    avestButton.hidden = YES;
     
     //选定结算账户的接口是否可用状态
-    
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]) {
         isSelectedButtonEnable =  NO;
     }
@@ -173,7 +175,7 @@
     info.groupNetWork = self.groupNetWork;
     info.groupBalance = self.groupBalance;
     [self.navigationController pushViewController:info
-                                         animated:NO];
+                                         animated:YES];
 }
 
 
@@ -191,7 +193,7 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"计算每组(组%i)行数",section);
+    //NSLog(@"计算每组(组%i)行数",section);
     return self.groupNetWork.count;
 }
 
@@ -200,7 +202,12 @@
 {
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
-    NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+    //NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+    if (self.groupNetWork.count > 0) {
+        avestButton.hidden = NO;
+    }
+    
+    
     BankAccountItem *item=self.groupNetWork[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];

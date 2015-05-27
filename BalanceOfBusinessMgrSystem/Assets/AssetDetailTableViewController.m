@@ -74,8 +74,6 @@
     
     list_total = 10;
     channelId = [self getChannelIDString:self.title];
-//    pageNum = 1;
-//    sort = @"v";
     //[self requestNetWork];
     if (channelId == 1) {
         [self loadMoreData];
@@ -84,15 +82,16 @@
 
 -(int)getChannelIDString:(NSString *)string
 {
+     //@"入账",@"成交",@"派息",@"提现"
     int chId = 0;
-    if ([string isEqualToString:@"预约"]) {
+    if ([string isEqualToString:@"入账"]) {
         chId = 1;
-    }else if ([string isEqualToString:@"派息"]) {
-        chId = 2;
     }else if ([string isEqualToString:@"成交"]) {
+        chId = 2;
+    }else if ([string isEqualToString:@"派息"]) {
         chId = 3;
     }else if ([string isEqualToString:@"提现"]) {
-        chId = 3;
+        chId = 4;
     }
     return chId;
 }
@@ -249,9 +248,11 @@
             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetData"] forKey:@"assetData"];
             NSArray *results = [responseJSONDictionary objectForKey:@"assetData"];
              
+             int nPos = 0;
              //数据标题部队，服务器返回，必有得数据
              NSDictionary *title = [responseJSONDictionary objectForKey:@"title"];
              AssetRecordItemInfo *titleInfo = [AssetRecordItemInfo new];
+             titleInfo.nPosition = nPos;
              titleInfo.count = title.count;
              titleInfo.FirstItem = [[title objectForKey:@"money"] URLDecodedString];
              titleInfo.SecondItem = [[title objectForKey:@"time"] URLDecodedString];
@@ -266,11 +267,12 @@
              
              //数据部分
              for (NSDictionary * sub in results) {
-                 NSLog(@"%@",sub);
+                 //NSLog(@"%@",sub);
                  
                  //缓存最新的资产信息
                  AssetRecordItemInfo *asset = [AssetRecordItemInfo new];
                  asset.count = sub.count;
+                 asset.nPosition = ++ nPos;
                  asset.FirstItem = [NSString stringWithFormat:@"%@",[sub objectForKey:@"amount"]];
                  asset.SecondItem = [sub objectForKey:@"createtime"];
 

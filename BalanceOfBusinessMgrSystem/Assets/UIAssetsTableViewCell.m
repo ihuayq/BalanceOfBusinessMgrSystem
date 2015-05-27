@@ -20,12 +20,12 @@
         self.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
         
         titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.contentView.size.width-30, 30)];
-        titleLabel.font = [UIFont systemFontOfSize:16.0f];
+        titleLabel.font = [UIFont systemFontOfSize:18.0f];
         titleLabel.text = @"总资产（元）";
         [self.contentView addSubview:titleLabel];
 
-        moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.origin.x + 160, titleLabel.size.height+titleLabel.origin.y-4, 2*titleLabel.size.width, titleLabel.size.height-10)];
-        moneyLabel.font = [UIFont systemFontOfSize:24.0f];
+        moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.origin.x + 160, titleLabel.size.height+titleLabel.origin.y-4, 2*titleLabel.size.width, titleLabel.size.height*1.5f)];
+        moneyLabel.font = [UIFont systemFontOfSize:30.0f];
         moneyLabel.textColor =  UIColorFromRGB(0xF9551C);
         moneyLabel.text = @"0.00";
         

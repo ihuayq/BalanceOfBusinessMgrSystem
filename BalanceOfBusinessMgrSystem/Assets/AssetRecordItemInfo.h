@@ -10,6 +10,7 @@
 
 @interface AssetRecordItemInfo : NSObject
 
+@property (nonatomic,assign) uint nPosition;
 @property (nonatomic,copy) NSString *FirstItem;
 @property (nonatomic,copy) NSString *SecondItem;
 @property (nonatomic,copy) NSString *ThirdItem;

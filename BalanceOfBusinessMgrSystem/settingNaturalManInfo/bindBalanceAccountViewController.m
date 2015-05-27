@@ -23,6 +23,8 @@
     UILabel * telephoneLabel;
     
     BOOL isSelectedButtonEnable;
+    
+    UIButton *avestButton;
 }
 
 @end
@@ -110,7 +112,7 @@
     [self.view addSubview:tableView];
     
     //确定
-    UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
@@ -122,8 +124,6 @@
     avestButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:avestButton];
     
-
- 
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]) {
         isSelectedButtonEnable =  NO;
     }
@@ -196,7 +196,7 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"计算每组(组%i)行数",section);
+    //NSLog(@"计算每组(组%i)行数",section);
     return self.groupBalance.count;
 }
 
@@ -205,7 +205,11 @@
 {
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
-    NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+    //NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+//    if (self.groupNetWork.count > 0) {
+//        avestButton.hidden = NO;
+//    }
+    
     BankAccountItem *item=self.groupBalance[indexPath.row];
     
     //在修改自然人的时候会共用此界面

@@ -8,7 +8,7 @@
 
 #import "ForgetPasswordViewController.h"
 
-@interface ForgetPasswordViewController ()
+@interface ForgetPasswordViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -247,6 +247,8 @@
 }
 
 
+
+
 -(void)touchForgetPasswordButton
 {
     if (![self checkTel:telTextField.text]) {
@@ -305,7 +307,11 @@
              //商户还是自然
              //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
              
-             [self.navigationController popViewControllerAnimated:YES];
+             //[self.navigationController popViewControllerAnimated:YES];
+             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:@"登录密码设置成功,请重新登录" delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+             alertView.tag = 1024;
+             [alertView show];
+             
          }
          else
          {
@@ -317,11 +323,13 @@
          alertView.tag = 999;
          [alertView show];
      }];
-
-    
-
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (alertView.tag == 1024) {
+        [self dismissModalViewControllerAnimated:YES];
+    }
+}
 
 - (BOOL)checkTel:(NSString *)str
 {

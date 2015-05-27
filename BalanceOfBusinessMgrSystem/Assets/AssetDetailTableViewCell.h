@@ -13,6 +13,8 @@
     UILabel * FirstLabel;
     UILabel * SecondLabel;
     UILabel * ThirdLabel;
+    UIImageView *ThirdPicView;
+    
     UILabel * FourthLabel;
 }
 

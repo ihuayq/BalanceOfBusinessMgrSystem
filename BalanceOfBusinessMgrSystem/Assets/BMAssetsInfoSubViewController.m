@@ -50,7 +50,7 @@
 //    [matrix addRecord:[[NSArray alloc] initWithObjects:@"Long Fields", @"The quick brown fox jumps over the little lazy dog.", @"some new value",@"hello",  nil]];
     
     
-    NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"预约",@"派息",@"成交",@"提现",nil];
+    NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"入账",@"成交",@"派息",@"提现",nil];
     NSMutableArray *chooseControllerArray = [NSMutableArray arrayWithCapacity:4];
     for (NSInteger index = 0; index < 4; index++)
     {

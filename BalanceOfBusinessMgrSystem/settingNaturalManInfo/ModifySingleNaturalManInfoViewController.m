@@ -139,6 +139,7 @@
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
+    avestButton.hidden = YES;
     
     //[self testLoadingFile];
     [self requestNetWork];

@@ -16,7 +16,7 @@
 #import "BMCreateTransactionpPasswordViewController.h"
 
 
-@interface BMAssetsMainPageViewController (){
+@interface BMAssetsMainPageViewController ()<UIGestureRecognizerDelegate>{
     UIImageView *_arrowButton;
     
     UIView *_datingIndicatorView;
@@ -54,7 +54,7 @@
     okButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [self.navigation addSubview:okButton];
 
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f - 200) ];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f - 200) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -219,7 +219,10 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 2) {
+    if (indexPath.row == 0) {
+        return 100;
+    }
+    else if (indexPath.row == 2) {
         return 80;
     }
     return 72;
@@ -265,6 +268,30 @@
     }
 }
 
+#pragma mark - 代理方法
+#pragma mark 设置分组标题内容高度
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1f;
+}
+
+#pragma mark 设置尾部说明内容高度
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.1f;
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+//    if ([touch.view isKindOfClass:[UIScrollView class]]){
+//        return NO;
+//    }
+    
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]){
+        return NO;
+    }
+    
+    return YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

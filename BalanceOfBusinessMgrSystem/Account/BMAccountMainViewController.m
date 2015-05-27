@@ -14,6 +14,7 @@
 
 @interface BMAccountMainViewController (){
     NSMutableArray *_group;//cell数组
+    UIButton *avestButton;
 }
 @property(strong,nonatomic) UITableView * tableView;
 @end
@@ -29,23 +30,24 @@
     self.navigation.title = @"账号";
     
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f - 130.0f) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:_tableView];
     
     //确定
-    UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
+    //[avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 100 , MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, 10 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchExitButton) forControlEvents:UIControlEventTouchUpInside];
     [avestButton setTitle:@"退出当前账号" forState:UIControlStateNormal ];
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
-    [self.view addSubview:avestButton];
+    //[self.view addSubview:avestButton];
 }
 
 -(void)touchExitButton{
@@ -78,9 +80,9 @@
     BMAccountCellGroup *group2=[BMAccountCellGroup initWithName:@"B" andDetail:@"With names beginning with B" andContacts:[NSMutableArray arrayWithObjects:contact4, nil]];
     [_group addObject:group2];
     
-
-//    BMAccountCellGroup *group3=[BMAccountCellGroup initWithName:@"B" andDetail:@"With names beginning with B" andContacts:[NSMutableArray arrayWithObjects:contact3, nil]];
-//    [_group addObject:group3];
+    BMAccountCellInfo *contact5=[BMAccountCellInfo initWithFirstName:@"退出当前账号"];
+    BMAccountCellGroup *group3=[BMAccountCellGroup initWithName:@"B" andDetail:@"With names beginning with B" andContacts:[NSMutableArray arrayWithObjects:contact5, nil]];
+    [_group addObject:group3];
     
 }
 
@@ -121,18 +123,19 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier];
-        if(indexPath.section != 0 )
+        if(indexPath.section == 0 )
         {
-            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
+            [self setAccount:cell];
+        }
+        else if (indexPath.section == 3 ){
+            [cell addSubview:avestButton];
         }
         else {
-            [self setAccount:cell];
-            
+            cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         }
-        
     }
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 || indexPath.section == 3) {
         return cell;
     }
     
@@ -144,12 +147,12 @@
             cell.detailTextLabel.text=@"修改";
         }
     }
-    else if (indexPath.section == 0)
-    {
-        
-        //cell.detailTextLabel.text= self.accountInfo;
-        cell.detailTextLabel.text=@"自然人";
-    }
+//    else if (indexPath.section == 0)
+//    {
+//        
+//        //cell.detailTextLabel.text= self.accountInfo;
+//        cell.detailTextLabel.text=@"自然人";
+//    }
 
     
     return cell;

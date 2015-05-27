@@ -194,12 +194,14 @@
     if (_isSupplerSelected) {
         //刷新商户填充信息
         nameTextField.placeholder = @"请输入Qpos/POS平台账号";
+        nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
         passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
         self.forgetButton.hidden = YES;
     }
     else{
         nameTextField.placeholder = @"请输入手机号码";
         passwordTextField.placeholder = @"请输入密码";
+        nameTextField.keyboardType = UIKeyboardTypePhonePad;
         self.forgetButton.hidden = NO;
     }
     nameTextField.text = @"";
@@ -272,7 +274,7 @@
     NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入手机号码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入账号" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
@@ -325,8 +327,8 @@
 //        passwordTextField.text = @"register";
         
 //        一个商户多个网点：loginName=Mer00021684        loginPwd=test            mercNum=M0021684
-        nameTextField.text = @"Mer00021684";
-        passwordTextField.text = @"1";
+//        nameTextField.text = @"Mer00021684";
+//        passwordTextField.text = @"1";
         [self supplyerLoginRequest];
     }
     //自然人登录
@@ -338,8 +340,10 @@
         [self.navigationController pushViewController:Vc animated:NO];
         return;
 #endif
-      nameTextField.text = @"17701315969";
-      passwordTextField.text = @"123456";
+//      nameTextField.text = @"17701315969";
+//      passwordTextField.text = @"1";
+//       nameTextField.text = @"13501102460";
+//       passwordTextField.text = @"123456";
         [self natureManLoginRequest];
     }
 }
@@ -551,6 +555,17 @@
 
 #pragma mark -
 #pragma mark - UITextFieldDelegate
+//业务规则
+//1、	手机号码
+//l	手机号码为11位纯数字，正则表达式验证输入登录手机号后输入框失去焦点后立即校验手机号码合法性；
+//2、登录密码
+//l	6≤密码长度≤16，数字和英文字母（区分大小写），必须有至少一位英文字母；
+//l	密码输入错误时，提示“提示密码错误后清空密码输入框，保留已输入手机号；密码累计错误次数达到一定值时（可配置），账号锁定一段时间（可配置）；
+//l	密码校验时间：用户手机3分钟无操作，完全退出程序，再次进入程序时，
+//l	已经设置手势密码登录的商户下次登录时，默认为手势密码登录，在页面给出传统登录方式的切换方式(二期)；
+//3、	交易密码
+//l	6≤密码长度≤16；禁止使用连续性比较强的字母和数字，不能与登录密码相同；至少有一位英文字母；
+
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [UIView animateWithDuration:0.2 animations:^{
@@ -570,7 +585,10 @@
     {
         if (string.length > 0)
         {
-            
+            if ([string isEqualToString:@" "])
+            {
+                return NO;
+            }
             return textField.text.length < 20;
         }
     }

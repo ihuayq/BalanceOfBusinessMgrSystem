@@ -56,7 +56,7 @@
     nameTextField.placeholder = @"点击输入金额";
     nameTextField.font = [UIFont systemFontOfSize:24];
     nameTextField.delegate = self;
-    nameTextField.keyboardType = UIKeyboardTypeNumberPad;
+    nameTextField.keyboardType = UIKeyboardTypeDecimalPad;
     [nameTextField setBorderStyle:UITextBorderStyleRoundedRect];
 //    [nameTextField.layer setBorderColor:[[UIColor lightGrayColor] CGColor]];
 //    [nameTextField.layer setBorderWidth:0.5f];
@@ -124,7 +124,7 @@
     NSString* msgstring=[nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入金额" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return;
     }
@@ -242,6 +242,16 @@
     }
    
     return YES;
+}
+
+-(CGRect)textRectForBounds:(CGRect)bounds
+{
+    return CGRectInset(bounds, 5, 0);
+}
+
+-(CGRect)editingRectForBounds:(CGRect)bounds
+{
+    return CGRectInset(bounds, 5, 0);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
