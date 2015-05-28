@@ -163,6 +163,14 @@
 
 
 -(void)touchCanceButton{
+    // 查看是否设置了交易密码
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
+        BMCreateTransactionpPasswordViewController *VC = [[BMCreateTransactionpPasswordViewController alloc] init];
+        VC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:VC animated:YES];
+        return;
+    }
+    
     if (![self checkPassWordString:passWordTextField.text])
     {
         return;

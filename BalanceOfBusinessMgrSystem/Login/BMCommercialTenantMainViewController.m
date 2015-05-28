@@ -55,12 +55,12 @@
     nc1.tabBarItem.title = @"首页";
     nc2.tabBarItem.title = @"账号";
     
-    nc1.tabBarItem.image = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    nc2.tabBarItem.image = [[UIImage imageNamed:@"账号"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nc1.tabBarItem.selectedImage = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    nc2.tabBarItem.selectedImage = [[UIImage imageNamed:@"账号"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
     
-    nc1.tabBarItem.selectedImage = [UIImage imageNamed:@"首页-normal"];
-    nc2.tabBarItem.selectedImage = [UIImage imageNamed:@"账号-normal"];
+    nc1.tabBarItem.image = [UIImage imageNamed:@"首页-normal"];
+    nc2.tabBarItem.image = [UIImage imageNamed:@"账号-normal"];
 
     
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:@"addNaturalMark"]  isEqualToString:@"1"]) {

@@ -28,7 +28,7 @@
     [label setNumberOfLines:0];
     //label.lineBreakMode = UILineBreakModeWordWrap;
     // 测试字串
-    NSString *s = @"成功授权自然人，绑定账户后即可登  陆此自然人账号进行投资理财操作！";
+    NSString *s = @"成功授权自然人，绑定账户后即可登录此自然人账号进行投资理财操作！";
     UIFont *font = [UIFont systemFontOfSize:18];
     //设置一个行高上限
     CGSize size = CGSizeMake(300,400);
@@ -119,16 +119,15 @@
              //methods为false的时候，按照商户结算，结算账户必有且只有一个，但是商户账户可能有也可能没有，即websiteList可能为空
              [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
              
-             //[self refreshData];
-             //[tableView reloadData];
+             // 网点情况
              if ([[responseJSONDictionary objectForKey:@"methods"] isEqualToString:@"TRUE"]) {
                  bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
-                 info.groupBalance = groupNet;
+                 info.groupBalance = nil;
                  info.groupNetWork = groupNet;
                  [self.navigationController pushViewController:info
                                                       animated:NO];
              }
-             //为false的情况
+             //为false的情况，商户情况
              else{
 
                  NSMutableArray *groupBalance=[[NSMutableArray alloc]init];

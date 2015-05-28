@@ -11,7 +11,9 @@
 #import "BMNaturalManMainViewController.h"
 #import "SettingLoginPassWordViewController.h"
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+    NSTimer * loginCheckTimer;
+}
 
 @end
 
@@ -42,6 +44,44 @@
     
     return YES;
 }
+
+//初始化一个定时器,用于检验是否有相同的账号登陆情况
+-(void)initTimer
+{
+    //时间间隔
+    NSTimeInterval timeInterval =1.0 ;
+    //定时器
+    loginCheckTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
+                                                           target:self
+                                                         selector:@selector(handleCheckTimer:)
+                                                         userInfo:nil
+                                                          repeats:YES];
+}
+
+-(void)cancelLoginCheckTimer
+{
+    //定时器
+    [loginCheckTimer invalidate];
+}
+
+//触发事件
+-(void)handleCheckTimer:(NSTimer *)theTimer
+{
+//    NSDateFormatter dateFormator = [[NSDateFormatter alloc] init];
+//    dateFormator.dateFormat = @"yyyy-MM-dd  HH:mm:ss";
+//    NSString *date = [dateformater stringFromDate:[NSDate date]];
+//    if([date isEqualToString:@"2011-11-09 23:59:59"])
+//    {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:TITLE_NAME
+//                                                        message:@"现在马上就有新的一天了！"
+//                                                       delegate:self
+//                                               ancelButtonTitle:nil
+//                                              otherButtonTitles:CONFIRM_TITLE, nil];
+//        [alert show];
+//        [alert release];
+//    }
+}
+
 
 - (void)LoginInitMainwidow:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"login"]);

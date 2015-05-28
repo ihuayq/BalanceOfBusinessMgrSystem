@@ -320,11 +320,11 @@
         //商户网点账号
 //        只有商户没有网点：loginName=Mer00060019        loginPwd=redis             mercNum=M0060019
 //        nameTextField.text = @"Mer00060019";
-//        passwordTextField.text = @"redis";
+//        passwordTextField.text = @"1";
         
 //        有商户有一个网点：loginName=Mer00060013        loginPwd=register         mercNum=M0060013
 //        nameTextField.text = @"Mer00060013";
-//        passwordTextField.text = @"register";
+//        passwordTextField.text = @"1";
         
 //        一个商户多个网点：loginName=Mer00021684        loginPwd=test            mercNum=M0021684
 //        nameTextField.text = @"Mer00021684";
@@ -503,7 +503,7 @@
              [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
              [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_LOGIN_ID] forKey:SUPPLYER_LOGIN_ID];
 
-             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
+             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加 methods = TRUE;
 
              NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
              if (results) {
@@ -511,6 +511,9 @@
              }
              
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:SUPPLYER_INFO];
+             
+             //商户类型
+             [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
              
              //test
 //             NSMutableDictionary* Dict2=[[NSMutableDictionary alloc]initWithCapacity:0];

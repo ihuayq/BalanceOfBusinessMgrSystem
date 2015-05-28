@@ -58,6 +58,7 @@
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.scrollEnabled = NO;
     [self.view addSubview:_tableView];
     
      //预约资金

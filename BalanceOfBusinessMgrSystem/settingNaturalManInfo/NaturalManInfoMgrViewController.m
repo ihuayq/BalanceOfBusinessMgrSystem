@@ -25,8 +25,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"自然人信息";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
-    self.navigation.rightImage = [UIImage imageNamed:@"addNaturalMan"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
+    self.navigation.rightImage = [UIImage imageNamed:@"addperson"];
     
     
     tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT ,MainWidth, MainHeight - 44.0f) style:UITableViewStyleGrouped];
@@ -93,18 +93,82 @@
 }
 
 -(void)rightButtonClickEvent{
-        settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
-        self.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:info
-                                             animated:NO];
+    
+     //商户网点账号登陆后添加新的自然人业务逻辑
+     //methods若为true，需要添加可不可以继续添加自然人的请求
+     //methods若为false，并且自然人数目为o的时候，可以添加。若为1，则不允许继续添加
+    NSString *methods = [[NSUserDefaults standardUserDefaults] objectForKey:@"methods"];
+    if ([methods isEqualToString:@"TRUE"]) {
+        [self requestNetInfo];
+    }
+    else{
+        if (group.count > 0) {
+            [self showSimpleAlertViewWithTitle:nil alertMessage:@"当前商户不可以添加多个自然人" cancelButtonTitle:queding otherButtonTitles:nil];
+            return;
+        }
+        else{
+            settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+            self.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:info
+                                                 animated:NO];
+        }
+    }
+
 }
+
+-(void)requestNetInfo{
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    
+    [self touchesBegan:nil withEvent:nil];
+    
+    //网络请求
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    NSLog(@"connDictionary:%@",connDictionary);
+
+    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,preSettingNatureMenURL];
+    
+    [self showProgressViewWithMessage:@"请求添加自然人..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
+             settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+             self.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:info
+                                                  animated:NO];
+
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+}
+
+
 
 #pragma mark - Table view data source
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"计算每组(组%i)行数",(int)section);
+    NSLog(@"计算每组(组%i)行数%d",(int)section,group.count);
     return group.count;
 }
 
@@ -125,7 +189,7 @@
         [modifyButton setBackgroundImage:[UIImage imageNamed:@"modify"] forState:UIControlStateHighlighted];
         //[modifyButton setBackgroundColor:[UIColor greenColor]];
         [modifyButton setFrame:CGRectMake(0,0,20,20)];
-        [modifyButton addTarget:self action:@selector(touchModifyButton:) forControlEvents:UIControlEventTouchUpInside];
+        [modifyButton addTarget:self action:@selector(touchModifyButton:event:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView =  modifyButton;
         
         if (!item.bCanModify) {
@@ -141,19 +205,46 @@
     return cell;
 }
 
--(void)touchModifyButton:(id)sender
+- (void)touchModifyButton:(id)sender event:(id)event
 {
     UIButton *button = (UIButton *)sender;
-    NaturalManInfoTableViewCell* cell = (NaturalManInfoTableViewCell*)[button superview];
-    //NSInteger row = [tableView indexPathForCell:cell].row;
-    [Globle shareGloble].index = [tableView indexPathForCell:cell];
-    //纪录从修改自然人入口进入
-    [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
-    ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
-    vc.model = cell.model;
-    [self.navigationController pushViewController:vc
-                                         animated:NO];
+    
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:tableView];
+    
+    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:currentTouchPosition];
+    if (indexPath != nil)
+    {
+        [Globle shareGloble].index = indexPath;
+        //纪录从修改自然人入口进入
+        [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
+        ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
+        //NSLog(@"当前model ％@",cell.model);
+        
+        vc.model = group[indexPath.row];
+        [self.navigationController pushViewController:vc
+                                             animated:NO];
+    }
 }
+
+
+//-(void)touchModifyButton:(id)sender
+//{
+//    UIButton *button = (UIButton *)sender;
+//    NaturalManInfoTableViewCell* cell = (NaturalManInfoTableViewCell*)[button superview];
+//    //NSInteger row = [tableView indexPathForCell:cell].row;
+//    NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+//    [Globle shareGloble].index = [tableView indexPathForCell:cell];
+//    //纪录从修改自然人入口进入
+//    [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
+//    ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
+//    //NSLog(@"当前model ％@",cell.model);
+//    
+//    vc.model = group[indexPath.row];
+//    [self.navigationController pushViewController:vc
+//                                         animated:NO];
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -162,7 +253,20 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
+    if (indexPath != nil)
+    {
+        [Globle shareGloble].index = indexPath;
+        //纪录从修改自然人入口进入
+        [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
+        ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
+        //NSLog(@"当前model ％@",cell.model);
+        
+        vc.model = group[indexPath.row];
+        [self.navigationController pushViewController:vc
+                                             animated:NO];
+    }
 }
 
 #pragma mark - 代理方法

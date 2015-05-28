@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NaturalManInfoMgrViewController : FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
+@interface NaturalManInfoMgrViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end

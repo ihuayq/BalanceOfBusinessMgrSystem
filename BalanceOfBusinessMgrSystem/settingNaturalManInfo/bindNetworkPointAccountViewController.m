@@ -117,7 +117,7 @@
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
-    avestButton.hidden = YES;
+    //avestButton.hidden = YES;
     
     //选定结算账户的接口是否可用状态
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]) {
@@ -156,26 +156,45 @@
 }
 
 -(void)touchOkButton{
-
-    BOOL bHasSelect =  NO;
-    for (BankAccountItem *item in self.groupNetWork) {
-        if (item.bNetworkSelected == YES) {
-            bHasSelect = YES;
+    //网点情况
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"TRUE"]){
+        if (self.groupBalance == nil) {
+            self.groupBalance = [NSMutableArray new];
         }
+        else{
+            [self.groupBalance removeAllObjects];
+        }
+        
+        BOOL bHasSelect =  NO;
+        for (BankAccountItem *item in self.groupNetWork) {
+            if (item.bNetworkSelected == YES) {
+                bHasSelect = YES;
+                [self.groupBalance addObject:item];
+            }
+        }
+        if ( bHasSelect == NO ) {
+            //提示框
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            alertView.tag = 999;
+            [alertView show];
+            return;
+        }
+        
+        bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+        info.groupNetWork = self.groupNetWork;
+        info.groupBalance = self.groupBalance;
+        [self.navigationController pushViewController:info
+                                             animated:YES];
     }
-    if ( bHasSelect == NO ) {
-        //提示框
-        UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        alertView.tag = 999;
-        [alertView show];
-        return;
+    else{
+        bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
+        info.groupNetWork = self.groupNetWork;
+        info.groupBalance = self.groupBalance;
+        [self.navigationController pushViewController:info
+                                             animated:YES];
     }
-    
-    bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
-    info.groupNetWork = self.groupNetWork;
-    info.groupBalance = self.groupBalance;
-    [self.navigationController pushViewController:info
-                                         animated:YES];
+
+
 }
 
 
@@ -203,9 +222,9 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     //NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
-    if (self.groupNetWork.count > 0) {
-        avestButton.hidden = NO;
-    }
+//    if (self.groupNetWork.count > 0) {
+//        avestButton.hidden = NO;
+//    }
     
     
     BankAccountItem *item=self.groupNetWork[indexPath.row];
@@ -215,7 +234,7 @@
         cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
         ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:NO];
         button.backgroundColor = [UIColor clearColor ];
-        [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(buttonPressedAction:event:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
         button.enabled = isSelectedButtonEnable;
     }
@@ -225,21 +244,42 @@
     return cell;
 }
 
-- (void)buttonPressedAction:(id)sender
+- (void)buttonPressedAction:(id)sender event:(id)event
 {
     ItemButton *button = (ItemButton *)sender;
     [button switchStatus];
     
-    UITableViewCell* cell = (UITableViewCell*)[button superview];
-    NSInteger row = [tableView indexPathForCell:cell].row;
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:tableView];
     
-    BankAccountItem *item=self.groupNetWork[row];
-    if (button.selected == YES) {
-        item.bNetworkSelected = YES;
-    }else{
-        item.bNetworkSelected = NO;
+    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:currentTouchPosition];
+    if (indexPath != nil)
+    {
+        BankAccountItem *item=self.groupNetWork[indexPath.row];
+        if (button.selected == YES) {
+            item.bNetworkSelected = YES;
+        }else{
+            item.bNetworkSelected = NO;
+        }
     }
-    
+}
+
+//- (void)buttonPressedAction:(id)sender
+//{
+//    ItemButton *button = (ItemButton *)sender;
+//    [button switchStatus];
+//    
+//    UITableViewCell* cell = (UITableViewCell*)[button superview];
+//    NSInteger row = [tableView indexPathForCell:cell].row;
+//    
+//    BankAccountItem *item=self.groupNetWork[row];
+//    if (button.selected == YES) {
+//        item.bNetworkSelected = YES;
+//    }else{
+//        item.bNetworkSelected = NO;
+//    }
+
     
 //    ItemButton *button = (ItemButton *)sender;
 //    [button switchStatus];
@@ -254,7 +294,7 @@
 //        [groupSelected removeObject:group[row]];
 //    }
 //    NSLog(@"the selected group is:%@",groupSelected);
-}
+//}
 
 //- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //

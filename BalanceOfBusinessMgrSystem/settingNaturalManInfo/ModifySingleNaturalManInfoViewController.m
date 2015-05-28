@@ -139,7 +139,7 @@
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
-    avestButton.hidden = YES;
+    //avestButton.hidden = YES;
     
     //[self testLoadingFile];
     [self requestNetWork];
@@ -215,8 +215,8 @@
                  [[NSUserDefaults standardUserDefaults]setObject:flag forKey:@"modifyAccFlag"];
                  isHasNetwork = YES;
                  isSelectBtnEnable = YES;
-                 groupBalance=[[NSMutableArray alloc]init];
-                 groupBalance = group ;
+//                 groupBalance=[[NSMutableArray alloc]init];
+//                 groupBalance = group ;
              }
              //为false的情况
              else{
@@ -263,8 +263,31 @@
 
 
 -(void)touchCommitButton{
-    
+
     if (group.count > 0 && isHasNetwork == YES) {
+        if (groupBalance == nil) {
+            groupBalance = [NSMutableArray new];
+        }
+        [groupBalance removeAllObjects];
+//        else{
+//            [groupBalance removeAllObjects];
+//        }
+        
+        BOOL bHasSelect =  NO;
+        for (BankAccountItem *item in group) {
+            if (item.bNetworkSelected == YES) {
+                bHasSelect = YES;
+                [groupBalance addObject:item];
+            }
+        }
+        if ( bHasSelect == NO ) {
+            //提示框
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请选择至少一个账号绑定" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            alertView.tag = 999;
+            [alertView show];
+            return;
+        }
+        
         bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
         info.groupNetWork = group;
         info.groupBalance = groupBalance;
@@ -319,7 +342,7 @@
         cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
         ItemButton *button = [[ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:item.bSelected];
         button.backgroundColor = [UIColor clearColor];
-        [button addTarget:self action:@selector(buttonPressedAction:)  forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(buttonPressedAction:event:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
         button.enabled = isSelectBtnEnable;
     }
@@ -328,6 +351,28 @@
     cell.bankCardNumber = item.bankCardNumber;
 
     return cell;
+}
+
+
+- (void)buttonPressedAction:(id)sender event:(id)event
+{
+    ItemButton *button = (ItemButton *)sender;
+    [button switchStatus];
+    
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:tableView];
+    
+    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:currentTouchPosition];
+    if (indexPath != nil)
+    {
+        BankAccountItem *item=group[indexPath.row];
+        if (button.selected == YES) {
+            item.bNetworkSelected = YES;
+        }else{
+            item.bNetworkSelected = NO;
+        }
+    }
 }
 
 - (void)buttonPressedAction:(id)sender
@@ -361,8 +406,34 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{ 
+    BankAccountItem *item=group[indexPath.row];
+    UITableViewCell *Cell = [tableView cellForRowAtIndexPath:indexPath];
+    ItemButton *button = (ItemButton *)Cell.accessoryView;
+    [button switchStatus];
+    if (button.selected == YES) {
+        item.bNetworkSelected = YES;
+    }else{
+        item.bNetworkSelected = NO;
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+}
+
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    BankAccountItem *item=group[indexPath.row];
+    UITableViewCell *Cell = [tableView cellForRowAtIndexPath:indexPath];
+    ItemButton *button = (ItemButton *)Cell.accessoryView;
+    [button switchStatus];
+    if (button.selected == YES) {
+        item.bNetworkSelected = YES;
+    }else{
+        item.bNetworkSelected = NO;
+    }
 }
 
 

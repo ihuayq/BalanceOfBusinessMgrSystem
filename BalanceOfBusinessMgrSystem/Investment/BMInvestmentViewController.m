@@ -80,10 +80,10 @@
     [registerButton setTitle:@"预约购买" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
-    [registerButton.layer setBorderWidth:1.0]; //边框宽度
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
-    [registerButton.layer setBorderColor:colorref];//边框颜色
+//    [registerButton.layer setBorderWidth:1.0]; //边框宽度
+//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
+//    [registerButton.layer setBorderColor:colorref];//边框颜色
     [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:registerButton];
     
@@ -179,14 +179,6 @@
 
 
 -(void)touchDatingButton{
-    // 查看是否设置了交易密码
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"0"]) {
-         BMCreateTransactionpPasswordViewController *VC = [[BMCreateTransactionpPasswordViewController alloc] init];
-        VC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:VC animated:YES];
-        return;
-    }
-    
     NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"]);
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
         BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
@@ -227,24 +219,8 @@
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             
-             
+
              [self setAppointmentInfo:YES];
-//             buyInvestProjectView=[[BuyInvestProjectView alloc]init];
-//             buyInvestProjectView.navgDelegate=self.navigationController;
-//             buyInvestProjectView.type=0;
-//             
-//             [buyInvestProjectView.transferDict setObject:[responseJSONDictionary objectForKey:@"partnerbalance"] forKey:@"partnerbalance"];
-//             [buyInvestProjectView.transferDict setObject:[responseJSONDictionary objectForKey:@"userbalance"] forKey:@"userbalance"];
-//             //"leastbuyshare": "最小起买份额"
-//             [buyInvestProjectView.transferDict setValue:[dataDict objectForKey:@"leastbuyshare"] forKey:@"leastbuyshare"];
-//             [buyInvestProjectView.transferDict setValue:[dataDict objectForKey:@"unitprice"] forKey:@"unitprice"];
-//             [buyInvestProjectView.transferDict setObject:[dataDict objectForKey:@"bidno"] forKey:@"bidno"];
-//             
-//             
-//             [buyInvestProjectView viewDidLoad];
-//             [buyInvestProjectView.okBuyButton addTarget:self action:@selector(touchbuyInvestProjectViewokBuyButton) forControlEvents:UIControlEventTouchUpInside];
-//             [self.view addSubview:buyInvestProjectView];
              //[[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"appointment"];
              //发送网络请求，请求预约
              [[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];

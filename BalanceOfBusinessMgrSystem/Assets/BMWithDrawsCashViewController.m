@@ -74,14 +74,14 @@
     
     UILabel * CardNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(CardLabel.frame.origin.x + CardLabel.frame.size.width - 20 ,line2.frame.size.height + line2.frame.origin.y + 10, 180,20)];
     CardNumLabel.textAlignment = NSTextAlignmentLeft;
-    NSLog(@"the balance card no :%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]);
+    //NSLog(@"the balance card no :%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]);
     CardNumLabel.text =  [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]];
     
-    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:CardNumLabel.text];
-    if (modifyStr.length > 10) {
-        [modifyStr replaceCharactersInRange:NSMakeRange(4, modifyStr.length-8) withString:@"******"];
-    }
-    CardNumLabel.text = modifyStr;
+//    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:CardNumLabel.text];
+//    if (modifyStr.length > 10) {
+//        [modifyStr replaceCharactersInRange:NSMakeRange(4, modifyStr.length-8) withString:@"******"];
+//    }
+//    CardNumLabel.text = modifyStr;
     
     
     CardNumLabel.font = [UIFont systemFontOfSize:15];
@@ -92,7 +92,7 @@
     [passwordTextField setInsets:UIEdgeInsetsMake(25, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    passwordTextField.placeholder = @"请输入密码";
+    passwordTextField.placeholder = @"请输入交易密码";
     passwordTextField.font = [UIFont systemFontOfSize:15];
     passwordTextField.delegate = self;
     passwordTextField.keyboardType = UIKeyboardTypeDefault;

@@ -218,7 +218,7 @@
         cell = [[BankAccountTableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:dentifier hasSelectBtn:NO];
         ItemButton *button = [ [ItemButton alloc] initWithFrame:CGRectMake(0.0,0.0,30.0,30.0) withSelect:item.bSelected];
         button.backgroundColor = [UIColor clearColor ];
-        [button addTarget:self action:@selector(buttonPressedAction:forEvent:)  forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(buttonPressedAction:event:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
     }
     cell.title= item.accountName;
@@ -231,33 +231,59 @@
     return cell;
 }
 
-- (void)buttonPressedAction:(id)sender forEvent:(UIEvent*)event
+- (void)buttonPressedAction:(id)sender event:(id)event
 {
     ItemButton *button = (ItemButton *)sender;
     [button switchStatus];
     
-    UITableViewCell* cell = (UITableViewCell*)[button superview];
-    NSInteger row = [tableView indexPathForCell:cell].row;
-    //NSNumber *num = [NSNumber numberWithInteger:row];
-//    if (button.selected == YES) {
-//        [balanceAccountSelect addObject:num];
-//    }else{
-//        [balanceAccountSelect removeObject:num];
-//    }
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:tableView];
     
-    for (int i = 0 ;i < self.groupBalance.count ;i++) {
-        BankAccountItem *item=self.groupBalance[i];
-        if (i == row) {
-            item.bSelected = button.isSelected;
-
-        }else{
-            item.bSelected = NO;
+    NSIndexPath *indexPath = [tableView indexPathForRowAtPoint:currentTouchPosition];
+    if (indexPath != nil)
+    {
+        for (int i = 0 ;i < self.groupBalance.count ;i++) {
+            BankAccountItem *item=self.groupBalance[i];
+            if (i == indexPath.row) {
+                item.bSelected = button.isSelected;
+                
+            }else{
+                item.bSelected = NO;
+            }
+            
         }
-
+        [tableView reloadData];
     }
-    [tableView reloadData];
-    //NSLog(@"the selected group is:%@",balanceAccountSelect);
 }
+
+//- (void)buttonPressedAction:(id)sender forEvent:(UIEvent*)event
+//{
+//    ItemButton *button = (ItemButton *)sender;
+//    [button switchStatus];
+//    
+//    UITableViewCell* cell = (UITableViewCell*)[button superview];
+//    NSInteger row = [tableView indexPathForCell:cell].row;
+//    //NSNumber *num = [NSNumber numberWithInteger:row];
+////    if (button.selected == YES) {
+////        [balanceAccountSelect addObject:num];
+////    }else{
+////        [balanceAccountSelect removeObject:num];
+////    }
+//    
+//    for (int i = 0 ;i < self.groupBalance.count ;i++) {
+//        BankAccountItem *item=self.groupBalance[i];
+//        if (i == row) {
+//            item.bSelected = button.isSelected;
+//
+//        }else{
+//            item.bSelected = NO;
+//        }
+//
+//    }
+//    [tableView reloadData];
+//    //NSLog(@"the selected group is:%@",balanceAccountSelect);
+//}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
