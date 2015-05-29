@@ -91,9 +91,9 @@
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
+             //设定当前自然人信息
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-             
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
              [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"personId"]] forKey:@"no"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
@@ -101,6 +101,9 @@
              [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"websiteList"] forKey:@"accountinfo"];
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
+              //保存完毕，注意在修改自然人的入口需要重新设定curNatureMenInfo信息
+
+             
              
              NSMutableArray *groupNet=[[NSMutableArray alloc]init];
              NSArray *array = [responseJSONDictionary objectForKey:@"websiteList"];
@@ -111,7 +114,7 @@
                  item.bankName = [dic objectForKey:@"pubBankNameDet"];
                  item.bankCardNumber = [dic objectForKey:@"balanceAccount"];
                  item.siteNum = [dic objectForKey:@"siteNum"];
-                 //item.bSelected = [[dic objectForKey:@"selectedAccFlag"]  boolValue] ;//结算账号选定标记
+                 item.bSelected = [[dic objectForKey:@"selectedAccFlag"]  boolValue] ;//结算账号选定标记
                  item.bNetworkSelected = [[dic objectForKey:@"selectedFlag"] boolValue];//网点账号选定标记
                  [groupNet addObject:item];
              }
@@ -127,7 +130,7 @@
                  [self.navigationController pushViewController:info
                                                       animated:NO];
              }
-             //为false的情况，商户情况
+             //为false的情况，商户情况,含有网点和没有网点的情况，
              else{
 
                  NSMutableArray *groupBalance=[[NSMutableArray alloc]init];
@@ -138,7 +141,7 @@
                  item.bankCardNumber = [responseJSONDictionary objectForKey:@"cbalanceAccount"];
                  item.bSelected = YES;
                  [groupBalance addObject:item];
-                 
+                 //含有网点，进入网点，不可以选择
                  if (groupNet.count > 0) {
                      bindNetworkPointAccountViewController *info = [[bindNetworkPointAccountViewController alloc] init];
                      info.groupBalance = groupBalance;
@@ -146,6 +149,7 @@
                      [self.navigationController pushViewController:info
                                                           animated:NO];
                  }
+                 //直接跳过网点选择界面
                  else{
                      bindBalanceAccountViewController *info = [[bindBalanceAccountViewController alloc] init];
                      info.groupNetWork = groupNet;

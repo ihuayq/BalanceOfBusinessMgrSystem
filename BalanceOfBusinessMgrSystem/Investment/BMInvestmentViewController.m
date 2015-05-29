@@ -70,22 +70,30 @@
     [self.view addSubview:investProtolBtn];
     
     //确定
-    registerButton = [HP_UIButton buttonWithType:UIButtonTypeRoundedRect];
+    registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
-//    [registerButton setBackgroundColor:[UIColor redColor]];
-    [registerButton setFrame:CGRectMake(40,radioAgreement.frame.origin.y+ radioAgreement.frame.size.height + 40, MainWidth-2*40, 40)];
+    [registerButton setBackgroundColor:[UIColor clearColor]];
+    [registerButton setFrame:CGRectMake(20, radioAgreement.frame.origin.y+radioAgreement.frame.size.height+ 20, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
-    registerButton.enabled = false;
-    [registerButton setTitle:@"预约购买" forState:UIControlStateNormal];
+    [registerButton setTitle:@"提交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
-//    [registerButton.layer setBorderWidth:1.0]; //边框宽度
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
-//    [registerButton.layer setBorderColor:colorref];//边框颜色
-    [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    registerButton.enabled = false;
     [self.view addSubview:registerButton];
+    
+    //确定
+//    registerButton = [HP_UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+//    [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
+//    [registerButton setFrame:CGRectMake(40,radioAgreement.frame.origin.y+ radioAgreement.frame.size.height + 40, MainWidth-2*40, 40)];
+//    [registerButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
+//    registerButton.enabled = false;
+//    [registerButton setTitle:@"预约购买" forState:UIControlStateNormal];
+//    [registerButton.layer setMasksToBounds:YES];
+//    [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+//    [registerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [self.view addSubview:registerButton];
     
 //  [registerButton.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
 //  [registerButton.titleLabel setTextColor:[UIColor whiteColor]];

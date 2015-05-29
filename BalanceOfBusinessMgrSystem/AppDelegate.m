@@ -10,6 +10,8 @@
 #import "BMCommercialTenantMainViewController.h"
 #import "BMNaturalManMainViewController.h"
 #import "SettingLoginPassWordViewController.h"
+#import "settingNaturalManInfoViewController.h"
+#import "BMInvestmentConfirmViewController.h"
 
 @interface AppDelegate (){
     NSTimer * loginCheckTimer;
@@ -27,8 +29,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];
-    
-    
+
+#ifdef TEST
     NSString* keystring=[NSString stringWithFormat:@"%@_WelcomePage",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring]isEqualToString:keystring])
     {
@@ -38,6 +40,10 @@
     {
         [self initWindowRootViewController];
     }
+#else
+    BMInvestmentConfirmViewController* Vc=[[BMInvestmentConfirmViewController alloc]init];
+    self.window.rootViewController = Vc;
+#endif
     
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
@@ -110,7 +116,16 @@
     //自然人登录
     else if([text.userInfo[@"login"] isEqualToString:@"2"])
     {
+//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",
+//                             @"0",@"isSupplyer",
+//                             [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID],@"username",
+        
         LoginViewController *login = [[LoginViewController alloc] init];
+        if (text.userInfo[@"isSupplyer"]) {
+            login.isSupplerSelected = [text.userInfo[@"isSupplyer"] boolValue];
+        }
+        
+        login.loginName = text.userInfo[@"username"];
         self.window.rootViewController = login;
     }
 }
@@ -276,8 +291,6 @@
          
          if ([ret isEqualToString:@"100"])
          {
-             
-             
              NSString* newVersion=[responseJSONDictionary objectForKey:@"version"];
              NSArray* newVersionArray=[[responseJSONDictionary objectForKey:@"version"] componentsSeparatedByString:@"."];
              

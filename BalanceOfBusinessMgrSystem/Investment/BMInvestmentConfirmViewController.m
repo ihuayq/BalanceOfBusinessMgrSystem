@@ -12,6 +12,7 @@
     UIWebView *manualProductWebView;
     
     UIButton *okButton;
+    UILabel * buttonLabel;
     
     int nCout;
     NSTimer* timer;
@@ -42,14 +43,16 @@
     if (nCout>0)
     {
         nCout=nCout-1;
-        [okButton setTitle:[NSString stringWithFormat:@"确定 %d",nCout] forState:UIControlStateDisabled];
-        [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
+//        [okButton setTitle:[NSString stringWithFormat:@"确定 %d",nCout] forState:UIControlStateDisabled];
+//        [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
+        buttonLabel.text = [NSString stringWithFormat:@"%d",nCout];
         [okButton setEnabled:NO];
     }
     else if (nCout==0)
     {
-        [okButton setTitle:@"确定" forState:UIControlStateNormal];
-        [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+        [buttonLabel removeFromSuperview];
+//        [okButton setTitle:@"确定" forState:UIControlStateNormal];
+//        [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
         [okButton setEnabled:YES];
         nCout=8;
         [timer invalidate];//取消定时器
@@ -77,19 +80,21 @@
     okButton = [HP_UIButton buttonWithType:UIButtonTypeRoundedRect];
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
-    //    [okButton setBackgroundColor:[UIColor redColor]];
     [okButton setFrame:CGRectMake(40,manualProductWebView.frame.origin.y+ manualProductWebView.frame.size.height + 40, MainWidth-2*40, 40)];
     [okButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
     okButton.enabled = false;
     [okButton setTitle:@"确定" forState:UIControlStateNormal];
     [okButton.layer setMasksToBounds:YES];
     [okButton.layer setCornerRadius:okButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
-    [okButton.layer setBorderWidth:1.0]; //边框宽度
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//    CGColorRef colorref = CGColorCreate(colorSpace,(CGFloat[]){ 1, 0, 0, 1 });
-//    [okButton.layer setBorderColor:colorref];//边框颜色
-//    [okButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.view addSubview:okButton];
+    
+    buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 30, 30)];
+    //passwordLabel2.text = @"再次输入:";
+    buttonLabel.textAlignment = NSTextAlignmentCenter;
+    //buttonLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    buttonLabel.font = [UIFont systemFontOfSize:26];
+    //buttonLabel.backgroundColor = [UIColor clearColor];
+    [okButton addSubview:buttonLabel];
     
     [self timeCountdown];
     timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
@@ -123,12 +128,7 @@
          if([ret isEqualToString:@"100"])
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             
-             
-             //[self setAppointmentInfo:YES];
 
-             //[[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"appointment"];
-             //发送网络请求，请求预约
              //[[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
          }
          else

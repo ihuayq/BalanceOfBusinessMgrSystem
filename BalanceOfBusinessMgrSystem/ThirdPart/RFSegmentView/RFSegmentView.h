@@ -27,5 +27,6 @@
  *  @return 当前实例
  */
 - (id)initWithFrame:(CGRect)frame items:(NSArray *)items;
+- (id)initWithFrame:(CGRect)frame items:(NSArray *)items selectIndex:(int)index;
 
 @end

@@ -35,6 +35,7 @@
 		880649781B0B4000007D9E28 /* ModifyLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880649771B0B4000007D9E28 /* ModifyLoginPasswordViewController.m */; };
 		8806497B1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */; };
 		8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */; };
+		880D0D9D1B184505006EFFE8 /* NatureManAccountInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */; };
 		8889BA991AFC5F8A001BF5E2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */; };
 		8889BA9C1AFC6ACD001BF5E2 /* UIAssetsPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA9B1AFC6ACD001BF5E2 /* UIAssetsPageCell.m */; };
 		8889BAA01AFC8F48001BF5E2 /* 理财本金@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8889BA9F1AFC8F48001BF5E2 /* 理财本金@2x.png */; };
@@ -503,6 +504,8 @@
 		8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMSettingTransactionpPasswordViewController.m; sourceTree = "<group>"; };
 		8806497C1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCreateTransactionpPasswordViewController.h; sourceTree = "<group>"; };
 		8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCreateTransactionpPasswordViewController.m; sourceTree = "<group>"; };
+		880D0D9B1B184505006EFFE8 /* NatureManAccountInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatureManAccountInfoViewController.h; sourceTree = "<group>"; };
+		880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NatureManAccountInfoViewController.m; sourceTree = "<group>"; };
 		8889BA971AFC5F8A001BF5E2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		8889BA9A1AFC6ACD001BF5E2 /* UIAssetsPageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAssetsPageCell.h; sourceTree = "<group>"; };
@@ -1678,6 +1681,8 @@
 				8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */,
 				880208711B146B44009D3F6D /* ProjectReferViewController.h */,
 				880208721B146B44009D3F6D /* ProjectReferViewController.m */,
+				880D0D9B1B184505006EFFE8 /* NatureManAccountInfoViewController.h */,
+				880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -2465,6 +2470,7 @@
 				7A21E57C1AFF954000C8C023 /* BankAccountTableViewCell.m in Sources */,
 				88EF05CE1AF8A3EC006B09B0 /* HP_PullToLoadMoreView.m in Sources */,
 				88EF06FC1AF8A3EF006B09B0 /* UIDevice-Hardware.m in Sources */,
+				880D0D9D1B184505006EFFE8 /* NatureManAccountInfoViewController.m in Sources */,
 				88EF06F41AF8A3EF006B09B0 /* HP_PlistUtils.m in Sources */,
 				88EF03071AF8A375006B09B0 /* AFImageRequestOperation.m in Sources */,
 				88E7C2981AFC594800F7B58C /* StyledTableViewCell.m in Sources */,

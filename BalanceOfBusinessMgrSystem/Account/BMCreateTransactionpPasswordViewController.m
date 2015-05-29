@@ -269,7 +269,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,PayPasswdURL];
     
-    [self showProgressViewWithMessage:@"正在设置登录密码..."];
+    [self showProgressViewWithMessage:@"正在创建交易密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);

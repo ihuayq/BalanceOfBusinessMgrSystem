@@ -24,7 +24,7 @@
         titleLabel.text = @"总资产（元）";
         [self.contentView addSubview:titleLabel];
 
-        moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.origin.x + 160, titleLabel.size.height+titleLabel.origin.y-4, 2*titleLabel.size.width, titleLabel.size.height*1.5f)];
+        moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contentView.size.width/2.0f-30, titleLabel.size.height+titleLabel.origin.y-4, self.contentView.size.width/2.0f, titleLabel.size.height*1.5f)];
         moneyLabel.font = [UIFont systemFontOfSize:30.0f];
         moneyLabel.textColor =  UIColorFromRGB(0xF9551C);
         moneyLabel.text = @"0.00";
@@ -62,7 +62,7 @@
         titleLabel.text = @"昨日收益（元）";
         [self.contentView addSubview:titleLabel];
         
-        moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.origin.x + 160, titleLabel.size.height+titleLabel.origin.y-4, titleLabel.size.width, titleLabel.size.height-10)];
+        moneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contentView.size.width/2.0f-30, titleLabel.size.height+titleLabel.origin.y-4, self.contentView.size.width/2.0f, titleLabel.size.height)];
         moneyLabel.font = [UIFont systemFontOfSize:24.0f];
         moneyLabel.textColor = UIColorFromRGB(0xF9551C);
         moneyLabel.text = @"0.00";

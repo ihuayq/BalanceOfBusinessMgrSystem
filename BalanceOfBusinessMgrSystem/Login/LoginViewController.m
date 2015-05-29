@@ -19,18 +19,18 @@
 
 
 @interface LoginViewController ()<RadioButtonDelegate,RFSegmentViewDelegate>{
-    BOOL isSupplerSelected;
+//    BOOL isSupplerSelected;
 }
 
 @property(nonatomic,retain)RadioButton *radioSupplyer;
 @property(nonatomic,retain)RadioButton *radioMember;
 @property(nonatomic,retain)RadioButton * forgetButton;
-@property(nonatomic,assign)BOOL isSupplerSelected;
+
 
 @end
 
 @implementation LoginViewController
-@synthesize nameTextField;
+
 @synthesize isSupplerSelected = _isSupplerSelected;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,8 +45,10 @@
 {
     [nameTextField resignFirstResponder];
     [passwordTextField resignFirstResponder];
-    //nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
-    //[[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LAST_LOGIN_NAME];
+    
+    nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LAST_LOGIN_NAME];
+    
     [passwordTextField setText:@""];
 }
 -(void)viewWillDisappear:(BOOL)animated
@@ -59,25 +61,39 @@
     
     
     [self initUI];
+    
+    //[self testLoadingFile];
 }
+
+-(void)testLoadingFile{
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"bankcard" ofType:@"plist"];
+    //NSDictionary *drinkDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
+    NSArray *arrayOrign = [[NSArray alloc] initWithContentsOfFile:path];
+    
+    [[NSUserDefaults standardUserDefaults]setObject:arrayOrign forKey:@"testlog"];
+    
+    NSArray *arrayDATA = [[NSUserDefaults standardUserDefaults] objectForKey:@"testlog"];
+    NSMutableArray *array = [NSMutableArray arrayWithArray:arrayDATA];
+    
+    NSLog(@"the array is:%@",array);
+    for ( NSDictionary *dic in array) {
+        //NSDictionary *dic=[array objectAtIndex:0];
+        NSLog(@"the data is:%@",dic);
+        
+        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
+        [data setObject:@"huayq" forKey:@"accoutname"];
+        [data setObject:@"nihao" forKey:@"bankcardno"];
+        
+        NSLog(@"the data change is:%@",data);
+    }
+    [[NSUserDefaults standardUserDefaults]setObject:array forKey:@"testlog"];
+    
+     NSLog(@"the array hs change is:%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"testlog"]);
+}
+
 
 -(void) initUI
 {
-    //    self.radioSupplyer=[[RadioButton alloc] initWithFrame:CGRectMake(36, logoImageView.frame.origin.y+logoImageView.frame.size.height+20, 100, 25) typeCheck:YES];
-    //    [self.radioSupplyer setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //    [self.radioSupplyer setTitle:@"商户" forState:UIControlStateNormal];
-    //    self.radioSupplyer.titleLabel.font=[UIFont systemFontOfSize:12];
-    //    self.radioSupplyer.delegate=self;
-    //    self.radioSupplyer.tag=707;
-    //    [self.view addSubview:self.radioSupplyer];
-    //
-    //    self.radioMember=[[RadioButton alloc] initWithFrame:CGRectMake(36+MainWidth/2, logoImageView.frame.origin.y+logoImageView.frame.size.height+20, 100, 25) typeCheck:NO];
-    //    [self.radioMember setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //    [self.radioMember setTitle:@"授权人" forState:UIControlStateNormal];
-    //    self.radioMember.titleLabel.font=[UIFont systemFontOfSize:12];
-    //    self.radioMember.delegate=self;
-    //    self.radioMember.tag=708;
-    //    [self.view addSubview:self.radioMember];
 
     HP_UIImageView *logoImageView = [[HP_UIImageView alloc] init ];
     [logoImageView setFrame:CGRectMake(0, 0, MainWidth, MainHeight/3)];
@@ -86,7 +102,7 @@
     
     NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"商户",@"自然人",nil];
 
-    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height, ScreenWidth, 60) items:@[@"商户",@"自然人"]];
+    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height, ScreenWidth, 60) items:@[@"商户",@"自然人"] selectIndex:!_isSupplerSelected];
     segmentView.tintColor = [self getRandomColor];
     segmentView.delegate = self;
     [self.view addSubview:segmentView];
@@ -109,6 +125,7 @@
     nameTextField.delegate = self;
     nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
     nameTextField.borderStyle = UITextBorderStyleNone;
+    nameTextField.text = self.loginName;
     [self.view addSubview:nameTextField];
     
     //设置密码设置信息
@@ -154,6 +171,18 @@
     [loginButton.layer setMasksToBounds:YES];
     [loginButton.layer setCornerRadius:loginButton.frame.size.height/2.0f];
     [self.view addSubview:loginButton];
+    
+    if (_isSupplerSelected) {
+        //刷新商户填充信息
+        nameTextField.placeholder = @"请输入Qpos/POS平台账号";
+        passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
+        self.forgetButton.hidden = YES;
+    }
+    else{
+        nameTextField.placeholder = @"请输入手机号码";
+        passwordTextField.placeholder = @"请输入密码";
+        self.forgetButton.hidden = NO;
+    }
 }
 
 - (UIColor *)getRandomColor
@@ -204,8 +233,8 @@
         nameTextField.keyboardType = UIKeyboardTypePhonePad;
         self.forgetButton.hidden = NO;
     }
-    nameTextField.text = @"";
-    passwordTextField.text = @"";
+//    nameTextField.text = @"";
+//    passwordTextField.text = @"";
 }
 
 -(void)setIsSupplerSelected:(BOOL)isSupplerSelected{
@@ -228,11 +257,10 @@
     
 }
 
-- (void)setUserName:(NSString *)name
-{
-    nameTextField.userInteractionEnabled = NO;
-    [nameTextField setText:name];
+-(void)setLoginName:(NSString *)loginName{
+    nameTextField.text = loginName;
 }
+
 
 -(void)touchForgetButton
 {
@@ -317,9 +345,12 @@
         [self.navigationController pushViewController:mainview animated:NO];
         return;
 #endif
+
+#define TEST_LOGIN
+#ifdef TEST_LOGIN
         //商户网点账号
 //        只有商户没有网点：loginName=Mer00060019        loginPwd=redis             mercNum=M0060019
-//        nameTextField.text = @"Mer00060019";
+//        nameTextField.text = @"Mer00060090";
 //        passwordTextField.text = @"1";
         
 //        有商户有一个网点：loginName=Mer00060013        loginPwd=register         mercNum=M0060013
@@ -329,6 +360,10 @@
 //        一个商户多个网点：loginName=Mer00021684        loginPwd=test            mercNum=M0021684
 //        nameTextField.text = @"Mer00021684";
 //        passwordTextField.text = @"1";
+        
+        nameTextField.text = @" ";
+        passwordTextField.text = @"1234qwer";
+#endif
         [self supplyerLoginRequest];
     }
     //自然人登录
@@ -340,10 +375,13 @@
         [self.navigationController pushViewController:Vc animated:NO];
         return;
 #endif
-//      nameTextField.text = @"17701315969";
-//      passwordTextField.text = @"1";
+#ifdef TEST_LOGIN
+      nameTextField.text = @"17701315969";
+      passwordTextField.text = @"123456";
+
 //       nameTextField.text = @"13501102460";
 //       passwordTextField.text = @"123456";
+#endif
         [self natureManLoginRequest];
     }
 }
@@ -395,13 +433,24 @@
              //商户还是自然人
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+            
+             if ([responseJSONDictionary objectForKey:@"idCard"]) {
+                 [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+             }
+             
              [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"balanceCardAccountName"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
+             
              [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
              //[Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
              [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
              
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+             
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
              
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码

@@ -1,12 +1,14 @@
 //
-//  bindAccountConfirmViewController.m
+//  NatureManAccountInfoViewController.m
 //  BalanceOfBusinessMgrSystem
 //
-//  Created by 华永奇 on 15/5/11.
+//  Created by huayq on 15/5/29.
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "bindAccountConfirmViewController.h"
+#import "NatureManAccountInfoViewController.h"
+#import "BMAccountCellInfo.h"
+#import "BankAccountItem.h"
 #import "BankAccountTableViewCell.h"
 #import "BMAccountCellInfo.h"
 #import "bindBalanceAccountViewController.h"
@@ -17,45 +19,33 @@
 #import "DXAlertView.h"
 #import "ModifyNaturalmanSuccessViewController.h"
 
-@interface bindAccountConfirmViewController (){
+@interface NatureManAccountInfoViewController (){
     UITableView * tableView;
     NSMutableArray *group;//cell数组
     
     UILabel * manNameLabel;
     UILabel * identifyLabel;
     UILabel * telephoneLabel;
+    
+    NSMutableArray *balanceAccountSelected;
+    NSMutableArray *networkAccountSelected;
 }
 
 @end
 
-@implementation bindAccountConfirmViewController
-
-- (void) initGroup{
-    group = [[NSMutableArray alloc]init];
-    
-    if (self.networkAccountSelected.count > 0) {
-        BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"网点账户信息" andDetail:@"With names beginning with C" andContacts:self.networkAccountSelected];
-        [group addObject:group0];
-    }
-    
-    if (self.balanceAccountSelected.count > 0 ) {
-        BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"结算账户信息" andDetail:@"With names beginning with C" andContacts:self.balanceAccountSelected];
-        [group addObject:group1];
-    }
-}
-
+@implementation NatureManAccountInfoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.navigation.title = @"确认信息";
+    self.navigation.title = @"我的信息";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
     
     [self initGroup];
     
     //自然人姓名
     UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
-    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
+    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -64,7 +54,7 @@
     [self.view addSubview:manTitleLabel];
     
     manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
-    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
+    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"personName"];
     manNameLabel.textAlignment = NSTextAlignmentCenter;
     manNameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manNameLabel.font = [UIFont systemFontOfSize:14];
@@ -83,7 +73,7 @@
     [self.view addSubview:identifyTitleLabel];
     
     identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,180, 20)];
-    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
+    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"identifyno"];
     identifyLabel.textAlignment = NSTextAlignmentLeft;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
@@ -102,7 +92,7 @@
     [self.view addSubview:telephoneTitleLabel];
     
     telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 100,20)];
-    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];
+    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"];
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneLabel.font = [UIFont systemFontOfSize:14];
@@ -134,120 +124,55 @@
     [self.view addSubview:avestButton];
 }
 
+-(void)loadData{
+
+    
+//    NSMutableArray *balanceAccountSelected;
+//    NSMutableArray *networkAccountSelected;
+    //网点账号
+    networkAccountSelected=[[NSMutableArray alloc]init];
+    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"netAccountInfo"];
+    for ( NSDictionary *dic in array) {
+        //NSDictionary *dic=[array objectAtIndex:0];
+        BankAccountItem *item = [BankAccountItem new];
+        item.accountName = [dic objectForKey:@"pubAccountName"];
+        item.bankName = [dic objectForKey:@"websiteMark"];
+        item.bankCardNumber = [dic objectForKey:@"balanceAccount"];
+
+        [networkAccountSelected addObject:item];
+    }
+    
+    balanceAccountSelected=[[NSMutableArray alloc]init];
+    BankAccountItem *itemBalance = [BankAccountItem new];
+    itemBalance.bankCardNumber = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ] objectForKey:@"balanceCardNo" ];
+    itemBalance.bankName = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ] objectForKey:@"balanceCardBankName" ];
+    itemBalance.accountName = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ] objectForKey:@"balanceCardAccountName" ];
+    [balanceAccountSelected addObject:itemBalance];
+
+}
+
+- (void) initGroup{
+    [self loadData];
+    
+    if (group == nil) {
+        group = [NSMutableArray new];
+    }
+    [group removeAllObjects];
+    
+    if (networkAccountSelected.count > 0) {
+        BMAccountCellGroup *group0=[BMAccountCellGroup initWithName:@"网点账户信息" andDetail:@"W" andContacts:networkAccountSelected];
+        [group addObject:group0];
+    }
+    
+    if (balanceAccountSelected.count > 0 ) {
+        BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"结算账户信息" andDetail:@"W" andContacts:balanceAccountSelected];
+        [group addObject:group1];
+    }
+}
 
 -(void)touchOkButton{
-    //商户为false的情况下是后台自动绑定的
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"FALSE"]){
-        if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE){
-            ModifyNaturalmanSuccessViewController*vc = [[ModifyNaturalmanSuccessViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:NO];
-        }
-        else{
-            bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
-            [self.navigationController pushViewController:vc animated:NO];
-        }
-    }
-    else{
-        [self requestNetWork];
-    }
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
-
--(void)requestNetWork{
-    
-    if (![HP_NetWorkUtils isNetWorkEnable])
-    {
-        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
-        return;
-    }
-    [self touchesBegan:nil withEvent:nil];
-    
-    
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
-    
-    if (self.networkAccountSelected.count > 0) {
-        NSString *strNetwork = @"";
-        BMAccountCellGroup *networkGroup=group[0];
-        for ( BankAccountItem *item in networkGroup.groups) {
-            if (item.bNetworkSelected == YES) {
-                
-                strNetwork = [strNetwork stringByAppendingString: item.siteNum];
-                strNetwork = [strNetwork stringByAppendingString: @"@"];
-            }
-        }
-        if (strNetwork.length > 2) {
-            strNetwork = [strNetwork substringToIndex:strNetwork.length-1];
-            [connDictionary setObject:strNetwork forKey:@"siteNum"];
-        }
-    }
-
-
-   if (self.networkAccountSelected.count > 0) {
-       NSString *strBalance= @"";
-       BMAccountCellGroup *balanceGroup=group[1];
-       for ( BankAccountItem *item in balanceGroup.groups) {
-           if (item.bSelected == YES) {
-               strBalance = [strBalance stringByAppendingString: item.bankCardNumber];
-               strBalance = [strBalance stringByAppendingString: @"@"];
-           }
-       }
-       if ( strBalance.length > 2 ) {
-           strBalance = [strBalance substringToIndex:strBalance.length - 1];
-           [connDictionary setObject:strBalance forKey:@"accountId"];
-       }
-    }
-
-
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
-    
-    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,SavaAccountURL];
-    
-    NSLog(@"connDictionary:%@",connDictionary);
-    [self showProgressViewWithMessage:@"正在请求账号数据..."];
-    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-     {
-         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-         if([ret isEqualToString:@"100"])
-         {
-             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             
-             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
-             NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
-             NSMutableArray *results = [responseJSONDictionary objectForKey:@"naturalPersonList"];
-             [data setObject:results forKey:@"natureInfo"];
-             [[NSUserDefaults standardUserDefaults]setObject:data forKey:SUPPLYER_INFO];
-             //[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] setObject:results forKey:@"natureInfo"];
-
-             if ( [Globle shareGloble].whichBalanceAccountEntranceType == MODIFY_NATUREMAN_ENTRANCE){
-                 ModifyNaturalmanSuccessViewController*vc = [[ModifyNaturalmanSuccessViewController alloc] init];
-                 [self.navigationController pushViewController:vc animated:NO];
-             }
-             else{
-                 bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
-                 [self.navigationController pushViewController:vc animated:NO];
-             }
-
-         }
-         else
-         {
-             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-         }
-     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
-         NSLog(@"error:%@",error.debugDescription);
-         if (![request isCancelled])
-         {
-             [request cancel];
-         }
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-         alertView.tag = 999;
-         [alertView show];
-     }];
-}
-
 
 #pragma mark - Table view data source
 
@@ -265,7 +190,7 @@
     // Return the number of rows in the section.
     NSLog(@"计算每组(组%i)行数",section);
     BMAccountCellGroup *sec=group[section];
-   
+    
     return sec.groups.count;
 }
 
@@ -277,8 +202,6 @@
     NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
     BMAccountCellGroup *contact=group[indexPath.section];
     BankAccountItem *item=contact.groups[indexPath.row];
-    
-
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
     if (cell == nil) {
@@ -328,8 +251,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 20;
 }
-
-
 
 /*
 #pragma mark - Navigation

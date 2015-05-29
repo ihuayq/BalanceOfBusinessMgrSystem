@@ -11,6 +11,7 @@
 #import "BMSettingTransactionpPasswordViewController.h"
 #import "ModifyLoginPasswordViewController.h"
 #import "ProjectReferViewController.h"
+#import "NatureManAccountInfoViewController.h"
 
 @interface BMAccountMainViewController (){
     NSMutableArray *_group;//cell数组
@@ -106,7 +107,7 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"计算每组(组%i)行数",section);
+    //NSLog(@"计算每组(组%i)行数",section);
     BMAccountCellGroup *group1=_group[section];
     return group1.groups.count;
 }
@@ -116,7 +117,7 @@
 {
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
-    NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+    //NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
     BMAccountCellGroup *group=_group[indexPath.section];
     BMAccountCellInfo *contact=group.groups[indexPath.row];
     
@@ -209,6 +210,9 @@
     {
         if (indexPath.row == 0) {
             //我的信息
+            NatureManAccountInfoViewController *vc = [[NatureManAccountInfoViewController alloc] init];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else if( indexPath.row == 1)
         {

@@ -25,7 +25,7 @@
         _titleLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview:_titleLabel];
 
-        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(_imageLeftView.frame.origin.x +  5, _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 5, self.frame.size.width-30, 20)];
+        _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, _titleLabel.frame.origin.y + _titleLabel.frame.size.height + 5, self.frame.size.width-5*2, 20)];
         _numLabel.font = [UIFont systemFontOfSize:24.0f];
         if ([numText isEqualToString:@"0"]) {
             _numLabel.text = @"0.00";

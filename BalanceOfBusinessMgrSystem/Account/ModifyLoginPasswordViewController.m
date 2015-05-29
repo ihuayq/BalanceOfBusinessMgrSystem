@@ -204,12 +204,18 @@
          if([ret isEqualToString:@"100"])
          {
              //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
-             //[self timeCountdown];
-             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
-             //商户还是自然
-             //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",
+                                  @"0",@"isSupplyer",
+                                  nil];
+             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+             [[NSNotificationCenter defaultCenter] postNotification:notification];
              
-             [self.navigationController popViewControllerAnimated:YES];
+             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
+             [[NSUserDefaults standardUserDefaults] setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"] forKey:LAST_LOGIN_NAME];
+             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登录、1的登录
+             
+             
+             //[self.navigationController popViewControllerAnimated:YES];
          }
          else
          {
@@ -329,7 +335,6 @@
 
 #pragma mark -
 #pragma mark - UITextFieldDelegate
-
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     return [textField resignFirstResponder];

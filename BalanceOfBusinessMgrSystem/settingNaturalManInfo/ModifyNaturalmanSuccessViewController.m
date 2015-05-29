@@ -28,7 +28,7 @@
     titleLabel.text = @"自然人信息修改成功，是否现在去进行投资理财";
     titleLabel.textAlignment = NSTextAlignmentCenter;
     titleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    titleLabel.font = [UIFont systemFontOfSize:14];
+    titleLabel.font = [UIFont systemFontOfSize:18];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.numberOfLines = 0;
     [self.view addSubview:titleLabel];
@@ -38,7 +38,7 @@
     [switchButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [switchButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [switchButton setBackgroundColor:[UIColor greenColor]];
-    [switchButton setFrame:CGRectMake(40, MainHeight/2 , 80, 40)];
+    [switchButton setFrame:CGRectMake(MainWidth/2-100, MainHeight/2 ,80, 40)];
     [switchButton addTarget:self action:@selector(touchSwitchButton) forControlEvents:UIControlEventTouchUpInside];
     [switchButton setTitle:@"是" forState:UIControlStateNormal];
     [switchButton.layer setMasksToBounds:YES];
@@ -50,7 +50,7 @@
     [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [addMoreButton setBackgroundColor:[UIColor greenColor]];
-    [addMoreButton setFrame:CGRectMake(switchButton.frame.origin.x + switchButton.frame.size.width + 20 , MainHeight/2 , 80, 40)];
+    [addMoreButton setFrame:CGRectMake(MainWidth/2 + 20 , MainHeight/2 , 80, 40)];
     [addMoreButton addTarget:self action:@selector(touchExitButton) forControlEvents:UIControlEventTouchUpInside];
     [addMoreButton setTitle:@"否" forState:UIControlStateNormal];
     [addMoreButton.layer setMasksToBounds:YES];
@@ -59,9 +59,12 @@
 }
 
 -(void)touchSwitchButton{
-    LoginViewController*info = [[LoginViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
+//    LoginViewController*info = [[LoginViewController alloc] init];
+//    [self.navigationController pushViewController:info
+//                                         animated:NO];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 -(void)touchExitButton{

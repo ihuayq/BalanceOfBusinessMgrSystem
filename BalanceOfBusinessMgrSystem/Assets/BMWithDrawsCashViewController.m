@@ -119,16 +119,36 @@
     
 }
 
--(void)requestNetWork{
+-(BOOL)checkDrawMoney:(NSString*)strMoney{
     //金额输入不能为空
     NSString* msgstring=[nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
         UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入金额" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
+        return NO;
+    }
+    
+    float drawMoney = [msgstring floatValue];
+    float canDrawMoney = [[NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"] objectForKey:@"totalAmount"]] floatValue];
+    if ( drawMoney - canDrawMoney >= 0.001) {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"输入金额大于可提现金额" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    
+    return  YES;
+}
+
+-(void)requestNetWork{
+
+    //查看输入金额大小是否大于可提现的金额
+    if (![self checkDrawMoney:nameTextField.text])
+    {
         return;
     }
-    //
+    
+    //查看输入金额大小是否大于可提现的金额
     if (![self checkPassWordString:passwordTextField.text])
     {
         return;

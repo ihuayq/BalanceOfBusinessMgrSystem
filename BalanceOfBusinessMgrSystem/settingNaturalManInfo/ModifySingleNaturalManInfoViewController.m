@@ -40,12 +40,15 @@
 -(void)setModel:(NaturalManItemModel *)model_{
     _model = model_;
     
+    //重新设定了自然人信息
     NSDictionary* Dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"];
     NSMutableDictionary* info =[NSMutableDictionary dictionaryWithDictionary:Dict];
     [info setObject:_model.manName forKey:@"name"];
     [info setObject:_model.identifyNumber forKey:@"identifyno"];
-    //[info setObject:_model.nPosition forKey:@"no"];
+    [info setObject:_model.personID forKey:@"no"];
+    [info setObject:_model.telephoneNumber forKey:@"phonenum"];
     [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"curNatureMenInfo"];
+    
     return;
 }
 
@@ -58,12 +61,12 @@
     group=[[NSMutableArray alloc]init];
     //groupBalance = [[NSMutableArray alloc]init];
     
-    UILabel *manHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,NAVIGATION_OUTLET_HEIGHT + 20, 72, 20)];
+    UILabel *manHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,NAVIGATION_OUTLET_HEIGHT + 20, 90, 20)];
     manHeadLabel.textAlignment = NSTextAlignmentLeft;
     manHeadLabel.backgroundColor = [UIColor clearColor];
     manHeadLabel.textColor = [UIColor blackColor];
     manHeadLabel.font = [UIFont systemFontOfSize:16.0f];
-    manHeadLabel.text = [NSString stringWithFormat:@"自然人%d:",self.model.nPosition];
+    manHeadLabel.text = [NSString stringWithFormat:@"自然人%@:",self.model.personID];
     [self.view addSubview:manHeadLabel];
     
     manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(manHeadLabel.frame.origin.x + manHeadLabel.frame.size.width, NAVIGATION_OUTLET_HEIGHT + 20 , 120, 20)];
@@ -133,7 +136,7 @@
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0f - 60 , MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, tableView.frame.origin.y + tableView.frame.size.height + 10 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchCommitButton) forControlEvents:UIControlEventTouchUpInside];
     [avestButton setTitle:@"提交" forState:UIControlStateNormal];
     [avestButton.layer setMasksToBounds:YES];
@@ -180,9 +183,6 @@
     
     //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
     [connDictionary setObject:self.model.personID forKey:@"personId"];
-//     [connDictionary setObject:self.model.identifyNumber forKey:@"personId"];
-//     [connDictionary setObject:self.model.manName forKey:@"personId"];
-    
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
     
@@ -213,7 +213,6 @@
              if ([[responseJSONDictionary objectForKey:@"methods"] isEqualToString:@"TRUE"]) {
                  id flag = [responseJSONDictionary objectForKey:@"modifyAccFlag"];
                  [[NSUserDefaults standardUserDefaults]setObject:flag forKey:@"modifyAccFlag"];
-                 isHasNetwork = YES;
                  isSelectBtnEnable = YES;
 //                 groupBalance=[[NSMutableArray alloc]init];
 //                 groupBalance = group ;
@@ -229,15 +228,6 @@
                  item.bankCardNumber = [responseJSONDictionary objectForKey:@"cbalanceAccount"];
                  item.bSelected = YES;
                  [groupBalance addObject:item];
-                 
-                 if (group.count > 0) {
-                     isHasNetwork = YES;
-                 }
-                 else{
-                     //此时group表示结算账号
-                     group = groupBalance;
-                     isHasNetwork = NO;
-                 }
              }
 
              
@@ -264,15 +254,13 @@
 
 -(void)touchCommitButton{
 
-    if (group.count > 0 && isHasNetwork == YES) {
+    //BOOL type = [[[NSUserDefaults standardUserDefaults] objectForKey:@"methods"] isEqualToString:@"TRUE"];
+    if (group.count > 0) {
         if (groupBalance == nil) {
             groupBalance = [NSMutableArray new];
         }
         [groupBalance removeAllObjects];
-//        else{
-//            [groupBalance removeAllObjects];
-//        }
-        
+
         BOOL bHasSelect =  NO;
         for (BankAccountItem *item in group) {
             if (item.bNetworkSelected == YES) {
@@ -325,7 +313,7 @@
 {
     //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    NSLog(@"计算每组(组%i)行数",section);
+    //NSLog(@"计算每组(组%i)行数",section);
     return group.count;
 }
 
@@ -334,7 +322,7 @@
 {
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
-    NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+    //NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
     BankAccountItem *item=group[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
@@ -349,6 +337,8 @@
     cell.title= item.accountName;
     cell.bankName = item.bankName;
     cell.bankCardNumber = item.bankCardNumber;
+    ItemButton* curBtn = (ItemButton*)[cell accessoryView];
+    curBtn.isSelected = item.bNetworkSelected;
 
     return cell;
 }
@@ -375,21 +365,21 @@
     }
 }
 
-- (void)buttonPressedAction:(id)sender
-{
-    ItemButton *button = (ItemButton *)sender;
-    [button switchStatus];
-    
-    UITableViewCell* cell = (UITableViewCell*)[button superview];
-    NSInteger row = [tableView indexPathForCell:cell].row;
-    
-    BankAccountItem *item=group[row];
-    if (button.selected == YES) {
-        item.bNetworkSelected = YES;
-    }else{
-        item.bNetworkSelected = NO;
-    }
-}
+//- (void)buttonPressedAction:(id)sender
+//{
+//    ItemButton *button = (ItemButton *)sender;
+//    [button switchStatus];
+//    
+//    UITableViewCell* cell = (UITableViewCell*)[button superview];
+//    NSInteger row = [tableView indexPathForCell:cell].row;
+//    
+//    BankAccountItem *item=group[row];
+//    if (button.selected == YES) {
+//        item.bNetworkSelected = YES;
+//    }else{
+//        item.bNetworkSelected = NO;
+//    }
+//}
 
 //- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //
@@ -407,15 +397,15 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 { 
-    BankAccountItem *item=group[indexPath.row];
-    UITableViewCell *Cell = [tableView cellForRowAtIndexPath:indexPath];
-    ItemButton *button = (ItemButton *)Cell.accessoryView;
-    [button switchStatus];
-    if (button.selected == YES) {
-        item.bNetworkSelected = YES;
-    }else{
-        item.bNetworkSelected = NO;
-    }
+//    BankAccountItem *item=group[indexPath.row];
+//    UITableViewCell *Cell = [tableView cellForRowAtIndexPath:indexPath];
+//    ItemButton *button = (ItemButton *)Cell.accessoryView;
+//    [button switchStatus];
+//    if (button.selected == YES) {
+//        item.bNetworkSelected = YES;
+//    }else{
+//        item.bNetworkSelected = NO;
+//    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }

@@ -17,6 +17,10 @@
     HP_UITextField * passwordTextField;
 }
 
-@property(nonatomic,retain)HP_UITextField * nameTextField;
-- (void)setUserName:(NSString *)name;
+@property(nonatomic,copy)NSString *loginName;
+@property(nonatomic,assign)int curIndex;
+
+@property(nonatomic,assign)BOOL isSupplerSelected;
+
+//- (void)setUserName:(NSString *)name;
 @end

@@ -116,7 +116,7 @@
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [avestButton setBackgroundColor:[UIColor greenColor]];
-    [avestButton setFrame:CGRectMake(40, MainHeight -48.5 - 44.0 - 100 , MainWidth - 80, 40)];
+    [avestButton setFrame:CGRectMake(40, tableView.frame.origin.y + tableView.frame.size.height + 10 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
     [avestButton setTitle:@"确定" forState:UIControlStateNormal];
     [avestButton.layer setMasksToBounds:YES];
@@ -220,14 +220,17 @@
         button.backgroundColor = [UIColor clearColor ];
         [button addTarget:self action:@selector(buttonPressedAction:event:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
+        button.isSelected = item.bSelected;
+        //是否可用
+        button.enabled = isSelectedButtonEnable;
     }
     cell.title= item.accountName;
     cell.bankName = item.bankName;
     cell.bankCardNumber = item.bankCardNumber;
-    ItemButton* curBtn = (ItemButton*)[cell accessoryView];
-    curBtn.isSelected = item.bSelected;
-    //是否可用
-    curBtn.enabled = isSelectedButtonEnable;
+//    ItemButton* curBtn = (ItemButton*)[cell accessoryView];
+//    curBtn.isSelected = item.bSelected;
+//    //是否可用
+//    curBtn.enabled = isSelectedButtonEnable;
     return cell;
 }
 

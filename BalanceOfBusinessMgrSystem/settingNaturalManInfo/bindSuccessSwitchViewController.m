@@ -38,7 +38,7 @@
     [switchButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [switchButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [switchButton setBackgroundColor:[UIColor greenColor]];
-    [switchButton setFrame:CGRectMake(40, MainHeight/2 , 80, 40)];
+    [switchButton setFrame:CGRectMake(MainWidth/3 - 80, MainHeight/2 , 80, 40)];
     [switchButton addTarget:self action:@selector(touchSwitchButton) forControlEvents:UIControlEventTouchUpInside];
     [switchButton setTitle:@"切换" forState:UIControlStateNormal];
     [switchButton.layer setMasksToBounds:YES];
@@ -50,7 +50,7 @@
     [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [addMoreButton setBackgroundColor:[UIColor greenColor]];
-    [addMoreButton setFrame:CGRectMake(switchButton.frame.origin.x + switchButton.frame.size.width + 20 , MainHeight/2 , 140, 40)];
+    [addMoreButton setFrame:CGRectMake(MainWidth/3 + 20 , MainHeight/2 , 160, 40)];
     [addMoreButton addTarget:self action:@selector(touchAddMoreButton) forControlEvents:UIControlEventTouchUpInside];
     [addMoreButton setTitle:@"继续添加自然人" forState:UIControlStateNormal];
     [addMoreButton.layer setMasksToBounds:YES];
@@ -59,9 +59,12 @@
 }
 
 -(void)touchSwitchButton{
-    LoginViewController*info = [[LoginViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
+//    LoginViewController*info = [[LoginViewController alloc] init];
+//    [self.navigationController pushViewController:info
+//                                         animated:NO];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 -(void)touchAddMoreButton{

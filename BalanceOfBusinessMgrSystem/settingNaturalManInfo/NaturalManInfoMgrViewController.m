@@ -255,18 +255,18 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    if (indexPath != nil)
-    {
-        [Globle shareGloble].index = indexPath;
-        //纪录从修改自然人入口进入
-        [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
-        ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
-        //NSLog(@"当前model ％@",cell.model);
-        
-        vc.model = group[indexPath.row];
-        [self.navigationController pushViewController:vc
-                                             animated:NO];
-    }
+//    if (indexPath != nil)
+//    {
+//        [Globle shareGloble].index = indexPath;
+//        //纪录从修改自然人入口进入
+//        [Globle shareGloble].whichBalanceAccountEntranceType = MODIFY_NATUREMAN_ENTRANCE;
+//        ModifySingleNaturalManInfoViewController *vc = [[ModifySingleNaturalManInfoViewController alloc]init];
+//        //NSLog(@"当前model ％@",cell.model);
+//        
+//        vc.model = group[indexPath.row];
+//        [self.navigationController pushViewController:vc
+//                                             animated:NO];
+//    }
 }
 
 #pragma mark - 代理方法

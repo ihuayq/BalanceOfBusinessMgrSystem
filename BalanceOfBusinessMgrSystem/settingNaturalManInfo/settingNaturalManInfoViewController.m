@@ -303,7 +303,7 @@
          if([ret isEqualToString:@"100"])
          {
                responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             
+             //返回全部的自然人列表
              NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
              if (results) {
                  NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
@@ -318,35 +318,13 @@
                  //通过通知中心发送通知
                  [[NSNotificationCenter defaultCenter] postNotification:notification];
              }
-//             commercialId = M0060013;
-//             flag = 100;
-//             idCard = 1;
-//             methods = FALSE;
-//             personId = 7;
-//             personName = "\U8d75XX";
-//             phoneNum = 13000000011;
-//             websiteList =     (
 
-//             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-//             
-//             //商户还是自然人
-//
-//             [Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
-//             NSArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
-//             [Dict setObject:results forKey:@"natureInfo"];
-//             
-//             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:SUPPLYER_INFO];
+             //当前自然人信息, 程序中对要修改或者设定的自然人信息进行保存，注意curNatureMenInfo字段，在下一级界面会有更详细的设定
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-             
-             //[Dict setObject:[responseJSONDictionary objectForKey:SUPPLYER_ID] forKey:SUPPLYER_ID];
              [Dict setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"no"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
-             //[Dict setObject:[responseJSONDictionary objectForKey:@"identifyno"] forKey:@"identifyno"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
-             
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
              
              settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];

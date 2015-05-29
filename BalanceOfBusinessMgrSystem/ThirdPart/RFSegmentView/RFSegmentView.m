@@ -188,6 +188,79 @@
     return self;
 }
 
+- (id)initWithFrame:(CGRect)frame items:(NSArray *)items selectIndex:(int)index
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+        self.backgroundColor  = [UIColor clearColor];
+        float viewWidth       = CGRectGetWidth(frame);
+        float viewHeight      = CGRectGetHeight(frame);
+        float init_x          = CGRectGetMinX(frame);
+        float init_y          = CGRectGetMinY(frame);
+        
+        //
+        self.bgView = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin, (viewHeight - kItemHeight)/2, viewWidth -2*kLeftMargin, kItemHeight)];
+        //self.bgView = [[UIView alloc] initWithFrame:CGRectMake(kLeftMargin,0, viewWidth -2*kLeftMargin, 30)];
+        
+        self.bgView.backgroundColor    = [UIColor whiteColor];
+        self.bgView.clipsToBounds      = YES;
+        //self.bgView.layer.cornerRadius = 5;
+        //        self.bgView.layer.borderWidth  = kBorderLineWidth;
+        //        self.bgView.layer.borderColor  = kDefaultTintColor.CGColor;
+        [self addSubview:self.bgView];
+        
+        init_x = 0;
+        init_y = 0;
+        float itemWidth = CGRectGetWidth(self.bgView.frame)/items.count;
+        float itemHeight = CGRectGetHeight(self.bgView.frame);
+        if (items.count >= 2) {
+            for (NSInteger i =0; i<items.count; i++) {
+                RFSegmentItem *item = [[RFSegmentItem alloc] initWithFrame:CGRectMake(init_x, init_y, itemWidth, itemHeight)
+                                                                     index:i title:items[i]
+                                                                  norColor:[UIColor blackColor]
+                                                                  selColor:kDefaultTintColor
+                                                                isSelected:(i == index)? YES: NO];
+                init_x += itemWidth;
+                [self.bgView addSubview:item];
+                item.delegate = self;
+                
+                //save all items
+                if (!self.itemsArray) {
+                    self.itemsArray = [[NSMutableArray alloc] initWithCapacity:items.count];
+                }
+                [self.itemsArray addObject:item];
+            }
+            
+            //add Ver lines
+            //            init_x = 0;
+            //            for (NSInteger i = 0; i<items.count-1; i++) {
+            //                init_x += itemWidth;
+            //                UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(init_x, 0, kBorderLineWidth, itemHeight)];
+            //                lineView.backgroundColor = kDefaultTintColor;
+            //                [self.bgView addSubview:lineView];
+            //
+            //                //save all lines
+            //                if (!self.linesArray) {
+            //                    self.linesArray = [[NSMutableArray alloc] initWithCapacity:items.count];
+            //                }
+            //                [self.linesArray addObject:lineView];
+            //            }
+            
+        }
+        else
+        {
+            NSException *exc = [[NSException alloc] initWithName:@"items count error"
+                                                          reason:@"items count at least 2"
+                                                        userInfo:nil];
+            @throw exc;
+        }
+        
+        
+    }
+    return self;
+}
+
 - (void)setTintColor:(UIColor *)tintColor
 {
     if (self.itemsArray.count < 2) {
