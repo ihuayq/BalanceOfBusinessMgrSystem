@@ -346,7 +346,7 @@
         return;
 #endif
 
-#define TEST_LOGIN
+//#define TEST_LOGIN
 #ifdef TEST_LOGIN
         //商户网点账号
 //        只有商户没有网点：loginName=Mer00060019        loginPwd=redis             mercNum=M0060019
@@ -361,8 +361,8 @@
 //        nameTextField.text = @"Mer00021684";
 //        passwordTextField.text = @"1";
         
-        nameTextField.text = @" ";
-        passwordTextField.text = @"1234qwer";
+        nameTextField.text = @"Mer00060318";
+        passwordTextField.text = @"1";
 #endif
         [self supplyerLoginRequest];
     }

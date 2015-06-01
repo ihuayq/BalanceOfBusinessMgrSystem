@@ -216,7 +216,7 @@
              
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
              NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
-             NSMutableArray *results = [responseJSONDictionary objectForKey:@"naturalPersonList"];
+             NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
              [data setObject:results forKey:@"natureInfo"];
              [[NSUserDefaults standardUserDefaults]setObject:data forKey:SUPPLYER_INFO];
              //[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] setObject:results forKey:@"natureInfo"];

@@ -11,7 +11,7 @@
 #import "BMNaturalManMainViewController.h"
 #import "SettingLoginPassWordViewController.h"
 #import "settingNaturalManInfoViewController.h"
-#import "BMInvestmentConfirmViewController.h"
+#import "BMCancelInvestmentBeforeViewController.h"
 
 @interface AppDelegate (){
     NSTimer * loginCheckTimer;
@@ -30,7 +30,7 @@
     
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];
 
-#ifdef TEST
+#ifndef TEST
     NSString* keystring=[NSString stringWithFormat:@"%@_WelcomePage",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring]isEqualToString:keystring])
     {
@@ -41,7 +41,7 @@
         [self initWindowRootViewController];
     }
 #else
-    BMInvestmentConfirmViewController* Vc=[[BMInvestmentConfirmViewController alloc]init];
+    BMCancelInvestmentBeforeViewController* Vc=[[BMCancelInvestmentBeforeViewController alloc]init];
     self.window.rootViewController = Vc;
 #endif
     

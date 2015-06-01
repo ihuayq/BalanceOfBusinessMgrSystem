@@ -47,6 +47,8 @@
 		8889BAB61AFCA789001BF5E2 /* sanjiaobiao.png in Resources */ = {isa = PBXBuildFile; fileRef = 8889BAB51AFCA789001BF5E2 /* sanjiaobiao.png */; };
 		8889BABD1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */; };
 		8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */; };
+		889AA8431B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8421B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m */; };
+		889AA8821B1C2AE400C76E8B /* BTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8811B1C2AE400C76E8B /* BTLabel.m */; };
 		88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */; };
 		88D406E51B007F0200418ACC /* NaturalManInfoMgrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E41B007F0200418ACC /* NaturalManInfoMgrViewController.m */; };
 		88D406E71B007F9D00418ACC /* addNaturalMan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88D406E61B007F9D00418ACC /* addNaturalMan@2x.png */; };
@@ -526,6 +528,10 @@
 		8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAssetsInfoSubViewController.m; sourceTree = "<group>"; };
 		8889BABF1AFCC09A001BF5E2 /* NALLabelsMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NALLabelsMatrix.h; sourceTree = "<group>"; };
 		8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NALLabelsMatrix.m; sourceTree = "<group>"; };
+		889AA8411B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCancelInvestmentBeforeViewController.h; sourceTree = "<group>"; };
+		889AA8421B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCancelInvestmentBeforeViewController.m; sourceTree = "<group>"; };
+		889AA8801B1C2AE400C76E8B /* BTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTLabel.h; sourceTree = "<group>"; };
+		889AA8811B1C2AE400C76E8B /* BTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTLabel.m; sourceTree = "<group>"; };
 		88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bindSuccessSwitchViewController.h; sourceTree = "<group>"; };
 		88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindSuccessSwitchViewController.m; sourceTree = "<group>"; };
 		88D406E31B007F0200418ACC /* NaturalManInfoMgrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaturalManInfoMgrViewController.h; sourceTree = "<group>"; };
@@ -1169,6 +1175,15 @@
 			path = NALLabelsMatrix;
 			sourceTree = "<group>";
 		};
+		889AA87F1B1C2AE400C76E8B /* Label */ = {
+			isa = PBXGroup;
+			children = (
+				889AA8801B1C2AE400C76E8B /* BTLabel.h */,
+				889AA8811B1C2AE400C76E8B /* BTLabel.m */,
+			);
+			path = Label;
+			sourceTree = "<group>";
+		};
 		88D406EB1B00830600418ACC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1649,6 +1664,7 @@
 		88EF0B251AF8E397006B09B0 /* ThirdPartLib */ = {
 			isa = PBXGroup;
 			children = (
+				889AA87F1B1C2AE400C76E8B /* Label */,
 				88F25C481B16E07700E13FF0 /* iOS-Libraries */,
 				88F4B3C41B12AF3800A240E4 /* MBProgressHUD */,
 				88F474581B04C23800B6DE39 /* RefreshTableHeaderView */,
@@ -1705,6 +1721,8 @@
 				88D406F21B00BC2F00418ACC /* BMCancelInvestmentViewController.m */,
 				88F25C4D1B16FAD900E13FF0 /* BMInvestmentConfirmViewController.h */,
 				88F25C4E1B16FAD900E13FF0 /* BMInvestmentConfirmViewController.m */,
+				889AA8411B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.h */,
+				889AA8421B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m */,
 			);
 			path = Investment;
 			sourceTree = "<group>";
@@ -2532,6 +2550,7 @@
 				7AF494EF1B04E2D90096EDE0 /* FMLoadMoreFooterView.m in Sources */,
 				88EF07471AF8C218006B09B0 /* GTMBase64.m in Sources */,
 				88EF06FB1AF8A3EF006B09B0 /* NSString+MD5Addition.m in Sources */,
+				889AA8431B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m in Sources */,
 				88E7A7C91AF9DEBB00B44364 /* SettingLoginPassWordViewController.m in Sources */,
 				88EF06E61AF8A3EE006B09B0 /* HP_UILabel.m in Sources */,
 				88E9637D1B01F2DD00C04664 /* ProgressHUD.m in Sources */,
@@ -2559,6 +2578,7 @@
 				88EF07331AF8B119006B09B0 /* QposRegisterViewController.m in Sources */,
 				88F185631AFB3D74007FE83B /* BMHomePageViewController.m in Sources */,
 				88EF03111AF8A375006B09B0 /* ASINetworkQueue.m in Sources */,
+				889AA8821B1C2AE400C76E8B /* BTLabel.m in Sources */,
 				88EF06F61AF8A3EF006B09B0 /* HP_UIColorUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

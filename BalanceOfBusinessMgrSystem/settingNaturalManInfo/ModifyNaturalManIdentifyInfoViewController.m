@@ -232,19 +232,31 @@
          {
              responseJSONDictionary = [self delStringNull:responseJSONDictionary];
              
-             //重新设置自然人信息
-             NSArray *results = [[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:@"natureInfo"];
-             for (NSDictionary * sub in results) {
-                 NSLog(@"%@",sub);
-                 
-                 NSString *strPersonID = [NSString stringWithFormat:@"%@",[sub objectForKey:@"personId"]];
-                 if ([ strPersonID isEqualToString:self.model.personID] ) {
-                     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:sub];
-                     [data setObject:[[sub objectForKey:@"personName"] URLDecodedString] forKey:@"personName"];
-                     [data setObject:[sub objectForKey:@"idCard"] forKey:@"idCard"];
-                     break;
-                 }
+
+             
+             NSMutableArray *newNatureList = [responseJSONDictionary objectForKey:@"maturalPersonList"];
+             if (newNatureList) {
+                 NSDictionary *localNatureInfoDic = [[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO];
+                 NSMutableDictionary *MultablelocalNatureInfoDic = [NSMutableDictionary dictionaryWithDictionary:localNatureInfoDic];
+                 [MultablelocalNatureInfoDic setObject:newNatureList forKey:@"natureInfo"];
+                 [[NSUserDefaults standardUserDefaults]setObject:MultablelocalNatureInfoDic forKey:SUPPLYER_INFO];
              }
+             
+             
+             
+//             //重新设置自然人信息
+//
+//             for (NSDictionary * sub in results) {
+//                 NSLog(@"%@",sub);
+//                 
+//                 NSString *strPersonID = [NSString stringWithFormat:@"%@",[sub objectForKey:@"personId"]];
+//                 if ([ strPersonID isEqualToString:self.model.personID] ) {
+//                     NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:sub];
+//                     [data setObject:[[sub objectForKey:@"personName"] URLDecodedString] forKey:@"personName"];
+//                     [data setObject:[sub objectForKey:@"idCard"] forKey:@"idCard"];
+//                     break;
+//                 }
+//             }
              
              //发送通知
              //向NaturalManInfoMgrViewController
@@ -327,9 +339,9 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField
 {
     
-    [UIView animateWithDuration:0.2 animations:^{
-        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        [self.view setFrame:CGRectMake(0, -120, MainWidth, MainHeight)];
+//    }];
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -137,6 +137,12 @@
         return NO;
     }
     
+    if (drawMoney < 0.001) {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"输入金额必须大于零元" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
+    
     return  YES;
 }
 
@@ -252,16 +258,52 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
+    NSMutableString * futureString = [NSMutableString stringWithString:textField.text];
     if (textField==nameTextField)
     {
-        if (string.length > 0)
-        {
+        [futureString  insertString:string atIndex:range.location];
+//        NSString *regex = @"^(([1-9]\d*)|0)(\.(\d){1,2})?$";
+//        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+//        BOOL isMatch = [pred evaluateWithObject:string];
+//        
+//        if (!isMatch)
+//        {
+////            UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:queding otherButtonTitles:nil, nil];
+////            [alert show];
+//            return NO;
+//            
+//        }
+        
+        if ([futureString characterAtIndex:0] == '.') {
+            return  NO;
+        }
+        
+        if (futureString.length >= 2) {
+            if ([futureString characterAtIndex:0] == '0' ) {
+                if ([futureString characterAtIndex:1] != '.') {
+                    //nameTextField.text = futureString;
+                    return  NO;
+                }
+            }
+        }
+        
+        NSInteger flag=0;
+        const NSInteger limited = 2;
+        for (int i = futureString.length-1; i>=0; i--) {
             
-            return textField.text.length < 20;
+            if ([futureString characterAtIndex:i] == '.') {
+                
+                if (flag > limited) {
+                    return NO;
+                }
+                
+                break;
+            }
+            flag++;
         }
     }
    
-    return YES;
+    return futureString.length < 16;
 }
 
 -(CGRect)textRectForBounds:(CGRect)bounds

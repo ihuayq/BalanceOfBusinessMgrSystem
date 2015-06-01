@@ -25,6 +25,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     nCout = 8;
+    [self timeCountdown];
+    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
     
 }
 
@@ -65,6 +67,7 @@
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigation.title = @"预约购买须知";
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
     
     //超额宝介绍
     manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 60, MainWidth - 40*2, 180)];
@@ -77,27 +80,29 @@
     [manualProductWebView loadHTMLString:htmlString1 baseURL:[NSURL URLWithString:filePath1]];
     
     //确定
-    okButton = [HP_UIButton buttonWithType:UIButtonTypeRoundedRect];
+    okButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
+    [okButton setBackgroundColor:[UIColor clearColor]];
     [okButton setFrame:CGRectMake(40,manualProductWebView.frame.origin.y+ manualProductWebView.frame.size.height + 40, MainWidth-2*40, 40)];
     [okButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
-    okButton.enabled = false;
     [okButton setTitle:@"确定" forState:UIControlStateNormal];
+    okButton.titleLabel.textColor = [UIColor whiteColor];
     [okButton.layer setMasksToBounds:YES];
     [okButton.layer setCornerRadius:okButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    okButton.enabled = false;
     [self.view addSubview:okButton];
     
-    buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 30, 30)];
-    //passwordLabel2.text = @"再次输入:";
+    buttonLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 5, 30, 30)];
     buttonLabel.textAlignment = NSTextAlignmentCenter;
-    //buttonLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    buttonLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     buttonLabel.font = [UIFont systemFontOfSize:26];
-    //buttonLabel.backgroundColor = [UIColor clearColor];
+    buttonLabel.backgroundColor = [UIColor clearColor];
     [okButton addSubview:buttonLabel];
-    
-    [self timeCountdown];
-    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+}
+
+-(void)touchDatingButton{
+    [self requestNetWork];
 }
 
 -(void)requestNetWork{
@@ -129,7 +134,8 @@
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
 
-             //[[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+             [self setAppointmentInfo:YES];
+             [[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
          }
          else
          {
@@ -146,6 +152,48 @@
          alertView.tag = 999;
          [alertView show];
      }];
+    
+}
+
+// 在这里处理UIAlertView中的按钮被单击的事件
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+    switch (buttonIndex) {
+        case 0:{
+            //radioAgreement.hidden = true;
+            //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
+            ////向资产界面传递资产的变动信息
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"cancelSuccess", nil];
+            //创建通知
+            NSNotification *notification =[NSNotification notificationWithName:@"AppointmentChange" object:nil userInfo:dict];
+            //通过通知中心发送通知
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }break;
+        default:
+            break;
+    }
+}
+
+-(void)setAppointmentInfo:(BOOL)bHasAppointment{
+    if (!bHasAppointment) {
+        //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"0" forKey:@"appointment"];
+        NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
+        [data setObject:@"0" forKey:@"appointment"];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:USERINFO];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }else{
+
+        //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"appointment"];
+        NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
+        [data setObject:@"1" forKey:@"appointment"];
+        [[NSUserDefaults standardUserDefaults] setObject:data forKey:USERINFO];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+    }
     
 }
 

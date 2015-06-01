@@ -220,15 +220,15 @@
         button.backgroundColor = [UIColor clearColor ];
         [button addTarget:self action:@selector(buttonPressedAction:event:)  forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = button;
-        button.isSelected = item.bSelected;
+        //button.isSelected = item.bSelected;
         //是否可用
         button.enabled = isSelectedButtonEnable;
     }
     cell.title= item.accountName;
     cell.bankName = item.bankName;
     cell.bankCardNumber = item.bankCardNumber;
-//    ItemButton* curBtn = (ItemButton*)[cell accessoryView];
-//    curBtn.isSelected = item.bSelected;
+    ItemButton* curBtn = (ItemButton*)[cell accessoryView];
+    curBtn.isSelected = item.bSelected;
 //    //是否可用
 //    curBtn.enabled = isSelectedButtonEnable;
     return cell;
