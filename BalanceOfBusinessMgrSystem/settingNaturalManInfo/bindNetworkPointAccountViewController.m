@@ -69,7 +69,7 @@
     
     identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,180, 20)];
     identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
-    identifyLabel.textAlignment = NSTextAlignmentCenter;
+    identifyLabel.textAlignment = NSTextAlignmentLeft;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
     identifyLabel.backgroundColor = [UIColor clearColor];

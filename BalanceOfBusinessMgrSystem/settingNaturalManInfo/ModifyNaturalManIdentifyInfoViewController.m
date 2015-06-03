@@ -88,7 +88,7 @@
     [bgImageView21 addSubview:bgImageView20];
     [bgImageView21 addSubview:bgLabel20];
     
-    dentifierTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(140, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 200, 40)];
+    dentifierTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(126, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 174, 40)];
     [dentifierTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     dentifierTextField.backgroundColor = [UIColor clearColor];
     dentifierTextField.clearButtonMode = UITextFieldViewModeAlways;

@@ -30,6 +30,8 @@
 #define ModifyLoginPasswdURL @"superMoney-core/nature/changeLoginPass?"   //改变登录密码
 #define ModifyPayPasswdURL @"superMoney-core/nature/changePayPass?"   //改变登录密码
 #define ForgetLoginPasswdURL @"superMoney-core/nature/forgetPass?"
+#define QueryMainAssetURL @"superMoney-core/nature/queryBlanceInfo?"
+
 
 #define WithDrawURL @"superMoney-core/nature/withdraw?"// 提现
 #define AssetInfoUrl @"superMoney-core/nature/queryDetail?" //资产变动信息查询

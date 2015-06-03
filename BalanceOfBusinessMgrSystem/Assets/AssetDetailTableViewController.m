@@ -32,7 +32,7 @@
     int pageNum;
     NSString * sort;
     NSMutableArray *chooseArray ;
-    
+    int nPos;
 }
 
 @end
@@ -72,6 +72,7 @@
     footerView = [[FMLoadMoreFooterView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 70)];
     _tableView.tableFooterView = footerView;
     
+    pageNum = 1;
     list_total = 10;
     channelId = [self getChannelIDString:self.title];
     //[self requestNetWork];
@@ -199,7 +200,12 @@
     if (isCanLoadMore) {
         [self loadMoreCompleted];
     }else{
-        [self requestNetWork];
+        if (pageNum == 1) {
+            [self requestNetWork];
+        }
+        else{
+            //[self requestAddMoreNetWork];
+        }
     }
 }
 
@@ -248,7 +254,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetData"] forKey:@"assetData"];
             NSArray *results = [responseJSONDictionary objectForKey:@"assetData"];
              
-             int nPos = 0;
+             nPos = 0;
              //数据标题部队，服务器返回，必有得数据
              NSDictionary *title = [responseJSONDictionary objectForKey:@"title"];
              AssetRecordItemInfo *titleInfo = [AssetRecordItemInfo new];
@@ -289,8 +295,91 @@
                  
                  [array addObject:asset];
              }
+             pageNum ++;
+             [_tableView reloadData];
              
-              [_tableView reloadData];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+    
+}
+
+-(void)requestAddMoreNetWork{
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:@"1" forKey:@"pageNow"];
+    [connDictionary setObject:[NSString stringWithFormat:@"%d",channelId] forKey:@"queryFlag"];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,AssetInfoUrl];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    //[self showProgressViewWithMessage:@"正在请求数据..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         //[[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         [ProgressHUD dismiss];
+         if([ret isEqualToString:@"100"])
+         {
+             
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+
+             
+             //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetData"] forKey:@"assetData"];
+             NSArray *results = [responseJSONDictionary objectForKey:@"assetData"];
+             
+             
+             //数据部分
+             for (NSDictionary * sub in results) {
+                 //NSLog(@"%@",sub);
+                 
+                 //缓存最新的资产信息
+                 AssetRecordItemInfo *asset = [AssetRecordItemInfo new];
+                 asset.count = sub.count;
+                 asset.nPosition = ++ nPos;
+                 asset.FirstItem = [NSString stringWithFormat:@"%@",[sub objectForKey:@"amount"]];
+                 asset.SecondItem = [sub objectForKey:@"createtime"];
+                 
+                 if ( asset.count == 3) {
+                     NSString *temp =[sub objectForKey:@"type"];
+                     asset.ThirdItem = [temp URLDecodedString];
+                 }
+                 else{
+                     asset.ThirdItem = [sub objectForKey:@"status"];
+                     
+                     NSString *temp =[sub objectForKey:@"type"];
+                     asset.FourthItem = [temp URLDecodedString];
+                 }
+                 
+                 [array addObject:asset];
+             }
+             pageNum ++;
+             [_tableView reloadData];
              
          }
          else

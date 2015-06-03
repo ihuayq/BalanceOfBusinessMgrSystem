@@ -142,25 +142,26 @@
     
     NSLog(@"--------------------\n\n\n-----------\n\n----------");
     
-    for (int i=0; i<5; i++)
+    for (int i=0; i<4; i++)
     {
         bigSquareImageView=[[HP_UIImageView alloc]initWithFrame:CGRectMake(MainWidth*i,0,MainWidth,MainHeight)];
         bigSquareImageView.tag=2000+i;
         [bigSquareImageView setUserInteractionEnabled:YES];
-        if (MainHeight>500)
-        {
-            [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"5come%d",i]]];
-        }
-        else
-        {
-            [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"4come%d",i]]];
-        }
+         [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"navigation%d.jpg",i]]];
+//        if (MainHeight>500)
+//        {
+//            [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"5come%d",i]]];
+//        }
+//        else
+//        {
+//            [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"4come%d",i]]];
+//        }
         //        bigSquareImageView.layer.cornerRadius=6;
         //        bigSquareImageView.layer.masksToBounds=YES;
         bigSquareImageView.backgroundColor=[UIColor clearColor];
         
         
-        if (i==4)
+        if (i==3)
         {
             HP_UIButton* moreThingButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
             if (MainHeight>500)
@@ -173,8 +174,8 @@
             }
             
             [moreThingButton setBackgroundColor:[HP_UIColorUtils clearColor]];
-            [moreThingButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-            [moreThingButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
+//            [moreThingButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//            [moreThingButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
             [moreThingButton addTarget:self action:@selector(changeCancleWelcomePage) forControlEvents:UIControlEventTouchUpInside];
             [bigSquareImageView addSubview:moreThingButton];
         }
@@ -226,9 +227,7 @@
 
 -(void)initWindowRootViewController
 {
-    
     NSString *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStatus"];//0未登录、1的登录
-    
     NSString* versionString=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSLog(@"keystring %@",versionString);
     
@@ -239,7 +238,6 @@
     }
     
     NSLog(@"loginStatus:%@",loginStatus);
-    
     login = [[LoginViewController alloc] init];
     if ([loginStatus intValue]==0)
     {
@@ -274,15 +272,9 @@
     NSString* string3des=@"众信";
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"mark"];
-    
-    
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
-    
     [connDictionary setObject:@"众信" forKey:@"mark"];
-    
-    
     NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getversionURL];
-    
     NSLog(@"connDictionary:%@",connDictionary);
     
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -314,7 +306,6 @@
                      NSLog(@"线上是旧版");
                      break;
                  }
-                 
              }
              if (isHaveNewVervion)
              {

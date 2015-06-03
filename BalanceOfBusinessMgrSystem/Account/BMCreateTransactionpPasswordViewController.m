@@ -363,7 +363,7 @@
     }
     if (msgstring1.length<6)
     {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码最少6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入6位密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
         [alertview show];
         return NO;
     }
@@ -398,12 +398,12 @@
         [alertview show];
         return NO;
     }
-    //    if (msgstring.length<6)
-    //    {
-    //        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"密码输入少于6位" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-    //        [alertview show];
-    //        return NO;
-    //    }
+    if (msgstring.length != 6)
+    {
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"请输入6位密码" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return NO;
+    }
     
     
     //    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"^(?![0-9]+$)(?![a-zA-Z]+$)(?![^0-9a-zA-Z]+$).{6,20}$"];//6-16位 至少含有数字和字母
@@ -437,7 +437,7 @@
             {
                 return NO;
             }
-            return passwordTextField.text.length < 20;
+            return passwordTextField.text.length < 6;
         }
     }
     if (textField==passwordTextField2)
@@ -448,7 +448,7 @@
             {
                 return NO;
             }
-            return passwordTextField2.text.length < 20;
+            return passwordTextField2.text.length < 6;
         }
     }
     return YES;

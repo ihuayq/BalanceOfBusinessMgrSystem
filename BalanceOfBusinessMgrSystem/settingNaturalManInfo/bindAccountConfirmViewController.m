@@ -186,17 +186,28 @@
 
    if (self.networkAccountSelected.count > 0) {
        NSString *strBalance= @"";
+       NSString *strBalanceNet= @"";
+       
        BMAccountCellGroup *balanceGroup=group[1];
        for ( BankAccountItem *item in balanceGroup.groups) {
            if (item.bSelected == YES) {
                strBalance = [strBalance stringByAppendingString: item.bankCardNumber];
                strBalance = [strBalance stringByAppendingString: @"@"];
+               
+               strBalanceNet = [strBalanceNet stringByAppendingString: item.siteNum];
+               strBalanceNet = [strBalanceNet stringByAppendingString: @"@"];
            }
        }
        if ( strBalance.length > 2 ) {
            strBalance = [strBalance substringToIndex:strBalance.length - 1];
            [connDictionary setObject:strBalance forKey:@"accountId"];
        }
+       
+       if (strBalanceNet.length > 2) {
+           strBalanceNet = [strBalanceNet substringToIndex:strBalanceNet.length-1];
+           [connDictionary setObject:strBalanceNet forKey:@"balanceSiteNum"];
+       }
+       
     }
 
 

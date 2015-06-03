@@ -14,6 +14,7 @@
 #import "BMWithDrawsCashViewController.h"
 #import "DXAlertView.h"
 #import "BMCreateTransactionpPasswordViewController.h"
+#import "SVPullToRefresh.h"
 
 
 @interface BMAssetsMainPageViewController ()<UIGestureRecognizerDelegate>{
@@ -26,6 +27,8 @@
     
     UIAssetsPageCell *historyProfitCell;
     UIAssetsPageCell *futurePrincipalCell;
+    
+    UIScrollView * scrollView;
     
 }
 @property(strong,nonatomic) UITableView * tableView;
@@ -54,18 +57,27 @@
     okButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [self.navigation addSubview:okButton];
 
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f - 200) style:UITableViewStyleGrouped];
+    scrollView= [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f)];
+    scrollView.contentSize=CGSizeMake(MainWidth, MainHeight-48.5f);
+    [self.view addSubview:scrollView];
+    __weak BMAssetsMainPageViewController *weakSelf = self;
+    // setup pull-to-refresh
+    [scrollView addPullToRefreshWithActionHandler:^{
+        [weakSelf refreshData];
+    }];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,MainWidth, MainHeight-48.5f - 44.0f - 200) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.scrollEnabled = NO;
-    [self.view addSubview:_tableView];
-    
+    [scrollView addSubview:self.tableView];
+
      //预约资金
     _datingIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height + self.tableView.frame.origin.y , MainWidth, 60)];
     [_datingIndicatorView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
     [_datingIndicatorView.layer setBorderWidth:0.5f];
-    [self.view addSubview:_datingIndicatorView];
+    [scrollView addSubview:_datingIndicatorView];
     
     UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - 35 ,8, 75,20)];
     registerLabel.textAlignment = NSTextAlignmentCenter;
@@ -88,7 +100,7 @@
     _popView = [[UIDatingAssetsViewTips alloc] initWithFrame:CGRectMake(0, _datingIndicatorView.frame.size.height + _datingIndicatorView.frame.origin.y, MainWidth, 80)];
 //    [_popView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
 //    [_popView.layer setBorderWidth:0.5f];
-    [self.view addSubview:_popView];
+    [scrollView addSubview:_popView];
     _popView.hidden = YES;
     
     UIView *verticaLine = [[UIView alloc]initWithFrame:CGRectMake(0,80,MainWidth,0.5f)];
@@ -107,6 +119,64 @@
     historyProfitCell.moneyNum = self.assetInfo.historyProfit;
     futurePrincipalCell.moneyNum = self.assetInfo.futurePrincipal;
     
+}
+
+-(void)refreshData{
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    //网络请求
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    NSLog(@"connDictionary:%@",connDictionary);
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,QueryMainAssetURL];
+    
+    //[self showMBProgressHUDWithMessage:@"更新资产数据..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         //[self hidMBProgressHUD];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             NSLog(@"connDictionary:%@",responseJSONDictionary);
+             
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+             [[NSUserDefaults standardUserDefaults] synchronize];
+             
+             // __weak BMAssetsMainPageViewController *weakSelf = self;
+             
+             int64_t delayInSeconds = 1.0;
+             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                 //[weakSelf.tableView beginUpdates];
+                 //[weakSelf.tableView endUpdates];
+                 [self AssetChange:nil];
+                 [scrollView.pullToRefreshView stopAnimating];
+             });
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         //[[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         //[self hidMBProgressHUD];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
 }
 
 -(void)touchRightButton{
@@ -281,18 +351,18 @@
 }
 
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-//    if ([touch.view isKindOfClass:[UIScrollView class]]){
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+////    if ([touch.view isKindOfClass:[UIScrollView class]]){
+////        return NO;
+////    }
+//    
+//    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]){
 //        return NO;
 //    }
-    
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]){
-        return NO;
-    }
-    
-    return YES;
-}
+//    
+//    return YES;
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

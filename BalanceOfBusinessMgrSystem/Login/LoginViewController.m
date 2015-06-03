@@ -452,10 +452,10 @@
              
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
              
-             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:USERINFO];
+             [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
              
-             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录\
+             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
              [[NSUserDefaults standardUserDefaults]setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
              
 //             //是否商户1 还是自然人0 登录
@@ -491,7 +491,8 @@
          {
              [request cancel];
          }
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         //[[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+          [self hidMBProgressHUD];
          UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
          alertView.tag = 999;
          [alertView show];
@@ -597,6 +598,7 @@
              [request cancel];
          }
          [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         [self hidMBProgressHUD];
          UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
          alertView.tag = 999;
          [alertView show];

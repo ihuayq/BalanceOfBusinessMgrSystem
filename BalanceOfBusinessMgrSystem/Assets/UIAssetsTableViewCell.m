@@ -102,7 +102,7 @@
         [self.contentView addSubview:line];
         
         
-        receiptsCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake( self.contentView.size.width/2,0 ,self.contentView.size.width/2, self.contentView.size.height*2 -9)  leftUIImage:[UIImage imageNamed:@"leijishouyi"] titleText:(NSString*)@"理财收益（元）" numText:(NSString*) @"0.00"];
+        receiptsCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake( self.contentView.size.width/2,0 ,self.contentView.size.width/2, self.contentView.size.height*2 -9)  leftUIImage:[UIImage imageNamed:@"leijishouyi"] titleText:(NSString*)@"累计收益（元）" numText:(NSString*) @"0.00"];
 //        [receiptsCell.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
 //        [receiptsCell.layer setBorderWidth:0.5f];
         [self.contentView addSubview:receiptsCell];

@@ -14,6 +14,7 @@
 -(void)setModel:(AssetRecordItemInfo *)model_
 {
     _model = model_;
+    NSLog(@"model is%@",_model);
     
     float width = MainWidth/_labelCount;
     
@@ -42,11 +43,11 @@
     
     else{
         [ThirdPicView setFrame:CGRectMake(width*2 + width/2 - 8, 8, 16, 16)];
-        if ([model_.ThirdItem isEqualToString:@"FAIL"]) {
-            [ThirdPicView setImage:[UIImage imageNamed:@"失败"]];
+        if ([model_.ThirdItem isEqualToString:@"100"]) {
+            [ThirdPicView setImage:[UIImage imageNamed:@"成功"]];
         }
         else{
-            [ThirdPicView setImage:[UIImage imageNamed:@"成功"]];
+            [ThirdPicView setImage:[UIImage imageNamed:@"失败"]];
         }
     }
     

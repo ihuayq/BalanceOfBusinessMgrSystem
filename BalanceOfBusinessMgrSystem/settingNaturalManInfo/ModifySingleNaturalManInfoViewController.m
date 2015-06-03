@@ -296,6 +296,16 @@
     [vc returnText:^(NSString *nameText, NSString *identifyText) {
         manNameLabel.text  = nameText;
         identifyNumberLabel.text = identifyText;
+        
+        //重新设定了自然人信息
+        NSDictionary* Dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"];
+        NSMutableDictionary* info =[NSMutableDictionary dictionaryWithDictionary:Dict];
+        [info setObject:manNameLabel.text forKey:@"name"];
+        [info setObject:identifyNumberLabel.text forKey:@"identifyno"];
+        [info setObject:_model.personID forKey:@"no"];
+        [info setObject:_model.telephoneNumber forKey:@"phonenum"];
+        [[NSUserDefaults standardUserDefaults] setObject:info forKey:@"curNatureMenInfo"];
+        
     }];
     [self.navigationController pushViewController:vc animated:YES];
 }
