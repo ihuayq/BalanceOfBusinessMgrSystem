@@ -62,7 +62,7 @@
 //    LoginViewController*info = [[LoginViewController alloc] init];
 //    [self.navigationController pushViewController:info
 //                                         animated:NO];
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer",nil];
     NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }

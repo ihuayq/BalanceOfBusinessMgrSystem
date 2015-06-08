@@ -9,6 +9,7 @@
 #import "settingNaturalManInfoViewController.h"
 #import "RadioButton.h"
 #import "settingNaturalManInfoSuccessViewController.h"
+#import "ProtocalViewController.h"
 
 @interface settingNaturalManInfoViewController (){
     HP_UITextField * nameTextField;
@@ -184,10 +185,10 @@
     agreeTitleLabel.numberOfLines = 0;
     [self.view addSubview:agreeTitleLabel];
     
-    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-15, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 120, 20)];
+    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-15, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 160, 20)];
     [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
-    [investProtolBtn setTitle:@"投资授权协议" forState:UIControlStateNormal];
+    [investProtolBtn setTitle:@"(资金划转授权协议)" forState:UIControlStateNormal];
     investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
     [self.view addSubview:investProtolBtn];
     
@@ -234,7 +235,10 @@
 }
 
 -(void)touchProtocalButton{
-    
+    ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
+    fpw.viewTitle = @"资金划转授权协议";
+    fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,ZIJINZHUANSHOUXIEYI_PROTOCOL];
+    [self presentModalViewController:fpw animated:YES];
 }
 
 -(void)touchCommitButton{

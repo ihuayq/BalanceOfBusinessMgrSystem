@@ -58,7 +58,7 @@
     [self.navigation addSubview:okButton];
 
     scrollView= [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f)];
-    scrollView.contentSize=CGSizeMake(MainWidth, MainHeight-48.5f);
+    scrollView.contentSize=CGSizeMake(MainWidth, MainHeight-48.5f - 43.5f);
     [self.view addSubview:scrollView];
     __weak BMAssetsMainPageViewController *weakSelf = self;
     // setup pull-to-refresh

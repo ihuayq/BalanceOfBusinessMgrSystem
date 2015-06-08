@@ -196,7 +196,6 @@
 
 -(void)touchCommitButton{
     //test
-    
     if (![self checkTel:telephoneTextField.text])
     {
         return;

@@ -219,7 +219,7 @@
              
              //[self.navigationController popViewControllerAnimated:YES];
              //通过通知中心发送通知
-             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
              NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
              [[NSNotificationCenter defaultCenter] postNotification:notification];
          }
@@ -238,7 +238,7 @@
 -(void)previousToViewController
 {
 //[self.navigationController popViewControllerAnimated:YES];
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
     NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
 }

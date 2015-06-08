@@ -8,7 +8,7 @@
 
 
 
-#ifdef ZHENGSHI
+#ifdef ZHENGSHI。
 
 #define HostURL @"http://app.imzhongxin.com/interfaces.php?app=ios&v=103&op=" //正式服务器
 #define ShareURL_ZX @"http://app.imzhongxin.com/trust/projectintro.php?"//分享
@@ -16,10 +16,16 @@
 
 #else
 
-//自然人
-//#define IP @"http://192.168.1.109:8080/"
-#define IP @"http://192.168.0.56:8080/"
 
+//#define TEST_LOGIN
+#define UAT
+//自然人
+#ifdef UAT
+//#define IP @"http://59.151.121.87:8081/"
+#define IP @"http://59.151.121.91:8080/"
+#else
+#define IP @"http://192.168.0.56:8080/"
+#endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
 #define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
@@ -38,7 +44,12 @@
 
 
 //商户登录
+#ifdef UAT
+//#define CommercialIP @"http://59.151.121.87:8081"
+#define CommercialIP @"http://59.151.121.91:8080"
+#else
 #define CommercialIP @"http://192.168.0.56:8080"
+#endif
 
 #define CommercialHostURL @"/superMoney-core/commercia/commerCiainfo?"
 #define AccountURL @"/superMoney-core/commercia/getCommercialWebsiteInfo?"
@@ -51,6 +62,24 @@
 #define ModifyNatureMenURL @"/superMoney-core/commercia/getUpdateNaturalPersonInfo?"  //获取自然人账号信息
 
 
+//各种协议地址
+//《超额宝自动转入服务协议》
+//《众信平台服务协议（超额宝）》
+//《借款协议（超额宝）》
+//《支付通用户注册协议》
+//《超额宝服务协议》
+//《资金划转授权协议》
+#ifdef UAT
+#define PROTOCOL_IP @"http://59.151.121.87:8081"
+#else
+#define PROTOCOL_IP  @"http://192.168.1.102:8080"
+#endif
+#define BORROW_MONEY_PROTOCOL @"/superMoney-core/pages/borrowProtocol.html"    //《借款协议（超额宝）》
+#define CHAOEBAOFUWUXIEYI_PROTOCOL @"/superMoney-core/pages/servicesProtocol.html" //《超额宝服务协议》
+#define ZIJINZHUANSHOUXIEYI_PROTOCOL @"/superMoney-core/pages/TransferProtocol.html" //《资金划转授权协议》
+#define CHAOEBAOZIDONGZHUANRUFUWUXIEYI_PROTOCOL @"/superMoney-core/pages/transferredProtocol.html" //《超额宝自动转入服务协议》
+#define ZHIFUTONGYONGHUZHUCE_PROTOCOL @"/superMoney-core/pages/userProtocol.html"    //《支付通用户注册协议》
+#define ZHONGXINPINGTAIFUWU_PROTOCOL @"/superMoney-core/pages/zxServiceProrocol.html" //《众信平台服务协议（超额宝）》
 
 
 //#define HostURL @"http://192.168.0.120/interfaces.php?app=ios&v=103&op=" //测试服务器

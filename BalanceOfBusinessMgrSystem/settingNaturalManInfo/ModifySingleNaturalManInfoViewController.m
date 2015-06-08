@@ -30,6 +30,8 @@
     BOOL isHasNetwork;
     BOOL isSelectBtnEnable;
     NSMutableArray *groupBalance;
+    
+    UIButton *avestButton;
 }
 
 @end
@@ -132,17 +134,17 @@
     [self.view addSubview:tableView];
     
     //确定
-    UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [avestButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
-    [avestButton setBackgroundColor:[UIColor greenColor]];
+    //[avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(40, tableView.frame.origin.y + tableView.frame.size.height + 10 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchCommitButton) forControlEvents:UIControlEventTouchUpInside];
     [avestButton setTitle:@"提交" forState:UIControlStateNormal];
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
-    //avestButton.hidden = YES;
+    avestButton.hidden = YES;
     
     //[self testLoadingFile];
     [self requestNetWork];
@@ -333,6 +335,9 @@
     NSString * dentifier = @"cell";
     //NSIndexPath是一个结构体，记录了组和行信息
     //NSLog(@"生成单元格(组：%i,行%i)",indexPath.section,indexPath.row);
+    if (group.count > 0) {
+        avestButton.hidden = NO;
+    }
     BankAccountItem *item=group[indexPath.row];
     
     BankAccountTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];

@@ -13,6 +13,7 @@
 #import "BMCreateTransactionpPasswordViewController.h"
 #import "BMInvestmentConfirmViewController.h"
 #import "BTLabel.h"
+#import "ProtocalViewController.h"
 
 @interface BMInvestmentViewController ()<UIAlertViewDelegate>{
     UIWebView *manualProductWebView;
@@ -27,6 +28,10 @@
     
     UIView *datingView;
     UIView *cancelView;
+    
+    HP_UIButton *protolBtn1;
+    HP_UIButton *protolBtn2;
+    HP_UIButton *protolBtn3;
 }
 
 @end
@@ -69,7 +74,7 @@
     [label2 setNumberOfLines:0];
     //label.lineBreakMode = UILineBreakModeWordWrap;
     // 测试字串
-    NSString *s2 = @"年化收益率  8%";
+    NSString *s2 = [NSString stringWithFormat:@"年化收益率  %@ %%",[[NSUserDefaults standardUserDefaults] objectForKey:@"rate"]];
     UIFont *font2 = [UIFont systemFontOfSize:18];
     //设置一个行高上限
     CGSize size2 = CGSizeMake(300,400);
@@ -112,8 +117,8 @@
     [datingView addSubview:radioAgreement];
     
     //自然人姓名
-    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 85, 20)];
-    manTitleLabel.text = @"已阅读并同意";
+    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 180, 20)];
+    manTitleLabel.text = @"我已阅读并同意以下协议";
     manTitleLabel.textAlignment = NSTextAlignmentLeft;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -122,25 +127,76 @@
     [datingView addSubview:manTitleLabel];
     
     
-    investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(manTitleLabel.frame.origin.x + manTitleLabel.frame.size.width-5, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 120, 20)];
-    [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
-    [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
-    [investProtolBtn setTitle:@"自然人投资协议" forState:UIControlStateNormal];
-    investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
-    [datingView addSubview:investProtolBtn];
+//    investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(manTitleLabel.frame.origin.x + manTitleLabel.frame.size.width-5, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 120, 20)];
+//    [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
+//    [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+//    [investProtolBtn setTitle:@"自然人投资协议" forState:UIControlStateNormal];
+//    investProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+//    [datingView addSubview:investProtolBtn];
+    
+    //    《超额宝自动转入服务协议》
+    //    《众信平台服务协议（超额宝）》
+    //    《借款协议（超额宝）》
+    //超额宝自动转入服务协议
+    protolBtn1=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10,240,14)];
+    [protolBtn1 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+    [protolBtn1 addTarget:self action:@selector(touchAutoImportProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [protolBtn1 setTitle:@"《超额宝自动转入服务协议》" forState:UIControlStateNormal];
+    protolBtn1.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    protolBtn1.titleLabel.font=[UIFont systemFontOfSize:14];
+    [datingView addSubview:protolBtn1];
+    
+    //《众信平台服务协议（超额宝）》
+    protolBtn2=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,protolBtn1.frame.size.height + protolBtn1.frame.origin.y + 6,240,14)];
+    [protolBtn2 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+    [protolBtn2 addTarget:self action:@selector(touchZhongXinServiceProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [protolBtn2 setTitle:@"《众信平台服务协议（超额宝）》" forState:UIControlStateNormal];
+    protolBtn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    protolBtn2.titleLabel.font=[UIFont systemFontOfSize:14];
+    [datingView addSubview:protolBtn2];
+    
+    //《借款协议（超额宝）》
+    protolBtn3=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,protolBtn2.frame.size.height + protolBtn2.frame.origin.y + 6,180,14)];
+    [protolBtn3 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+    [protolBtn3 addTarget:self action:@selector(touchReceiptMoneyProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [protolBtn3 setTitle:@"《借款协议（超额宝）》" forState:UIControlStateNormal];
+    protolBtn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    protolBtn3.titleLabel.font=[UIFont systemFontOfSize:14];
+    [datingView addSubview:protolBtn3];
     
     //确定
     registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
-    [registerButton setFrame:CGRectMake(20, radioAgreement.frame.origin.y+radioAgreement.frame.size.height+ 20, MainWidth-2*20, 40)];
+    [registerButton setFrame:CGRectMake(20, protolBtn3.frame.origin.y+protolBtn3.frame.size.height+ 20, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"提交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     registerButton.enabled = false;
     [datingView addSubview:registerButton];
+}
+
+-(void)touchAutoImportProtocalButton{
+    ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
+    fpw.viewTitle = @"超额宝自动转入服务协议";
+    fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,CHAOEBAOZIDONGZHUANRUFUWUXIEYI_PROTOCOL];
+    [self presentModalViewController:fpw animated:YES];
+}
+
+-(void)touchZhongXinServiceProtocalButton{
+    ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
+    fpw.viewTitle = @"众信平台服务协议";
+    fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,ZHONGXINPINGTAIFUWU_PROTOCOL];
+    [self presentModalViewController:fpw animated:YES];
+}
+
+-(void)touchReceiptMoneyProtocalButton{
+    ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
+    fpw.viewTitle = @"借款协议（超额宝）";
+    fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,BORROW_MONEY_PROTOCOL];
+    [self presentModalViewController:fpw animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -178,7 +234,7 @@
 
 -(void)setAppointmentInfo:(BOOL)bHasAppointment{
     if (!bHasAppointment) {
-         [registerButton setTitle:@"预约购买" forState:UIControlStateNormal];
+        [registerButton setTitle:@"预约购买" forState:UIControlStateNormal];
         manTitleLabel.hidden = NO;
         radioAgreement.hidden = NO;
         investProtolBtn.hidden= NO;

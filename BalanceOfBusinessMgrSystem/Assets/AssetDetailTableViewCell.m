@@ -39,6 +39,7 @@
         }
         ThirdLabel.frame = CGRectMake(width*2, 0, width, ThirdTitleSize.height+16);
         ThirdLabel.text = model_.ThirdItem ;
+        ThirdPicView.hidden = YES;
     }
     
     else{
@@ -49,6 +50,7 @@
         else{
             [ThirdPicView setImage:[UIImage imageNamed:@"失败"]];
         }
+        ThirdLabel.hidden = YES;
     }
     
     if (_labelCount == 4) {

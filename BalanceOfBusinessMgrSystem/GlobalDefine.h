@@ -61,6 +61,7 @@
 #define Register_First @"register_first"
 #define LOGIN_STATUS @"loginStatus"
 #define LAST_LOGIN_NAME @"lastloginname"
+#define LAST_LOGIN_SUPPLYER_NAME @"lastsupplyerloginname"
 
 #define USERINFO @"userinfomation" //用户信息
 #define MOBILE @"mobile"  //

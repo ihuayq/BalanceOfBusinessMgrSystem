@@ -17,7 +17,7 @@
 {
     UITableView * _tableView;
     
-    EGORefreshTableHeaderView *_refreshHeaderView;
+    //EGORefreshTableHeaderView *_refreshHeaderView;
     
     BOOL _reloading;
 }

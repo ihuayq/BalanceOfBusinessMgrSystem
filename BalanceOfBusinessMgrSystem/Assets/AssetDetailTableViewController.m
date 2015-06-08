@@ -8,18 +8,12 @@
 
 #import "AssetDetailTableViewController.h"
 #import "FMLoadMoreFooterView.h"
-//#import "FMSongListTableViewCell.h"
-//#import "FMMusicViewController.h"
-//#import "FMTDMovieModel.h"
-//#import "FMTDMovieViewController.h"
-//#import "DropDownListView.h"
-//#import "FMTDTableViewCell.h"
-//#import "FMTDSearchViewController.h"
 #import "EGORefreshTableHeaderView.h"
 #import "ProgressHUD.h"
 #import "AssetDetailTableViewCell.h"
 #import "NSString+Utf8Encoding.h"
 #import "Util.h"
+#import "SVPullToRefresh.h"
 
 @interface AssetDetailTableViewController ()<UIScrollViewDelegate>
 {
@@ -39,7 +33,6 @@
 
 @implementation AssetDetailTableViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -54,31 +47,71 @@
     _tableView.delegate =self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [self.view addSubview:_tableView];
-    
-    if (_refreshHeaderView == nil) {
-        
-        EGORefreshTableHeaderView *vieweg = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -120, MainWidth, 120)];
-        vieweg.delegate = self;
-        //[self.view insertSubview:vieweg belowSubview:self.tableView];
-        [_tableView addSubview:vieweg];
-        _refreshHeaderView = vieweg;
-        
-    }
-    
-    //  update the last update date
-    [_refreshHeaderView refreshLastUpdatedDate];
     
     footerView = [[FMLoadMoreFooterView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 70)];
     _tableView.tableFooterView = footerView;
     
+    [self.view addSubview:_tableView];
+    
+    __weak AssetDetailTableViewController *weakSelf = self;
+    
+    // setup pull-to-refresh
+    [_tableView addPullToRefreshWithActionHandler:^{
+        [weakSelf requestNetWork];
+        [weakSelf insertRowAtTop];
+    }];
+    
+    // setup infinite scrolling
+    [_tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf requestAddMoreNetWork];
+    }];
+    
+//    if (_refreshHeaderView == nil) {
+//        EGORefreshTableHeaderView *vieweg = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0, -120, MainWidth, 120)];
+//        vieweg.delegate = self;
+//        //[self.view insertSubview:vieweg belowSubview:self.tableView];
+//        [_tableView addSubview:vieweg];
+//        _refreshHeaderView = vieweg;
+//        
+//    }
+//    
+//    //  update the last update date
+//    [_refreshHeaderView refreshLastUpdatedDate];
+    
     pageNum = 1;
-    list_total = 10;
     channelId = [self getChannelIDString:self.title];
-    //[self requestNetWork];
     if (channelId == 1) {
-        [self loadMoreData];
+        [self reloadData];
     }
+}
+
+- (void)insertRowAtTop {
+    __weak AssetDetailTableViewController *weakSelf = self;
+    
+    int64_t delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [weakSelf.tableView beginUpdates];
+//        [weakSelf.dataSource insertObject:[NSDate date] atIndex:0];
+//        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+//        [weakSelf.tableView endUpdates];
+        
+        [weakSelf.tableView.pullToRefreshView stopAnimating];
+    });
+}
+
+- (void)insertRowAtBottom {
+    __weak AssetDetailTableViewController *weakSelf = self;
+    
+    int64_t delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        [weakSelf.tableView beginUpdates];
+//        [weakSelf.dataSource addObject:[weakSelf.dataSource.lastObject dateByAddingTimeInterval:-90]];
+//        [weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:weakSelf.dataSource.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+//        [weakSelf.tableView endUpdates];
+        [weakSelf.tableView.infiniteScrollingView stopAnimating];
+    });
 }
 
 -(int)getChannelIDString:(NSString *)string
@@ -103,27 +136,17 @@
     }
     
     [ProgressHUD show:nil];
-    [self loadMoreData];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self reloadData];
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    //#warning Potentially incomplete method implementation.
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //#warning Incomplete method implementation.
-    // Return the number of rows in the section.
     return [array count];
 }
 
@@ -150,48 +173,23 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#define DEFAULT_HEIGHT_OFFSET 44.0f
-#pragma mark UIScrollViewDelegate
-- (void) scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (isLoadingMore && !isCanLoadMore) {
-        CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
-        if (scrollPosition < DEFAULT_HEIGHT_OFFSET) {
-            [self loadMore];
-        }
-        else
-        {
-            [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-        }
-        
-    }else
-    {
-        [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
-    }
-    
-}
+
 -(void)loadMore
 {
     if (isLoadingMore) {
         [footerView.activeView startAnimating];
-        list_total+=10;
         [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.1];
         isLoadingMore = NO;
         footerView.titleLabel.text = @"获取中...";
     }
 }
+
 -(void)loadMoreData
 {
-    if (list_total>50){
-        //if (pageNum ==2) {
-        //    pageNum =1;
-        //    list_total =20;
-        //}else{
-        //    list_total = 20;
-        //    pageNum =2;
-        //}
+    if (pageNum>10){
         isCanLoadMore = YES; // signal that there won't be any more items to load
     }else{
         isCanLoadMore = NO;
@@ -200,16 +198,18 @@
     if (isCanLoadMore) {
         [self loadMoreCompleted];
     }else{
-        if (pageNum == 1) {
-            [self requestNetWork];
-        }
-        else{
-            //[self requestAddMoreNetWork];
-        }
+        [self requestAddMoreNetWork];
     }
 }
 
+-(void)reloadData
+{
+    [self requestNetWork];
+}
+
 -(void)requestNetWork{
+    //请求页面的信息
+    pageNum = 1;
         
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -219,13 +219,6 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    //    queryDetail
-    //    韩韶茹  17:25:24
-    //    String signature = request.getParameter("signature");
-    //    String querType = request.getParameter("queryFlag");
-    //    String personId = request.getParameter("personId");
-    //    String pageNow = request.getParameter("pageNow");
-    
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:@"1" forKey:@"pageNow"];
     [connDictionary setObject:[NSString stringWithFormat:@"%d",channelId] forKey:@"queryFlag"];
@@ -233,7 +226,6 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,AssetInfoUrl];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
-    
     
     NSLog(@"connDictionary:%@",connDictionary);
     //[self showProgressViewWithMessage:@"正在请求数据..."];
@@ -297,7 +289,6 @@
              }
              pageNum ++;
              [_tableView reloadData];
-             
          }
          else
          {
@@ -314,10 +305,10 @@
          alertView.tag = 999;
          [alertView show];
      }];
-    
 }
 
 -(void)requestAddMoreNetWork{
+    __weak AssetDetailTableViewController *weakSelf = self;
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -329,14 +320,11 @@
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:@"1" forKey:@"pageNow"];
+    [connDictionary setObject:[NSString stringWithFormat:@"%d",pageNum] forKey:@"pageNow"];
     [connDictionary setObject:[NSString stringWithFormat:@"%d",channelId] forKey:@"queryFlag"];
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,AssetInfoUrl];
-    
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
-    
-    
     NSLog(@"connDictionary:%@",connDictionary);
     //[self showProgressViewWithMessage:@"正在请求数据..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -348,13 +336,16 @@
          {
              
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-
              
              //[[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"assetData"] forKey:@"assetData"];
              NSArray *results = [responseJSONDictionary objectForKey:@"assetData"];
-             
+             if (results.count == 0) {
+                 [weakSelf.tableView.infiniteScrollingView stopAnimating];
+                 return ;
+             }
              
              //数据部分
+             NSMutableArray * moreArray = [NSMutableArray new] ;
              for (NSDictionary * sub in results) {
                  //NSLog(@"%@",sub);
                  
@@ -376,10 +367,29 @@
                      asset.FourthItem = [temp URLDecodedString];
                  }
                  
-                 [array addObject:asset];
+                 [moreArray addObject:asset];
              }
-             pageNum ++;
-             [_tableView reloadData];
+             
+             [array addObjectsFromArray:moreArray];
+             
+             //添加到array中
+             int64_t delayInSeconds = 1.0;
+             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                 
+                [weakSelf.tableView beginUpdates];
+
+                 NSMutableArray *insertion = [[NSMutableArray alloc] init];
+                 for (int i = 0 ; i< moreArray.count ; i++ ) {
+                     [insertion addObject:[NSIndexPath indexPathForRow:array.count + i inSection:0]];
+                 }
+                [weakSelf.tableView insertRowsAtIndexPaths:insertion withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.tableView endUpdates];
+                 
+                [weakSelf.tableView.infiniteScrollingView stopAnimating];
+             });
+             
+            pageNum ++;
              
          }
          else
@@ -397,7 +407,6 @@
          alertView.tag = 999;
          [alertView show];
      }];
-    
 }
 
 -(void)loadMoreCompleted
@@ -410,62 +419,87 @@
     }
 }
 
-#pragma mark -
-#pragma mark Data Source Loading / Reloading Methods
+#define DEFAULT_HEIGHT_OFFSET 44.0f
+#pragma mark UIScrollViewDelegate
+//- (void) scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if (isLoadingMore && !isCanLoadMore) {
+//        CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+//        if (scrollPosition < DEFAULT_HEIGHT_OFFSET) {
+//            [self loadMore];
+//        }
+//        else
+//        {
+//            [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+//        }
+//
+//    }else
+//    {
+//        [_refreshHeaderView egoRefreshScrollViewDidScroll:scrollView];
+//    }
+//
+//}
 
-- (void)reloadTableViewDataSource{
-    
-    //  should be calling your tableviews data source model to reload
-    //  put here just for demo
-    [self loadMoreData];
-    _reloading = YES;
-    
-}
+//#pragma mark Data Source Loading / Reloading Methods
+//- (void)reloadTableViewDataSource{
+//    
+//    //  should be calling your tableviews data source model to reload
+//    //  put here just for demo
+//    [self reloadData];
+//    _reloading = YES;
+//    
+//}
+//
+//- (void)doneLoadingTableViewData{
+//    
+//    //  model should call this when its done loading
+//    _reloading = NO;
+//    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+//    
+//}
+//
+//
+//#pragma mark -
+//#pragma mark UIScrollViewDelegate Methods
+//
+//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+//{
+//    [_refreshHeaderView egoRefreshScrollViewWillBeginScroll:scrollView];
+//}
+//
+//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+//    
+//    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+//    
+//}
+//
+//
+//#pragma mark -
+//#pragma mark EGORefreshTableHeaderDelegate Methods
+//
+//- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
+//    
+//    [self reloadTableViewDataSource];
+//    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+//    
+//}
+//
+//- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
+//    
+//    return _reloading; // should return if data source model is reloading
+//    
+//}
+//
+//- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
+//    
+//    return [NSDate date]; // should return date data source was last changed
+//    
+//}
 
-- (void)doneLoadingTableViewData{
-    
-    //  model should call this when its done loading
-    _reloading = NO;
-    [_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
-    
-}
 
-
-#pragma mark -
-#pragma mark UIScrollViewDelegate Methods
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [_refreshHeaderView egoRefreshScrollViewWillBeginScroll:scrollView];
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    
-    [_refreshHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
-    
-}
-
-
-#pragma mark -
-#pragma mark EGORefreshTableHeaderDelegate Methods
-
-- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
-    
-    [self reloadTableViewDataSource];
-    [self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
-    
-}
-
-- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
-    
-    return _reloading; // should return if data source model is reloading
-    
-}
-
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-    
-    return [NSDate date]; // should return date data source was last changed
-    
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 @end

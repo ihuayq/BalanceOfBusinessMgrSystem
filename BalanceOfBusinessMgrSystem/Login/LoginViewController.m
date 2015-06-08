@@ -15,11 +15,19 @@
 #import "ProgressHUD.h"
 #import "SCNavTabBarController.h"
 #import "RFSegmentView.h"
+#import "ProtocalViewController.h"
 
 
 
 @interface LoginViewController ()<RadioButtonDelegate,RFSegmentViewDelegate>{
 //    BOOL isSupplerSelected;
+   
+    UIButton *loginButton;
+    
+    RadioButton *radioAgreement;
+    HP_UIButton*icardRegisterProtolBtn;
+    HP_UIButton*chaoebaoServiceProtolBtn;
+    UILabel*agreeTitleLabel;
 }
 
 @property(nonatomic,retain)RadioButton *radioSupplyer;
@@ -46,8 +54,8 @@
     [nameTextField resignFirstResponder];
     [passwordTextField resignFirstResponder];
     
-    nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
-    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LAST_LOGIN_NAME];
+    //nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
+    //[[NSUserDefaults standardUserDefaults] setObject:@"" forKey:LAST_LOGIN_NAME];
     
     [passwordTextField setText:@""];
 }
@@ -92,17 +100,63 @@
 }
 
 
+-(UIImage *)imageWithColor:(UIColor *)color andSize:(CGSize)size
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+//取消searchbar背景色
+- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
+{
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 -(void) initUI
 {
 
     HP_UIImageView *logoImageView = [[HP_UIImageView alloc] init ];
-    [logoImageView setFrame:CGRectMake(0, 0, MainWidth, MainHeight/3)];
+    [logoImageView setFrame:CGRectMake(0, 0, MainWidth, MainHeight/3 )];
+    //[logoImageView setImage:[UIImage imageNamed:@"redbtn"]];
     [logoImageView setImage:[UIImage imageNamed:@"loginpage"]];
+    UIImage * ii = [self imageWithColor:UISTYLECOLOR andSize:(CGSize)CGSizeMake(MainWidth,MainHeight/3)];
+    //UIImage * ii = [self imageWithColor:[UIColor clearColor] size:(CGSize)CGSizeMake(MainWidth,MainHeight/3)];
+    [logoImageView setImage:ii];
     [self.view addSubview:logoImageView];
+    
+    
+    UIImage *image = [UIImage imageNamed:@"loginpage-sub1"];
+    HP_UIImageView *logoPageImageView = [[HP_UIImageView alloc] init ];
+    [logoPageImageView setFrame:CGRectMake(MainWidth/2 - image.size.width/2, logoImageView.frame.size.height/2 - image.size.height/2 , image.size.width, image.size.height)];
+    [logoPageImageView setImage:[UIImage imageNamed:@"loginpage-sub1"]];
+    [logoImageView addSubview:logoPageImageView];
+    
+//    UILabel *titleLogoLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - MainWidth/4, logoPageImageView.frame.origin.y+logoPageImageView.frame.size.height,MainWidth/2, 20)];
+//    titleLogoLabel.text = @"超 额 宝";
+//    titleLogoLabel.textAlignment = NSTextAlignmentCenter;
+//    //titleLogoLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+//    titleLogoLabel.font = [UIFont systemFontOfSize:24];
+//    [logoImageView addSubview:titleLogoLabel];
     
     NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"商户",@"自然人",nil];
 
-    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height, ScreenWidth, 60) items:@[@"商户",@"自然人"] selectIndex:!_isSupplerSelected];
+    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height , ScreenWidth, 60) items:@[@"商户",@"自然人"] selectIndex:!_isSupplerSelected];
     segmentView.tintColor = [self getRandomColor];
     segmentView.delegate = self;
     [self.view addSubview:segmentView];
@@ -151,8 +205,41 @@
     passwordTextField.secureTextEntry=YES;
     [self.view addSubview:passwordTextField];
     
+    //协议按钮
+    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(20, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+6, 20, 20) typeCheck:NO];
+    radioAgreement.delegate=self;
+    radioAgreement.tag = 708;
+    [self.view addSubview:radioAgreement];
+    
+    agreeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width + 4, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+6, 180, 20)];
+    agreeTitleLabel.text = @"我已阅读并且同意以下协议";
+    agreeTitleLabel.textAlignment = NSTextAlignmentLeft;
+    agreeTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    agreeTitleLabel.font = [UIFont systemFontOfSize:14];
+    agreeTitleLabel.backgroundColor = [UIColor clearColor];
+    agreeTitleLabel.numberOfLines = 0;
+    [self.view addSubview:agreeTitleLabel];
+    
+    //支付通用户注册协议
+    icardRegisterProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,radioAgreement.frame.size.height + radioAgreement.frame.origin.y + 10,180,14)];
+    [icardRegisterProtolBtn setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+    [icardRegisterProtolBtn addTarget:self action:@selector(touchICardRegisterProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [icardRegisterProtolBtn setTitle:@"《支付通用户注册协议》" forState:UIControlStateNormal];
+    icardRegisterProtolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    icardRegisterProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+    [self.view addSubview:icardRegisterProtolBtn];
+    
+    //超额宝服务协议
+    chaoebaoServiceProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,icardRegisterProtolBtn.frame.size.height + icardRegisterProtolBtn.frame.origin.y + 6,140,14)];
+    [chaoebaoServiceProtolBtn setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+    [chaoebaoServiceProtolBtn addTarget:self action:@selector(touchChaoebaoServiceProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+    [chaoebaoServiceProtolBtn setTitle:@"《超额宝服务协议》" forState:UIControlStateNormal];
+    chaoebaoServiceProtolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    chaoebaoServiceProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+    [self.view addSubview:chaoebaoServiceProtolBtn];
+    
     _forgetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _forgetButton.frame = CGRectMake(MainWidth - 85 - 40, MainHeight-175, 85, 15);
+    _forgetButton.frame = CGRectMake(MainWidth - 85 - 40, MainHeight-125, 85, 15);
     [_forgetButton setBackgroundImage:[UIImage imageNamed:@"forgetpassword"] forState:UIControlStateNormal];
     _forgetButton.backgroundColor = [UIColor clearColor];
     [_forgetButton addTarget:self action:@selector(touchForgetButton) forControlEvents:UIControlEventTouchUpInside];
@@ -161,27 +248,60 @@
     
 //    f84206 橘红色按钮点击后及其他非按钮的橘红色色值
 //    f9551c 点击前色值
-    UIButton *loginButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    loginButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [loginButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [loginButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
-    [loginButton setBackgroundColor:[UIColor clearColor]];
-    [loginButton setFrame:CGRectMake(20, MainHeight-140, MainWidth-40, 40)];
+    //[loginButton setBackgroundColor:[UIColor clearColor]];
+    [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
     [loginButton addTarget:self action:@selector(touchLoginButton) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登 录" forState:UIControlStateNormal];
     [loginButton.layer setMasksToBounds:YES];
     [loginButton.layer setCornerRadius:loginButton.frame.size.height/2.0f];
+    loginButton.enabled = NO;
     [self.view addSubview:loginButton];
     
     if (_isSupplerSelected) {
         //刷新商户填充信息
         nameTextField.placeholder = @"请输入Qpos/POS平台账号";
         passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
-        self.forgetButton.hidden = YES;
+        //self.forgetButton.hidden = YES;
+        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
     }
     else{
         nameTextField.placeholder = @"请输入手机号码";
         passwordTextField.placeholder = @"请输入密码";
-        self.forgetButton.hidden = NO;
+        //self.forgetButton.hidden = NO;
+        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+    }
+    
+    [self natureManProtocalBtnHidden:_isSupplerSelected];
+}
+
+-(void)touchChaoebaoServiceProtocalButton{
+
+    ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
+    fpw.viewTitle = @"超额宝服务协议";
+     fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,CHAOEBAOFUWUXIEYI_PROTOCOL];
+    [self presentModalViewController:fpw animated:YES];
+}
+
+-(void)touchICardRegisterProtocalButton{
+    ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
+    fpw.viewTitle = @"支付通用户注册协议";
+    fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,ZHIFUTONGYONGHUZHUCE_PROTOCOL];
+    [self presentModalViewController:fpw animated:YES];
+}
+
+- (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
+    int flags = 0;
+    if (tagselect == 708) {
+        NSLog(@"btn is selected:%d",boolchange);
+        if (boolchange == true) {
+            loginButton.enabled = true;
+        }
+        else{
+            loginButton.enabled = false;
+        }
     }
 }
 
@@ -225,16 +345,18 @@
         nameTextField.placeholder = @"请输入Qpos/POS平台账号";
         nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
         passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
-        self.forgetButton.hidden = YES;
+        //self.forgetButton.hidden = YES;
+        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
     }
     else{
         nameTextField.placeholder = @"请输入手机号码";
         passwordTextField.placeholder = @"请输入密码";
         nameTextField.keyboardType = UIKeyboardTypePhonePad;
-        self.forgetButton.hidden = NO;
+        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+        //self.forgetButton.hidden = NO;
     }
-//    nameTextField.text = @"";
-//    passwordTextField.text = @"";
+    [self natureManProtocalBtnHidden:_isSupplerSelected];
+
 }
 
 -(void)setIsSupplerSelected:(BOOL)isSupplerSelected{
@@ -243,13 +365,48 @@
         //刷新商户填充信息
         nameTextField.placeholder = @"请输入Qpos/POS平台账号";
         passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
-        self.forgetButton.hidden = YES;
+        //self.forgetButton.hidden = YES;
+        
+        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
     }
     else{
         nameTextField.placeholder = @"请输入手机号码";
         passwordTextField.placeholder = @"请输入密码";
-         self.forgetButton.hidden = NO;
+        // self.forgetButton.hidden = NO;
+        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
     }
+    [self natureManProtocalBtnHidden:_isSupplerSelected];
+}
+
+-(void)natureManProtocalBtnHidden:(BOOL)isHidden{
+    self.forgetButton.hidden = isHidden;
+    radioAgreement.hidden = isHidden;
+    
+    icardRegisterProtolBtn.hidden = isHidden;
+    chaoebaoServiceProtolBtn.hidden = isHidden;
+    agreeTitleLabel.hidden = isHidden;
+    if (isHidden == YES) {
+        loginButton.enabled = YES;
+    }
+    else{
+        radioAgreement.isChecked = NO;
+        loginButton.enabled = NO;
+    }
+    
+//    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+//        radioAgreement.enabled = NO;
+//    }
+//    else{
+//        radioAgreement.enabled = YES;
+//    }
+    
+    if (!_isSupplerSelected) {
+        [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
+    }
+    else{
+        [loginButton setFrame:CGRectMake(20, MainHeight-155, MainWidth-40, 40)];
+    }
+    
 }
 
 - (void)updataEnterInfo
@@ -346,7 +503,7 @@
         return;
 #endif
 
-//#define TEST_LOGIN
+
 #ifdef TEST_LOGIN
         //商户网点账号
 //        只有商户没有网点：loginName=Mer00060019        loginPwd=redis             mercNum=M0060019
@@ -441,7 +598,7 @@
              [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"balanceCardAccountName"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
              
              [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
@@ -449,14 +606,15 @@
              [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
              
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
-             
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
              
              [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
              
              [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
-             [[NSUserDefaults standardUserDefaults]setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
+             [[NSUserDefaults standardUserDefaults] setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
+             
+             [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
              
 //             //是否商户1 还是自然人0 登录
 //             if( self.isSupplerSelected ){
@@ -564,6 +722,7 @@
              
              //商户类型
              [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
+
              
              //test
 //             NSMutableDictionary* Dict2=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -577,7 +736,8 @@
 //             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
 //             //通过通知中心发送通知
 //             [[NSNotificationCenter defaultCenter] postNotification:notification];
-             
+             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
+             [[NSUserDefaults standardUserDefaults] setObject:nameTextField.text forKey:LAST_LOGIN_SUPPLYER_NAME];
              
 //             BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
 //             [self.navigationController pushViewController:mainview animated:NO];
