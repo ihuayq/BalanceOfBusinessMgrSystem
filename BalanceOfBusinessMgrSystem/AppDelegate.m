@@ -257,7 +257,7 @@
     }
 //    else if([loginStatus intValue]==1)
 //    {
-//        nc = [[UINavigationController alloc]initWithRootViewController:login];
+//        n/Users/huayq/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem/ThirdPart/MJRefreshc = [[UINavigationController alloc]initWithRootViewController:login];
 //        [nc.navigationBar setHidden:YES];
 //        self.window.rootViewController = nc;
 //        
