@@ -11,11 +11,13 @@
 #import "BMNaturalManMainViewController.h"
 #import "SettingLoginPassWordViewController.h"
 #import "settingNaturalManInfoViewController.h"
-#import "BMCancelInvestmentBeforeViewController.h"
+#import "BMWithDrawsCashSuccessViewController.h"
 #import "GuidViewController.h"
+#import "SRWebSocket.h"
 
-@interface AppDelegate (){
+@interface AppDelegate ()<SRWebSocketDelegate>{
     NSTimer * loginCheckTimer;
+    SRWebSocket *_webSocket;
 }
 
 @end
@@ -30,7 +32,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];
-
+#define TEST
 #ifndef TEST
     NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)GLOBE_GUIDE];
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
@@ -54,7 +56,7 @@
 //        [self initWindowRootViewController];
 //    }
 #else
-    BMCancelInvestmentBeforeViewController* Vc=[[BMCancelInvestmentBeforeViewController alloc]init];
+    BMWithDrawsCashSuccessViewController* Vc=[[BMWithDrawsCashSuccessViewController alloc]init];
     self.window.rootViewController = Vc;
 #endif
     
@@ -68,13 +70,13 @@
 -(void)initTimer
 {
     //时间间隔
-    NSTimeInterval timeInterval =1.0 ;
+    NSTimeInterval timeInterval = 3.0 ;
     //定时器
     loginCheckTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                                            target:self
                                                          selector:@selector(handleCheckTimer:)
                                                          userInfo:nil
-                                                          repeats:YES];
+                                                            repeats:YES];
 }
 
 -(void)cancelLoginCheckTimer
@@ -86,21 +88,61 @@
 //触发事件
 -(void)handleCheckTimer:(NSTimer *)theTimer
 {
-//    NSDateFormatter dateFormator = [[NSDateFormatter alloc] init];
-//    dateFormator.dateFormat = @"yyyy-MM-dd  HH:mm:ss";
-//    NSString *date = [dateformater stringFromDate:[NSDate date]];
-//    if([date isEqualToString:@"2011-11-09 23:59:59"])
-//    {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:TITLE_NAME
-//                                                        message:@"现在马上就有新的一天了！"
-//                                                       delegate:self
-//                                               ancelButtonTitle:nil
-//                                              otherButtonTitles:CONFIRM_TITLE, nil];
-//        [alert show];
-//        [alert release];
-//    }
+    NSString *strLoginName = @"";
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
+        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME];
+    }
+    else{
+        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME];
+    }
+   
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [connDictionary setObject:strLoginName forKey:@"loginName"];
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,LoginCheckUrl];
+
+    NSLog(@"connDictionary:%@",connDictionary);
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         if([ret isEqualToString:@"100"])
+         {
+//           responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+  
+         }
+         else
+         {
+             [self cancelLoginCheckTimer];
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString *msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+
 }
 
+// 显示简单的alertView
+-(void)showSimpleAlertViewWithTitle:(NSString *)title alertMessage:(NSString *)msg cancelButtonTitle:(NSString *) cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...{
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:otherButtonTitles,nil];
+    [alertView show];
+}
 
 - (void)LoginInitMainwidow:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"login"]);
@@ -108,6 +150,7 @@
     
     //是否商户1 还是自然人0 登录 logintype
     if( [text.userInfo[@"login"] isEqualToString:@"1"]){
+        //[self initTimer];
         //判断商户引导页是否显示过
         NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)SUPPLYER_GUIDE];
         if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
@@ -118,6 +161,7 @@
             return;
         }
         
+        [self _reconnect];
         BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
         self.window.rootViewController = mainview;
         
@@ -125,6 +169,7 @@
     //自然人登录
     else if([text.userInfo[@"login"] isEqualToString:@"0"])
     {
+        //[self initTimer];
         //判断自然人引导页是否显示过
         NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)NATUREMAN_GUIDE];
         if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
@@ -135,10 +180,12 @@
             return;
         }
         
+        
         if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
             SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
             self.window.rootViewController = settingVc;
         }else{
+            [self _reconnect];
             BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
             self.window.rootViewController = Vc;
         }
@@ -146,6 +193,8 @@
     //登陆界面
     else if([text.userInfo[@"login"] isEqualToString:@"2"])
     {
+        //[self cancelLoginCheckTimer];
+        [self _close];
         LoginViewController *login = [[LoginViewController alloc] init];
         if (text.userInfo[@"isSupplyer"]) {
             login.isSupplerSelected = [text.userInfo[@"isSupplyer"] boolValue];
@@ -153,6 +202,69 @@
         self.window.rootViewController = login;
     }
 }
+
+- (void)_reconnect
+{
+    _webSocket.delegate = nil;
+    [_webSocket close];
+    
+    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"ws://192.168.1.106:8080/superMoney-core/android.do"]]];
+    _webSocket.delegate = self;
+    
+     //self.title = @"Opening Connection...";
+    [_webSocket open];
+    
+}
+
+- (void)_close
+{
+    _webSocket.delegate = nil;
+    [_webSocket close];
+    _webSocket = nil;
+}
+
+#pragma mark - SRWebSocketDelegate
+
+- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
+{
+    NSLog(@"Websocket Connected");
+    //self.title = @"Connected!";
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
+{
+    NSLog(@":( Websocket Failed With Error %@", error);
+    
+    //self.title = @"Connection Failed! (see logs)";
+    //_webSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
+{
+    NSLog(@"Received \"%@\"", message);
+//    [_messages addObject:[[TCMessage alloc] initWithMessage:message fromMe:NO]];
+//    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:_messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+//    [self.tableView scrollRectToVisible:self.tableView.tableFooterView.frame animated:YES];
+    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+    alertView.tag = 999;
+    [alertView show];
+    
+    NSString *strRecv = [NSString stringWithFormat:@"韩少茹，我是设备22222号，已经收到一下消息： %@",message];
+    [_webSocket send:strRecv];
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
+{
+    NSLog(@"WebSocket closed");
+    //self.title = @"Connection Closed! (see logs)";
+    _webSocket = nil;
+}
+
+- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
+{
+    NSLog(@"Websocket received pong");
+}
+
 
 #pragma mark
 //-(void)initWelcomePage

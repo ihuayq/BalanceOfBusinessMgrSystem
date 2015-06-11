@@ -18,13 +18,14 @@
 
 
 //#define TEST_LOGIN
-#define UAT
+//#define UAT
 //自然人
 #ifdef UAT
-//#define IP @"http://59.151.121.87:8081/"
-#define IP @"http://59.151.121.91:8080/"
+#define IP @"http://59.151.121.87:8081/"
+//#define IP @"http://59.151.121.91:8080/"
 #else
-#define IP @"http://192.168.0.56:8080/"
+//#define IP @"http://192.168.0.56:8080/"
+#define IP @"http://192.168.1.106:8080/"
 #endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
@@ -45,10 +46,11 @@
 
 //商户登录
 #ifdef UAT
-//#define CommercialIP @"http://59.151.121.87:8081"
-#define CommercialIP @"http://59.151.121.91:8080"
+#define CommercialIP @"http://59.151.121.87:8081"
+//#define CommercialIP @"http://59.151.121.91:8080"
 #else
-#define CommercialIP @"http://192.168.0.56:8080"
+//#define CommercialIP @"http://192.168.0.56:8080"
+#define CommercialIP @"http://192.168.1.106:8080"
 #endif
 
 #define CommercialHostURL @"/superMoney-core/commercia/commerCiainfo?"
@@ -61,6 +63,8 @@
 #define ModifyNatureMenIdentifyURL @"/superMoney-core/commercia/updateNaturalPersonDo?" //修改自然人身份证等信息
 #define ModifyNatureMenURL @"/superMoney-core/commercia/getUpdateNaturalPersonInfo?"  //获取自然人账号信息
 
+//验证登录地址
+#define LoginCheckUrl @"superMoney-core/nature/detection?"
 
 //各种协议地址
 //《超额宝自动转入服务协议》
@@ -71,6 +75,7 @@
 //《资金划转授权协议》
 #ifdef UAT
 #define PROTOCOL_IP @"http://59.151.121.87:8081"
+//#define PROTOCOL_IP @"http://59.151.121.91:8080"
 #else
 #define PROTOCOL_IP  @"http://192.168.1.102:8080"
 #endif

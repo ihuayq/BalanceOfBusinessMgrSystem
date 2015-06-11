@@ -565,7 +565,8 @@
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
-    //[connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"uniqueID"];//设备id
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+
     //[connDictionary setObject:passwordTextField.text forKey:@"password"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
@@ -613,6 +614,8 @@
              
              [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
              [[NSUserDefaults standardUserDefaults] setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
+             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected] forKey:LOGIN_TYPE];
+             
              
              [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
              
@@ -681,7 +684,7 @@
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:nameTextField.text forKey:@"commercialId"];
-    //[connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"uniqueID"];//设备id
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
@@ -738,6 +741,7 @@
 //             [[NSNotificationCenter defaultCenter] postNotification:notification];
              [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
              [[NSUserDefaults standardUserDefaults] setObject:nameTextField.text forKey:LAST_LOGIN_SUPPLYER_NAME];
+             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected] forKey:LOGIN_TYPE];
              
 //             BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
 //             [self.navigationController pushViewController:mainview animated:NO];

@@ -62,6 +62,7 @@
 #define LOGIN_STATUS @"loginStatus"
 #define LAST_LOGIN_NAME @"lastloginname"
 #define LAST_LOGIN_SUPPLYER_NAME @"lastsupplyerloginname"
+#define LOGIN_TYPE @"loginType"
 
 #define USERINFO @"userinfomation" //用户信息
 #define MOBILE @"mobile"  //

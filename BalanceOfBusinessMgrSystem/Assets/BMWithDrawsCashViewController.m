@@ -34,7 +34,7 @@
     UILabel * canDrawCashNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 + 20 ,NAVIGATION_OUTLET_HEIGHT + 30, 200,20)];
     canDrawCashNumberLabel.textAlignment = NSTextAlignmentLeft;
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"];
-    NSLog(@"the balanceInfo is: %@",dic);
+    //NSLog(@"the balanceInfo is: %@",dic);
     canDrawCashNumberLabel.text =  [NSString stringWithFormat:@"%@",[dic objectForKey:@"totalAmount"]];
     canDrawCashNumberLabel.font = [UIFont systemFontOfSize:24];
     canDrawCashNumberLabel.textColor = UISTYLECOLOR;

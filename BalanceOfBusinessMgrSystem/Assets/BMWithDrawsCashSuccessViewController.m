@@ -7,6 +7,7 @@
 //
 
 #import "BMWithDrawsCashSuccessViewController.h"
+#import "BTLabel.h"
 
 @interface BMWithDrawsCashSuccessViewController ()
 @end
@@ -81,19 +82,39 @@
     cardNumberLabel.text = self.cardNum;
     cardNumberLabel.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:cardNumberLabel];
-    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:self.cardNum];
+    //NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:self.cardNum];
+    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:@"HHH"];
     if (modifyStr.length > 10) {
         [modifyStr replaceCharactersInRange:NSMakeRange(4, modifyStr.length-8) withString:@"******"];
     }
     cardNumberLabel.text = modifyStr;
     
     
-    UILabel * noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(20,cardNumberLabel.frame.size.height + cardNumberLabel.frame.origin.y + 20 , MainWidth- 20*2,20)];
-    noteLabel.textAlignment = NSTextAlignmentCenter;
-    noteLabel.text = @"提现金额将会转入商户账户,自动结算,t+1日到账!";
-    noteLabel.font = [UIFont systemFontOfSize:18];
-    [noteLabel setTextColor:[UIColor lightGrayColor]];
-    [self.view addSubview:noteLabel];
+//    UILabel * noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(20,cardNumberLabel.frame.size.height + cardNumberLabel.frame.origin.y + 20 , MainWidth- 20*2,20)];
+//    noteLabel.textAlignment = NSTextAlignmentCenter;
+//    noteLabel.text = @"提现金额将会转入商户账户,自动结算,t+1日到账!";
+//    noteLabel.font = [UIFont systemFontOfSize:18];
+//    [noteLabel setTextColor:[UIColor lightGrayColor]];
+//    [self.view addSubview:noteLabel];
+    
+    BTLabel *label;
+    
+    CGFloat fontSize = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 13 : 8;
+    //UIFont *font = [UIFont systemFontOfSize:18];
+    CGColorRef color = [UIColor colorWithHue:0 saturation:0 brightness:0.8 alpha:1].CGColor;
+    NSDictionary *attributes = @{
+                                 NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Thin" size:28],
+                                 NSForegroundColorAttributeName: [UIColor orangeColor]
+                                 };
+    
+    label = [[BTLabel alloc] initWithFrame:CGRectMake(20,cardNumberLabel.frame.size.height + cardNumberLabel.frame.origin.y + 20 , MainWidth- 20*2,40) edgeInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    label.font = [UIFont systemFontOfSize:18];
+    label.text = [NSString stringWithFormat:@"提现金额将会转入商户账户,自动结算,t+1日到账!"];
+    label.verticalAlignment = BTVerticalAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 4;
+    [self.view addSubview:label];
+
     
     //确定
     HP_UIButton *okButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
