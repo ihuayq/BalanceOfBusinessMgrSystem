@@ -14,6 +14,7 @@
 #import "BMWithDrawsCashSuccessViewController.h"
 #import "GuidViewController.h"
 #import "SRWebSocket.h"
+#import "NSString+JSON.h"
 
 @interface AppDelegate ()<SRWebSocketDelegate>{
     NSTimer * loginCheckTimer;
@@ -32,7 +33,7 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];
-#define TEST
+//#define TEST
 #ifndef TEST
     NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)GLOBE_GUIDE];
     if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
@@ -59,6 +60,15 @@
     BMWithDrawsCashSuccessViewController* Vc=[[BMWithDrawsCashSuccessViewController alloc]init];
     self.window.rootViewController = Vc;
 #endif
+    
+//    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+//    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME] forKey:@"loginName"];
+//    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+//    
+//    //使用这个方法的返回，我们就可以得到想要的JSON串
+//    NSString *strSend = [[NSString alloc] initWithData: [self toJSONData:connDictionary]
+//                                              encoding:NSUTF8StringEncoding];
+//    NSLog(@"the json is:%@",strSend);
     
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
@@ -229,7 +239,37 @@
 {
     NSLog(@"Websocket Connected");
     //self.title = @"Connected!";
+    
+//    NSString *strSend = [NSString stringWithFormat:@"deviceId:%@,loginName:%@",Default_Phone_UUID_MD5,[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME] forKey:@"loginName"];
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    
+    //使用这个方法的返回，我们就可以得到想要的JSON串
+    NSString *strSend = [[NSString alloc] initWithData: [self toJSONData:connDictionary]
+                                                 encoding:NSUTF8StringEncoding];
+    // NSString *strSend = [NSString jsonStringWithDictionary:(NSDictionary *)connDictionary];
+    
+    [_webSocket send:strSend];
 }
+
+// 将字典或者数组转化为JSON串
+- (NSData *)toJSONData:(id)theData{
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    
+    if ([jsonData length] > 0 && error == nil){
+        return jsonData;
+    }else{
+        return nil;
+    }
+}
+
+
 
 - (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
 {
@@ -242,15 +282,13 @@
 - (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
 {
     NSLog(@"Received \"%@\"", message);
-//    [_messages addObject:[[TCMessage alloc] initWithMessage:message fromMe:NO]];
-//    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:_messages.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-//    [self.tableView scrollRectToVisible:self.tableView.tableFooterView.frame animated:YES];
+
     UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
     alertView.tag = 999;
     [alertView show];
     
-    NSString *strRecv = [NSString stringWithFormat:@"韩少茹，我是设备22222号，已经收到一下消息： %@",message];
-    [_webSocket send:strRecv];
+//    NSString *strRecv = [NSString stringWithFormat:@"韩少茹，我是设备22222号，已经收到一下消息： %@",message];
+//    [_webSocket send:strRecv];
 }
 
 - (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;

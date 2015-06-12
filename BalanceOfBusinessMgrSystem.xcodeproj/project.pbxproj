@@ -67,6 +67,7 @@
 		88A1C7761B2683C8004709BF /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A1C76C1B2683C8004709BF /* UIScrollView+MJRefresh.m */; };
 		88A1C7771B2683C8004709BF /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A1C76E1B2683C8004709BF /* UIView+MJExtension.m */; };
 		88AD21341B283D8A0062EB33 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 88AD21331B283D8A0062EB33 /* SRWebSocket.m */; };
+		88C564F41B2A871000E515BF /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C564F31B2A871000E515BF /* NSString+JSON.m */; };
 		88D406E21B003D1800418ACC /* bindSuccessSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */; };
 		88D406E51B007F0200418ACC /* NaturalManInfoMgrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E41B007F0200418ACC /* NaturalManInfoMgrViewController.m */; };
 		88D406E71B007F9D00418ACC /* addNaturalMan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 88D406E61B007F9D00418ACC /* addNaturalMan@2x.png */; };
@@ -349,6 +350,8 @@
 		88AD21311B283D8A0062EB33 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		88AD21321B283D8A0062EB33 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		88AD21331B283D8A0062EB33 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		88C564F21B2A871000E515BF /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
+		88C564F31B2A871000E515BF /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		88D406E01B003D1800418ACC /* bindSuccessSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bindSuccessSwitchViewController.h; sourceTree = "<group>"; };
 		88D406E11B003D1800418ACC /* bindSuccessSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bindSuccessSwitchViewController.m; sourceTree = "<group>"; };
 		88D406E31B007F0200418ACC /* NaturalManInfoMgrViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaturalManInfoMgrViewController.h; sourceTree = "<group>"; };
@@ -1325,6 +1328,8 @@
 				88F185481AFB1612007FE83B /* NavTransiton */,
 				88E7A7B51AF9DCEB00B44364 /* AlertVendor */,
 				88E7A7A81AF9ACEC00B44364 /* RadioButton */,
+				88C564F21B2A871000E515BF /* NSString+JSON.h */,
+				88C564F31B2A871000E515BF /* NSString+JSON.m */,
 			);
 			name = ThirdPartLib;
 			path = ThirdPart;
@@ -1671,6 +1676,7 @@
 				8889BAB41AFCA6BB001BF5E2 /* UIDatingAssetsViewTips.m in Sources */,
 				88F1854F1AFB1612007FE83B /* NavigationInteractiveTransition.m in Sources */,
 				7A21E5791AFF90DE00C8C023 /* bindNetworkPointAccountViewController.m in Sources */,
+				88C564F41B2A871000E515BF /* NSString+JSON.m in Sources */,
 				88EF07311AF8B119006B09B0 /* AgreementViewController.m in Sources */,
 				7A21E57C1AFF954000C8C023 /* BankAccountTableViewCell.m in Sources */,
 				88EF05CE1AF8A3EC006B09B0 /* HP_PullToLoadMoreView.m in Sources */,
