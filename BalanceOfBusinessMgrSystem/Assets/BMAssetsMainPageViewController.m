@@ -136,7 +136,7 @@
     NSLog(@"connDictionary:%@",connDictionary);
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,QueryMainAssetURL];
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     //[self showMBProgressHUDWithMessage:@"更新资产数据..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
@@ -160,6 +160,11 @@
                  [self AssetChange:nil];
                  [scrollView.pullToRefreshView stopAnimating];
              });
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

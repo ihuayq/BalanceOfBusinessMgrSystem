@@ -46,10 +46,9 @@
     
     self.navigation = [[ZZNavigationView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, height)];
     _navigation.type = type;
-    _navigation.leftImage  = [UIImage imageNamed:@"nav_backbtn.png"];
+    //_navigation.leftImage  = [UIImage imageNamed:@"nav_backbtn.png"];
     _navigation.delegate = self;
     _navigation.backgroundColor = UISTYLECOLOR;
-    //_navigation.backgroundColor = [self getRandomColor];
     [self.view addSubview:_navigation];
     
      NSLog(@"the title navigation is:%@",self.navigation);

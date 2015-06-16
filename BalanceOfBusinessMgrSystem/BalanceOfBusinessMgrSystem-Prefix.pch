@@ -59,6 +59,8 @@
 #define queding @"确定"
 #define GoBackVC 444
 #define GetDataOK 100
+#define reLoginOutFlag @"102"
+#define LoginOutViewTag 1999
 
 //苹果发布ID
 #define MyAppStoreID @"883131484"

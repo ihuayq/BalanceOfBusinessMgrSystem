@@ -18,7 +18,7 @@
     [super viewDidLoad];
     
     self.navigation.title = @"关于超额宝";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     // Do any additional setup after loading the view.
     UILabel * passwordLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - 80,MainHeight/2 - 20,  80*2, 40)];

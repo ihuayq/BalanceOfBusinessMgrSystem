@@ -34,7 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigation.title = @"修改自然人信息";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     [self initUI];
 }
@@ -222,6 +222,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,ModifyNatureMenIdentifyURL];
     
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     [self showProgressViewWithMessage:@"正在设置自然人信息..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
@@ -268,6 +269,11 @@
              [self.navigationController popViewControllerAnimated:YES];
              
          }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
          else
          {
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
@@ -304,7 +310,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,passCodeURL];
     
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     [self showProgressViewWithMessage:@"正在获取验证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
@@ -318,6 +324,11 @@
 //             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:@"成功" message:@"是否现在去进行投资理财" delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
 //             alertView.tag = 999;
 //             [alertView show];
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

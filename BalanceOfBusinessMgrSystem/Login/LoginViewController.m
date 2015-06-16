@@ -432,8 +432,8 @@
     
     [self touchesBegan:nil withEvent:nil];
     
-    RegisterViewController* registervc=[[RegisterViewController alloc]init];
-    [self.navigationController pushViewController:registervc animated:YES];
+//    RegisterViewController* registervc=[[RegisterViewController alloc]init];
+//    [self.navigationController pushViewController:registervc animated:YES];
 }
 
 - (BOOL)checkPassword:(NSString *)str
@@ -565,7 +565,7 @@
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
-    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    
 
     //[connDictionary setObject:passwordTextField.text forKey:@"password"];
     
@@ -573,7 +573,7 @@
     
     //[connDictionary setObject:string3des forKey:@"passwd_3des"];
     
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,HostURL];
     
     NSLog(@"connDictionary:%@",connDictionary);
@@ -642,6 +642,11 @@
              NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
              [[NSNotificationCenter defaultCenter] postNotification:notification];
          }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
          else
          {
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
@@ -684,7 +689,7 @@
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:nameTextField.text forKey:@"commercialId"];
-    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
@@ -692,8 +697,8 @@
     
     
     NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,CommercialHostURL];
-    //http://192.168.1.107:8080/superMoney-core/commercia/commerCiainfo?commercialId=Mxxxxx&passwd_3des_encode=xxxxx
 
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     NSLog(@"connDictionary:%@",connDictionary);
     //[self showProgressViewWithMessage:@"登录中..."];
@@ -750,6 +755,11 @@
              NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
              [[NSNotificationCenter defaultCenter] postNotification:notification];
 
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

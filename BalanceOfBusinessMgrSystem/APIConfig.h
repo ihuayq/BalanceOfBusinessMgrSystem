@@ -8,7 +8,7 @@
 
 
 
-#ifdef ZHENGSHI。
+#ifdef ZHENGSHI
 
 #define HostURL @"http://app.imzhongxin.com/interfaces.php?app=ios&v=103&op=" //正式服务器
 #define ShareURL_ZX @"http://app.imzhongxin.com/trust/projectintro.php?"//分享
@@ -25,7 +25,7 @@
 //#define IP @"http://59.151.121.91:8080/"
 #else
 //#define IP @"http://192.168.0.56:8080/"
-#define IP @"http://192.168.1.106:8080/"
+#define IP @"http://192.168.1.110:8080/"
 #endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
@@ -38,11 +38,13 @@
 #define ModifyPayPasswdURL @"superMoney-core/nature/changePayPass?"   //改变登录密码
 #define ForgetLoginPasswdURL @"superMoney-core/nature/forgetPass?"
 #define QueryMainAssetURL @"superMoney-core/nature/queryBlanceInfo?"
-
-
 #define WithDrawURL @"superMoney-core/nature/withdraw?"// 提现
 #define AssetInfoUrl @"superMoney-core/nature/queryDetail?" //资产变动信息查询
+#define loginOutUrl @"superMoney-core/nature/loginOut?" //资产变动信息查询
 
+//loginOut
+//String phoneNum = request.getParameter("phoneNum");
+//String deviceID = request.getParameter("deviceId"); // 手机DeviceID
 
 //商户登录
 #ifdef UAT
@@ -50,7 +52,7 @@
 //#define CommercialIP @"http://59.151.121.91:8080"
 #else
 //#define CommercialIP @"http://192.168.0.56:8080"
-#define CommercialIP @"http://192.168.1.106:8080"
+#define CommercialIP @"http://192.168.1.110:8080"
 #endif
 
 #define CommercialHostURL @"/superMoney-core/commercia/commerCiainfo?"
@@ -77,7 +79,7 @@
 #define PROTOCOL_IP @"http://59.151.121.87:8081"
 //#define PROTOCOL_IP @"http://59.151.121.91:8080"
 #else
-#define PROTOCOL_IP  @"http://192.168.1.102:8080"
+#define PROTOCOL_IP  @"http://192.168.1.110:8080"
 #endif
 #define BORROW_MONEY_PROTOCOL @"/superMoney-core/pages/borrowProtocol.html"    //《借款协议（超额宝）》
 #define CHAOEBAOFUWUXIEYI_PROTOCOL @"/superMoney-core/pages/servicesProtocol.html" //《超额宝服务协议》

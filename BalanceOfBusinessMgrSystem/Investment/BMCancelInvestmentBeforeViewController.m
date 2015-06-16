@@ -21,7 +21,7 @@
     
     // Do any additional setup after loading the view.
     self.navigation.title = @"取消预约";
-    //self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
+    //self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     HP_UIImageView *noticeImg = [[HP_UIImageView alloc] initWithFrame:CGRectMake(MainWidth/2-15, NAVIGATION_OUTLET_HEIGHT + 16,30, 30)];
     [noticeImg setImage:[UIImage imageNamed:@"成功"]];

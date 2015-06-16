@@ -25,7 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"自然人信息";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     self.navigation.rightImage = [UIImage imageNamed:@"addperson"];
     
     
@@ -134,6 +134,7 @@
     NSLog(@"connDictionary:%@",connDictionary);
 
     NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,preSettingNatureMenURL];
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     [self showProgressViewWithMessage:@"请求添加自然人..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -148,6 +149,11 @@
              [self.navigationController pushViewController:info
                                                   animated:NO];
 
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

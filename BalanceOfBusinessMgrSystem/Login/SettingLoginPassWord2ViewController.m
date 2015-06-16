@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"设置登录密码";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     //设置标题
 //    UILabel * notePsdLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10, 240, 40)];

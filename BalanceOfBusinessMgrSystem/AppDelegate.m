@@ -15,6 +15,8 @@
 #import "GuidViewController.h"
 #import "SRWebSocket.h"
 #import "NSString+JSON.h"
+#import "BMInvestmentConfirmViewController.h"
+#import "BMHomePageViewController.h"
 
 @interface AppDelegate ()<SRWebSocketDelegate>{
     NSTimer * loginCheckTimer;
@@ -57,8 +59,11 @@
 //        [self initWindowRootViewController];
 //    }
 #else
-    BMWithDrawsCashSuccessViewController* Vc=[[BMWithDrawsCashSuccessViewController alloc]init];
+    BMInvestmentConfirmViewController* Vc=[[BMInvestmentConfirmViewController alloc]init];
     self.window.rootViewController = Vc;
+    
+//    BMHomePageViewController* Vc=[[BMHomePageViewController alloc]init];
+//    self.window.rootViewController = Vc;
 #endif
     
 //    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
@@ -115,19 +120,18 @@
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     [connDictionary setObject:strLoginName forKey:@"loginName"];
-    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
 
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,LoginCheckUrl];
-
+    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     NSLog(@"connDictionary:%@",connDictionary);
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
          if([ret isEqualToString:@"100"])
          {
-//           responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-  
+//           responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary]; 
          }
          else
          {
@@ -160,7 +164,6 @@
     
     //是否商户1 还是自然人0 登录 logintype
     if( [text.userInfo[@"login"] isEqualToString:@"1"]){
-        //[self initTimer];
         //判断商户引导页是否显示过
         NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)SUPPLYER_GUIDE];
         if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
@@ -171,10 +174,8 @@
             return;
         }
         
-        [self _reconnect];
         BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
         self.window.rootViewController = mainview;
-        
     }
     //自然人登录
     else if([text.userInfo[@"login"] isEqualToString:@"0"])
@@ -195,7 +196,6 @@
             SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
             self.window.rootViewController = settingVc;
         }else{
-            [self _reconnect];
             BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
             self.window.rootViewController = Vc;
         }
@@ -204,7 +204,6 @@
     else if([text.userInfo[@"login"] isEqualToString:@"2"])
     {
         //[self cancelLoginCheckTimer];
-        [self _close];
         LoginViewController *login = [[LoginViewController alloc] init];
         if (text.userInfo[@"isSupplyer"]) {
             login.isSupplerSelected = [text.userInfo[@"isSupplyer"] boolValue];
@@ -218,7 +217,7 @@
     _webSocket.delegate = nil;
     [_webSocket close];
     
-    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"ws://192.168.1.106:8080/superMoney-core/android.do"]]];
+    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"ws://192.168.1.118:8080/superMoney-core/android.do"]]];
     _webSocket.delegate = self;
     
      //self.title = @"Opening Connection...";

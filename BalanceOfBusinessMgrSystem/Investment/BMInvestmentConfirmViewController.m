@@ -24,18 +24,12 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    nCout = 8;
-    [self timeCountdown];
-    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+
     
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    nCout = 0;
-    [self timeCountdown];
-    //[timer invalidate];//取消定时器
-    
 }
 
 -(void)timeCountdown
@@ -45,20 +39,22 @@
     if (nCout>0)
     {
         nCout=nCout-1;
-//        [okButton setTitle:[NSString stringWithFormat:@"确定 %d",nCout] forState:UIControlStateDisabled];
-//        [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
         buttonLabel.text = [NSString stringWithFormat:@"%d",nCout];
         [okButton setEnabled:NO];
     }
     else if (nCout==0)
     {
         [buttonLabel removeFromSuperview];
-//        [okButton setTitle:@"确定" forState:UIControlStateNormal];
-//        [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
         [okButton setEnabled:YES];
         nCout=8;
         [timer invalidate];//取消定时器
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    nCout = 0;
+    //[self timeCountdown];
+    [timer invalidate];//取消定时器
 }
 
 - (void)viewDidLoad {
@@ -67,15 +63,15 @@
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigation.title = @"预约购买须知";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     //超额宝介绍
-    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 60, MainWidth - 40*2, 180)];
+    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(10, NAVIGATION_OUTLET_HEIGHT + 10, MainWidth - 10*2, MainHeight - 180)];
     [manualProductWebView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
     [manualProductWebView.layer setBorderWidth:0.5f];
     [self.view addSubview:manualProductWebView];
     
-    NSString *filePath1 = [[NSBundle mainBundle]pathForResource:@"我要投资" ofType:@"html"];
+    NSString *filePath1 = [[NSBundle mainBundle]pathForResource:@"tishi" ofType:@"html"];
     NSString *htmlString1= [NSString stringWithContentsOfFile:filePath1 encoding:NSUTF8StringEncoding error:nil];
     [manualProductWebView loadHTMLString:htmlString1 baseURL:[NSURL URLWithString:filePath1]];
     
@@ -84,7 +80,7 @@
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [okButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [okButton setBackgroundColor:[UIColor clearColor]];
-    [okButton setFrame:CGRectMake(40,manualProductWebView.frame.origin.y+ manualProductWebView.frame.size.height + 40, MainWidth-2*40, 40)];
+    [okButton setFrame:CGRectMake(40,manualProductWebView.frame.origin.y+ manualProductWebView.frame.size.height + 20, MainWidth-2*40, 40)];
     [okButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
     [okButton setTitle:@"确定" forState:UIControlStateNormal];
     okButton.titleLabel.textColor = [UIColor whiteColor];
@@ -99,6 +95,10 @@
     buttonLabel.font = [UIFont systemFontOfSize:26];
     buttonLabel.backgroundColor = [UIColor clearColor];
     [okButton addSubview:buttonLabel];
+    
+    nCout = 8;
+    [self timeCountdown];
+    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
 }
 
 -(void)touchDatingButton{
@@ -123,7 +123,7 @@
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
     //NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getbalanceURL];
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"正在请求预约..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -135,7 +135,14 @@
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
 
              [self setAppointmentInfo:YES];
-             [[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+             UIAlertView * alertView =  [[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+             alertView.tag = 1025;
+             [alertView show];
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {
@@ -158,23 +165,46 @@
 // 在这里处理UIAlertView中的按钮被单击的事件
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+
     NSLog(@"buttonIndex is : %i",(int)buttonIndex);
-    switch (buttonIndex) {
-        case 0:{
-            //radioAgreement.hidden = true;
-            //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
-            ////向资产界面传递资产的变动信息
-            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"cancelSuccess", nil];
-            //创建通知
-            NSNotification *notification =[NSNotification notificationWithName:@"AppointmentChange" object:nil userInfo:dict];
-            //通过通知中心发送通知
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
-        }break;
-        default:
-            break;
+    
+    if (alertView.tag == 1025) {
+        switch (buttonIndex) {
+            case 0:{
+                //radioAgreement.hidden = true;
+                //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
+                ////向资产界面传递资产的变动信息
+                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"cancelSuccess", nil];
+                //创建通知
+                NSNotification *notification =[NSNotification notificationWithName:@"AppointmentChange" object:nil userInfo:dict];
+                //通过通知中心发送通知
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+                
+            }break;
+            default:
+                break;
+        }
+    }
+    else if(alertView.tag == LoginOutViewTag){
+        NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+        switch (buttonIndex) {
+            case 0:{
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
+                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+                else{
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"1",@"isSupplyer", nil];
+                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+            }break;
+            default:
+                break;
+        }
     }
 }
 

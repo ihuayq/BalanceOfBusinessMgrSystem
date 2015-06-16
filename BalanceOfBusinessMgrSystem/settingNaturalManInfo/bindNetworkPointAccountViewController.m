@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"绑定网点账户";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     //自然人姓名
     manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];

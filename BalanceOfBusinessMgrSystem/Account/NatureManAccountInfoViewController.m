@@ -39,7 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"我的信息";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     [self initGroup];
     

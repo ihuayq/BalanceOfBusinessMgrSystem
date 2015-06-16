@@ -22,7 +22,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigation.title = self.viewTitle;
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     //超额宝介绍
     self.productWebView =[[UIWebView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT, MainWidth, MainHeight - NAVIGATION_OUTLET_HEIGHT)];

@@ -68,6 +68,14 @@
 }
 
 // 显示简单的alertView
+-(void)showSimpleAlertViewWithTitle:(NSString *)title tag:(int)tag alertMessage:(NSString *)msg cancelButtonTitle:(NSString *) cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...{
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:otherButtonTitles,nil];
+    alertView.tag = tag;
+    [alertView show];
+}
+
+// 显示简单的alertView
 -(void)showSimpleAlertViewWithTitle:(NSString *)title alertMessage:(NSString *)msg cancelButtonTitle:(NSString *) cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...{
     
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:otherButtonTitles,nil];
@@ -82,6 +90,30 @@
     if(!isContinue)
     {
         return;
+    }
+}
+
+// 在这里处理UIAlertView中的按钮被单击的事件
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+    if(alertView.tag == LoginOutViewTag){
+        switch (buttonIndex) {
+            case 0:{
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
+                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+                else{
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"1",@"isSupplyer", nil];
+                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+            }break;
+            default:
+                break;
+        }
     }
 }
 

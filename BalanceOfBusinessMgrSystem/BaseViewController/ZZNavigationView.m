@@ -119,9 +119,9 @@
 -(void)setNavigaionBackColor:(UIColor *)navigaionBackColor
 {
     statusBack.backgroundColor = navigaionBackColor;
-    statusBack.alpha = 0.7;
+    //statusBack.alpha = 0.7;
     navigationBack.backgroundColor = navigaionBackColor;
-    navigationBack.alpha = 0.7;
+    //navigationBack.alpha = 0.7;
 }
 -(void)setType:(NSInteger)type
 {

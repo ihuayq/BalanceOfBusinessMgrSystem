@@ -28,7 +28,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.navigation.title = @"忘记密码";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
+    //self.navigation.leftImage = [UIImage imageNamed:@"选择前"];
     
     [self initUI];
 }
@@ -218,6 +219,8 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,ForgetLoginPasswdURL];
     
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    
     [self showProgressViewWithMessage:@"正在获取验证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
@@ -233,6 +236,11 @@
              
              [self timeCountdown];
              timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {
@@ -293,6 +301,7 @@
     NSLog(@"connDictionary:%@",connDictionary);
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,SetLoginPasswdURL];
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     [self showProgressViewWithMessage:@"正在设置登录密码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -313,6 +322,11 @@
              [alertView show];
              
          }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
          else
          {
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
@@ -328,6 +342,25 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (alertView.tag == 1024) {
         [self dismissModalViewControllerAnimated:YES];
+    }
+    else if(alertView.tag == LoginOutViewTag){
+        NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+        switch (buttonIndex) {
+            case 0:{
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
+                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+                else{
+                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"1",@"isSupplyer", nil];
+                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                }
+            }break;
+            default:
+                break;
+        }
     }
 }
 
@@ -442,7 +475,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,checkuserURL];
     
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     [self showProgressViewWithMessage:@"正在核实证码..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
@@ -456,6 +489,11 @@
              [FP2VC.transmitDict setObject:telTextField.text forKey:USER_MOBILE];
              [self.navigationController pushViewController:FP2VC animated:YES];
              
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

@@ -58,7 +58,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"修改自然人信息";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     group=[[NSMutableArray alloc]init];
     //groupBalance = [[NSMutableArray alloc]init];
@@ -187,7 +187,7 @@
     [connDictionary setObject:self.model.personID forKey:@"personId"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"正在请求账号数据..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -235,6 +235,11 @@
              
              [tableView reloadData];
              
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

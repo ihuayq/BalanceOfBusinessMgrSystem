@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"提现";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     UILabel * canDrawCashLabel = [[UILabel alloc] initWithFrame:CGRectMake(10 ,NAVIGATION_OUTLET_HEIGHT + 10, 200,20)];
     canDrawCashLabel.textAlignment = NSTextAlignmentLeft;
@@ -183,7 +183,7 @@
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,WithDrawURL];
     
-    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     NSLog(@"connDictionary:%@",connDictionary);
     [self showProgressViewWithMessage:@"正在请求提现..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
@@ -210,6 +210,11 @@
              vc.time  = [responseJSONDictionary objectForKey:@"deadLinetime"];
              vc.cardNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ]objectForKey:@"balanceCardNo"];
              [self.navigationController pushViewController:vc animated:YES];
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          else
          {

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HP_Common4IOS.h"
+#import "ControllerConfig.h"
 
-@interface BMNaturalManAccountMainViewController : FMBaseViewController<UITableViewDelegate,UITableViewDataSource>
+@interface BMNaturalManAccountMainViewController : HP_BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
 @end

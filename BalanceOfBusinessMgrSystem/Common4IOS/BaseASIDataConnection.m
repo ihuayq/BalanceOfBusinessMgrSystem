@@ -57,11 +57,22 @@
         }
         
         NSString *ret = [NSString stringWithFormat:@"%@",[jsonDictionary objectForKey:@"flag"]];
+        
         NSString *msg = [NNString delStringNull:[jsonDictionary objectForKey:@"msg"]];
         if (msg.length==0)
         {
             msg=@"网络错误,请重试";
         }
+        
+//        //相同账号同时登陆，返回102错误
+//        if([ret isEqualToString:@"102"])
+//        {
+//            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+//            alertView.tag = 1999;
+//            [alertView show];
+//            return;
+//        }
+        
         NSMutableDictionary *responseJSONDictionary = [NSMutableDictionary dictionaryWithDictionary:jsonDictionary];
         successBlock(_request,ret,msg,responseJSONDictionary);
     }];

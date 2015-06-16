@@ -24,7 +24,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigation.title = @"资产变动明细";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
 
 //    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT, ScreenWidth, 30) items:@[@"预约",@"派息",@"成交",@"提现"]];
 //    segmentView.tintColor = [self getRandomColor];

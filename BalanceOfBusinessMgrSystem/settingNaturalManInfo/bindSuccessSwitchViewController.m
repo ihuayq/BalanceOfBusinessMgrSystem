@@ -20,7 +20,7 @@
     
     // Do any additional setup after loading the view.
     self.navigation.title = @"成功";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     
     //账号提示

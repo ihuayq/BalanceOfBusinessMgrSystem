@@ -271,19 +271,19 @@
 
 
 // 在这里处理UIAlertView中的按钮被单击的事件
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSLog(@"buttonIndex is : %i",(int)buttonIndex);
-    switch (buttonIndex) {
-        case 0:{
-            //radioAgreement.hidden = true;
-            //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
-            
-        }break;
-        default:
-            break;
-    }
-}
+//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+//    switch (buttonIndex) {
+//        case 0:{
+//            //radioAgreement.hidden = true;
+//            //[registerButton setTitle:@"取消预约" forState:UIControlStateNormal];
+//            
+//        }break;
+//        default:
+//            break;
+//    }
+//}
 
 
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{

@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view.
     
     self.navigation.title = @"绑定结算账户";
-    self.navigation.leftImage = [UIImage imageNamed:@"back_icon.png"];
+    self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     //test group
     //group=[[NSMutableArray alloc]init];
