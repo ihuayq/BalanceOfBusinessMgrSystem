@@ -83,6 +83,11 @@
     }
 }
 
+-(void)changeToNextPage
+{
+    
+}
+
 -(void)changeCancleWelcomePage
 {
     NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)self.type];

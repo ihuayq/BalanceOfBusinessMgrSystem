@@ -282,18 +282,19 @@
     ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
     fpw.viewTitle = @"超额宝服务协议";
      fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,CHAOEBAOFUWUXIEYI_PROTOCOL];
-    [self presentModalViewController:fpw animated:YES];
+    [self presentViewController:fpw animated:YES completion:nil];
 }
 
 -(void)touchICardRegisterProtocalButton{
     ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
     fpw.viewTitle = @"支付通用户注册协议";
     fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,ZHIFUTONGYONGHUZHUCE_PROTOCOL];
-    [self presentModalViewController:fpw animated:YES];
+    //[self presentModalViewController:fpw animated:YES];
+    [self presentViewController:fpw animated:YES completion:nil];
 }
 
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
-    int flags = 0;
+    //int flags = 0;
     if (tagselect == 708) {
         NSLog(@"btn is selected:%d",boolchange);
         if (boolchange == true) {
@@ -401,11 +402,23 @@
 //    }
     
     if (!_isSupplerSelected) {
-        [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
+        [self.forgetButton setFrame:CGRectMake(MainWidth - 85 - 40,chaoebaoServiceProtolBtn.frame.size.height + chaoebaoServiceProtolBtn.frame.origin.y,85, 15)];
+        [loginButton setFrame:CGRectMake(20,self.forgetButton.frame.size.height + self.forgetButton.frame.origin.y + 10,MainWidth-40, 40)];
     }
     else{
-        [loginButton setFrame:CGRectMake(20, MainHeight-155, MainWidth-40, 40)];
+        [loginButton setFrame:CGRectMake(20,passwordTextField.frame.size.height + passwordTextField.frame.origin.y + 20,MainWidth-40, 40)];
     }
+    
+//    if (!_isSupplerSelected) {
+//        
+//        
+//        [self.forgetButton setFrame:CGRectMake(chaoebaoServiceProtolBtn, MainHeight-100, MainWidth-40, 40)];
+//        
+//        [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
+//    }
+//    else{
+//        [loginButton setFrame:CGRectMake(20, MainHeight-155, MainWidth-40, 40)];
+//    }
     
 }
 

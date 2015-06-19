@@ -30,6 +30,9 @@
     
     UIScrollView * scrollView;
     
+    //NSArray *itemHeightArray;
+    float contentItemAverageHeight;
+    
 }
 @property(strong,nonatomic) UITableView * tableView;
 @end
@@ -41,6 +44,8 @@
 //资产收益
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    contentItemAverageHeight = (MainHeight-48.5f - 64.0f)/5;
     
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(AssetChange:) name:@"AssetChange" object:nil];
@@ -57,8 +62,8 @@
     okButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [self.navigation addSubview:okButton];
 
-    scrollView= [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 44.0f)];
-    scrollView.contentSize=CGSizeMake(MainWidth, MainHeight-48.5f - 43.5f);
+    scrollView= [[UIScrollView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT,MainWidth, MainHeight-48.5f - 64.0f)];
+    scrollView.contentSize=CGSizeMake(MainWidth, MainHeight-48.5f - 63.5f);
     [self.view addSubview:scrollView];
     __weak BMAssetsMainPageViewController *weakSelf = self;
     // setup pull-to-refresh
@@ -66,7 +71,8 @@
         [weakSelf refreshData];
     }];
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,MainWidth, MainHeight-48.5f - 44.0f - 200) style:UITableViewStyleGrouped];
+    //self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,MainWidth, MainHeight-48.5f - 44.0f - 200) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0,MainWidth, contentItemAverageHeight*3.3) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -74,10 +80,14 @@
     [scrollView addSubview:self.tableView];
 
      //预约资金
-    _datingIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height + self.tableView.frame.origin.y , MainWidth, 60)];
-    [_datingIndicatorView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [_datingIndicatorView.layer setBorderWidth:0.5f];
+    _datingIndicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, self.tableView.frame.size.height + self.tableView.frame.origin.y , MainWidth, contentItemAverageHeight*0.7)];
+    //[_datingIndicatorView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
+    //[_datingIndicatorView.layer setBorderWidth:0.5f];
     [scrollView addSubview:_datingIndicatorView];
+    
+    UIView *verticaLine = [[UIView alloc]initWithFrame:CGRectMake(0,contentItemAverageHeight*0.7,MainWidth,0.5f)];
+    verticaLine.backgroundColor = [UIColor lightGrayColor];
+    [_datingIndicatorView addSubview:verticaLine];
     
     UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - 35 ,8, 75,20)];
     registerLabel.textAlignment = NSTextAlignmentCenter;
@@ -97,23 +107,21 @@
     [_arrowButton addGestureRecognizer:tapGestureRecognizer];
     
     //隐藏资金部分
-    _popView = [[UIDatingAssetsViewTips alloc] initWithFrame:CGRectMake(0, _datingIndicatorView.frame.size.height + _datingIndicatorView.frame.origin.y, MainWidth, 80)];
-//    [_popView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-//    [_popView.layer setBorderWidth:0.5f];
+    _popView = [[UIDatingAssetsViewTips alloc] initWithFrame:CGRectMake(0, _datingIndicatorView.frame.size.height + _datingIndicatorView.frame.origin.y, MainWidth, contentItemAverageHeight)];
     [scrollView addSubview:_popView];
     _popView.hidden = YES;
     
-    UIView *verticaLine = [[UIView alloc]initWithFrame:CGRectMake(0,80,MainWidth,0.5f)];
-    verticaLine.backgroundColor = [UIColor lightGrayColor];
-    [_popView addSubview:verticaLine];
+    UIView *verticaLinePop = [[UIView alloc]initWithFrame:CGRectMake(0,contentItemAverageHeight,MainWidth,0.5f)];
+    verticaLinePop.backgroundColor = [UIColor lightGrayColor];
+    [_popView addSubview:verticaLinePop];
     
-    historyProfitCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2, 80) leftUIImage:[UIImage imageNamed:@"zuoriruzhangjine"] titleText:(NSString*)@"昨日入账（元）" numText:(NSString*) @"0.00"];
+    historyProfitCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(0, 0, MainWidth/2, contentItemAverageHeight) leftUIImage:[UIImage imageNamed:@"zuoriruzhangjine"] titleText:(NSString*)@"昨日入账（元）" numText:(NSString*) @"0.00"];
     [_popView addSubview:historyProfitCell];
-    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(MainWidth/2,0, 0.5, 80)];
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(MainWidth/2,0, 0.5, contentItemAverageHeight)];
     line.backgroundColor = [UIColor lightGrayColor];
     [_popView addSubview:line];
     
-    futurePrincipalCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(MainWidth/2,0, MainWidth/2, 80) leftUIImage:[UIImage imageNamed:@"paiduizijin"] titleText:(NSString*)@"排队资金（元）" numText:(NSString*) @"0.00"];
+    futurePrincipalCell = [[UIAssetsPageCell alloc] initWithFrame:CGRectMake(MainWidth/2,0, MainWidth/2, contentItemAverageHeight) leftUIImage:[UIImage imageNamed:@"paiduizijin"] titleText:(NSString*)@"排队资金（元）" numText:(NSString*) @"0.00"];
     [_popView addSubview:futurePrincipalCell];
     
     historyProfitCell.moneyNum = self.assetInfo.historyProfit;
@@ -295,13 +303,21 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    if (indexPath.row == 0) {
+//        return contentItemAverageHeight*1.5;
+//    }
+//    else if (indexPath.row == 2) {
+//        return 80;
+//    }
+//    return 72;
+    
     if (indexPath.row == 0) {
-        return 100;
+        return contentItemAverageHeight*1.5;
     }
     else if (indexPath.row == 2) {
-        return 80;
+        return contentItemAverageHeight;
     }
-    return 72;
+    return contentItemAverageHeight * 0.8;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

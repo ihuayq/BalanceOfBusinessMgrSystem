@@ -18,14 +18,22 @@
 
 
 //#define TEST_LOGIN
-//#define UAT
+#define UAT
+#define WORK
+
+
 //自然人
 #ifdef UAT
-#define IP @"http://59.151.121.87:8081/"
-//#define IP @"http://59.151.121.91:8080/"
+
+#ifdef WORK
+#define IP @"http://59.151.121.91:8080/"
 #else
-//#define IP @"http://192.168.0.56:8080/"
-#define IP @"http://192.168.1.110:8080/"
+#define IP @"http://59.151.121.87:8081/"
+#endif
+
+#else
+#define IP @"http://192.168.0.56:8080/"
+//#define IP @"http://192.168.1.110:8080/"
 #endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
@@ -48,11 +56,16 @@
 
 //商户登录
 #ifdef UAT
-#define CommercialIP @"http://59.151.121.87:8081"
-//#define CommercialIP @"http://59.151.121.91:8080"
+
+#ifdef WORK
+#define CommercialIP @"http://59.151.121.91:8080"
 #else
-//#define CommercialIP @"http://192.168.0.56:8080"
-#define CommercialIP @"http://192.168.1.110:8080"
+#define CommercialIP @"http://59.151.121.87:8081"
+#endif
+
+#else
+#define CommercialIP @"http://192.168.0.56:8080"
+//#define CommercialIP @"http://192.168.1.110:8080"
 #endif
 
 #define CommercialHostURL @"/superMoney-core/commercia/commerCiainfo?"
@@ -76,11 +89,17 @@
 //《超额宝服务协议》
 //《资金划转授权协议》
 #ifdef UAT
-#define PROTOCOL_IP @"http://59.151.121.87:8081"
-//#define PROTOCOL_IP @"http://59.151.121.91:8080"
+
+#ifdef WORK
+#define PROTOCOL_IP @"http://59.151.121.91:8080"
 #else
-#define PROTOCOL_IP  @"http://192.168.1.110:8080"
+#define PROTOCOL_IP @"http://59.151.121.87:8081"
 #endif
+
+#else
+#define PROTOCOL_IP  @"http://192.168.0.56:8080"
+#endif
+
 #define BORROW_MONEY_PROTOCOL @"/superMoney-core/pages/borrowProtocol.html"    //《借款协议（超额宝）》
 #define CHAOEBAOFUWUXIEYI_PROTOCOL @"/superMoney-core/pages/servicesProtocol.html" //《超额宝服务协议》
 #define ZIJINZHUANSHOUXIEYI_PROTOCOL @"/superMoney-core/pages/TransferProtocol.html" //《资金划转授权协议》

@@ -12,6 +12,8 @@
 	<dict>
 		<key>0A8DB29FC8821A23EE267AFF15AA6F78422329F2</key>
 		<string>github.com:ihuayq/BalanceOfBusinessMgrSystem.git</string>
+		<key>dba21a8d-f4f9-4551-b9f4-4707b238e6c8++1273</key>
+		<string>http://192.168.0.65/svn/new-zft-pay/chaoebao/code/branches/APP/IOS</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>BalanceOfBusinessMgrSystem.xcodeproj</string>
@@ -19,6 +21,13 @@
 	<dict>
 		<key>0A8DB29FC8821A23EE267AFF15AA6F78422329F2</key>
 		<string>../..</string>
+		<key>dba21a8d-f4f9-4551-b9f4-4707b238e6c8++1273</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>dba21a8d-f4f9-4551-b9f4-4707b238e6c8++1273</key>
+		<string>http://192.168.0.65/svn/new-zft-pay</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>github.com:ihuayq/BalanceOfBusinessMgrSystem.git</string>
@@ -28,6 +37,14 @@
 	<string>0A8DB29FC8821A23EE267AFF15AA6F78422329F2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>dba21a8d-f4f9-4551-b9f4-4707b238e6c8++1273</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

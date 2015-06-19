@@ -189,7 +189,6 @@
 		88ED8CDD1AF84FEB00B82BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 88ED8CDC1AF84FEB00B82BE7 /* AppDelegate.m */; };
 		88ED8CE01AF84FEB00B82BE7 /* GuidViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88ED8CDF1AF84FEB00B82BE7 /* GuidViewController.m */; };
 		88ED8CE51AF84FEB00B82BE7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88ED8CE41AF84FEB00B82BE7 /* Images.xcassets */; };
-		88ED8CF41AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 88ED8CF31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.m */; };
 		88EF00C51AF8604A006B09B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88EF00C31AF8604A006B09B0 /* Main.storyboard */; };
 		88EF03061AF8A375006B09B0 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EF02E71AF8A375006B09B0 /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		88EF03071AF8A375006B09B0 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 88EF02E91AF8A375006B09B0 /* AFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -276,16 +275,6 @@
 		88FB8C8A1B1D9B7C004769B2 /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FB8C871B1D9B7C004769B2 /* UIScrollView+SVInfiniteScrolling.m */; };
 		88FB8C8B1B1D9B7C004769B2 /* UIScrollView+SVPullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FB8C891B1D9B7C004769B2 /* UIScrollView+SVPullToRefresh.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		88ED8CEE1AF84FEB00B82BE7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 88ED8CCC1AF84FEB00B82BE7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 88ED8CD31AF84FEB00B82BE7;
-			remoteInfo = BalanceOfBusinessMgrSystem;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		7A21E5501AFE3E5700C8C023 /* RFSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFSegmentView.h; sourceTree = "<group>"; };
@@ -478,6 +467,8 @@
 		88A1C76C1B2683C8004709BF /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		88A1C76D1B2683C8004709BF /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		88A1C76E1B2683C8004709BF /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		88A6BE541B32B83900592745 /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
+		88A6BE551B32B83900592745 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		88AD21311B283D8A0062EB33 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		88AD21321B283D8A0062EB33 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		88AD21331B283D8A0062EB33 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
@@ -534,7 +525,6 @@
 		88ED8CDE1AF84FEB00B82BE7 /* GuidViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GuidViewController.h; sourceTree = "<group>"; };
 		88ED8CDF1AF84FEB00B82BE7 /* GuidViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GuidViewController.m; sourceTree = "<group>"; };
 		88ED8CE41AF84FEB00B82BE7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		88ED8CED1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BalanceOfBusinessMgrSystemTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		88ED8CF21AF84FEB00B82BE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		88ED8CF31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalanceOfBusinessMgrSystemTests.m; sourceTree = "<group>"; };
 		88EF00C41AF8604A006B09B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -684,8 +674,6 @@
 		88F185611AFB3D74007FE83B /* BMHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMHomePageViewController.m; sourceTree = "<group>"; };
 		88F18AEA1AFB8904007FE83B /* BMAccountMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMAccountMainViewController.h; sourceTree = "<group>"; };
 		88F18AEB1AFB8904007FE83B /* BMAccountMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAccountMainViewController.m; sourceTree = "<group>"; };
-		88F25C491B16E07700E13FF0 /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
-		88F25C4A1B16E07700E13FF0 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		88F25C4D1B16FAD900E13FF0 /* BMInvestmentConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMInvestmentConfirmViewController.h; sourceTree = "<group>"; };
 		88F25C4E1B16FAD900E13FF0 /* BMInvestmentConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMInvestmentConfirmViewController.m; sourceTree = "<group>"; };
 		88F348B61B0C2F6400CF7EDE /* Globle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globle.h; sourceTree = "<group>"; };
@@ -729,13 +717,6 @@
 				88EF07691AF8CA7A006B09B0 /* CoreGraphics.framework in Frameworks */,
 				88EF076A1AF8CA7A006B09B0 /* MobileCoreServices.framework in Frameworks */,
 				88EF076B1AF8CA7A006B09B0 /* SystemConfiguration.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		88ED8CEA1AF84FEB00B82BE7 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1023,6 +1004,15 @@
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
+		88A6BE531B32B83900592745 /* iOS-Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				88A6BE541B32B83900592745 /* libReveal.dylib */,
+				88A6BE551B32B83900592745 /* Reveal.framework */,
+			);
+			path = "iOS-Libraries";
+			sourceTree = "<group>";
+		};
 		88AD21301B283D8A0062EB33 /* SocketRocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -1154,7 +1144,6 @@
 			isa = PBXGroup;
 			children = (
 				88ED8CD41AF84FEB00B82BE7 /* 超额宝.app */,
-				88ED8CED1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1447,12 +1436,12 @@
 		88EF0B251AF8E397006B09B0 /* ThirdPartLib */ = {
 			isa = PBXGroup;
 			children = (
+				88A6BE531B32B83900592745 /* iOS-Libraries */,
 				88AD21301B283D8A0062EB33 /* SocketRocket */,
 				88A1C75E1B2683C8004709BF /* MJRefresh */,
 				88FB8C841B1D9B7C004769B2 /* SVPullToRefresh */,
 				88FB8C7A1B1D5461004769B2 /* MYBlurIntroductionView */,
 				889AA87F1B1C2AE400C76E8B /* Label */,
-				88F25C481B16E07700E13FF0 /* iOS-Libraries */,
 				88F4B3C41B12AF3800A240E4 /* MBProgressHUD */,
 				88F474581B04C23800B6DE39 /* RefreshTableHeaderView */,
 				88E963781B01F2DD00C04664 /* ProgressHUD */,
@@ -1531,15 +1520,6 @@
 			path = NavTransiton;
 			sourceTree = "<group>";
 		};
-		88F25C481B16E07700E13FF0 /* iOS-Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				88F25C491B16E07700E13FF0 /* libReveal.dylib */,
-				88F25C4A1B16E07700E13FF0 /* Reveal.framework */,
-			);
-			path = "iOS-Libraries";
-			sourceTree = "<group>";
-		};
 		88F474581B04C23800B6DE39 /* RefreshTableHeaderView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1605,24 +1585,6 @@
 			productReference = 88ED8CD41AF84FEB00B82BE7 /* 超额宝.app */;
 			productType = "com.apple.product-type.application";
 		};
-		88ED8CEC1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 88ED8CFA1AF84FEB00B82BE7 /* Build configuration list for PBXNativeTarget "BalanceOfBusinessMgrSystemTests" */;
-			buildPhases = (
-				88ED8CE91AF84FEB00B82BE7 /* Sources */,
-				88ED8CEA1AF84FEB00B82BE7 /* Frameworks */,
-				88ED8CEB1AF84FEB00B82BE7 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				88ED8CEF1AF84FEB00B82BE7 /* PBXTargetDependency */,
-			);
-			name = BalanceOfBusinessMgrSystemTests;
-			productName = BalanceOfBusinessMgrSystemTests;
-			productReference = 88ED8CED1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1635,10 +1597,6 @@
 					88ED8CD31AF84FEB00B82BE7 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = W55459M99X;
-					};
-					88ED8CEC1AF84FEB00B82BE7 = {
-						CreatedOnToolsVersion = 6.3.1;
-						TestTargetID = 88ED8CD31AF84FEB00B82BE7;
 					};
 				};
 			};
@@ -1657,7 +1615,6 @@
 			projectRoot = "";
 			targets = (
 				88ED8CD31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem */,
-				88ED8CEC1AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1789,13 +1746,6 @@
 				888CF5D11B2FC20600097AFC /* back_icon_new@2x.png in Resources */,
 				888CF5911B2FBF3A00097AFC /* 87.png in Resources */,
 				888CF5A91B2FBF3A00097AFC /* licaibenjin@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		88ED8CEB1AF84FEB00B82BE7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1945,23 +1895,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		88ED8CE91AF84FEB00B82BE7 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				88ED8CF41AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystemTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		88ED8CEF1AF84FEB00B82BE7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 88ED8CD31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem */;
-			targetProxy = 88ED8CEE1AF84FEB00B82BE7 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		88EF00C31AF8604A006B09B0 /* Main.storyboard */ = {
@@ -2072,7 +2006,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = BalanceOfBusinessMgrSystem/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2114,7 +2048,7 @@
 				GCC_PREFIX_HEADER = "$(SRCROOT)/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = BalanceOfBusinessMgrSystem/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2139,40 +2073,6 @@
 			};
 			name = Release;
 		};
-		88ED8CFB1AF84FEB00B82BE7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BalanceOfBusinessMgrSystemTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BalanceOfBusinessMgrSystem.app/BalanceOfBusinessMgrSystem";
-			};
-			name = Debug;
-		};
-		88ED8CFC1AF84FEB00B82BE7 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = BalanceOfBusinessMgrSystemTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BalanceOfBusinessMgrSystem.app/BalanceOfBusinessMgrSystem";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2190,15 +2090,6 @@
 			buildConfigurations = (
 				88ED8CF81AF84FEB00B82BE7 /* Debug */,
 				88ED8CF91AF84FEB00B82BE7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		88ED8CFA1AF84FEB00B82BE7 /* Build configuration list for PBXNativeTarget "BalanceOfBusinessMgrSystemTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				88ED8CFB1AF84FEB00B82BE7 /* Debug */,
-				88ED8CFC1AF84FEB00B82BE7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
