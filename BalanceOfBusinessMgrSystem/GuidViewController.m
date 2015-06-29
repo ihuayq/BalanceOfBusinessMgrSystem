@@ -42,22 +42,27 @@
         [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@%d.jpg",strGuidePicHead,i+1]]];
         bigSquareImageView.backgroundColor=[UIColor clearColor];
         
+        HP_UIButton* moreThingButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+        if (MainHeight>500)
+        {
+            moreThingButton.frame = CGRectMake((MainWidth-150)/2, MainHeight-110, 150, 40);
+        }
+        else
+        {
+            moreThingButton.frame = CGRectMake((MainWidth-150)/2, MainHeight-80, 150, 40);
+        }
+        
+        [moreThingButton setBackgroundColor:[HP_UIColorUtils clearColor]];
+        
         if ( i == nPageNum - 1 )
         {
-            HP_UIButton* moreThingButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-            if (MainHeight>500)
-            {
-                moreThingButton.frame = CGRectMake((MainWidth-150)/2, MainHeight-110, 150, 40);
-            }
-            else
-            {
-                moreThingButton.frame = CGRectMake((MainWidth-150)/2, MainHeight-80, 150, 40);
-            }
-            
-            [moreThingButton setBackgroundColor:[HP_UIColorUtils clearColor]];
             [moreThingButton addTarget:self action:@selector(changeCancleWelcomePage) forControlEvents:UIControlEventTouchUpInside];
-            [bigSquareImageView addSubview:moreThingButton];
         }
+        else
+        {
+            [moreThingButton addTarget:self action:@selector(changeToNextPage) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [bigSquareImageView addSubview:moreThingButton];
         
         [topScrollView addSubview:bigSquareImageView];
     }
@@ -65,6 +70,19 @@
     [topScrollView setContentSize:CGSizeMake(MainWidth*nPageNum, MainHeight)];
     topScrollView.pagingEnabled=YES;
     topScrollView.showsHorizontalScrollIndicator=NO;
+    
+    if (self.type == GLOBE_GUIDE) {
+        topPageControl = [[UIPageControl alloc] init];
+        topPageControl.frame = CGRectMake(0, MainHeight - 45 , MainWidth, 40);
+
+        topPageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+        topPageControl.currentPageIndicatorTintColor = UISTYLECOLOR;
+        
+        topPageControl.numberOfPages = nPageNum;
+        topPageControl.currentPage = 0;
+        //[topPageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+        [self.view addSubview:topPageControl];
+    }
 }
 
 -(void)setType:(LoadingGuidType)type{
@@ -85,7 +103,16 @@
 
 -(void)changeToNextPage
 {
+    if(topPageControl.currentPage >= nPageNum - 1){
+        return;
+    }
+
+    currentPage = topScrollView.contentOffset.x/MainWidth;
+    currentPage++;
+    float offset=currentPage * MainWidth;
     
+    //topScrollView.contentOffset.x = offset;
+    [topScrollView setContentOffset:CGPointMake(offset, 0.0f) animated:YES];
 }
 
 -(void)changeCancleWelcomePage
@@ -111,8 +138,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
-    if (scrollView.contentOffset.x>MainWidth*4+50)
+    if (scrollView.contentOffset.x>MainWidth*nPageNum+50)
     {
         [self changeCancleWelcomePage];
     }
@@ -124,7 +150,6 @@
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     currentPage=scrollView.contentOffset.x/MainWidth;
-    
     topPageControl.currentPage=currentPage;
     
     [UIView animateWithDuration:0.3 animations:^{

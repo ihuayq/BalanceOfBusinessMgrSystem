@@ -467,8 +467,6 @@
 		88A1C76C1B2683C8004709BF /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		88A1C76D1B2683C8004709BF /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		88A1C76E1B2683C8004709BF /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		88A6BE541B32B83900592745 /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
-		88A6BE551B32B83900592745 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		88AD21311B283D8A0062EB33 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		88AD21321B283D8A0062EB33 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		88AD21331B283D8A0062EB33 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
@@ -1004,15 +1002,6 @@
 			path = MJRefresh;
 			sourceTree = "<group>";
 		};
-		88A6BE531B32B83900592745 /* iOS-Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				88A6BE541B32B83900592745 /* libReveal.dylib */,
-				88A6BE551B32B83900592745 /* Reveal.framework */,
-			);
-			path = "iOS-Libraries";
-			sourceTree = "<group>";
-		};
 		88AD21301B283D8A0062EB33 /* SocketRocket */ = {
 			isa = PBXGroup;
 			children = (
@@ -1436,7 +1425,6 @@
 		88EF0B251AF8E397006B09B0 /* ThirdPartLib */ = {
 			isa = PBXGroup;
 			children = (
-				88A6BE531B32B83900592745 /* iOS-Libraries */,
 				88AD21301B283D8A0062EB33 /* SocketRocket */,
 				88A1C75E1B2683C8004709BF /* MJRefresh */,
 				88FB8C841B1D9B7C004769B2 /* SVPullToRefresh */,
@@ -2022,12 +2010,10 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2064,12 +2050,10 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
-					"-framework",
-					Reveal,
 				);
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

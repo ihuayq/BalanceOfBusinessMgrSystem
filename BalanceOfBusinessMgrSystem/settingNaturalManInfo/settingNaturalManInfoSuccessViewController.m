@@ -103,8 +103,6 @@
              [Dict setObject:[responseJSONDictionary objectForKey:@"websiteList"] forKey:@"accountinfo"];
              [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
               //保存完毕，注意在修改自然人的入口需要重新设定curNatureMenInfo信息
-
-             
              
              NSMutableArray *groupNet=[[NSMutableArray alloc]init];
              NSArray *array = [responseJSONDictionary objectForKey:@"websiteList"];

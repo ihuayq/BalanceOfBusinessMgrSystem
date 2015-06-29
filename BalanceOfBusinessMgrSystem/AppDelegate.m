@@ -61,19 +61,7 @@
 #else
     BMInvestmentConfirmViewController* Vc=[[BMInvestmentConfirmViewController alloc]init];
     self.window.rootViewController = Vc;
-    
-//    BMHomePageViewController* Vc=[[BMHomePageViewController alloc]init];
-//    self.window.rootViewController = Vc;
 #endif
-    
-//    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-//    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME] forKey:@"loginName"];
-//    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
-//    
-//    //使用这个方法的返回，我们就可以得到想要的JSON串
-//    NSString *strSend = [[NSString alloc] initWithData: [self toJSONData:connDictionary]
-//                                              encoding:NSUTF8StringEncoding];
-//    NSLog(@"the json is:%@",strSend);
     
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
@@ -148,7 +136,6 @@
          alertView.tag = 999;
          [alertView show];
      }];
-
 }
 
 // 显示简单的alertView
@@ -212,178 +199,6 @@
     }
 }
 
-- (void)_reconnect
-{
-    _webSocket.delegate = nil;
-    [_webSocket close];
-    
-    _webSocket = [[SRWebSocket alloc] initWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"ws://192.168.1.118:8080/superMoney-core/android.do"]]];
-    _webSocket.delegate = self;
-    
-     //self.title = @"Opening Connection...";
-    [_webSocket open];
-    
-}
-
-- (void)_close
-{
-    _webSocket.delegate = nil;
-    [_webSocket close];
-    _webSocket = nil;
-}
-
-#pragma mark - SRWebSocketDelegate
-
-- (void)webSocketDidOpen:(SRWebSocket *)webSocket;
-{
-    NSLog(@"Websocket Connected");
-    //self.title = @"Connected!";
-    
-//    NSString *strSend = [NSString stringWithFormat:@"deviceId:%@,loginName:%@",Default_Phone_UUID_MD5,[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]];
-    
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME] forKey:@"loginName"];
-    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
-    
-    //使用这个方法的返回，我们就可以得到想要的JSON串
-    NSString *strSend = [[NSString alloc] initWithData: [self toJSONData:connDictionary]
-                                                 encoding:NSUTF8StringEncoding];
-    // NSString *strSend = [NSString jsonStringWithDictionary:(NSDictionary *)connDictionary];
-    
-    [_webSocket send:strSend];
-}
-
-// 将字典或者数组转化为JSON串
-- (NSData *)toJSONData:(id)theData{
-    
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:theData
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    
-    if ([jsonData length] > 0 && error == nil){
-        return jsonData;
-    }else{
-        return nil;
-    }
-}
-
-
-
-- (void)webSocket:(SRWebSocket *)webSocket didFailWithError:(NSError *)error;
-{
-    NSLog(@":( Websocket Failed With Error %@", error);
-    
-    //self.title = @"Connection Failed! (see logs)";
-    //_webSocket = nil;
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didReceiveMessage:(id)message;
-{
-    NSLog(@"Received \"%@\"", message);
-
-    UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-    alertView.tag = 999;
-    [alertView show];
-    
-//    NSString *strRecv = [NSString stringWithFormat:@"韩少茹，我是设备22222号，已经收到一下消息： %@",message];
-//    [_webSocket send:strRecv];
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean;
-{
-    NSLog(@"WebSocket closed");
-    //self.title = @"Connection Closed! (see logs)";
-    _webSocket = nil;
-}
-
-- (void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongPayload;
-{
-    NSLog(@"Websocket received pong");
-}
-
-
-#pragma mark
-//-(void)initWelcomePage
-//{
-//    topScrollView=[[UIScrollView alloc]init];
-//    [topScrollView setFrame:CGRectMake(0, 0, MainWidth, MainHeight)];
-//    topScrollView.backgroundColor=[UIColor clearColor];
-//    [topScrollView setUserInteractionEnabled:YES];
-//    topScrollView.delegate=self;
-//    [self.window addSubview:topScrollView];
-//    
-//    NSLog(@"--------------------\n\n\n-----------\n\n----------");
-//    
-//    for (int i=0; i<4; i++)
-//    {
-//        bigSquareImageView=[[HP_UIImageView alloc]initWithFrame:CGRectMake(MainWidth*i,0,MainWidth,MainHeight)];
-//        bigSquareImageView.tag=2000+i;
-//        [bigSquareImageView setUserInteractionEnabled:YES];
-//        [bigSquareImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"navigation%d.jpg",i]]];
-//        bigSquareImageView.backgroundColor=[UIColor clearColor];
-//        
-//        if (i==3)
-//        {
-//            HP_UIButton* moreThingButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-//            if (MainHeight>500)
-//            {
-//                moreThingButton.frame = CGRectMake((MainWidth-150)/2, MainHeight-110, 150, 40);
-//            }
-//            else
-//            {
-//                moreThingButton.frame = CGRectMake((MainWidth-150)/2, MainHeight-80, 150, 40);
-//            }
-//            
-//            [moreThingButton setBackgroundColor:[HP_UIColorUtils clearColor]];
-////            [moreThingButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-////            [moreThingButton setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateHighlighted];
-//            [moreThingButton addTarget:self action:@selector(changeCancleWelcomePage) forControlEvents:UIControlEventTouchUpInside];
-//            [bigSquareImageView addSubview:moreThingButton];
-//        }
-//        
-//        [topScrollView addSubview:bigSquareImageView];
-//    }
-//    
-//    [topScrollView setContentSize:CGSizeMake(MainWidth*4, MainHeight)];
-//    topScrollView.pagingEnabled=YES;
-//    topScrollView.showsHorizontalScrollIndicator=NO;
-//}
-//
-//-(void)changeCancleWelcomePage
-//{
-//    NSString* keystring=[NSString stringWithFormat:@"%@_WelcomePage",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-//    [[NSUserDefaults standardUserDefaults] setObject:keystring forKey:keystring];
-//    
-//    [topScrollView removeFromSuperview];
-//    
-//    [self initWindowRootViewController];
-//}
-//
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    
-//    if (scrollView.contentOffset.x>MainWidth*4+50)
-//    {
-//        
-//        [self changeCancleWelcomePage];
-//    }
-//    
-//    currentPage=(scrollView.contentOffset.x+MainWidth/2)/MainWidth;
-//    topPageControl.currentPage=currentPage;
-//}
-//
-//-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-//{
-//    currentPage=scrollView.contentOffset.x/MainWidth;
-//    
-//    topPageControl.currentPage=currentPage;
-//    
-//    [UIView animateWithDuration:0.3 animations:^{
-//        [topScrollView setContentOffset:CGPointMake(MainWidth*currentPage,0)];
-//    }];
-//}
-//
 -(void)initWindowRootViewController
 {
     NSString *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStatus"];//0未登录、1的登录

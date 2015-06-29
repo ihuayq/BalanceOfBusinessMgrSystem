@@ -410,10 +410,7 @@
     }
     
 //    if (!_isSupplerSelected) {
-//        
-//        
 //        [self.forgetButton setFrame:CGRectMake(chaoebaoServiceProtolBtn, MainHeight-100, MainWidth-40, 40)];
-//        
 //        [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
 //    }
 //    else{
