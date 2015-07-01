@@ -20,7 +20,6 @@
 
 
 @interface LoginViewController ()<RadioButtonDelegate,RFSegmentViewDelegate>{
-//    BOOL isSupplerSelected;
    
     UIButton *loginButton;
     
@@ -67,38 +66,10 @@
 {
     [super viewDidLoad];
     
-    
+    self.title = @"你好，勇气";
     [self initUI];
     
-    //[self testLoadingFile];
 }
-
--(void)testLoadingFile{
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"bankcard" ofType:@"plist"];
-    //NSDictionary *drinkDictionary = [[NSDictionary alloc] initWithContentsOfFile:path];
-    NSArray *arrayOrign = [[NSArray alloc] initWithContentsOfFile:path];
-    
-    [[NSUserDefaults standardUserDefaults]setObject:arrayOrign forKey:@"testlog"];
-    
-    NSArray *arrayDATA = [[NSUserDefaults standardUserDefaults] objectForKey:@"testlog"];
-    NSMutableArray *array = [NSMutableArray arrayWithArray:arrayDATA];
-    
-    NSLog(@"the array is:%@",array);
-    for ( NSDictionary *dic in array) {
-        //NSDictionary *dic=[array objectAtIndex:0];
-        NSLog(@"the data is:%@",dic);
-        
-        NSMutableDictionary *data = [NSMutableDictionary dictionaryWithDictionary:dic];
-        [data setObject:@"huayq" forKey:@"accoutname"];
-        [data setObject:@"nihao" forKey:@"bankcardno"];
-        
-        NSLog(@"the data change is:%@",data);
-    }
-    [[NSUserDefaults standardUserDefaults]setObject:array forKey:@"testlog"];
-    
-     NSLog(@"the array hs change is:%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"testlog"]);
-}
-
 
 -(UIImage *)imageWithColor:(UIColor *)color andSize:(CGSize)size
 {
@@ -112,31 +83,14 @@
     return image;
 }
 
-//取消searchbar背景色
-- (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
-{
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    CGContextSetFillColorWithColor(context, [color CGColor]);
-    CGContextFillRect(context, rect);
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-
 -(void) initUI
 {
 
     HP_UIImageView *logoImageView = [[HP_UIImageView alloc] init ];
-    [logoImageView setFrame:CGRectMake(0, 0, MainWidth, MainHeight/3 )];
+    [logoImageView setFrame:CGRectMake(0, 0, MainWidth, MainHeight/3 + 30)];
     //[logoImageView setImage:[UIImage imageNamed:@"redbtn"]];
     [logoImageView setImage:[UIImage imageNamed:@"loginpage"]];
     UIImage * ii = [self imageWithColor:UISTYLECOLOR andSize:(CGSize)CGSizeMake(MainWidth,MainHeight/3)];
-    //UIImage * ii = [self imageWithColor:[UIColor clearColor] size:(CGSize)CGSizeMake(MainWidth,MainHeight/3)];
     [logoImageView setImage:ii];
     [self.view addSubview:logoImageView];
     
@@ -146,31 +100,23 @@
     [logoPageImageView setFrame:CGRectMake(MainWidth/2 - image.size.width/2, logoImageView.frame.size.height/2 - image.size.height/2 , image.size.width, image.size.height)];
     [logoPageImageView setImage:[UIImage imageNamed:@"loginpage-sub1"]];
     [logoImageView addSubview:logoPageImageView];
-    
-//    UILabel *titleLogoLabel = [[UILabel alloc] initWithFrame:CGRectMake(MainWidth/2 - MainWidth/4, logoPageImageView.frame.origin.y+logoPageImageView.frame.size.height,MainWidth/2, 20)];
-//    titleLogoLabel.text = @"超 额 宝";
-//    titleLogoLabel.textAlignment = NSTextAlignmentCenter;
-//    //titleLogoLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-//    titleLogoLabel.font = [UIFont systemFontOfSize:24];
-//    [logoImageView addSubview:titleLogoLabel];
-    
     NSMutableArray *chooseArray = [NSMutableArray arrayWithObjects:@"商户",@"自然人",nil];
 
-    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height , ScreenWidth, 60) items:@[@"商户",@"自然人"] selectIndex:!_isSupplerSelected];
-    segmentView.tintColor = [self getRandomColor];
-    segmentView.delegate = self;
-    [self.view addSubview:segmentView];
+//    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, logoImageView.frame.origin.y+logoImageView.frame.size.height , ScreenWidth, 60) items:@[@"商户",@"自然人"] selectIndex:!_isSupplerSelected];
+//    segmentView.tintColor = [self getRandomColor];
+//    segmentView.delegate = self;
+//    [self.view addSubview:segmentView];
     
     //设置 姓名信息
     HP_UIImageView *bgImageView10 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,10,25,25)];
     [bgImageView10 setImage:[UIImage imageNamed:@"姓名"]];
 
-    HP_UIImageView *bgImageView11 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20,segmentView.frame.size.height + segmentView.frame.origin.y + 20,MainWidth-40, 40)];
+    HP_UIImageView *bgImageView11 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20,logoImageView.frame.size.height + logoImageView.frame.origin.y + 20,MainWidth-40, 40)];
     [bgImageView11 setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView11 ];
     [bgImageView11 addSubview:bgImageView10];
 
-    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, segmentView.frame.size.height + segmentView.frame.origin.y + 20, 240, 40)];
+    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, logoImageView.frame.size.height + logoImageView.frame.origin.y + 20, 240, 40)];
     [nameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     nameTextField.backgroundColor = [UIColor clearColor];
     nameTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -260,6 +206,7 @@
     loginButton.enabled = NO;
     [self.view addSubview:loginButton];
     
+    _isSupplerSelected = FALSE;
     if (_isSupplerSelected) {
         //刷新商户填充信息
         nameTextField.placeholder = @"请输入Qpos/POS平台账号";
@@ -289,12 +236,10 @@
     ProtocalViewController * fpw = [[ProtocalViewController alloc] init];
     fpw.viewTitle = @"支付通用户注册协议";
     fpw.urlPath = [NSString stringWithFormat:@"%@%@",PROTOCOL_IP,ZHIFUTONGYONGHUZHUCE_PROTOCOL];
-    //[self presentModalViewController:fpw animated:YES];
     [self presentViewController:fpw animated:YES completion:nil];
 }
 
 - (void)radioButtonChange:(RadioButton *)radiobutton didSelect:(BOOL)boolchange didSelectButtonTag:(NSInteger )tagselect{
-    //int flags = 0;
     if (tagselect == 708) {
         NSLog(@"btn is selected:%d",boolchange);
         if (boolchange == true) {
@@ -306,12 +251,12 @@
     }
 }
 
-- (UIColor *)getRandomColor
-{
-    //UIColor *color = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
-    UIColor *color = [self getColor:@"f9551c"];
-    return color;
-}
+//- (UIColor *)getRandomColor
+//{
+//    //UIColor *color = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
+//    UIColor *color = [self getColor:@"f9551c"];
+//    return color;
+//}
 
 - (UIColor *)getColor:(NSString*)hexColor
 {
@@ -334,49 +279,49 @@
 
 - (void)segmentViewSelectIndex:(NSInteger)index{
     
-    if (index == 0) {
-        _isSupplerSelected = TRUE;
-    }
-    else{
-        _isSupplerSelected = FALSE;
-    }
-    
-    if (_isSupplerSelected) {
-        //刷新商户填充信息
-        nameTextField.placeholder = @"请输入Qpos/POS平台账号";
-        nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
-        passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
-        //self.forgetButton.hidden = YES;
-        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
-    }
-    else{
-        nameTextField.placeholder = @"请输入手机号码";
-        passwordTextField.placeholder = @"请输入密码";
-        nameTextField.keyboardType = UIKeyboardTypePhonePad;
-        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
-        //self.forgetButton.hidden = NO;
-    }
-    [self natureManProtocalBtnHidden:_isSupplerSelected];
+//    if (index == 0) {
+//        _isSupplerSelected = TRUE;
+//    }
+//    else{
+//        _isSupplerSelected = FALSE;
+//    }
+//    
+//    if (_isSupplerSelected) {
+//        //刷新商户填充信息
+//        nameTextField.placeholder = @"请输入Qpos/POS平台账号";
+//        nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
+//        passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
+//        //self.forgetButton.hidden = YES;
+//        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
+//    }
+//    else{
+//        nameTextField.placeholder = @"请输入手机号码";
+//        passwordTextField.placeholder = @"请输入密码";
+//        nameTextField.keyboardType = UIKeyboardTypePhonePad;
+//        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+//        //self.forgetButton.hidden = NO;
+//    }
+//    [self natureManProtocalBtnHidden:_isSupplerSelected];
 
 }
 
 -(void)setIsSupplerSelected:(BOOL)isSupplerSelected{
-    _isSupplerSelected = isSupplerSelected;
-    if (_isSupplerSelected) {
-        //刷新商户填充信息
-        nameTextField.placeholder = @"请输入Qpos/POS平台账号";
-        passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
-        //self.forgetButton.hidden = YES;
-        
-        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
-    }
-    else{
-        nameTextField.placeholder = @"请输入手机号码";
-        passwordTextField.placeholder = @"请输入密码";
-        // self.forgetButton.hidden = NO;
-        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
-    }
-    [self natureManProtocalBtnHidden:_isSupplerSelected];
+//    _isSupplerSelected = isSupplerSelected;
+//    if (_isSupplerSelected) {
+//        //刷新商户填充信息
+//        nameTextField.placeholder = @"请输入Qpos/POS平台账号";
+//        passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
+//        //self.forgetButton.hidden = YES;
+//        
+//        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
+//    }
+//    else{
+//        nameTextField.placeholder = @"请输入手机号码";
+//        passwordTextField.placeholder = @"请输入密码";
+//        // self.forgetButton.hidden = NO;
+//        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+//    }
+//    [self natureManProtocalBtnHidden:_isSupplerSelected];
 }
 
 -(void)natureManProtocalBtnHidden:(BOOL)isHidden{
@@ -394,13 +339,6 @@
         loginButton.enabled = NO;
     }
     
-//    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
-//        radioAgreement.enabled = NO;
-//    }
-//    else{
-//        radioAgreement.enabled = YES;
-//    }
-    
     if (!_isSupplerSelected) {
         [self.forgetButton setFrame:CGRectMake(MainWidth - 85 - 40,chaoebaoServiceProtolBtn.frame.size.height + chaoebaoServiceProtolBtn.frame.origin.y,85, 15)];
         [loginButton setFrame:CGRectMake(20,self.forgetButton.frame.size.height + self.forgetButton.frame.origin.y + 10,MainWidth-40, 40)];
@@ -408,14 +346,6 @@
     else{
         [loginButton setFrame:CGRectMake(20,passwordTextField.frame.size.height + passwordTextField.frame.origin.y + 20,MainWidth-40, 40)];
     }
-    
-//    if (!_isSupplerSelected) {
-//        [self.forgetButton setFrame:CGRectMake(chaoebaoServiceProtolBtn, MainHeight-100, MainWidth-40, 40)];
-//        [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
-//    }
-//    else{
-//        [loginButton setFrame:CGRectMake(20, MainHeight-155, MainWidth-40, 40)];
-//    }
     
 }
 
@@ -491,20 +421,6 @@
 
 -(void)touchLoginButton
 {
-    //    //验证身份证
-    //    - (BOOL)checkshenfenzhengString:(NSString *)str;
-    //    //验证手机号
-    //    - (BOOL)checkMobileString:(NSString *)string;
-    //    //验证密码
-    //    - (BOOL)checkPassWordString:(NSString *)str;
-    //
-    //    //验证邮箱
-    //    - (BOOL)checkEmailString:(NSString *)EmailString;
-    //
-    //    //验证邮编
-    //    - (BOOL)checkPostcodeString:(NSString *)string;
-    
-
     //商户登录
     if( self.isSupplerSelected ){
 #ifdef UIDIRECT
@@ -622,35 +538,35 @@
              [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
              
-             [[self getNSUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
-             [[NSUserDefaults standardUserDefaults] setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
+             [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
+             
              [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected] forKey:LOGIN_TYPE];
              
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
              
-             [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
+             //查看是否与本地缓存的登录名一致，不一致则重置所有登陆设置
+             if ([[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME] isEqualToString:nameTextField.text] == NO) {
+                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsLoginGesturePwdSet"];
+                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsUsingGesturePwdLogin"];
+             }
+             [[NSUserDefaults standardUserDefaults] setObject:nameTextField.text forKey:LAST_LOGIN_NAME];
              
-//             //是否商户1 还是自然人0 登录
-//             if( self.isSupplerSelected ){
-//                 BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-//                 [self.navigationController pushViewController:mainview animated:NO];
-//             }
-//             //自然人登录
-//             else
-//             {
-//                 
-//                 if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
-//                     SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-//                     [self.navigationController pushViewController:settingVc animated:NO];
-//                 }else{
-//                     BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
-//                     [self.navigationController pushViewController:Vc animated:NO];
-//                 }
-//             }
-             
-             //通过通知中心发送通知
-             NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-             NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-             [[NSNotificationCenter defaultCenter] postNotification:notification];
+             NSString *isLoginGestureSet = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsLoginGesturePwdSet"] ;
+             //手势密码是否设置 0，无；1，设置过
+             if ([isLoginGestureSet intValue] == 0 || isLoginGestureSet == nil) {
+                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"3",@"login", nil];
+                 NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+             }
+             else
+             {
+                 //设置过手势密码，下次默认用手势密码登陆
+                 [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
+                 //通过通知中心发送通知
+                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+                 NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+             }
          }
          //相同账号同时登陆，返回错误
          else if([ret isEqualToString:reLoginOutFlag])

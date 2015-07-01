@@ -7,8 +7,9 @@
 //
 
 #import "ForgetPasswordViewController.h"
+#import "RFSegmentView.h"
 
-@interface ForgetPasswordViewController ()<UIAlertViewDelegate>
+@interface ForgetPasswordViewController ()<UIAlertViewDelegate,RFSegmentViewDelegate>
 
 @end
 
@@ -36,11 +37,17 @@
 
 -(void) initUI
 {
-    HP_UIImageView *bgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 10,MainWidth-40, 40)];
+    
+    RFSegmentView* segmentView = [[RFSegmentView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT, ScreenWidth, 60) items:@[@"超额宝",@"Pos/Qpos平台密码"] selectIndex:0];
+    segmentView.tintColor = UISTYLECOLOR;
+    segmentView.delegate = self;
+    [self.view addSubview:segmentView];
+    
+    HP_UIImageView *bgImageView = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, segmentView.frame.origin.y + segmentView.frame.size.height + 10,MainWidth-40, 40)];
     [bgImageView setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView];
     
-    UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10, 70, 40)];
+    UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, segmentView.frame.origin.y + segmentView.frame.size.height + 10, 70, 40)];
     telLabel.text = @"手机号:";
     telLabel.textAlignment = NSTextAlignmentLeft;
     telLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -48,7 +55,7 @@
     telLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:telLabel];
     
-    telTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(90, NAVIGATION_OUTLET_HEIGHT + 10, 210, 40)];
+    telTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(90, segmentView.frame.origin.y + segmentView.frame.size.height + 10, 210, 40)];
     [telTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     telTextField.backgroundColor = [UIColor clearColor];
     telTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -168,6 +175,35 @@
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f];
 
 }
+
+#pragma RFSegmentViewDelegate
+- (void)segmentViewSelectIndex:(NSInteger)index{
+    
+//    if (index == 0) {
+//        _isSupplerSelected = TRUE;
+//    }
+//    else{
+//        _isSupplerSelected = FALSE;
+//    }
+//
+//    if (_isSupplerSelected) {
+//        //刷新商户填充信息
+//        nameTextField.placeholder = @"请输入Qpos/POS平台账号";
+//        nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
+//        passwordTextField.placeholder = @"请输入Qpos/POS平台密码";
+//        //self.forgetButton.hidden = YES;
+//        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
+//    }
+//    else{
+//        nameTextField.placeholder = @"请输入手机号码";
+//        passwordTextField.placeholder = @"请输入密码";
+//        nameTextField.keyboardType = UIKeyboardTypePhonePad;
+//        nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];
+//        //self.forgetButton.hidden = NO;
+//    }
+//    [self natureManProtocalBtnHidden:_isSupplerSelected];
+}
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -316,8 +352,7 @@
              //商户还是自然
              //[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] setObject:@"1" forKey:@"naturalMark"];
              
-             //[self.navigationController popViewControllerAnimated:YES];
-             UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:@"登录密码设置成功,请重新登录" delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:@"登录密码设置成功,请重新登录" delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
              alertView.tag = 1024;
              [alertView show];
              
@@ -366,7 +401,6 @@
 
 - (BOOL)checkTel:(NSString *)str
 {
-    
     NSString* msgstring=[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (msgstring.length==0)
     {
@@ -387,7 +421,6 @@
         
     }
     return YES;
-    
 }
 
 

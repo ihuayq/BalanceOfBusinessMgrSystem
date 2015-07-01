@@ -17,9 +17,11 @@
 #import "NSString+JSON.h"
 #import "BMInvestmentConfirmViewController.h"
 #import "BMHomePageViewController.h"
+#import "CLLockVC.h"
+#import "CLLockNavVC.h"
 
 @interface AppDelegate ()<SRWebSocketDelegate>{
-    NSTimer * loginCheckTimer;
+    //NSTimer * loginCheckTimer;
     SRWebSocket *_webSocket;
 }
 
@@ -30,11 +32,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];
+    //[[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];
 //#define TEST
 #ifndef TEST
     NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)GLOBE_GUIDE];
@@ -49,93 +53,12 @@
         [self initWindowRootViewController];
     }
     
-//    NSString* keystring=[NSString stringWithFormat:@"%@_WelcomePage",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]];
-//    if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring]isEqualToString:keystring])
-//    {
-//        [self initWelcomePage];
-//    }
-//    else
-//    {
-//        [self initWindowRootViewController];
-//    }
 #else
     BMInvestmentConfirmViewController* Vc=[[BMInvestmentConfirmViewController alloc]init];
     self.window.rootViewController = Vc;
 #endif
     
-    //注册通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
-    
     return YES;
-}
-
-//初始化一个定时器,用于检验是否有相同的账号登陆情况
--(void)initTimer
-{
-    //时间间隔
-    NSTimeInterval timeInterval = 3.0 ;
-    //定时器
-    loginCheckTimer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
-                                                           target:self
-                                                         selector:@selector(handleCheckTimer:)
-                                                         userInfo:nil
-                                                            repeats:YES];
-}
-
--(void)cancelLoginCheckTimer
-{
-    //定时器
-    [loginCheckTimer invalidate];
-}
-
-//触发事件
--(void)handleCheckTimer:(NSTimer *)theTimer
-{
-    NSString *strLoginName = @"";
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
-        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME];
-    }
-    else{
-        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME];
-    }
-   
-    if (![HP_NetWorkUtils isNetWorkEnable])
-    {
-        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
-        return;
-    }
-    [self touchesBegan:nil withEvent:nil];
-    
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [connDictionary setObject:strLoginName forKey:@"loginName"];
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
-
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,LoginCheckUrl];
-    
-    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
-    NSLog(@"connDictionary:%@",connDictionary);
-    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-     {
-         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
-         if([ret isEqualToString:@"100"])
-         {
-//           responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary]; 
-         }
-         else
-         {
-             [self cancelLoginCheckTimer];
-             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-         }
-     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString *msg) {
-         NSLog(@"error:%@",error.debugDescription);
-         if (![request isCancelled])
-         {
-             [request cancel];
-         }
-         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-         alertView.tag = 999;
-         [alertView show];
-     }];
 }
 
 // 显示简单的alertView
@@ -149,25 +72,25 @@
     NSLog(@"%@",text.userInfo[@"login"]);
     NSLog(@"－－－－－接收到通知------");
     
-    //是否商户1 还是自然人0 登录 logintype
-    if( [text.userInfo[@"login"] isEqualToString:@"1"]){
-        //判断商户引导页是否显示过
-        NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)SUPPLYER_GUIDE];
-        if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
-        {
-            GuidViewController * guideVc=[[GuidViewController alloc]init];
-            guideVc.type = SUPPLYER_GUIDE;
-            self.window.rootViewController = guideVc;
-            return;
-        }
-        
-        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
-        self.window.rootViewController = mainview;
-    }
-    //自然人登录
-    else if([text.userInfo[@"login"] isEqualToString:@"0"])
+//    //是否商户1 还是自然人0 登录 logintype
+//    if( [text.userInfo[@"login"] isEqualToString:@"1"]){
+//        //判断商户引导页是否显示过
+//        NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)SUPPLYER_GUIDE];
+//        if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
+//        {
+//            GuidViewController * guideVc=[[GuidViewController alloc]init];
+//            guideVc.type = SUPPLYER_GUIDE;
+//            self.window.rootViewController = guideVc;
+//            return;
+//        }
+//        
+//        BMCommercialTenantMainViewController * mainview=[[BMCommercialTenantMainViewController alloc]init];
+//        self.window.rootViewController = mainview;
+//    }
+//    //自然人登录
+//    else
+    if([text.userInfo[@"login"] isEqualToString:@"0"] || [text.userInfo[@"login"] isEqualToString:@"1"])
     {
-        //[self initTimer];
         //判断自然人引导页是否显示过
         NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)NATUREMAN_GUIDE];
         if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
@@ -177,57 +100,102 @@
             self.window.rootViewController = guideVc;
             return;
         }
+
+
+        BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc] init];
+        self.window.rootViewController = Vc;
         
-        
-        if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"naturalMark"] isEqualToString:@"0"]) {
-            SettingLoginPassWordViewController * settingVc=[[SettingLoginPassWordViewController alloc]init];
-            self.window.rootViewController = settingVc;
-        }else{
-            BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc]init];
-            self.window.rootViewController = Vc;
-        }
     }
-    //登陆界面
+    //登陆界面,手势登陆或者密码登陆两种情况
     else if([text.userInfo[@"login"] isEqualToString:@"2"])
     {
-        //[self cancelLoginCheckTimer];
-        LoginViewController *login = [[LoginViewController alloc] init];
-        if (text.userInfo[@"isSupplyer"]) {
-            login.isSupplerSelected = [text.userInfo[@"isSupplyer"] boolValue];
-        }
-        self.window.rootViewController = login;
+//        LoginViewController *login = [[LoginViewController alloc] init];
+//        if (text.userInfo[@"isSupplyer"]) {
+//            login.isSupplerSelected = [text.userInfo[@"isSupplyer"] boolValue];
+//        }
+//        self.window.rootViewController = login;
+        [self initWindowRootViewController];
     }
-}
-
--(void)initWindowRootViewController
-{
-    NSString *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStatus"];//0未登录、1的登录
-    NSString* versionString=[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    NSLog(@"keystring %@",versionString);
-    
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:versionString] == NULL)
+    //设置手势密码界面
+    else if([text.userInfo[@"login"] isEqualToString:@"3"])
     {
-        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:versionString];
-        loginStatus = @"0";
+        [self setLockPwd];
     }
-    
-    NSLog(@"loginStatus:%@",loginStatus);
-    login = [[LoginViewController alloc] init];
-    if ( [loginStatus intValue] == 0 )
+    else if([text.userInfo[@"login"] isEqualToString:@"4"])
     {
+        login = [[LoginViewController alloc] init];
         nc =[[UINavigationController alloc]initWithRootViewController:login];
         [nc.navigationBar setHidden:YES];
         self.window.rootViewController = nc;
     }
-//    else if([loginStatus intValue]==1)
-//    {
-//        n/Users/huayq/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem/ThirdPart/MJRefreshc = [[UINavigationController alloc]initWithRootViewController:login];
-//        [nc.navigationBar setHidden:YES];
-//        self.window.rootViewController = nc;
-//        
-//        MainViewController * mainViewController = [[MainViewController alloc] init];
-//        [nc pushViewController:mainViewController animated:NO];
-//    }
+}
+
+-(void)setLockPwd{
+    CLLockVC  *lockVC = [CLLockVC showSettingLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+        NSLog(@"密码设置成功");
+        //设置过标记
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsLoginGesturePwdSet"];
+        //下次直接使用手势登陆进入主界面
+        //使用登陆类型，0密码登陆，1手势登陆
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
+        
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+        NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }];
+    CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+    self.window.rootViewController = navVC;
+}
+
+-(void)initWindowRootViewController
+{
+    //查看是否已经登陆，
+    NSString *loginStatus = [[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_STATUS];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_STATUS] isEqualToString:@"1"]) {
+        //登陆查看下手势密码设置了没有
+        NSString *isLoginGestureSet = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsLoginGesturePwdSet"] ;
+        //手势密码是否设置 0，nil,无；1，设置过
+        if ([isLoginGestureSet intValue] == 0 || isLoginGestureSet == nil) {
+            [self setLockPwd];
+            return;
+        }
+        
+    }
+    
+    //若设置了手势密码
+    NSString *isLoginType = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsUsingGesturePwdLogin"];//使用登陆类型，0密码登陆，1手势登陆
+    if ( isLoginType == nil  || [isLoginType intValue] == 0 )
+    {
+        login = [[LoginViewController alloc] init];
+        nc =[[UINavigationController alloc]initWithRootViewController:login];
+        [nc.navigationBar setHidden:YES];
+        self.window.rootViewController = nc;
+    }
+    else if ( [isLoginType intValue] == 1 ){
+        //验证手势密码
+        CLLockVC  *lockVC = [CLLockVC showVerifyLockVCInVC:self forgetPwdBlock:^{
+            // 点击忘记按钮，处理block
+            NSLog(@"忘记密码");
+            //重置标记，使用普通登陆，并需要重置手势密码
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsUsingGesturePwdLogin"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsLoginGesturePwdSet"];
+            //进入登陆主界面
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login", nil];
+            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            
+        } successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+            NSLog(@"密码正确");
+            [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
+            //进入主界面
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+        }];
+        
+        CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+        self.window.rootViewController = navVC;
+    }
 }
 
 //-(void)checkAPPUpdate

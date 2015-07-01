@@ -21,7 +21,7 @@
 @interface BMNaturalManMainViewController (){
 
     
-    BMHomePageViewController *homePageVC;
+    //BMHomePageViewController *homePageVC;
     BMInvestmentViewController *investViewVC;
     BMAssetsMainPageViewController *earningVC;
     BMAccountMainViewController *accountVC;
@@ -39,7 +39,7 @@
 
 -(void)initUI{
     
-    homePageVC = [[BMHomePageViewController alloc] init];
+    //homePageVC = [[BMHomePageViewController alloc] init];
     investViewVC = [[BMInvestmentViewController alloc] init];
     earningVC = [[BMAssetsMainPageViewController alloc] init];
     NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"balanceInfo"];
@@ -57,7 +57,7 @@
     
     accountVC = [[BMAccountMainViewController alloc] init];
     
-    NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
+    //NavigationWithInteract * nc1 = [[NavigationWithInteract alloc] initWithRootViewController:homePageVC];
     NavigationWithInteract * nc2 = [[NavigationWithInteract alloc] initWithRootViewController:investViewVC];
     NavigationWithInteract * nc3 = [[NavigationWithInteract alloc] initWithRootViewController:earningVC];
     NavigationWithInteract * nc4 = [[NavigationWithInteract alloc] initWithRootViewController:accountVC];
@@ -67,20 +67,20 @@
 //    nc3.hidesBottomBarWhenPushed = YES;
 //    nc4.hidesBottomBarWhenPushed = YES;
     
-    self.viewControllers = [NSArray arrayWithObjects:nc1,nc2,nc3,nc4,nil];
+    self.viewControllers = [NSArray arrayWithObjects:nc2,nc3,nc4,nil];
     
-    nc1.tabBarItem.title = @"首页";
+    //nc1.tabBarItem.title = @"首页";
     nc2.tabBarItem.title = @"投资";
     nc3.tabBarItem.title = @"资产";
     nc4.tabBarItem.title = @"账号";
     
     
-    nc1.tabBarItem.selectedImage = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    //nc1.tabBarItem.selectedImage = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nc2.tabBarItem.selectedImage = [[UIImage imageNamed:@"投资"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nc3.tabBarItem.selectedImage = [[UIImage imageNamed:@"资产"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     nc4.tabBarItem.selectedImage = [[UIImage imageNamed:@"账号"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    nc1.tabBarItem.image = [UIImage imageNamed:@"首页-normal"];
+    //nc1.tabBarItem.image = [UIImage imageNamed:@"首页-normal"];
     nc2.tabBarItem.image = [UIImage imageNamed:@"投资-normal"];
     nc3.tabBarItem.image = [UIImage imageNamed:@"资产-normal"];
     nc4.tabBarItem.image = [UIImage imageNamed:@"账号-normal"];

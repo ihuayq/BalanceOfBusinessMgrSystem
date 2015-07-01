@@ -93,6 +93,8 @@
              [[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
              [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登录、1的登录
              
+             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsUsingGesturePwdLogin"];
+             
              NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"1",@"isSupplyer", nil];
              NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
              [[NSNotificationCenter defaultCenter] postNotification:notification];

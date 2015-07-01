@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
                BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
-               BlueprintName = "BalanceOfBusinessMgrSystem"
-               ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
+               BlueprintName = "BalanceOfBusinessMgrSystem_1.1.0"
+               ReferencedContainer = "container:BalanceOfBusinessMgrSystem_1.1.0.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,6 +31,20 @@
                BlueprintIdentifier = "88ED8CEC1AF84FEB00B82BE7"
                BuildableName = "BalanceOfBusinessMgrSystemTests.xctest"
                BlueprintName = "BalanceOfBusinessMgrSystemTests"
+               ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "NO"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
+               BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
+               BlueprintName = "BalanceOfBusinessMgrSystem"
                ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -78,8 +92,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "88ED8CD31AF84FEB00B82BE7"
             BuildableName = "&#x8d85;&#x989d;&#x5b9d;.app"
-            BlueprintName = "BalanceOfBusinessMgrSystem"
-            ReferencedContainer = "container:BalanceOfBusinessMgrSystem.xcodeproj">
+            BlueprintName = "BalanceOfBusinessMgrSystem_1.1.0"
+            ReferencedContainer = "container:BalanceOfBusinessMgrSystem_1.1.0.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>

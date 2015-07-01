@@ -150,6 +150,18 @@
 		889AA8431B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8421B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m */; };
 		889AA8821B1C2AE400C76E8B /* BTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8811B1C2AE400C76E8B /* BTLabel.m */; };
 		889CA6451B292B370094BA26 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 889CA6441B292B370094BA26 /* libicucore.dylib */; };
+		889D68F81B429E170023416E /* CLLockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68D81B429E170023416E /* CLLockVC.m */; };
+		889D68F91B429E170023416E /* CLLockVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889D68D91B429E170023416E /* CLLockVC.xib */; };
+		889D68FA1B429E170023416E /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68DD1B429E170023416E /* CALayer+Anim.m */; };
+		889D68FB1B429E170023416E /* CoreLockConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68E01B429E170023416E /* CoreLockConst.m */; };
+		889D68FC1B429E170023416E /* CLLockNavVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68E31B429E170023416E /* CLLockNavVC.m */; };
+		889D68FD1B429E170023416E /* CLLockInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68E61B429E170023416E /* CLLockInfoView.m */; };
+		889D68FE1B429E170023416E /* CLLockItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68E81B429E170023416E /* CLLockItemView.m */; };
+		889D68FF1B429E170023416E /* CLLockLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68EA1B429E170023416E /* CLLockLabel.m */; };
+		889D69001B429E170023416E /* CLLockMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68EC1B429E170023416E /* CLLockMainView.m */; };
+		889D69011B429E170023416E /* CLLockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68EE1B429E170023416E /* CLLockView.m */; };
+		889D69021B429E170023416E /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68F31B429E170023416E /* NSString+File.m */; };
+		889D69031B429E170023416E /* CoreArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68F51B429E170023416E /* CoreArchive.m */; };
 		88A1C7701B2683C8004709BF /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 88A1C75F1B2683C8004709BF /* MJRefresh.bundle */; };
 		88A1C7711B2683C8004709BF /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A1C7621B2683C8004709BF /* MJRefreshBaseView.m */; };
 		88A1C7721B2683C8004709BF /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A1C7641B2683C8004709BF /* MJRefreshConst.m */; };
@@ -451,6 +463,30 @@
 		889AA8801B1C2AE400C76E8B /* BTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTLabel.h; sourceTree = "<group>"; };
 		889AA8811B1C2AE400C76E8B /* BTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTLabel.m; sourceTree = "<group>"; };
 		889CA6441B292B370094BA26 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		889D68D71B429E170023416E /* CLLockVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockVC.h; sourceTree = "<group>"; };
+		889D68D81B429E170023416E /* CLLockVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockVC.m; sourceTree = "<group>"; };
+		889D68D91B429E170023416E /* CLLockVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLLockVC.xib; sourceTree = "<group>"; };
+		889D68DC1B429E170023416E /* CALayer+Anim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Anim.h"; sourceTree = "<group>"; };
+		889D68DD1B429E170023416E /* CALayer+Anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
+		889D68DF1B429E170023416E /* CoreLockConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLockConst.h; sourceTree = "<group>"; };
+		889D68E01B429E170023416E /* CoreLockConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreLockConst.m; sourceTree = "<group>"; };
+		889D68E21B429E170023416E /* CLLockNavVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockNavVC.h; sourceTree = "<group>"; };
+		889D68E31B429E170023416E /* CLLockNavVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockNavVC.m; sourceTree = "<group>"; };
+		889D68E51B429E170023416E /* CLLockInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockInfoView.h; sourceTree = "<group>"; };
+		889D68E61B429E170023416E /* CLLockInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockInfoView.m; sourceTree = "<group>"; };
+		889D68E71B429E170023416E /* CLLockItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockItemView.h; sourceTree = "<group>"; };
+		889D68E81B429E170023416E /* CLLockItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockItemView.m; sourceTree = "<group>"; };
+		889D68E91B429E170023416E /* CLLockLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockLabel.h; sourceTree = "<group>"; };
+		889D68EA1B429E170023416E /* CLLockLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockLabel.m; sourceTree = "<group>"; };
+		889D68EB1B429E170023416E /* CLLockMainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockMainView.h; sourceTree = "<group>"; };
+		889D68EC1B429E170023416E /* CLLockMainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockMainView.m; sourceTree = "<group>"; };
+		889D68ED1B429E170023416E /* CLLockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockView.h; sourceTree = "<group>"; };
+		889D68EE1B429E170023416E /* CLLockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockView.m; sourceTree = "<group>"; };
+		889D68F21B429E170023416E /* NSString+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
+		889D68F31B429E170023416E /* NSString+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+File.m"; sourceTree = "<group>"; };
+		889D68F41B429E170023416E /* CoreArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreArchive.h; sourceTree = "<group>"; };
+		889D68F51B429E170023416E /* CoreArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreArchive.m; sourceTree = "<group>"; };
+		889D68F71B429E170023416E /* CoreConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreConst.h; sourceTree = "<group>"; };
 		88A1C75F1B2683C8004709BF /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		88A1C7601B2683C8004709BF /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		88A1C7611B2683C8004709BF /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -979,6 +1015,117 @@
 			path = Label;
 			sourceTree = "<group>";
 		};
+		889D68D51B429E170023416E /* GestureLock */ = {
+			isa = PBXGroup;
+			children = (
+				889D68D61B429E170023416E /* CoreLock */,
+				889D68EF1B429E170023416E /* FrameWork */,
+			);
+			path = GestureLock;
+			sourceTree = "<group>";
+		};
+		889D68D61B429E170023416E /* CoreLock */ = {
+			isa = PBXGroup;
+			children = (
+				889D68D71B429E170023416E /* CLLockVC.h */,
+				889D68D81B429E170023416E /* CLLockVC.m */,
+				889D68D91B429E170023416E /* CLLockVC.xib */,
+				889D68DA1B429E170023416E /* Lib */,
+			);
+			path = CoreLock;
+			sourceTree = "<group>";
+		};
+		889D68DA1B429E170023416E /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				889D68DB1B429E170023416E /* Category */,
+				889D68DE1B429E170023416E /* Const */,
+				889D68E11B429E170023416E /* Controller */,
+				889D68E41B429E170023416E /* View */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		889D68DB1B429E170023416E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				889D68DC1B429E170023416E /* CALayer+Anim.h */,
+				889D68DD1B429E170023416E /* CALayer+Anim.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		889D68DE1B429E170023416E /* Const */ = {
+			isa = PBXGroup;
+			children = (
+				889D68DF1B429E170023416E /* CoreLockConst.h */,
+				889D68E01B429E170023416E /* CoreLockConst.m */,
+			);
+			path = Const;
+			sourceTree = "<group>";
+		};
+		889D68E11B429E170023416E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				889D68E21B429E170023416E /* CLLockNavVC.h */,
+				889D68E31B429E170023416E /* CLLockNavVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		889D68E41B429E170023416E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				889D68E51B429E170023416E /* CLLockInfoView.h */,
+				889D68E61B429E170023416E /* CLLockInfoView.m */,
+				889D68E71B429E170023416E /* CLLockItemView.h */,
+				889D68E81B429E170023416E /* CLLockItemView.m */,
+				889D68E91B429E170023416E /* CLLockLabel.h */,
+				889D68EA1B429E170023416E /* CLLockLabel.m */,
+				889D68EB1B429E170023416E /* CLLockMainView.h */,
+				889D68EC1B429E170023416E /* CLLockMainView.m */,
+				889D68ED1B429E170023416E /* CLLockView.h */,
+				889D68EE1B429E170023416E /* CLLockView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		889D68EF1B429E170023416E /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				889D68F01B429E170023416E /* CoreArchive */,
+				889D68F61B429E170023416E /* CoreExtend */,
+			);
+			path = FrameWork;
+			sourceTree = "<group>";
+		};
+		889D68F01B429E170023416E /* CoreArchive */ = {
+			isa = PBXGroup;
+			children = (
+				889D68F11B429E170023416E /* Category */,
+				889D68F41B429E170023416E /* CoreArchive.h */,
+				889D68F51B429E170023416E /* CoreArchive.m */,
+			);
+			path = CoreArchive;
+			sourceTree = "<group>";
+		};
+		889D68F11B429E170023416E /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				889D68F21B429E170023416E /* NSString+File.h */,
+				889D68F31B429E170023416E /* NSString+File.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		889D68F61B429E170023416E /* CoreExtend */ = {
+			isa = PBXGroup;
+			children = (
+				889D68F71B429E170023416E /* CoreConst.h */,
+			);
+			path = CoreExtend;
+			sourceTree = "<group>";
+		};
 		88A1C75E1B2683C8004709BF /* MJRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -1425,6 +1572,7 @@
 		88EF0B251AF8E397006B09B0 /* ThirdPartLib */ = {
 			isa = PBXGroup;
 			children = (
+				889D68D51B429E170023416E /* GestureLock */,
 				88AD21301B283D8A0062EB33 /* SocketRocket */,
 				88A1C75E1B2683C8004709BF /* MJRefresh */,
 				88FB8C841B1D9B7C004769B2 /* SVPullToRefresh */,
@@ -1556,9 +1704,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		88ED8CD31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem */ = {
+		88ED8CD31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem_1.1.0 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 88ED8CF71AF84FEB00B82BE7 /* Build configuration list for PBXNativeTarget "BalanceOfBusinessMgrSystem" */;
+			buildConfigurationList = 88ED8CF71AF84FEB00B82BE7 /* Build configuration list for PBXNativeTarget "BalanceOfBusinessMgrSystem_1.1.0" */;
 			buildPhases = (
 				88ED8CD01AF84FEB00B82BE7 /* Sources */,
 				88ED8CD11AF84FEB00B82BE7 /* Frameworks */,
@@ -1568,7 +1716,7 @@
 			);
 			dependencies = (
 			);
-			name = BalanceOfBusinessMgrSystem;
+			name = BalanceOfBusinessMgrSystem_1.1.0;
 			productName = BalanceOfBusinessMgrSystem;
 			productReference = 88ED8CD41AF84FEB00B82BE7 /* 超额宝.app */;
 			productType = "com.apple.product-type.application";
@@ -1588,7 +1736,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 88ED8CCF1AF84FEB00B82BE7 /* Build configuration list for PBXProject "BalanceOfBusinessMgrSystem" */;
+			buildConfigurationList = 88ED8CCF1AF84FEB00B82BE7 /* Build configuration list for PBXProject "BalanceOfBusinessMgrSystem_1.1.0" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1602,7 +1750,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				88ED8CD31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem */,
+				88ED8CD31AF84FEB00B82BE7 /* BalanceOfBusinessMgrSystem_1.1.0 */,
 			);
 		};
 /* End PBXProject section */
@@ -1656,6 +1804,7 @@
 				888CF5EE1B2FF88200097AFC /* 认证.html in Resources */,
 				888CF5841B2FBF3A00097AFC /* 120.png in Resources */,
 				888CF5831B2FBF3A00097AFC /* 114.png in Resources */,
+				889D68F91B429E170023416E /* CLLockVC.xib in Resources */,
 				88E9637C1B01F2DD00C04664 /* ProgressHUD.bundle in Resources */,
 				888CF5AD1B2FBF3A00097AFC /* paiduizijin@2x.png in Resources */,
 				888CF5651B2FBF3A00097AFC /* email.png in Resources */,
@@ -1744,6 +1893,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				889D68FB1B429E170023416E /* CoreLockConst.m in Sources */,
 				88FB8C831B1D5461004769B2 /* MYIntroductionPanel.m in Sources */,
 				88EF03061AF8A375006B09B0 /* AFHTTPRequestOperation.m in Sources */,
 				88A1C7741B2683C8004709BF /* MJRefreshHeaderView.m in Sources */,
@@ -1752,6 +1902,7 @@
 				7A21E5551AFF4C5D00C8C023 /* BMNaturalManMainViewController.m in Sources */,
 				7A21E5821AFFB88B00C8C023 /* bindAccountConfirmViewController.m in Sources */,
 				88EF030A1AF8A375006B09B0 /* ASIAuthenticationDialog.m in Sources */,
+				889D68F81B429E170023416E /* CLLockVC.m in Sources */,
 				88D406E51B007F0200418ACC /* NaturalManInfoMgrViewController.m in Sources */,
 				8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */,
 				88F1853D1AFB0F85007FE83B /* BMInvestmentViewController.m in Sources */,
@@ -1760,6 +1911,7 @@
 				88FB8C8B1B1D9B7C004769B2 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				88FB8C821B1D5461004769B2 /* MYBlurIntroductionView.m in Sources */,
 				88EF06F21AF8A3EE006B09B0 /* HP_NSDataUtils.m in Sources */,
+				889D68FC1B429E170023416E /* CLLockNavVC.m in Sources */,
 				7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */,
 				88EF53561B09B838004DAEC6 /* ModifyNaturalManIdentifyInfoViewController.m in Sources */,
 				88EF06EF1AF8A3EE006B09B0 /* HP_JSONUtils.m in Sources */,
@@ -1791,6 +1943,8 @@
 				88E7C2901AFC574200F7B58C /* BMAssetsMainPageViewController.m in Sources */,
 				88EF030B1AF8A375006B09B0 /* ASIDataCompressor.m in Sources */,
 				7A21E5581AFF4F1700C8C023 /* BMNaturalManAccountMainViewController.m in Sources */,
+				889D68FA1B429E170023416E /* CALayer+Anim.m in Sources */,
+				889D68FF1B429E170023416E /* CLLockLabel.m in Sources */,
 				88ED8CE01AF84FEB00B82BE7 /* GuidViewController.m in Sources */,
 				88EF06EA1AF8A3EE006B09B0 /* HP_UIView.m in Sources */,
 				88E7A7B01AF9ACEC00B44364 /* RadioButton.m in Sources */,
@@ -1818,11 +1972,14 @@
 				88EF06ED1AF8A3EE006B09B0 /* CoreTelephony.m in Sources */,
 				8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */,
 				8889BAB01AFCA635001BF5E2 /* SCNavTabBar.m in Sources */,
+				889D69021B429E170023416E /* NSString+File.m in Sources */,
 				88F4745E1B04C23800B6DE39 /* EGORefreshTableHeaderView.m in Sources */,
 				88EF030E1AF8A375006B09B0 /* ASIFormDataRequest.m in Sources */,
 				88F4B3C71B12AF3800A240E4 /* MBProgressHUD.m in Sources */,
 				880208731B146B44009D3F6D /* ProjectReferViewController.m in Sources */,
+				889D69001B429E170023416E /* CLLockMainView.m in Sources */,
 				88EF03121AF8A375006B09B0 /* Reachability.m in Sources */,
+				889D68FE1B429E170023416E /* CLLockItemView.m in Sources */,
 				8889BA991AFC5F8A001BF5E2 /* UIView+Additions.m in Sources */,
 				8889BA9C1AFC6ACD001BF5E2 /* UIAssetsPageCell.m in Sources */,
 				88EF05CD1AF8A3EC006B09B0 /* HP_PageFlowView.m in Sources */,
@@ -1863,9 +2020,11 @@
 				88EF07421AF8C0BD006B09B0 /* NSData+Addition.m in Sources */,
 				88FB8C811B1D5461004769B2 /* AMBlurView.m in Sources */,
 				88EF06EB1AF8A3EE006B09B0 /* HP_BaseTabBarController.m in Sources */,
+				889D69031B429E170023416E /* CoreArchive.m in Sources */,
 				88EF06EE1AF8A3EE006B09B0 /* HP_AnimationUtils.m in Sources */,
 				88FB8C8A1B1D9B7C004769B2 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				88EF06F91AF8A3EF006B09B0 /* MD5Utils.m in Sources */,
+				889D68FD1B429E170023416E /* CLLockInfoView.m in Sources */,
 				88EF53591B09C921004DAEC6 /* ModifyNaturalmanSuccessViewController.m in Sources */,
 				88E963281B019E3100C04664 /* BMWithDrawsCashViewController.m in Sources */,
 				88EF06F31AF8A3EE006B09B0 /* HP_NSDateUtils.m in Sources */,
@@ -1876,6 +2035,7 @@
 				8889BAB11AFCA635001BF5E2 /* SCPopView.m in Sources */,
 				7AF494F81B04EA0D0096EDE0 /* AssetRecordItemInfo.m in Sources */,
 				88EF030C1AF8A375006B09B0 /* ASIDataDecompressor.m in Sources */,
+				889D69011B429E170023416E /* CLLockView.m in Sources */,
 				88F185631AFB3D74007FE83B /* BMHomePageViewController.m in Sources */,
 				88EF03111AF8A375006B09B0 /* ASINetworkQueue.m in Sources */,
 				889AA8821B1C2AE400C76E8B /* BTLabel.m in Sources */,
@@ -2060,7 +2220,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		88ED8CCF1AF84FEB00B82BE7 /* Build configuration list for PBXProject "BalanceOfBusinessMgrSystem" */ = {
+		88ED8CCF1AF84FEB00B82BE7 /* Build configuration list for PBXProject "BalanceOfBusinessMgrSystem_1.1.0" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				88ED8CF51AF84FEB00B82BE7 /* Debug */,
@@ -2069,7 +2229,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		88ED8CF71AF84FEB00B82BE7 /* Build configuration list for PBXNativeTarget "BalanceOfBusinessMgrSystem" */ = {
+		88ED8CF71AF84FEB00B82BE7 /* Build configuration list for PBXNativeTarget "BalanceOfBusinessMgrSystem_1.1.0" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				88ED8CF81AF84FEB00B82BE7 /* Debug */,
