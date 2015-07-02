@@ -10,7 +10,9 @@
 #import "HP_UserDefaultsUtils.h"
 
 
-@interface HP_BaseTabBarController ()
+@interface HP_BaseTabBarController (){
+    MBProgressHUD *HUD;
+}
 
 @end
 
@@ -106,6 +108,36 @@
     
     [activityView startAnimating];
     [progressView show];
+}
+
+-(void)showMBProgressHUDWithMessage:(NSString *)msg
+{
+    //    HUD = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+    //    [self.navigationController.view addSubview:HUD];
+    //
+    //    HUD.delegate = self;
+    //    HUD.mode = MBProgressHUDModeText;
+    //    HUD.minSize = CGSizeMake(135.f, 135.f);
+    //    HUD.labelText = msg;
+    //  [HUD showWhileExecuting:@selector(myTask) onTarget:self withObject:nil animated:YES];
+    
+    //    HUD= [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    //
+    // Configure for text only and offset down
+    //HUD.mode = MBProgressHUDModeText;
+    HUD.labelText = msg;
+    HUD.minSize = CGSizeMake(135.f, 135.f);
+    HUD.margin = 10.f;
+    HUD.removeFromSuperViewOnHide = YES;
+    [HUD show:YES];
+    
+}
+
+-(void)hidMBProgressHUD
+{
+    //[HUD hide:YES];
+    [HUD hide:YES afterDelay:0.1];
 }
 
 -(void)hideTabBar{

@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navigation.title = @"设置自然人";
+    self.navigation.title = @"个人信息";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
     [self initUI];
@@ -40,59 +40,92 @@
 
 -(void) initUI
 {
-    //设置 姓名信息
-    HP_UIImageView *bgImageView10 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
-    [bgImageView10 setImage:[UIImage imageNamed:@"姓名"]];
+//    //设置 姓名信息
+//    HP_UIImageView *bgImageView10 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
+//    [bgImageView10 setImage:[UIImage imageNamed:@"姓名"]];
+//    
+//    HP_UIImageView *bgImageView11 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20 , NAVIGATION_OUTLET_HEIGHT + 20,MainWidth-40, 40)];
+//    [bgImageView11 setImage:[UIImage imageNamed:@"textlayer"]];
+//    [self.view addSubview:bgImageView11 ];
+//    [bgImageView11 addSubview:bgImageView10];
+//    
+//    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, NAVIGATION_OUTLET_HEIGHT + 20, 200, 40)];
+//    [nameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
+//    nameTextField.backgroundColor = [UIColor clearColor];
+//    nameTextField.clearButtonMode = UITextFieldViewModeAlways;
+//    nameTextField.placeholder = @"请输入姓名";
+//    nameTextField.font = [UIFont systemFontOfSize:14];
+//    nameTextField.delegate = self;
+//    nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
+//    nameTextField.borderStyle = UITextBorderStyleNone;
+//    //nameTextField.secureTextEntry=YES;
+//    [self.view addSubview:nameTextField];
+//    
+//    //设置身份证信息
+//    HP_UIImageView *bgImageView20 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
+//    [bgImageView20 setImage:[UIImage imageNamed:@"身份证"]];
+//    
+//    HP_UIImageView *bgImageView21 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20,MainWidth-40, 40)];
+//    [bgImageView21 setImage:[UIImage imageNamed:@"textlayer"]];
+//    [self.view addSubview:bgImageView21];
+//    [bgImageView21 addSubview:bgImageView20];
+//    
+//    dentifierTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 200, 40)];
+//    [dentifierTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
+//    dentifierTextField.backgroundColor = [UIColor clearColor];
+//    dentifierTextField.clearButtonMode = UITextFieldViewModeAlways;
+//    dentifierTextField.placeholder = @"请输入身份证信息";
+//    dentifierTextField.font = [UIFont systemFontOfSize:14];
+//    dentifierTextField.delegate = self;
+//    dentifierTextField.keyboardType = UIKeyboardTypeDefault;
+//    dentifierTextField.borderStyle = UITextBorderStyleNone;
+//    //dentifierTextField.secureTextEntry=YES;
+//    [self.view addSubview:dentifierTextField];
     
-    HP_UIImageView *bgImageView11 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20 , NAVIGATION_OUTLET_HEIGHT + 20,MainWidth-40, 40)];
-    [bgImageView11 setImage:[UIImage imageNamed:@"textlayer"]];
-    [self.view addSubview:bgImageView11 ];
-    [bgImageView11 addSubview:bgImageView10];
+    //初始化label
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10,0,0)];
+    //设置自动行数与字符换行
+    [label setNumberOfLines:0];
+    NSString *s = @"预约购买之前请先完善个人信息";
+    UIFont *font = [UIFont systemFontOfSize:18];
+    //设置一个行高上限
+    CGSize size = CGSizeMake(300,400);
+    //计算实际frame大小，并将label的frame变成实际大小
+    CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap];
+    [label setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10, labelsize.width, labelsize.height)];
+    label.text = s;
+    [self.view addSubview:label];
     
-    nameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, NAVIGATION_OUTLET_HEIGHT + 20, 200, 40)];
-    [nameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
-    nameTextField.backgroundColor = [UIColor clearColor];
-    nameTextField.clearButtonMode = UITextFieldViewModeAlways;
-    nameTextField.placeholder = @"请输入姓名";
-    nameTextField.font = [UIFont systemFontOfSize:14];
-    nameTextField.delegate = self;
-    nameTextField.keyboardType = UIKeyboardTypeEmailAddress;
-    nameTextField.borderStyle = UITextBorderStyleNone;
-    //nameTextField.secureTextEntry=YES;
-    [self.view addSubview:nameTextField];
+    //自然人姓名
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, label.frame.origin.y + label.frame.size.height + 15, MainWidth - 40, 20)];
+    manTitleLabel.text = [NSString stringWithFormat:@"法人姓名:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"personName"]];
+    manTitleLabel.textAlignment = NSTextAlignmentCenter;
+    manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    manTitleLabel.font = [UIFont systemFontOfSize:14];
+    manTitleLabel.backgroundColor = [UIColor clearColor];
+    manTitleLabel.numberOfLines = 0;
+    [self.view addSubview:manTitleLabel];
     
-    //设置身份证信息
-    HP_UIImageView *bgImageView20 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
-    [bgImageView20 setImage:[UIImage imageNamed:@"身份证"]];
-    
-    HP_UIImageView *bgImageView21 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20,MainWidth-40, 40)];
-    [bgImageView21 setImage:[UIImage imageNamed:@"textlayer"]];
-    [self.view addSubview:bgImageView21];
-    [bgImageView21 addSubview:bgImageView20];
-    
-    dentifierTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, nameTextField.frame.size.height + nameTextField.frame.origin.y + 20, 200, 40)];
-    [dentifierTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
-    dentifierTextField.backgroundColor = [UIColor clearColor];
-    dentifierTextField.clearButtonMode = UITextFieldViewModeAlways;
-    dentifierTextField.placeholder = @"请输入身份证信息";
-    dentifierTextField.font = [UIFont systemFontOfSize:14];
-    dentifierTextField.delegate = self;
-    dentifierTextField.keyboardType = UIKeyboardTypeDefault;
-    dentifierTextField.borderStyle = UITextBorderStyleNone;
-    //dentifierTextField.secureTextEntry=YES;
-    [self.view addSubview:dentifierTextField];
+    //身份证号码
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20 , manTitleLabel.frame.origin.y + manTitleLabel.frame.size.height  + 15, MainWidth - 40, 20)];
+    identifyTitleLabel.text = [NSString stringWithFormat:@"法人身份证号码:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"identifyno"]];
+    identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
+    identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    identifyTitleLabel.font = [UIFont systemFontOfSize:14];
+    identifyTitleLabel.backgroundColor = [UIColor clearColor];
+    identifyTitleLabel.numberOfLines = 0;
+    [self.view addSubview:identifyTitleLabel];
     
     //设置手机号码
-    //HP_UIImageView *bgImageView30 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20 , dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 40,40, 40)];
     HP_UIImageView *bgImageView30 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,8,25,25)];
     [bgImageView30 setImage:[UIImage imageNamed:@"手机号"]];
     
-    HP_UIImageView *bgImageView31 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20,MainWidth-40, 40)];
+    HP_UIImageView *bgImageView31 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, identifyTitleLabel.frame.size.height + identifyTitleLabel.frame.origin.y + 20,MainWidth-40, 40)];
     [bgImageView31 setImage:[UIImage imageNamed:@"textlayer"]];
     [self.view addSubview:bgImageView31];
     [bgImageView31 addSubview:bgImageView30];
     
-    telephoneTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, dentifierTextField.frame.size.height + dentifierTextField.frame.origin.y + 20, 200, 40)];
+    telephoneTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, identifyTitleLabel.frame.size.height + identifyTitleLabel.frame.origin.y + 20, 200, 40)];
     [telephoneTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     telephoneTextField.backgroundColor = [UIColor clearColor];
     telephoneTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -145,29 +178,29 @@
     sendLabel.hidden = YES;
     [self.view  addSubview:sendLabel];
     
-    //商户登录密码
-    HP_UIImageView *bgImageView60 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,6,25,25)];
-    [bgImageView60 setImage:[UIImage imageNamed:@"密码"]];
-    
-    HP_UIImageView *bgImageView61 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20,MainWidth-40, 40)];
-    [bgImageView61 setImage:[UIImage imageNamed:@"textlayer"]];
-    [self.view addSubview:bgImageView61];
-    [bgImageView61 addSubview:bgImageView60];
-    
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20, 200, 40)];
-    [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
-    passwordTextField.backgroundColor = [UIColor clearColor];
-    passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
-    passwordTextField.placeholder = @"请输入商户登录密码";
-    passwordTextField.font = [UIFont systemFontOfSize:14];
-    passwordTextField.delegate = self;
-    passwordTextField.keyboardType = UIKeyboardTypeDefault;
-    passwordTextField.borderStyle = UIKeyboardTypeEmailAddress;
-    passwordTextField.secureTextEntry=YES;
-    [self.view addSubview:passwordTextField];
+//    //商户登录密码
+//    HP_UIImageView *bgImageView60 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(10,6,25,25)];
+//    [bgImageView60 setImage:[UIImage imageNamed:@"密码"]];
+//    
+//    HP_UIImageView *bgImageView61 = [[HP_UIImageView alloc] initWithFrame:CGRectMake(20, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20,MainWidth-40, 40)];
+//    [bgImageView61 setImage:[UIImage imageNamed:@"textlayer"]];
+//    [self.view addSubview:bgImageView61];
+//    [bgImageView61 addSubview:bgImageView60];
+//    
+//    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(60, sendCheckCodeButton.frame.size.height + sendCheckCodeButton.frame.origin.y + 20, 200, 40)];
+//    [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
+//    passwordTextField.backgroundColor = [UIColor clearColor];
+//    passwordTextField.clearButtonMode = UITextFieldViewModeAlways;
+//    passwordTextField.placeholder = @"请输入商户登录密码";
+//    passwordTextField.font = [UIFont systemFontOfSize:14];
+//    passwordTextField.delegate = self;
+//    passwordTextField.keyboardType = UIKeyboardTypeDefault;
+//    passwordTextField.borderStyle = UIKeyboardTypeEmailAddress;
+//    passwordTextField.secureTextEntry=YES;
+//    [self.view addSubview:passwordTextField];
     
     //自然人姓名
-    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(36, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 20, 20) typeCheck:NO];
+    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(36, passCodeTextField.frame.origin.y+passCodeTextField.frame.size.height+20, 20, 20) typeCheck:NO];
     [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     //[radioAgreement setTitle:@"已阅读并同意自然人投资协议" forState:UIControlStateNormal];
     radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];
@@ -176,7 +209,7 @@
     [self.view addSubview:radioAgreement];
     
     
-    UILabel*agreeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 120, 20)];
+    UILabel*agreeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, passCodeTextField.frame.origin.y+passCodeTextField.frame.size.height+20, 120, 20)];
     agreeTitleLabel.text = @"我已阅读并且同意";
     agreeTitleLabel.textAlignment = NSTextAlignmentLeft;
     agreeTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -185,7 +218,7 @@
     agreeTitleLabel.numberOfLines = 0;
     [self.view addSubview:agreeTitleLabel];
     
-    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-15, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+20, 160, 20)];
+    HP_UIButton*investProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width-15, passCodeTextField.frame.origin.y+passCodeTextField.frame.size.height+20, 160, 20)];
     [investProtolBtn setTitleColor:[UIColor greenColor] forState:UIControlStateNormal];
     [investProtolBtn addTarget:self action:@selector(touchProtocalButton) forControlEvents:UIControlEventTouchUpInside];
     [investProtolBtn setTitle:@"(资金划转授权协议)" forState:UIControlStateNormal];
@@ -243,31 +276,31 @@
 
 -(void)touchCommitButton{
     //test
-//    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-//    [self.navigationController pushViewController:info
-//                                         animated:NO];
-//    return;
-    if (![self checkName:nameTextField.text]) {
-        return;
-    }
-    
-    if (![self checkshenfenzhengString:dentifierTextField.text]) {
-        return;
-    }
+    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+    [self.navigationController pushViewController:info
+                                         animated:NO];
+    return;
+//    if (![self checkName:nameTextField.text]) {
+//        return;
+//    }
+//    
+//    if (![self checkshenfenzhengString:dentifierTextField.text]) {
+//        return;
+//    }
     
     if (![self checkTel:telephoneTextField.text])
     {
         return;
     }
     
-    if (![self checkPassCode:passCodeTextField.text]) {
-        return;
-    }
+//    if (![self checkPassCode:passCodeTextField.text]) {
+//        return;
+//    }
     
-    if (![self checkPassWordString:passwordTextField.text])
-    {
-        return;
-    }
+//    if (![self checkPassWordString:passwordTextField.text])
+//    {
+//        return;
+//    }
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -276,28 +309,18 @@
     }
     [self touchesBegan:nil withEvent:nil];
     
-    //phoneNum=13131311315&idCard=xxxxxxxx&personName=&commercialId=M0060013&code=xxxxx&passwd_3des_encode=xxxxx
-
-    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_LOGIN_ID]forKey:SUPPLYER_LOGIN_ID];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID] forKey:USER_ID];
     [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
-    [connDictionary setObject:[nameTextField.text URLEncodedString] forKey:@"personName"];
-    [connDictionary setObject:dentifierTextField.text forKey:@"idCard"];
-    [connDictionary setObject:passCodeTextField.text forKey:@"code"];
+    //[connDictionary setObject:passCodeTextField.text forKey:@"code"];
+    [connDictionary setObject:@"000000" forKey:@"code"];
     
-    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
-    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-    [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
-
-     NSLog(@"the sort string is:%@",[NNString getRightString_BysortArray_dic:connDictionary]);
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,settingNatureMenURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,settingNatureMenURL];
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     [self showProgressViewWithMessage:@"正在设置自然人..."];
@@ -307,31 +330,32 @@
          [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
          if([ret isEqualToString:@"100"])
          {
-               responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
-             //返回全部的自然人列表
-             NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
-             if (results) {
-                 NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
-                 [data setObject:results forKey:@"natureInfo"];
-                 [[NSUserDefaults standardUserDefaults]setObject:data forKey:SUPPLYER_INFO];
-                 NSLog(@"the SUPPLYER_INFO is:%@",data);
-                 
-                 //向NaturalManInfoMgrViewController
-                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"type",nil];
-                 //创建通知
-                 NSNotification *notification =[NSNotification notificationWithName:@"NatureManListChange" object:nil userInfo:dict];
-                 //通过通知中心发送通知
-                 [[NSNotificationCenter defaultCenter] postNotification:notification];
-             }
-
-             //当前自然人信息, 程序中对要修改或者设定的自然人信息进行保存，注意curNatureMenInfo字段，在下一级界面会有更详细的设定
-             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
-             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"no"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
-             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
-             
+            responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+//             //返回全部的自然人列表
+//             NSMutableArray *results = [responseJSONDictionary objectForKey:@"maturalPersonList"];
+//             if (results) {
+//                 NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO]];
+//                 [data setObject:results forKey:@"natureInfo"];
+//                 [[NSUserDefaults standardUserDefaults]setObject:data forKey:SUPPLYER_INFO];
+//                 NSLog(@"the SUPPLYER_INFO is:%@",data);
+//                 
+//                 //向NaturalManInfoMgrViewController
+//                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"1",@"type",nil];
+//                 //创建通知
+//                 NSNotification *notification =[NSNotification notificationWithName:@"NatureManListChange" object:nil userInfo:dict];
+//                 //通过通知中心发送通知
+//                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+//             }
+//
+//             //当前自然人信息, 程序中对要修改或者设定的自然人信息进行保存，注意curNatureMenInfo字段，在下一级界面会有更详细的设定
+//             //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
+//             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"personId"] forKey:@"no"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
+//             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
+             //设置自然人信息
+//             
              settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
              [self.navigationController pushViewController:info
                                                   animated:NO];
@@ -369,17 +393,14 @@
     
     [self touchesBegan:nil withEvent:nil];
     
-    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID] forKey:USER_ID];
     [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
-    //[connDictionary setObject:@"register" forKey:@"type"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
-    NSLog(@"connDictionary:%@",connDictionary);
+    //NSLog(@"connDictionary:%@",connDictionary);
     
-    //http://192.168.1.102:8080/superMoney-core/commercia/sendPhoneVerification?phoneNum=18501251875
-    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,passCodeURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
     
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
@@ -404,7 +425,6 @@
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
      } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
-         
          [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
          UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
          alertView.tag = 999;

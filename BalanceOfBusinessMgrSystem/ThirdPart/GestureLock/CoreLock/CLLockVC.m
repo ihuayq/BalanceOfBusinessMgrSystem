@@ -137,8 +137,14 @@
     
     /** 开始 */
     self.lockView.verifyPWBeginBlock = ^(){
-        
-        [self.label showNormalMsg:CoreLockVerifyNormalTitle];
+
+        NSString *strName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME];
+        if (strName == nil || strName.length == 0) {
+            [self.label showNormalMsg:CoreLockVerifyNormalTitle];
+        }
+        else{
+            [self.label showNormalMsg:[NSString stringWithFormat:@"账号:%@",strName]];
+        }
     };
     
     /** 验证 */
@@ -414,7 +420,15 @@
         
     }else if (CoreLockTypeVeryfiPwd == _type){//验证密码
         
-        self.msg = CoreLockVerifyNormalTitle;
+        //
+        NSString *strName= [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME];
+        if (strName == nil || strName.length == 0) {
+            self.msg = CoreLockVerifyNormalTitle;
+        }
+        else{
+            self.msg = [NSString stringWithFormat:@"账号:%@",strName];
+        }
+        
         
     }else if (CoreLockTypeModifyPwd == _type){//修改密码
         

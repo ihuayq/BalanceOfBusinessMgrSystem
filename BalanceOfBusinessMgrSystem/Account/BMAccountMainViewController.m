@@ -12,6 +12,8 @@
 #import "ModifyLoginPasswordViewController.h"
 #import "ProjectReferViewController.h"
 #import "NatureManAccountInfoViewController.h"
+#import "CLLockVC.h"
+#import "CLLockNavVC.h"
 
 @interface BMAccountMainViewController (){
     NSMutableArray *_group;//cell数组
@@ -116,7 +118,7 @@
     
     
     BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"我的信息"];
-    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"登录密码"];
+    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"手势密码"];
     BMAccountCellInfo *contact3=[BMAccountCellInfo initWithFirstName:@"交易密码"];
     BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1,contact2,contact3, nil]];
     [_group addObject:group1];
@@ -262,9 +264,32 @@
         }
         else if( indexPath.row == 1)
         {
-            ModifyLoginPasswordViewController *vc = [[ModifyLoginPasswordViewController alloc] init];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+//            ModifyLoginPasswordViewController *vc = [[ModifyLoginPasswordViewController alloc] init];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:vc animated:YES];
+             CLLockVC  *lockVC = [CLLockVC showModifyLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+                
+                [lockVC dismiss:.5f];
+            }];
+            //CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+            //navVC.hidesBottomBarWhenPushed = YES;
+            
+            CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+            [self presentViewController:navVC animated:YES completion:nil];
+            
+//            CLLockVC  *lockVC = [CLLockVC showSettingLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+//                NSLog(@"密码设置成功");
+//                //设置过标记
+//                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsLoginGesturePwdSet"];
+//                //下次直接使用手势登陆进入主界面
+//                //使用登陆类型，0密码登陆，1手势登陆
+//                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
+//                
+//                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+//                NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//                [[NSNotificationCenter defaultCenter] postNotification:notification];
+//            }];
+//            CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
         }
         else if( indexPath.row == 2)
         {

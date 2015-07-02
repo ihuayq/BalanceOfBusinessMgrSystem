@@ -48,6 +48,9 @@
 
 -(void)hideTabBar;
 
+-(void)showMBProgressHUDWithMessage:(NSString *)msg;
+-(void)hidMBProgressHUD;
+
 //获得NSUserDefaults对象
 -(NSUserDefaults *)getNSUserDefaults;
 

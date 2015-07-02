@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BMNaturalManMainViewController : UITabBarController
+@interface BMNaturalManMainViewController : HP_BaseTabBarController
 
 @end

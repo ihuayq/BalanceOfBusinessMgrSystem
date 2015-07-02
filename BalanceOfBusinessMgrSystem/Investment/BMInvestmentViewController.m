@@ -14,6 +14,7 @@
 #import "BMInvestmentConfirmViewController.h"
 #import "BTLabel.h"
 #import "ProtocalViewController.h"
+#import "settingNaturalManInfoViewController.h"
 
 @interface BMInvestmentViewController ()<UIAlertViewDelegate>{
     UIWebView *manualProductWebView;
@@ -314,10 +315,14 @@
 //        [self requestNetWork];
 //    }
     
-    BMInvestmentConfirmViewController *vc = [[BMInvestmentConfirmViewController alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-    return;
+    settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+    [self.navigationController pushViewController:info
+                                         animated:NO];
+    
+//    BMInvestmentConfirmViewController *vc = [[BMInvestmentConfirmViewController alloc] init];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
+//    return;
 }
 
 -(void)touchCancelButton{

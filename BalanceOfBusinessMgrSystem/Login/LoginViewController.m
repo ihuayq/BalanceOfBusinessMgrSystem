@@ -470,10 +470,10 @@
 }
     
 -(void)natureManLoginRequest{
-    if(![self checkMobileString:nameTextField.text])
-    {
-        return;
-    }
+//    if(![self checkMobileString:nameTextField.text])
+//    {
+//        return;
+//    }
     if(![self checkPassword:passwordTextField.text])
     {
         return;
@@ -490,20 +490,14 @@
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
-    [connDictionary setObject:nameTextField.text forKey:@"phoneNum"];
-    
-
-    //[connDictionary setObject:passwordTextField.text forKey:@"password"];
-    
+    [connDictionary setObject:nameTextField.text forKey:@"loginId"];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
-    //[connDictionary setObject:string3des forKey:@"passwd_3des"];
     
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,HostURL];
     
-    NSLog(@"connDictionary:%@",connDictionary);
-    //[self showProgressViewWithMessage:@"登录中..."];
+    //NSLog(@"connDictionary:%@",connDictionary);
     [self showMBProgressHUDWithMessage:@"登录中..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
@@ -513,35 +507,34 @@
          {
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
+             [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
+             
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
              //商户还是自然人
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
             
-             if ([responseJSONDictionary objectForKey:@"idCard"]) {
-                 [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
-             }
+//             if ([responseJSONDictionary objectForKey:@"idCard"]) {
+//                 [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+//             }
+//             
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
              
-             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
-             
-             [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
-             //[Dict setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
+
              [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
              
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
              
              [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
-             
-             [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
              
              [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected] forKey:LOGIN_TYPE];
-             
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
              
              //查看是否与本地缓存的登录名一致，不一致则重置所有登陆设置
@@ -589,8 +582,11 @@
          alertView.tag = 999;
          [alertView show];
      }];
- 
 }
+
+
+
+
 
 -(void)supplyerLoginRequest{
     if(![self checkName:nameTextField.text])

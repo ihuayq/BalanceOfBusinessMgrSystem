@@ -18,8 +18,8 @@
 
 
 //#define TEST_LOGIN
-#define UAT
-#define WORK
+//#define UAT
+//#define WORK
 
 
 //自然人
@@ -32,14 +32,24 @@
 #endif
 
 #else
-#define IP @"http://192.168.0.56:8080/"
-//#define IP @"http://192.168.1.110:8080/"
+#define IP @"http://192.168.1.105:8080/"
 #endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
-#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
+
+#define HostURL @"superMoney-core/appInterface/userLogin?" //测试服务器
+
+#define MInfoURL @"superMoney-core/appInterface/getCommercialInfo?"
+
+#define MessageCodeURL @"superMoney-core/appInterface/sendPhoneVerification?"// 获取验证码
+
+#define settingNatureMenURL @"superMoney-core/appInterface/assignNatural?" //添加自然人
+
+#define AccountURL @"superMoney-core/appInterface/getCommercialWebsiteInfo?"
+
+#define SavaAccountURL @"superMoney-core/appInterface/saveAccountWebsite?"
+
 #define DrawCashURL @"superMoney-core/nature/saveInfo?"//沉淀
-#define MessageCodeURL @"superMoney-core/nature/getMessageCode?"// 获取验证码
 #define PayPasswdURL @"superMoney-core/nature/setPayPass?"// 第一次设置交易密码时候使用
 #define SetLoginPasswdURL @"superMoney-core/nature/updateLoginPass?"// 创建登录密码,第一次登录时候用
 #define ModifyLoginPasswdURL @"superMoney-core/nature/changeLoginPass?"   //改变登录密码
@@ -69,10 +79,10 @@
 #endif
 
 #define CommercialHostURL @"/superMoney-core/commercia/commerCiainfo?"
-#define AccountURL @"/superMoney-core/commercia/getCommercialWebsiteInfo?"
-#define SavaAccountURL @"/superMoney-core/commercia/saveAccountWebsite?"
-#define passCodeURL @"/superMoney-core/commercia/sendPhoneVerification?"
-#define settingNatureMenURL @"/superMoney-core/commercia/assignNatural?" //添加自然人
+
+
+#define passCodeURL @"/superMoney-core/commercia/sendPhoneVerification ?"
+//#define settingNatureMenURL @"/superMoney-core/commercia/assignNatural?" //添加自然人
 #define preSettingNatureMenURL @"/superMoney-core/commercia/preAssignNatural.do?" //预添加自然人
 
 #define ModifyNatureMenIdentifyURL @"/superMoney-core/commercia/updateNaturalPersonDo?" //修改自然人身份证等信息

@@ -12,21 +12,14 @@
 
 @interface ForgetPasswordViewController : HP_BaseViewController<UITextFieldDelegate>
 {
-    HP_UITextField * telTextField;
-    
-    //验证码
-    HP_UITextField * passCodeTextField;
-    
-    //密码确认
-    HP_UITextField * passwordTextField;
-    HP_UITextField * passwordTextField2;
+
     
     
     
-    UIButton *sendCheckCodeButton;
-    UILabel * sendCheckCodeLabel;
-    int nCout;
-    NSTimer* timer;
+//    UIButton *sendCheckCodeButton;
+//    UILabel * sendCheckCodeLabel;
+//    int nCout;
+//    NSTimer* timer;
 }
 
 @end

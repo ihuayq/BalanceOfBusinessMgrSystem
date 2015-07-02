@@ -70,13 +70,13 @@
     //http://192.168.1.107:8080/superMoney-core/commercia/getCommercialWebsiteInfo?commercialId=M0060013&personId=7
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID] forKey:USER_ID];
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
     
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,AccountURL];
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",CommercialIP,AccountURL];
-    
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
-    //[connDictionary setObject:@"7" forKey:@"personId"];
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
+
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
@@ -94,14 +94,14 @@
              
              //设定当前自然人信息
              //服务器需要返回自然人姓名，身份证，手机号码信息，当前自然人是第几个
-             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
-             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
-             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"personId"]] forKey:@"no"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
-             [Dict setObject:[responseJSONDictionary objectForKey:@"websiteList"] forKey:@"accountinfo"];
-             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
+//             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+//             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+//             [Dict setObject:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"personId"]] forKey:@"no"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"name"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+//             [Dict setObject:[responseJSONDictionary objectForKey:@"websiteList"] forKey:@"accountinfo"];
+//             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
               //保存完毕，注意在修改自然人的入口需要重新设定curNatureMenInfo信息
              
              NSMutableArray *groupNet=[[NSMutableArray alloc]init];

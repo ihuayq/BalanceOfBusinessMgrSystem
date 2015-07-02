@@ -177,6 +177,7 @@
             // 点击忘记按钮，处理block
             NSLog(@"忘记密码");
             //重置标记，使用普通登陆，并需要重置手势密码
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登录、1的登录
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsUsingGesturePwdLogin"];
             [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsLoginGesturePwdSet"];
             //进入登陆主界面
