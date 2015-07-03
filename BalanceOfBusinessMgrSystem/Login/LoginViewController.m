@@ -514,17 +514,6 @@
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
             
-//             if ([responseJSONDictionary objectForKey:@"idCard"]) {
-//                 [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
-//             }
-//             
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
-             
-//             [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
 
              [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
              

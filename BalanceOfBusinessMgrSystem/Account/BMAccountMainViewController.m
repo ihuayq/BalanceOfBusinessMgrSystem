@@ -58,13 +58,13 @@
 }
 
 -(void)requestNetwork{
-    NSString *strLoginName = @"";
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
-        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME];
-    }
-    else{
-        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME];
-    }
+//    NSString *strLoginName = @"";
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
+//        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME];
+//    }
+//    else{
+//        strLoginName = [[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME];
+//    }
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -74,7 +74,8 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    [connDictionary setObject:strLoginName forKey:@"loginName"];
+    //[connDictionary setObject:strLoginName forKey:@"loginName"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,loginOutUrl];

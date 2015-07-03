@@ -32,7 +32,8 @@
 #endif
 
 #else
-#define IP @"http://192.168.1.105:8080/"
+//106
+#define IP @"http://192.168.1.115:8080/"
 #endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
@@ -45,20 +46,30 @@
 
 #define settingNatureMenURL @"superMoney-core/appInterface/assignNatural?" //添加自然人
 
-#define AccountURL @"superMoney-core/appInterface/getCommercialWebsiteInfo?"
+#define AccountURL @"superMoney-core/appInterface/getCommercialWebsiteInfo?"//获取当前账号下面的银行卡信息
+
+#define bindBankAccountURL @"superMoney-core/appInterface/getPersonInfo?"//获取已经设定的银行卡信息
+
 
 #define SavaAccountURL @"superMoney-core/appInterface/saveAccountWebsite?"
 
-#define DrawCashURL @"superMoney-core/nature/saveInfo?"//沉淀
-#define PayPasswdURL @"superMoney-core/nature/setPayPass?"// 第一次设置交易密码时候使用
-#define SetLoginPasswdURL @"superMoney-core/nature/updateLoginPass?"// 创建登录密码,第一次登录时候用
-#define ModifyLoginPasswdURL @"superMoney-core/nature/changeLoginPass?"   //改变登录密码
-#define ModifyPayPasswdURL @"superMoney-core/nature/changePayPass?"   //改变登录密码
-#define ForgetLoginPasswdURL @"superMoney-core/nature/forgetPass?"
-#define QueryMainAssetURL @"superMoney-core/nature/queryBlanceInfo?"
-#define WithDrawURL @"superMoney-core/nature/withdraw?"// 提现
-#define AssetInfoUrl @"superMoney-core/nature/queryDetail?" //资产变动信息查询
-#define loginOutUrl @"superMoney-core/nature/loginOut?" //资产变动信息查询
+#define QueryMainAssetURL @"superMoney-core/appInterface/queryBlanceData?"
+
+#define AssetInfoUrl @"superMoney-core/appInterface/queryDetail?" //资产变动信息查询
+
+#define WithDrawURL @"superMoney-core/appInterface/withdraw?"// 提现
+
+#define DrawCashURL @"superMoney-core/appInterface/setPrecipitation?"//沉淀
+
+#define PayPasswdURL @"superMoney-core/appInterface/setPayPass?"// 第一次设置交易密码时候使用，设置支付密码
+#define ModifyPayPasswdURL @"superMoney-core/appInterface/changePayPass?"   //改变支付密码
+
+#define SetLoginPasswdURL @"superMoney-core/appInterface/updateLoginPass?"// 创建登录密码,第一次登录时候用
+#define ModifyLoginPasswdURL @"superMoney-core/appInterface/resetPosPwd?"   //改变登录密码
+
+#define ForgetLoginPasswdURL @"superMoney-core/appInterface/forgetPass?"
+
+#define loginOutUrl @"superMoney-core/appInterface/loginOut?" //资产变动信息查询
 
 //loginOut
 //String phoneNum = request.getParameter("phoneNum");

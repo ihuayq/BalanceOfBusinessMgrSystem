@@ -70,7 +70,7 @@
     supplyerAccountTextField.placeholder = @"以Mer开头的11位字符串";
     supplyerAccountTextField.font = [UIFont systemFontOfSize:14];
     supplyerAccountTextField.delegate = self;
-    supplyerAccountTextField.keyboardType = UIKeyboardTypeNumberPad;
+    supplyerAccountTextField.keyboardType = UIKeyboardTypeDefault;
     supplyerAccountTextField.borderStyle = UITextBorderStyleNone;
     [self.view addSubview:supplyerAccountTextField];
     
@@ -203,11 +203,6 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-
-
-
-
-
 -(void)touchForgetPasswordButton
 {
 //    if (![self checkTel:telTextField.text]) {
@@ -231,27 +226,32 @@
     
     [self touchesBegan:nil withEvent:nil];
     
+//    http://192.168.1.106:8080/superMoney-core/appInterface/resetPosPwd
+//    参数 merno,legalPerson,cardId, 密码password,重复密码 aginpwd
+    
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    id infp = [[NSUserDefaults standardUserDefaults] objectForKey:@"fogetPassPersonId"];
-    if (infp == nil) {
-        [connDictionary setObject:@"" forKey:USER_ID];
-    }
-    else{
-        [connDictionary setObject:infp forKey:USER_ID];
-    }
+//    id infp = [[NSUserDefaults standardUserDefaults] objectForKey:@"fogetPassPersonId"];
+//    if (infp == nil) {
+//        [connDictionary setObject:@"" forKey:USER_ID];
+//    }
+//    else{
+//        [connDictionary setObject:infp forKey:USER_ID];
+//    }
     
-//    [connDictionary setObject:passCodeTextField.text forKey:@"verificationCode"];
-//    [connDictionary setObject:telTextField.text forKey:@"phoneNum"];
+    [connDictionary setObject:supplyerAccountTextField.text forKey:@"merno"];
+    [connDictionary setObject:[manNameTextField.text URLEncodedString]forKey:@"legalPerson"];
+    [connDictionary setObject:manIdentifyNoTextField.text forKey:@"cardId"];
+
     
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-    [connDictionary setObject:encodedValue forKey:@"newPassword"];
+    [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,SetLoginPasswdURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,ModifyLoginPasswdURL];
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     [self showProgressViewWithMessage:@"正在设置登录密码..."];

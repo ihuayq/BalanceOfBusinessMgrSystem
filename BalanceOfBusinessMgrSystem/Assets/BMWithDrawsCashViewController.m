@@ -75,7 +75,7 @@
     UILabel * CardNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(CardLabel.frame.origin.x + CardLabel.frame.size.width - 20 ,line2.frame.size.height + line2.frame.origin.y + 10, 180,20)];
     CardNumLabel.textAlignment = NSTextAlignmentLeft;
     //NSLog(@"the balance card no :%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]);
-    CardNumLabel.text =  [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]  objectForKey:@"balanceCardNo"]];
+    CardNumLabel.text =  [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"drawCardNo"]];
     
 //    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:CardNumLabel.text];
 //    if (modifyStr.length > 10) {

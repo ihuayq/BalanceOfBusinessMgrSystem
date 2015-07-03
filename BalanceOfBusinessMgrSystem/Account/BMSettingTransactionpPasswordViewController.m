@@ -67,7 +67,7 @@
     
     UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(notePsdLabel.frame.origin.x+ labelsize.width, NAVIGATION_OUTLET_HEIGHT + 20, 240, labelsize.height)];
     //手机号码
-    telLabel.text = phoneNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"];
+    telLabel.text = phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
     telLabel.textAlignment = NSTextAlignmentLeft;
     telLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telLabel.font = [UIFont systemFontOfSize:18];
@@ -245,9 +245,9 @@
         return;
     }
     
-    if (![self checkPassCode:passCodeTextField3.text]) {
-        return;
-    }
+//    if (![self checkPassCode:passCodeTextField3.text]) {
+//        return;
+//    }
     
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {
@@ -264,9 +264,11 @@
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+//    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+//    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
-    [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
+    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
+    //[connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
     
     //旧的密码
     NSString* string3desOld=[[[NSData alloc] init] encrypyConnectDes:oldPasswordTextField.text];//3DES加密

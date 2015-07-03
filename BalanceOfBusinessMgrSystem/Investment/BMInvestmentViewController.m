@@ -315,14 +315,14 @@
 //        [self requestNetWork];
 //    }
     
-    settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
+//    settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+//    [self.navigationController pushViewController:info
+//                                         animated:NO];
     
-//    BMInvestmentConfirmViewController *vc = [[BMInvestmentConfirmViewController alloc] init];
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
-//    return;
+    BMInvestmentConfirmViewController *vc = [[BMInvestmentConfirmViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    return;
 }
 
 -(void)touchCancelButton{

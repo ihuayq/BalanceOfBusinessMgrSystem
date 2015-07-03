@@ -41,6 +41,10 @@
     self.navigation.title = @"我的信息";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
+    [self requestNetWork];
+}
+
+-(void)initUI{
     [self initGroup];
     
     //自然人姓名
@@ -54,7 +58,7 @@
     [self.view addSubview:manTitleLabel];
     
     manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
-    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"personName"];
+    manNameLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"personName"];
     manNameLabel.textAlignment = NSTextAlignmentCenter;
     manNameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manNameLabel.font = [UIFont systemFontOfSize:14];
@@ -73,7 +77,7 @@
     [self.view addSubview:identifyTitleLabel];
     
     identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,180, 20)];
-    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"identifyno"];
+    identifyLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"identifyno"];
     identifyLabel.textAlignment = NSTextAlignmentLeft;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
@@ -92,7 +96,7 @@
     [self.view addSubview:telephoneTitleLabel];
     
     telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 100,20)];
-    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"];
+    telephoneLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
     telephoneLabel.textAlignment = NSTextAlignmentCenter;
     telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneLabel.font = [UIFont systemFontOfSize:14];
@@ -124,6 +128,101 @@
     [self.view addSubview:avestButton];
 }
 
+-(void)requestNetWork{
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    //http://192.168.1.115:8080/superMoney-core/appInterface/getPersonInfo 参数 commercialId
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID] forKey:USER_ID];
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,bindBankAccountURL];
+    
+    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"] forKey:@"personId"];
+    
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    [self showProgressViewWithMessage:@"正在请求账号数据..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+//             accountBankname = "\U5de5\U5546\U94f6\U884c";
+//             allowUpdateFlag = 0;
+//             balanceCardNo = "22****22";
+//             flag = 100;
+//             idCard = "130203****200322";
+//             msg = "\U4e2a\U4eba\U4fe1\U606f";
+//             netAccountInfo =     (
+//                                   {
+//                                       balanceAccount = 2222222222;
+//                                       pubAccountName = sdfasdfsaf;
+//                                       websiteMark = "\U5de5\U5546\U94f6\U884c";
+//                                   }
+//                                   );
+//             personName = "*\U946b";
+//             phonenum = "18****658";
+//             recName = sdfasdfsaf;
+             //个人银行卡信息
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
+             
+
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo" ];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName" ];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName" ];
+             
+             //个人信息，身份证，姓名，手机号
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"personName"]  forKey:@"personName"];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+             
+             //是否允许修改标记
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"allowUpdateFlag"] forKey:@"allowUpdateFlag"];
+             
+             [self loadData];
+             
+             [self initUI];
+             
+             
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+}
+
+
 -(void)loadData{
 
     
@@ -144,9 +243,9 @@
     
     balanceAccountSelected=[[NSMutableArray alloc]init];
     BankAccountItem *itemBalance = [BankAccountItem new];
-    itemBalance.bankCardNumber = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ] objectForKey:@"balanceCardNo" ];
-    itemBalance.bankName = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ] objectForKey:@"balanceCardBankName" ];
-    itemBalance.accountName = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ] objectForKey:@"balanceCardAccountName" ];
+    itemBalance.bankCardNumber = [[NSUserDefaults standardUserDefaults]  objectForKey:@"balanceCardNo" ];
+    itemBalance.bankName = [[NSUserDefaults standardUserDefaults]  objectForKey:@"balanceCardBankName" ];
+    itemBalance.accountName = [[NSUserDefaults standardUserDefaults]  objectForKey:@"balanceCardAccountName" ];
     [balanceAccountSelected addObject:itemBalance];
 
 }

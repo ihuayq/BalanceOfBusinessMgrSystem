@@ -64,7 +64,7 @@
     
     UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(notePsdLabel.frame.origin.x+ labelsize.width, NAVIGATION_OUTLET_HEIGHT + 20, 240, labelsize.height)];
     //手机号码
-    telLabel.text = phoneNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"];
+    telLabel.text = phoneNum = [[NSUserDefaults standardUserDefaults]  objectForKey:@"phoneNum"];
     telLabel.textAlignment = NSTextAlignmentLeft;
     telLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telLabel.font = [UIFont systemFontOfSize:18];
@@ -257,9 +257,10 @@
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
+    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
     
+    passwordTextField.text = @"000000";
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"payPassword"];
@@ -316,11 +317,9 @@
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
+    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     
-    //[connDictionary setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phonenum"];
-    
-    //[connDictionary setObject:@"register" forKey:@"type"];
+
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
     
@@ -343,7 +342,6 @@
          {
              [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
-
          else
          {
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];

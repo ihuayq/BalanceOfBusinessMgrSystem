@@ -90,6 +90,8 @@
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountId"] forKey:@"drawCardNo"];            
              
          }
 //         //相同账号同时登陆，返回错误

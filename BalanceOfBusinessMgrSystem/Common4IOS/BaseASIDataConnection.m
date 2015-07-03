@@ -74,7 +74,7 @@
 //        }
         
         NSMutableDictionary *responseJSONDictionary = [NSMutableDictionary dictionaryWithDictionary:jsonDictionary];
-        successBlock(_request,ret,msg,responseJSONDictionary);
+        successBlock(_request,ret,[msg URLDecodedString],responseJSONDictionary);
     }];
     [request setFailedBlock:^{
 //      NSLog(@"%@",_request.error.debugDescription);
