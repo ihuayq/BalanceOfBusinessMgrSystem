@@ -276,10 +276,10 @@
 
 -(void)touchCommitButton{
     //test
-    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-    [self.navigationController pushViewController:info
-                                         animated:NO];
-    return;
+//    settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+//    [self.navigationController pushViewController:info
+//                                         animated:NO];
+//    return;
 //    if (![self checkName:nameTextField.text]) {
 //        return;
 //    }
@@ -355,10 +355,24 @@
 //             [Dict setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phonenum"];
 //             [[NSUserDefaults standardUserDefaults]setObject:Dict forKey:@"curNatureMenInfo"];
              //设置自然人信息
-//             
-             settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-             [self.navigationController pushViewController:info
-                                                  animated:NO];
+             
+//         responseJSONDictionary:{
+//             flag = 100;
+//             idCard = "130203****200322";
+//             msg = "\U5b8c\U5584\U4e2a\U4eba\U4fe1\U606f\U6210\U529f\Uff01";
+//             personId = 177;
+//             personName = "*\U946b";
+//             phoneNum = 15900000000;
+//         },
+             
+         NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
+         [data setObject:@"1" forKey:@"addNaturalMark"];
+         [[NSUserDefaults standardUserDefaults]setObject:data forKey:USERINFO];
+         NSLog(@"the SUPPLYER_INFO is:%@",data);
+         
+         settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+         [self.navigationController pushViewController:info
+                                              animated:NO];
          }
          //相同账号同时登陆，返回错误
          else if([ret isEqualToString:reLoginOutFlag])

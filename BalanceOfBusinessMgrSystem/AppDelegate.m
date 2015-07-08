@@ -159,7 +159,6 @@
             [self setLockPwd];
             return;
         }
-        
     }
     
     //若设置了手势密码

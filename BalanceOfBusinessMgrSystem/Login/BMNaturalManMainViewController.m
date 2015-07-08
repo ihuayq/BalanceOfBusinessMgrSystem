@@ -67,38 +67,40 @@
              responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
              
              NSMutableDictionary* Dict=[[NSMutableDictionary alloc] initWithCapacity:0];
-             
              if ([responseJSONDictionary objectForKey:@"idCard"]) {
                  [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
              }
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
              [Dict setObject:[responseJSONDictionary objectForKey:@"commercialName"] forKey:USER_NAME];
-
-//           [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
-//           [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
-//           [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
-//           [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
              [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
-//           [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
-             
              [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
-             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加 methods = TRUE;
+             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
+             [Dict setObject:[responseJSONDictionary objectForKey:@"addwebsiteFlag"] forKey:@"addwebsiteFlag"];//是否添加卡号信息,1代表添加，0不添加
              [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
              
              //商户类型
              [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];//绑定卡号信息
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountId"] forKey:@"drawCardNo"];            
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];//利率
+             //很显然，交易密码的设置需要使用到手机号码，而手机号码是在绑定设置过后
+             //如下操作需要先设置自然人信息：交易密码的修改，提现，查看我的信息
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];//手机号
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountId"] forKey:@"drawCardNo"];    //提现卡号码
+             
+             
+ //           [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+ //           [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
+ //           [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
+ //           [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
+ //           [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
              
          }
-//         //相同账号同时登陆，返回错误
-//         else if([ret isEqualToString:reLoginOutFlag])
-//         {
-//             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-//         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
          else
          {
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];

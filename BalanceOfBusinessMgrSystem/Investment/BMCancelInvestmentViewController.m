@@ -113,6 +113,7 @@
     [connDictionary setObject:@"0" forKey:@"status"];
     
     //支付密码
+    NSLog(@"passWordTextField:%@",passWordTextField.text);
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passWordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"pay_passwd_3des_encode"];

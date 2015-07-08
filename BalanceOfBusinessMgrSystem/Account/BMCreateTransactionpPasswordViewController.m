@@ -260,7 +260,7 @@
     [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
     
-    passwordTextField.text = @"000000";
+    //passwordTextField.text = @"000000";
     NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
     NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
     [connDictionary setObject:encodedValue forKey:@"payPassword"];

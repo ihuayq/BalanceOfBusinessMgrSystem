@@ -513,16 +513,9 @@
              //商户还是自然人
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
-            
-
              [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
-             
-//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];
-//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
-             
              [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
-//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
-             
+
              [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected] forKey:LOGIN_TYPE];
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];
              
@@ -572,10 +565,6 @@
          [alertView show];
      }];
 }
-
-
-
-
 
 -(void)supplyerLoginRequest{
     if(![self checkName:nameTextField.text])

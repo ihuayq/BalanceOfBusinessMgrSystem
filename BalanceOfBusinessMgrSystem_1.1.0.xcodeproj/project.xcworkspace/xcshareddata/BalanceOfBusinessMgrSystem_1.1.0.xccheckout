@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>35E72467-81AC-4940-A163-79E14D228297</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>BalanceOfBusinessMgrSystem_1.1.0</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>0A8DB29FC8821A23EE267AFF15AA6F78422329F2</key>
 		<string>https://github.com/ihuayq/BalanceOfBusinessMgrSystem.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BalanceOfBusinessMgrSystem_1.1.0.xcodeproj/project.xcworkspace</string>
+	<string>BalanceOfBusinessMgrSystem_1.1.0.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>0A8DB29FC8821A23EE267AFF15AA6F78422329F2</key>

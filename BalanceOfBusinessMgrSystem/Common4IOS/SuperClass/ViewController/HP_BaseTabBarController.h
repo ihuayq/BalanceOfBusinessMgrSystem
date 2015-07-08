@@ -40,6 +40,9 @@
 //简单的系统提示框
 -(void)showSimpleAlertViewWithTitle:(NSString *)title alertMessage:(NSString *)msg cancelButtonTitle:(NSString *) cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
 
+-(void)showSimpleAlertViewWithTitle:(NSString *)title tag:(int)tag alertMessage:(NSString *)msg cancelButtonTitle:(NSString *) cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...;
+
+
 //简单的debug提示框
 -(void)showDebugAlertViewWithMessage:(NSString *)msg isContinue:(BOOL) isContinue;
 

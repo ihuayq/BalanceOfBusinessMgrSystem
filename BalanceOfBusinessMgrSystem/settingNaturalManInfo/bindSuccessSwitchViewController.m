@@ -8,6 +8,7 @@
 
 #import "bindSuccessSwitchViewController.h"
 #import "settingNaturalManInfoViewController.h"
+#import "BMInvestmentConfirmViewController.h"
 
 @interface bindSuccessSwitchViewController ()
 
@@ -38,38 +39,37 @@
     [switchButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [switchButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [switchButton setBackgroundColor:[UIColor greenColor]];
-    [switchButton setFrame:CGRectMake(MainWidth/3 - 80, MainHeight/2 , 80, 40)];
+    [switchButton setFrame:CGRectMake(80, MainHeight/2 , MainWidth - 2*80, 40)];
     [switchButton addTarget:self action:@selector(touchSwitchButton) forControlEvents:UIControlEventTouchUpInside];
     [switchButton setTitle:@"切换" forState:UIControlStateNormal];
     [switchButton.layer setMasksToBounds:YES];
     [switchButton.layer setCornerRadius:switchButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:switchButton];
 
-    //继续添加自然人
-    UIButton *addMoreButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
-    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
-    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
-    [addMoreButton setBackgroundColor:[UIColor greenColor]];
-    [addMoreButton setFrame:CGRectMake(MainWidth/3 + 20 , MainHeight/2 , 160, 40)];
-    [addMoreButton addTarget:self action:@selector(touchAddMoreButton) forControlEvents:UIControlEventTouchUpInside];
-    [addMoreButton setTitle:@"继续添加自然人" forState:UIControlStateNormal];
-    [addMoreButton.layer setMasksToBounds:YES];
-    [addMoreButton.layer setCornerRadius:addMoreButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
-    [self.view addSubview:addMoreButton];
+//    //继续添加自然人
+//    UIButton *addMoreButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+//    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
+//    [addMoreButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
+//    [addMoreButton setBackgroundColor:[UIColor greenColor]];
+//    [addMoreButton setFrame:CGRectMake(MainWidth/3 + 20 , MainHeight/2 , 160, 40)];
+//    [addMoreButton addTarget:self action:@selector(touchAddMoreButton) forControlEvents:UIControlEventTouchUpInside];
+//    [addMoreButton setTitle:@"继续添加自然人" forState:UIControlStateNormal];
+//    [addMoreButton.layer setMasksToBounds:YES];
+//    [addMoreButton.layer setCornerRadius:addMoreButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
+//    [self.view addSubview:addMoreButton];
 }
 
 -(void)touchSwitchButton{
 //    LoginViewController*info = [[LoginViewController alloc] init];
 //    [self.navigationController pushViewController:info
 //                                         animated:NO];
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
-    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
+//    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+      [self.navigationController popToRootViewControllerAnimated:NO];
 }
 
 -(void)touchAddMoreButton{
-
-    
     for (int i=0;i<[self.navigationController.viewControllers count] ; i++)
     {
         if([[self.navigationController.viewControllers objectAtIndex:i] isKindOfClass:[settingNaturalManInfoViewController class]])

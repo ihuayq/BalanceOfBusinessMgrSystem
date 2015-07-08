@@ -17,10 +17,10 @@
 @interface bindNetworkPointAccountViewController (){
     UITableView * tableView;
     
-    UILabel * manTitleLabel;
-    UILabel * manNameLabel;
+//    UILabel * manTitleLabel;
+//    UILabel * manNameLabel;
     UILabel * identifyLabel;
-    UILabel * telephoneLabel;
+    UILabel * nameLabel;
     
     BOOL isSelectedButtonEnable;
     
@@ -38,28 +38,9 @@
     self.navigation.title = @"绑定网点账户";
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     
-    //自然人姓名
-    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, NAVIGATION_OUTLET_HEIGHT + 15, 70, 20)];
-    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
-    manTitleLabel.textAlignment = NSTextAlignmentCenter;
-    manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    manTitleLabel.font = [UIFont systemFontOfSize:14];
-    manTitleLabel.backgroundColor = [UIColor clearColor];
-    manTitleLabel.numberOfLines = 0;
-    [self.view addSubview:manTitleLabel];
-    
-    manNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 50, 20)];
-    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
-    manNameLabel.textAlignment = NSTextAlignmentCenter;
-    manNameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    manNameLabel.font = [UIFont systemFontOfSize:14];
-    manNameLabel.backgroundColor = [UIColor clearColor];
-    manNameLabel.numberOfLines = 0;
-    [self.view addSubview:manNameLabel];
-    
-    //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x + 5 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 20)];
-    identifyTitleLabel.text = @"身份证号码:";
+    //商户编号
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30 , NAVIGATION_OUTLET_HEIGHT + 15, 90, 20)];
+    identifyTitleLabel.text = @"商户编号:";
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -68,39 +49,39 @@
     [self.view addSubview:identifyTitleLabel];
     
     identifyLabel = [[UILabel alloc] initWithFrame:CGRectMake(identifyTitleLabel.frame.size.width + identifyTitleLabel.frame.origin.x, NAVIGATION_OUTLET_HEIGHT + 15,180, 20)];
-    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
+    identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID];
     identifyLabel.textAlignment = NSTextAlignmentLeft;
     identifyLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyLabel.font = [UIFont systemFontOfSize:14];
     identifyLabel.backgroundColor = [UIColor clearColor];
     identifyLabel.numberOfLines = 0;
     [self.view addSubview:identifyLabel];
+
+    //商户名称
+    UILabel *nameTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, identifyLabel.frame.size.height + identifyLabel.frame.origin.y + 10, 70, 20)];
+    nameTitleLabel.text = @"商户名称:";
+    nameTitleLabel.textAlignment = NSTextAlignmentCenter;
+    nameTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    nameTitleLabel.font = [UIFont systemFontOfSize:14];
+    nameTitleLabel.backgroundColor = [UIColor clearColor];
+    nameTitleLabel.numberOfLines = 0;
+    [self.view addSubview:nameTitleLabel];
     
-    //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(manTitleLabel.frame.size.width + manTitleLabel.frame.origin.x +30, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 70, 20)];
-    telephoneTitleLabel.text = @"手机号码:";
-    telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
-    telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    telephoneTitleLabel.font = [UIFont systemFontOfSize:14];
-    telephoneTitleLabel.backgroundColor = [UIColor clearColor];
-    telephoneTitleLabel.numberOfLines = 0;
-    [self.view addSubview:telephoneTitleLabel];
+    nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(nameTitleLabel.frame.size.width + nameTitleLabel.frame.origin.x, identifyLabel.frame.size.height + identifyLabel.frame.origin.y + 10, 160,20)];
+    nameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_NAME];
+    nameLabel.textAlignment = NSTextAlignmentCenter;
+    nameLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    nameLabel.font = [UIFont systemFontOfSize:14];
+    nameLabel.backgroundColor = [UIColor clearColor];
+    nameLabel.numberOfLines = 0;
+    [self.view addSubview:nameLabel];
     
-    telephoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(telephoneTitleLabel.frame.size.width + telephoneTitleLabel.frame.origin.x, manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, 100,20)];
-    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];
-    telephoneLabel.textAlignment = NSTextAlignmentCenter;
-    telephoneLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
-    telephoneLabel.font = [UIFont systemFontOfSize:14];
-    telephoneLabel.backgroundColor = [UIColor clearColor];
-    telephoneLabel.numberOfLines = 0;
-    [self.view addSubview:telephoneLabel];
-    
-    UIView *seporatorLine = [[UIView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 9.5f , MainWidth, 0.5f)];
+    UIView *seporatorLine = [[UIView alloc] initWithFrame:CGRectMake(0, nameLabel.frame.size.height + nameLabel.frame.origin.y + 9.5f , MainWidth, 0.5f)];
     seporatorLine.backgroundColor = [UIColor blackColor];
     [self.view addSubview:seporatorLine];
     
     
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, telephoneLabel.frame.size.height + telephoneLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 150.0f) style:UITableViewStyleGrouped];
+    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, nameLabel.frame.size.height + nameLabel.frame.origin.y + 10 ,MainWidth, MainHeight-48.5f - 44.0f - 150.0f) style:UITableViewStyleGrouped];
     tableView.delegate =self;
     tableView.dataSource = self;
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -113,7 +94,7 @@
     [avestButton setBackgroundColor:[UIColor greenColor]];
     [avestButton setFrame:CGRectMake(40, tableView.frame.origin.y + tableView.frame.size.height + 10 , MainWidth - 80, 40)];
     [avestButton addTarget:self action:@selector(touchOkButton) forControlEvents:UIControlEventTouchUpInside];
-    [avestButton setTitle:@"确定" forState:UIControlStateNormal];
+    [avestButton setTitle:@"下一步" forState:UIControlStateNormal];
     [avestButton.layer setMasksToBounds:YES];
     [avestButton.layer setCornerRadius:avestButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
     [self.view addSubview:avestButton];
@@ -149,10 +130,10 @@
 
 
 -(void)refreshData{
-    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
-    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
+//    manTitleLabel.text = [NSString stringWithFormat:@"自然人%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"no"]];
+//    manNameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"name"];
     identifyLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"identifyno"];
-    telephoneLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
+    nameLabel.text = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureMenInfo"] objectForKey:@"phonenum"];;
 }
 
 -(void)touchOkButton{
