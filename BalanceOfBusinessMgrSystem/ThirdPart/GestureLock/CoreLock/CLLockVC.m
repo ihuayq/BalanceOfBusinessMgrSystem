@@ -12,6 +12,7 @@
 #import "CLLockLabel.h"
 #import "CLLockNavVC.h"
 #import "CLLockView.h"
+#import "BaseASIDataConnection.h"
 
 
 
@@ -225,6 +226,7 @@
  *  控制器准备
  */
 -(void)vcPrepare{
+    self.navigation.hidden = YES;
 
     //设置背景色
     self.view.backgroundColor = CoreLockViewBgColor;
@@ -267,11 +269,91 @@
 
 -(void)skip{
     //进入主界面
-    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+//    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
+    [self dataRequestSearch];
 }
 
+-(void)dataRequestSearch{
+    
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    [self touchesBegan:nil withEvent:nil];
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+    //    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
+    //    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
+    //    [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MInfoURL];
+    
+    [self showMBProgressHUDWithMessage:@"加载中..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         [self hidMBProgressHUD];
+         if([ret isEqualToString:@"100"])
+         {
+             responseJSONDictionary=[self delStringNullOfDictionary:responseJSONDictionary];
+             
+             NSMutableDictionary* Dict=[[NSMutableDictionary alloc] initWithCapacity:0];
+             if ([responseJSONDictionary objectForKey:@"idCard"]) {
+                 [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+             }
+             [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"commercialName"] forKey:USER_NAME];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"] forKey:@"personName"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"precipitationMarke"] forKey:@"appointment"];//是否设置沉淀
+             [Dict setObject:[responseJSONDictionary objectForKey:@"addnpflag"] forKey:@"addNaturalMark"];//是否添加自然人标记,1代表添加，0不添加
+             [Dict setObject:[responseJSONDictionary objectForKey:@"addwebsiteFlag"] forKey:@"addwebsiteFlag"];//是否添加卡号信息,1代表添加，0不添加
+             [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:USERINFO];
+             
+             //商户类型
+             [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"methods"] forKey:@"methods"];
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceInfo"] forKey:@"balanceInfo"];//绑定卡号信息
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"payMark"] forKey:@"payMark"];//交易密码
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"rate"] forKey:@"rate"];//利率
+             //很显然，交易密码的设置需要使用到手机号码，而手机号码是在绑定设置过后
+             //如下操作需要先设置自然人信息：交易密码的修改，提现，查看我的信息
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];//手机号
+             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountId"] forKey:@"drawCardNo"];    //提现卡号码
+             
+             
+            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+            [[NSNotificationCenter defaultCenter] postNotification:notification];
+             
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+         
+         
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
+         NSLog(@"error:%@",error.debugDescription);
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         [self hidMBProgressHUD];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
+}
 
 
 /*

@@ -100,16 +100,19 @@
     if(alertView.tag == LoginOutViewTag){
         switch (buttonIndex) {
             case 0:{
-                if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
-                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
-                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                }
-                else{
-                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"1",@"isSupplyer", nil];
-                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                }
+//                if ([[[NSUserDefaults standardUserDefaults] objectForKey:LOGIN_TYPE] isEqualToString:@"0"]) {
+//                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"0",@"isSupplyer", nil];
+//                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                }
+//                else{
+//                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"2",@"login",@"1",@"isSupplyer", nil];
+//                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+//                }
+                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"4",@"login", nil];
+                NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
             }break;
             default:
                 break;
@@ -174,7 +177,7 @@
     // Configure for text only and offset down
     //HUD.mode = MBProgressHUDModeText;
     HUD.labelText = msg;
-    HUD.minSize = CGSizeMake(135.f, 135.f);
+    HUD.minSize = CGSizeMake(75.f, 75.f);
     HUD.margin = 10.f;
     HUD.removeFromSuperViewOnHide = YES;
     [HUD show:YES];

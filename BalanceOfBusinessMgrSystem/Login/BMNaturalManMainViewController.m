@@ -34,8 +34,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    
-    [self networkRequest];
+    [self initUI];
+    //[self networkRequest];
 }
 
 -(void)networkRequest{
@@ -89,11 +89,11 @@
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountId"] forKey:@"drawCardNo"];    //提现卡号码
              
              
- //           [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
- //           [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
- //           [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
- //           [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
- //           [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
+//           [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+//           [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo"];
+//           [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
+//           [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName"];
+//           [Dict setObject:[responseJSONDictionary objectForKey:@"naturalMark"] forKey:@"naturalMark"];//是否第一次登录
              
          }
          //相同账号同时登陆，返回错误
@@ -106,7 +106,7 @@
              [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
          }
          
-         [self initUI];
+         
          
      } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error,NSString * msg) {
          NSLog(@"error:%@",error.debugDescription);

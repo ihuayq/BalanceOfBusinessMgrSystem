@@ -23,7 +23,7 @@ typedef enum{
 
 
 
-@interface CLLockVC : UIViewController
+@interface CLLockVC : HP_BaseViewController
 
 @property (nonatomic,assign) CoreLockType type;
 
@@ -65,7 +65,7 @@ typedef enum{
 
 
 
-
+-(void)dataRequestSearch;
 
 
 

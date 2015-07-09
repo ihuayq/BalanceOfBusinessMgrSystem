@@ -32,8 +32,8 @@
 #endif
 
 #else
-//106 192.168.12.142
-#define IP @"http://192.168.12.142:8080/"
+//192.168.0.56:8080/
+#define IP @"http://192.168.0.56:8080/"
 #endif
 
 //#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器

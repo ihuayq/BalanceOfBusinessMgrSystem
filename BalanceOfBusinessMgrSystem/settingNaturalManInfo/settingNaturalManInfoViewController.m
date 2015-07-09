@@ -368,6 +368,7 @@
          NSMutableDictionary*data = [NSMutableDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]];
          [data setObject:@"1" forKey:@"addNaturalMark"];
          [[NSUserDefaults standardUserDefaults]setObject:data forKey:USERINFO];
+         [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];
          NSLog(@"the SUPPLYER_INFO is:%@",data);
          
          settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];

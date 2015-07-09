@@ -19,6 +19,7 @@
 #import "settingNaturalManInfoViewController.h"
 #import "bindNetworkPointAccountViewController.h"
 #import "bindBalanceAccountViewController.h"
+#import "BMCreateTransactionpPasswordViewController.h"
 
 
 @interface BMAccountMainViewController (){
@@ -314,39 +315,69 @@
             }
             else if( indexPath.row == 2 )
             {
-                BMSettingTransactionpPasswordViewController *vc = [[BMSettingTransactionpPasswordViewController alloc] init];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+                //需要判断是否已经设置交易密码
+                if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"1"]) {
+                    BMSettingTransactionpPasswordViewController *vc = [[BMSettingTransactionpPasswordViewController alloc] init];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                }
+                else{
+                    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+                    [alert show];
+                    alert.leftBlock = ^() {
+                        NSLog(@"Left button clicked");
+                        BMCreateTransactionpPasswordViewController *info = [[BMCreateTransactionpPasswordViewController alloc] init];
+                        info.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:info
+                                                             animated:NO];
+                    };
+                    alert.rightBlock = ^() {
+                        NSLog(@"Right button clicked");
+                        [self.navigationController popViewControllerAnimated:YES];
+                    };
+                    alert.dismissBlock = ^() {
+                        NSLog(@"Do something interesting after dismiss block");
+                    };
+                }
             }
         }
+        //手势密码功能
         else if( indexPath.row == 1)
         {
-//            ModifyLoginPasswordViewController *vc = [[ModifyLoginPasswordViewController alloc] init];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:vc animated:YES];
-             CLLockVC  *lockVC = [CLLockVC showModifyLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+            //登陆查看下手势密码设置了没有
+            NSString *isLoginGestureSet = [[NSUserDefaults standardUserDefaults] objectForKey:@"IsLoginGesturePwdSet"] ;
+            //手势密码是否设置 0，nil,无；1，设置过
+            if ([isLoginGestureSet intValue] == 0 || isLoginGestureSet == nil) {
                 
-                [lockVC dismiss:.5f];
-            }];
-            //CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
-            //navVC.hidesBottomBarWhenPushed = YES;
-            
-            CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
-            [self presentViewController:navVC animated:YES completion:nil];
-            
-//            CLLockVC  *lockVC = [CLLockVC showSettingLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
-//                NSLog(@"密码设置成功");
-//                //设置过标记
-//                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsLoginGesturePwdSet"];
-//                //下次直接使用手势登陆进入主界面
-//                //使用登陆类型，0密码登陆，1手势登陆
-//                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
-//                
-//                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-//                NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-//                [[NSNotificationCenter defaultCenter] postNotification:notification];
-//            }];
-//            CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+                
+                DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置手势密码,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+                [alert show];
+                alert.leftBlock = ^() {
+                    NSLog(@"Left button clicked");
+                   [self setLockPwd];
+                };
+                alert.rightBlock = ^() {
+                    NSLog(@"Right button clicked");
+                    [self.navigationController popViewControllerAnimated:YES];
+                };
+                alert.dismissBlock = ^() {
+                    NSLog(@"Do something interesting after dismiss block");
+                };
+                
+                return;
+            }
+            else{
+                //            ModifyLoginPasswordViewController *vc = [[ModifyLoginPasswordViewController alloc] init];
+                //            vc.hidesBottomBarWhenPushed = YES;
+                //            [self.navigationController pushViewController:vc animated:YES];
+                CLLockVC  *lockVC = [CLLockVC showModifyLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+                    
+                    [lockVC dismiss:.5f];
+                }];
+                
+                CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+                [self presentViewController:navVC animated:YES completion:nil];
+            }
         }
        
     }
@@ -359,6 +390,25 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 
+}
+
+-(void)setLockPwd{
+    CLLockVC  *lockVC = [CLLockVC showSettingLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
+        NSLog(@"密码设置成功");
+        //设置过标记
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsLoginGesturePwdSet"];
+        //下次直接使用手势登陆进入主界面
+        //使用登陆类型，0密码登陆，1手势登陆
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
+        
+        [lockVC dismiss:.5f];
+        
+//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+//        NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+    }];
+    CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
+    [self presentViewController:navVC animated:YES completion:nil];
 }
 
 -(void)requestNetWork{

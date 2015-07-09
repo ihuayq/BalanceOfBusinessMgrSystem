@@ -19,10 +19,12 @@
 #import "BMHomePageViewController.h"
 #import "CLLockVC.h"
 #import "CLLockNavVC.h"
+#import "MBProgressHUD.h"
 
 @interface AppDelegate ()<SRWebSocketDelegate>{
     //NSTimer * loginCheckTimer;
     SRWebSocket *_webSocket;
+    MBProgressHUD *HUD;
 }
 
 @end
@@ -61,12 +63,7 @@
     return YES;
 }
 
-// 显示简单的alertView
--(void)showSimpleAlertViewWithTitle:(NSString *)title alertMessage:(NSString *)msg cancelButtonTitle:(NSString *) cancelTitle otherButtonTitles:(NSString *)otherButtonTitles, ...{
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:msg delegate:self cancelButtonTitle:cancelTitle otherButtonTitles:otherButtonTitles,nil];
-    [alertView show];
-}
+
 
 - (void)LoginInitMainwidow:(NSNotification *)text{
     NSLog(@"%@",text.userInfo[@"login"]);
@@ -139,9 +136,11 @@
         //使用登陆类型，0密码登陆，1手势登陆
         [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
         
-        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-        NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        [lockVC dataRequestSearch];
+        
+//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+//        NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }];
     CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
     self.window.rootViewController = navVC;
@@ -188,9 +187,10 @@
             NSLog(@"密码正确");
             [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IsUsingGesturePwdLogin"];
             //进入主界面
-            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
+//            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+//            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//            [[NSNotificationCenter defaultCenter] postNotification:notification];
+            [lockVC dataRequestSearch];
         }];
         
         CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
