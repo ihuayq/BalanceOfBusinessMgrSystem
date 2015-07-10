@@ -55,7 +55,7 @@
     
     //自然人姓名
     UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 15, MainWidth - 2*20, 20)];
-    manTitleLabel.text = [NSString stringWithFormat:@"姓名:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"personName"]];
+    manTitleLabel.text = [NSString stringWithFormat:@"姓名:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"personName"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     manTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -74,7 +74,7 @@
     
     //身份证号码
     UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake( 20 , manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 15, MainWidth - 2*20, 20)];
-    identifyTitleLabel.text = [NSString stringWithFormat:@"身份证号码:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"identifyno"]];
+    identifyTitleLabel.text = [NSString stringWithFormat:@"身份证号码:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"identifyno"]];
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     identifyTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -93,7 +93,7 @@
     
     //手机号码
     UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, identifyTitleLabel.frame.size.height + identifyTitleLabel.frame.origin.y + 15, MainWidth - 2*20, 20)];
-    telephoneTitleLabel.text = [NSString stringWithFormat:@"手机号码:%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]];
+    telephoneTitleLabel.text = [NSString stringWithFormat:@"手机号码:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"phoneNum"]];
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telephoneTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -121,7 +121,7 @@
     tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self.view addSubview:tableView];
     
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"allowUpdateFlag"] isEqualToString:@"1"] ){
+    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"allowUpdateFlag"]  isEqualToString:@"1"] ){
         //确定
         UIButton *avestButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
         [avestButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
@@ -187,21 +187,35 @@
 //             personName = "*\U946b";
 //             phonenum = "18****658";
 //             recName = sdfasdfsaf;
-             //个人银行卡信息
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
              
-
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo" ];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName" ];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName" ];
+             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+             //商户还是自然人
+             [Dict setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo" ];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName" ];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"personName"]  forKey:@"personName"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+             [Dict setObject:[responseJSONDictionary objectForKey:@"allowUpdateFlag"] forKey:@"allowUpdateFlag"];
              
-             //个人信息，身份证，姓名，手机号
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"personName"]  forKey:@"personName"];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+             [[NSUserDefaults standardUserDefaults] setObject:Dict forKey:@"curNatureInfo"];
              
-             //是否允许修改标记
-             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"allowUpdateFlag"] forKey:@"allowUpdateFlag"];
+//             //个人银行卡信息
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"netAccountInfo"] forKey:@"netAccountInfo"];
+//             
+//
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"balanceCardNo"] forKey:@"balanceCardNo" ];
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountBankname"] forKey:@"balanceCardBankName" ];
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"recName"] forKey:@"balanceCardAccountName" ];
+//             
+//             //个人信息，身份证，姓名，手机号
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"personName"]  forKey:@"personName"];
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"phonenum"] forKey:@"phoneNum"];
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"idCard"] forKey:@"identifyno"];
+//             
+//             //是否允许修改标记
+//             [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"allowUpdateFlag"] forKey:@"allowUpdateFlag"];
              
              [self loadData];
              
@@ -244,7 +258,6 @@
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID] forKey:USER_ID];
-    //[connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:SUPPLYER_INFO] objectForKey:SUPPLYER_ID]forKey:SUPPLYER_ID];
     
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,AccountURL];
     
@@ -362,7 +375,7 @@
 //    NSMutableArray *networkAccountSelected;
     //网点账号
     networkAccountSelected=[[NSMutableArray alloc]init];
-    NSArray *array = [[NSUserDefaults standardUserDefaults] objectForKey:@"netAccountInfo"];
+    NSArray *array = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"netAccountInfo"];
     for ( NSDictionary *dic in array) {
         //NSDictionary *dic=[array objectAtIndex:0];
         BankAccountItem *item = [BankAccountItem new];
@@ -375,9 +388,9 @@
     
     balanceAccountSelected=[[NSMutableArray alloc]init];
     BankAccountItem *itemBalance = [BankAccountItem new];
-    itemBalance.bankCardNumber = [[NSUserDefaults standardUserDefaults]  objectForKey:@"balanceCardNo" ];
-    itemBalance.bankName = [[NSUserDefaults standardUserDefaults]  objectForKey:@"balanceCardBankName" ];
-    itemBalance.accountName = [[NSUserDefaults standardUserDefaults]  objectForKey:@"balanceCardAccountName" ];
+    itemBalance.bankCardNumber = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"balanceCardNo" ];
+    itemBalance.bankName = [[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"balanceCardBankName" ];
+    itemBalance.accountName = [[[NSUserDefaults standardUserDefaults]  objectForKey:@"curNatureInfo"] objectForKey:@"balanceCardAccountName" ];
     [balanceAccountSelected addObject:itemBalance];
 
 }

@@ -28,7 +28,7 @@
     [label setNumberOfLines:0];
     //label.lineBreakMode = UILineBreakModeWordWrap;
     // 测试字串
-    NSString *s = @"成功授权自然人，绑定账户后即可登录此自然人账号进行投资理财操作！";
+    NSString *s = @"个人信息设置成功，点击确定设置网点账户与结算账户！";
     UIFont *font = [UIFont systemFontOfSize:18];
     //设置一个行高上限
     CGSize size = CGSizeMake(300,400);

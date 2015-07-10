@@ -26,6 +26,8 @@
 //    UILabel * telephoneLabel;
     UILabel * identifyLabel;
     UILabel * nameLabel;
+    
+    NSString *drawCashCardNo;
 }
 
 @end
@@ -168,7 +170,7 @@
     }
 
 
-   if (self.networkAccountSelected.count > 0) {
+   if (self.balanceAccountSelected.count > 0) {
        NSString *strBalance= @"";
        NSString *strBalanceNet= @"";
        
@@ -177,6 +179,8 @@
            if (item.bSelected == YES) {
                strBalance = [strBalance stringByAppendingString: item.bankCardNumber];
                strBalance = [strBalance stringByAppendingString: @"@"];
+               
+               drawCashCardNo = item.bankCardNumber;
                
                strBalanceNet = [strBalanceNet stringByAppendingString: item.siteNum];
                strBalanceNet = [strBalanceNet stringByAppendingString: @"@"];
@@ -229,8 +233,14 @@
              [[NSUserDefaults standardUserDefaults]setObject:data forKey:USERINFO];
              NSLog(@"the SUPPLYER_INFO is:%@",data);
              
-             bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
-             [self.navigationController pushViewController:vc animated:NO];
+             [[NSUserDefaults standardUserDefaults] setObject:drawCashCardNo forKey:@"drawCardNo"];
+             
+             
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag+10 alertMessage:@"账户信息设置成功!" cancelButtonTitle:queding otherButtonTitles:nil];
+             
+             
+//             bindSuccessSwitchViewController *vc = [[bindSuccessSwitchViewController alloc] init];
+//             [self.navigationController pushViewController:vc animated:NO];
 
          }
          //相同账号同时登陆，返回错误
@@ -253,6 +263,32 @@
          alertView.tag = 999;
          [alertView show];
      }];
+}
+
+// 在这里处理UIAlertView中的按钮被单击的事件
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+    if(alertView.tag == LoginOutViewTag){
+        switch (buttonIndex) {
+            case 0:{
+                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"4",@"login", nil];
+                NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            }break;
+            default:
+                break;
+        }
+    }
+    else if(alertView.tag == LoginOutViewTag+10){
+        switch (buttonIndex) {
+            case 0:{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }break;
+            default:
+                break;
+        }
+    }
 }
 
 

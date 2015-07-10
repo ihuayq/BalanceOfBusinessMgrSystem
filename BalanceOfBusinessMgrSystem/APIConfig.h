@@ -36,7 +36,7 @@
 #define IP @"http://192.168.0.56:8080/"
 #endif
 
-//#define HostURL @"superMoney-core/nature/loginIn?" //测试服务器
+#define AppVersionURL @"superMoney-core/appInterface/checkAPPVersion?" //测试服务器
 
 #define HostURL @"superMoney-core/appInterface/userLogin?" //测试服务器
 

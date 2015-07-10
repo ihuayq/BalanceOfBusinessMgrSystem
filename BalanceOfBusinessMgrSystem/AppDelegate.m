@@ -21,7 +21,7 @@
 #import "CLLockNavVC.h"
 #import "MBProgressHUD.h"
 
-@interface AppDelegate ()<SRWebSocketDelegate>{
+@interface AppDelegate ()<UIAlertViewDelegate>{
     //NSTimer * loginCheckTimer;
     SRWebSocket *_webSocket;
     MBProgressHUD *HUD;
@@ -36,7 +36,7 @@
     // Override point for customization after application launch.
     //注册通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoginInitMainwidow:) name:@"LoginInitMainwidow" object:nil];
-    
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -198,117 +198,126 @@
     }
 }
 
-//-(void)checkAPPUpdate
-//{
-//    if (![HP_NetWorkUtils isNetWorkEnable])
-//    {
-//        return;
-//    }
-//    
-//    
-//    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-//    
-//    NSString* string3des=@"众信";
-//    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-//    [connDictionary setObject:encodedValue forKey:@"mark"];
-//    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"sign"];
-//    [connDictionary setObject:@"众信" forKey:@"mark"];
-//    NSString *url =[NSString stringWithFormat:@"%@%@",HostURL,getversionURL];
-//    NSLog(@"connDictionary:%@",connDictionary);
-//    
-//    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-//     {
-//         NSLog(@"检查更新ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
-//         
-//         if ([ret isEqualToString:@"100"])
-//         {
-//             NSString* newVersion=[responseJSONDictionary objectForKey:@"version"];
-//             NSArray* newVersionArray=[[responseJSONDictionary objectForKey:@"version"] componentsSeparatedByString:@"."];
-//             
-//             NSArray *currentVersionArray = [NNString splitString: [HP_NSBundleUtils getMainBundleAPPVersion] withStr:@"."];
-//             
-//             NSLog(@"newVersionArray=%@ currentVersionArray=%@",newVersionArray,currentVersionArray);
-//             
-//             BOOL isHaveNewVervion = NO;
-//             for (int i=0; i<[newVersionArray count]; i++)
-//             {
-//                 if ([[newVersionArray objectAtIndex:i] intValue]>[[currentVersionArray objectAtIndex:i] intValue])
-//                 {
-//                     NSLog(@"有新版");
-//                     isHaveNewVervion = YES;
-//                     break;
-//                 }
-//                 if ([[newVersionArray objectAtIndex:i] intValue]<[[currentVersionArray objectAtIndex:i] intValue])
-//                 {
-//                     NSLog(@"线上是旧版");
-//                     break;
-//                 }
-//             }
-//             if (isHaveNewVervion)
-//             {
-//                 NSLog(@"\n\n\n真的有新版本啦\n\n\n");
-//                 
-//                 NSString* keyAndVAlueString=[NSString stringWithFormat:@"%@_%@",CurVervionString,HaveNewVervion_ShowRedPoint];
-//                 if (![[[NSUserDefaults standardUserDefaults] objectForKey:keyAndVAlueString]isEqualToString:keyAndVAlueString])
-//                 {
-//                     [[NSUserDefaults standardUserDefaults] setObject:keyAndVAlueString forKey:keyAndVAlueString];
-//                     
-//                     [[NSUserDefaults standardUserDefaults] setObject:keyAndVAlueString forKey:[NSString stringWithFormat:@"%@%@",keyAndVAlueString,keyAndVAlueString]];
-//                     //有新版本通知
-//                     [[NSNotificationCenter defaultCenter]postNotificationName:HaveNewVervion_ShowRedPoint object:self userInfo:nil];
-//                 }
-//                 
-//                 if ([[responseJSONDictionary objectForKey:@"renewal"]isEqualToString:@"compel"])//强制更新
-//                 {
+-(void)checkAPPUpdate
+{
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        return;
+    }
+    
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
+
+    [connDictionary setObject:@"IOS" forKey:@"osType"];
+    [connDictionary setObject:[HP_NSBundleUtils getMainBundleAPPVersion] forKey:@"currentVersion"];
+    
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",@"http://192.168.12.105:8080/",AppVersionURL];
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary] stringByAppendingString:ORIGINAL_KEY]] forKey:@"signature"];
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    
+    NSLog(@"connDictionary:%@",connDictionary);
+    
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"检查更新ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);
+         
+         if ([ret isEqualToString:@"100"])
+         {
+             NSString* newVersion=[responseJSONDictionary objectForKey:@"version"];
+             NSArray* newVersionArray=[[responseJSONDictionary objectForKey:@"version"] componentsSeparatedByString:@"."];
+             
+             NSArray *currentVersionArray = [NNString splitString: [HP_NSBundleUtils getMainBundleAPPVersion] withStr:@"."];
+             
+             NSLog(@"newVersionArray=%@ currentVersionArray=%@",newVersionArray,currentVersionArray);
+             
+             BOOL isHaveNewVervion = NO;
+             for (int i=0; i<[newVersionArray count]; i++)
+             {
+                 if ([[newVersionArray objectAtIndex:i] intValue]>[[currentVersionArray objectAtIndex:i] intValue])
+                 {
+                     NSLog(@"有新版");
+                     isHaveNewVervion = YES;
+                     break;
+                 }
+                 if ([[newVersionArray objectAtIndex:i] intValue]<[[currentVersionArray objectAtIndex:i] intValue])
+                 {
+                     NSLog(@"线上是旧版");
+                     break;
+                 }
+             }
+             
+             if (isHaveNewVervion)
+             {
+                 NSLog(@"\n\n\n真的有新版本啦\n\n\n");
+                 
+                 NSString* keyAndVAlueString=[NSString stringWithFormat:@"%@_%@",CurVervionString,HaveNewVervion_ShowRedPoint];
+                 if (![[[NSUserDefaults standardUserDefaults] objectForKey:keyAndVAlueString]isEqualToString:keyAndVAlueString])
+                 {
+                     [[NSUserDefaults standardUserDefaults] setObject:keyAndVAlueString forKey:keyAndVAlueString];
+                     
+                     [[NSUserDefaults standardUserDefaults] setObject:keyAndVAlueString forKey:[NSString stringWithFormat:@"%@%@",keyAndVAlueString,keyAndVAlueString]];
+                     //有新版本通知
+                     [[NSNotificationCenter defaultCenter] postNotificationName:HaveNewVervion_ShowRedPoint object:self userInfo:nil];
+                 }
+                 
+                 if ([[responseJSONDictionary objectForKey:@"renewal"]isEqualToString:@"1"])//强制更新
+                 {
 //                     UIAlertView * alert =[[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现新版本:v%@",newVersion] message:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"content"]] delegate:self cancelButtonTitle:@"立即更新" otherButtonTitles:nil, nil];
 //                     alert.tag = 111;
 //                     [alert show];
-//                 }
-//                 else
-//                 {
-//                     NSLog(@"\n\n\n非强制更新？？\n\n\n");
-//                     NSDate *nowDate=[NSDate dateWithTimeIntervalSinceNow:0];
-//                     //
-//                     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LastShowHaveNewVervionDate"] length])
-//                     {
-//                         NSDate *lastDate=[NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults] objectForKey:@"LastShowHaveNewVervionDate"] integerValue]+24*60*60];
-//                         //NSLog(@"lastDate :%@ \n nowDate :%@",lastDate,nowDate);
-//                         if ([nowDate compare:lastDate]==NSOrderedAscending)
-//                         {
-//                             NSLog(@"\n\n\n不更新 时间不够\n\n\n");
-//                             return;
-//                         }
-//                         
-//                         NSLog(@"\n\n\n更新 时间够\n\n\n");
-//                         UIAlertView * alert =[[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现新版本:v%@",newVersion] message:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"content"]] delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"立即更新", nil];
-//                         alert.tag = 101;
-//                         [alert show];
-//                         
-//                         
-//                     }
-//                     
-//                     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f",[nowDate timeIntervalSince1970]] forKey:@"LastShowHaveNewVervionDate"];
-//                     
-//                     
-//                 }
-//             }
-//             
-//         }
-//         else
-//         {
-//             
-//         }
-//     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error ,NSString * msg)
-//     {
-//         if (![request isCancelled])
-//         {
-//             [request cancel];
-//         }
-//         
-//     }];
-//    
-//    
-//}
+                     
+                     UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"发现新版本:v%@",newVersion] delegate:self cancelButtonTitle:@"立即更新" otherButtonTitles:nil, nil];
+                     alert.tag = 111;
+                     [alert show];
+                 }
+                 else
+                 {
+                     NSLog(@"\n\n\n非强制更新？？\n\n\n");
+                     NSDate *nowDate=[NSDate dateWithTimeIntervalSinceNow:0];
+                     //
+                     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"LastShowHaveNewVervionDate"] length])
+                     {
+                         NSDate *lastDate=[NSDate dateWithTimeIntervalSince1970:[[[NSUserDefaults standardUserDefaults] objectForKey:@"LastShowHaveNewVervionDate"] integerValue]+24*60*60];
+                         //NSLog(@"lastDate :%@ \n nowDate :%@",lastDate,nowDate);
+                         if ([nowDate compare:lastDate]==NSOrderedAscending)
+                         {
+                             NSLog(@"\n\n\n不更新 时间不够\n\n\n");
+                             return;
+                         }
+                         
+                         NSLog(@"\n\n\n更新 时间够\n\n\n");
+                         UIAlertView * alert =[[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"发现新版本:v%@",newVersion] message:[NSString stringWithFormat:@"%@",[responseJSONDictionary objectForKey:@"content"]] delegate:self cancelButtonTitle:@"稍后再说" otherButtonTitles:@"立即更新", nil];
+                         alert.tag = 101;
+                         [alert show];
+                     }
+                     
+                     [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%f",[nowDate timeIntervalSince1970]] forKey:@"LastShowHaveNewVervionDate"];
+                 }
+             }
+             
+         }
+
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error ,NSString * msg)
+     {
+         if (![request isCancelled])
+         {
+             [request cancel];
+         }
+         
+     }];
+    
+    
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==0)
+    {
+        //NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/chao-e-bao/id1006544360?mt=8"];
+        NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
+        [[UIApplication sharedApplication]openURL:url];
+    }
+}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -327,6 +336,9 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    
+    [self checkAPPUpdate];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

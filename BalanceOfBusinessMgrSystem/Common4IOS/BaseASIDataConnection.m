@@ -77,7 +77,7 @@
         successBlock(_request,ret,[msg URLDecodedString],responseJSONDictionary);
     }];
     [request setFailedBlock:^{
-//      NSLog(@"%@",_request.error.debugDescription);
+      NSLog(@"%@",_request.error.debugDescription);
         failedBlock(_request,_request.error,[self getErrorStringWithErrorCode:_request.error.code]);
     }];
     [request startAsynchronous];

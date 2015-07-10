@@ -314,8 +314,8 @@
     
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID] forKey:USER_ID];
     [connDictionary setObject:telephoneTextField.text forKey:@"phoneNum"];
-    //[connDictionary setObject:passCodeTextField.text forKey:@"code"];
-    [connDictionary setObject:@"000000" forKey:@"code"];
+    [connDictionary setObject:passCodeTextField.text forKey:@"code"];
+    //[connDictionary setObject:@"000000" forKey:@"code"];
     
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     NSLog(@"connDictionary:%@",connDictionary);
@@ -427,8 +427,8 @@
          if([ret isEqualToString:@"100"])
          {
              //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
-             //[self timeCountdown];
-             //timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
+             [self timeCountdown];
+             timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
          }
          //相同账号同时登陆，返回错误
          else if([ret isEqualToString:reLoginOutFlag])

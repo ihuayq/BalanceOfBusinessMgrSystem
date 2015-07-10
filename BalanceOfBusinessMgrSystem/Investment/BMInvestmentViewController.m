@@ -23,6 +23,7 @@
 #import "ItemButton.h"
 #import "Globle.h"
 #import "bindNetworkPointAccountViewController.h"
+#import "DXAlertView.h"
 
 @interface BMInvestmentViewController ()<UIAlertViewDelegate>{
     UIWebView *manualProductWebView;
@@ -326,19 +327,32 @@
     NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"addNaturalMark"]);
     //查看自然人手机号码是否已经添加完毕
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"addNaturalMark"] isEqualToString:@"0"]) {
-        settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
-        info.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:info
-                                             animated:NO];
+        
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您的个人信息还没有完善，是否现在进行操作？" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        [alert show];
+        alert.leftBlock = ^() {
+            settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
+            info.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:info
+                                                 animated:NO];
+        };
     }
     else if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"addwebsiteFlag"] isEqualToString:@"0"]){
-        [self bindNetworkPoint];
+        
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没设置银行卡账号信息,是否现在设置!" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        [alert show];
+        alert.leftBlock = ^() {
+            [self bindNetworkPoint];
+        };
+
     }
     else{
         BMInvestmentConfirmViewController *vc = [[BMInvestmentConfirmViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
+
+    
 
     return;
 }
