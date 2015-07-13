@@ -83,11 +83,11 @@
     cardNumberLabel.font = [UIFont systemFontOfSize:18];
     [self.view addSubview:cardNumberLabel];
     //NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:self.cardNum];
-    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:@"HHH"];
-    if (modifyStr.length > 10) {
-        [modifyStr replaceCharactersInRange:NSMakeRange(4, modifyStr.length-8) withString:@"******"];
-    }
-    cardNumberLabel.text = modifyStr;
+//    NSMutableString *modifyStr= [[NSMutableString alloc] initWithString:@"HHH"];
+//    if (modifyStr.length > 10) {
+//        [modifyStr replaceCharactersInRange:NSMakeRange(4, modifyStr.length-8) withString:@"******"];
+//    }
+//    cardNumberLabel.text = modifyStr;
     
     
     UILabel * noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(20,cardNumberLabel.frame.size.height + cardNumberLabel.frame.origin.y + 20 , MainWidth- 20*2,20)];

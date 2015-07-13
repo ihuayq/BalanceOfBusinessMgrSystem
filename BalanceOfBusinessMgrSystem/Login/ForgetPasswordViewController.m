@@ -188,7 +188,15 @@
     [registerButton setTitle:@"确认" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f];
-
+    
+    
+    UILabel * noteLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, registerButton.frame.origin.y + registerButton.frame.size.height + 10, MainWidth- 20, 40)];
+    noteLabel.text = @"※注※Qpos商户请拨打400-668-6689重置平台密码";
+    noteLabel.textAlignment = NSTextAlignmentLeft;
+    noteLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
+    noteLabel.font = [UIFont systemFontOfSize:13];
+    noteLabel.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:noteLabel];
 }
 
 

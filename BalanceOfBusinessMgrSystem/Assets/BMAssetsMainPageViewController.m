@@ -344,7 +344,7 @@
     //查看自然人手机号码是否已经添加完毕
     if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"addNaturalMark"] isEqualToString:@"0"]) {
         
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没添加自然人信息,是否现在设置!" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您的个人信息还没有完善，是否现在进行操作？" leftButtonTitle:@"是" rightButtonTitle:@"否"];
         [alert show];
         alert.leftBlock = ^() {
             settingNaturalManInfoViewController *info = [[settingNaturalManInfoViewController alloc] init];
@@ -364,7 +364,7 @@
     }
     else if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"addwebsiteFlag"] isEqualToString:@"0"]){
         
-        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没添加设置账号信息,是否现在设置!" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没设置银行卡账号信息,是否现在设置!" leftButtonTitle:@"是" rightButtonTitle:@"否"];
         [alert show];
         alert.leftBlock = ^() {
             [self requestNetWork];

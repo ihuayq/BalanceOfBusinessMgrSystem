@@ -54,7 +54,7 @@
     [self initGroup];
     
     //自然人姓名
-    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 15, MainWidth - 2*20, 20)];
+    UILabel * manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, NAVIGATION_OUTLET_HEIGHT + 10, MainWidth - 2*20, 20)];
     manTitleLabel.text = [NSString stringWithFormat:@"姓名:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"personName"]];
     manTitleLabel.textAlignment = NSTextAlignmentCenter;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -73,7 +73,7 @@
 //    [self.view addSubview:manNameLabel];
     
     //身份证号码
-    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake( 20 , manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 15, MainWidth - 2*20, 20)];
+    UILabel * identifyTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake( 20 , manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10, MainWidth - 2*20, 20)];
     identifyTitleLabel.text = [NSString stringWithFormat:@"身份证号码:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"identifyno"]];
     identifyTitleLabel.textAlignment = NSTextAlignmentCenter;
     identifyTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -92,7 +92,7 @@
 //    [self.view addSubview:identifyLabel];
     
     //手机号码
-    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, identifyTitleLabel.frame.size.height + identifyTitleLabel.frame.origin.y + 15, MainWidth - 2*20, 20)];
+    UILabel * telephoneTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, identifyTitleLabel.frame.size.height + identifyTitleLabel.frame.origin.y + 10, MainWidth - 2*20, 20)];
     telephoneTitleLabel.text = [NSString stringWithFormat:@"手机号码:%@",[[[NSUserDefaults standardUserDefaults] objectForKey:@"curNatureInfo"] objectForKey:@"phoneNum"]];
     telephoneTitleLabel.textAlignment = NSTextAlignmentCenter;
     telephoneTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];

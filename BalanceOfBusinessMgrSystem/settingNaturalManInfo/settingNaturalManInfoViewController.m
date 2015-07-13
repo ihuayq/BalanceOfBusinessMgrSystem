@@ -323,7 +323,7 @@
     NSString *url =[NSString stringWithFormat:@"%@%@",IP,settingNatureMenURL];
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
-    [self showProgressViewWithMessage:@"正在设置自然人..."];
+    [self showProgressViewWithMessage:@"正在设置个人信息..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
@@ -371,9 +371,14 @@
          [[NSUserDefaults standardUserDefaults]setObject:[responseJSONDictionary objectForKey:@"phoneNum"] forKey:@"phoneNum"];
          NSLog(@"the SUPPLYER_INFO is:%@",data);
          
-         settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
-         [self.navigationController pushViewController:info
-                                              animated:NO];
+             if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"addwebsiteFlag"] isEqualToString:@"0"] ){
+                 settingNaturalManInfoSuccessViewController *info = [[settingNaturalManInfoSuccessViewController alloc] init];
+                 [self.navigationController pushViewController:info
+                                                      animated:NO];
+             }
+             else{
+                 [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag+10  alertMessage:@"个人信息设置成功!" cancelButtonTitle:queding otherButtonTitles:nil];
+             }
          }
          //相同账号同时登陆，返回错误
          else if([ret isEqualToString:reLoginOutFlag])
@@ -393,6 +398,26 @@
      }];
     
 
+}
+
+// 在这里处理UIAlertView中的按钮被单击的事件
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"buttonIndex is : %i",(int)buttonIndex);
+    if(alertView.tag == LoginOutViewTag){
+        switch (buttonIndex) {
+            case 0:{
+                NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"4",@"login", nil];
+                NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                [[NSNotificationCenter defaultCenter] postNotification:notification];
+            }break;
+            default:
+                break;
+        }
+    }
+    else if(alertView.tag == (LoginOutViewTag+10)){
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 }
 
 -(void)touchSendCheckCodeButton{

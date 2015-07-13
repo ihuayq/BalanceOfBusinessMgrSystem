@@ -211,7 +211,7 @@
     [connDictionary setObject:[HP_NSBundleUtils getMainBundleAPPVersion] forKey:@"currentVersion"];
     
     
-    NSString *url =[NSString stringWithFormat:@"%@%@",@"http://192.168.12.105:8080/",AppVersionURL];
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,AppVersionURL];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary] stringByAppendingString:ORIGINAL_KEY]] forKey:@"signature"];
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
@@ -305,16 +305,14 @@
          }
          
      }];
-    
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(buttonIndex==0)
     {
-        //NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/chao-e-bao/id1006544360?mt=8"];
-        NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
+        NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/chao-e-bao/id1006544360?mt=8"];
+        //NSURL *url = [NSURL URLWithString:@"https://www.baidu.com/"];
         [[UIApplication sharedApplication]openURL:url];
     }
 }

@@ -1,38 +1,18 @@
 //
-//  BMSettingTransactionpPasswordViewController.m
-//  BalanceOfBusinessMgrSystem
+//  BMModifyLoginPasswordViewController.m
+//  BalanceOfBusinessMgrSystem_1.1.0
 //
-//  Created by huayq on 15/5/12.
+//  Created by huayq on 15/7/13.
 //  Copyright (c) 2015年 hkrt. All rights reserved.
 //
 
-#import "BMSettingTransactionpPasswordViewController.h"
-#import "SettingLoginPassWord2ViewController.h"
+#import "BMModifyLoginPasswordViewController.h"
 
-
-@interface BMSettingTransactionpPasswordViewController (){
-    NSString *phoneNum;
-}
+@interface BMModifyLoginPasswordViewController ()
 
 @end
 
-@implementation BMSettingTransactionpPasswordViewController
-
-
-
-@synthesize transmitDict;
-@synthesize sendLabel = sendLabel;
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        
-        transmitDict=[[NSMutableDictionary alloc]initWithCapacity:0];
-        
-    }
-    return self;
-}
+@implementation BMModifyLoginPasswordViewController
 
 - (void)viewDidLoad
 {
@@ -67,7 +47,7 @@
     
     UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(notePsdLabel.frame.origin.x+ labelsize.width, NAVIGATION_OUTLET_HEIGHT + 20, 240, labelsize.height)];
     //手机号码
-    telLabel.text = phoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
+    telLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"];
     telLabel.textAlignment = NSTextAlignmentLeft;
     telLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     telLabel.font = [UIFont systemFontOfSize:18];
@@ -187,24 +167,6 @@
     sendCheckCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:sendCheckCodeButton];
     
-//    UILabel *sendCheckCodeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 40)];
-//    sendCheckCodeLabel.textAlignment = NSTextAlignmentCenter;
-//    sendCheckCodeLabel.backgroundColor = [UIColor clearColor];
-//    sendCheckCodeLabel.text = @"获取验证码";
-//    sendCheckCodeLabel.textColor = [UIColor whiteColor];
-//    sendCheckCodeLabel.font = [UIFont systemFontOfSize:15];
-//    [sendCheckCodeButton addSubview:sendCheckCodeLabel];
-    
-    
-    sendLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, RECEIVE_PASSWORD_OUTLET_POSITION, 285, 40)];
-    sendLabel.textAlignment = NSTextAlignmentCenter;
-    sendLabel.backgroundColor = [UIColor clearColor];
-    sendLabel.text = @"验证码已发送，有效期30分钟";
-    sendLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR1];
-    sendLabel.font = [UIFont systemFontOfSize:15];
-    sendLabel.hidden = YES;
-    [self.view  addSubview:sendLabel];
-    
     //确定
     UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
@@ -216,27 +178,6 @@
     [registerButton setTitle:@"确认" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f]; //设置矩形四个圆角半径
-    
-//    UILabel * registerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, MainWidth-2*20, 40)];
-//    registerLabel.textAlignment = NSTextAlignmentCenter;
-//    registerLabel.backgroundColor = [UIColor clearColor];
-//    registerLabel.text = @"确认";
-//    registerLabel.textColor = [UIColor whiteColor];
-//    registerLabel.font = [UIFont systemFontOfSize:15];
-//    [registerButton addSubview:registerLabel];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    nCout = 60;
-
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-    nCout = 0;
-    [self timeCountdown];
-    //[timer invalidate];//取消定时器
-    
 }
 
 -(void)touchSettingPasswordButton{
@@ -245,9 +186,9 @@
         return;
     }
     
-//    if (![self checkPassCode:passCodeTextField3.text]) {
-//        return;
-//    }
+    //    if (![self checkPassCode:passCodeTextField3.text]) {
+    //        return;
+    //    }
     
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {
@@ -264,8 +205,8 @@
     
     //网络请求
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-//    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-//    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
+    //    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    //    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     //[connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
@@ -314,80 +255,6 @@
      }];
 }
 
--(void)timeCountdown
-{
-    NSLog(@"%d\n",nCout);
-    
-    if (nCout>0)
-    {
-        nCout=nCout-1;
-        [sendCheckCodeButton setTitle:[NSString stringWithFormat:@"获取(%d)",nCout] forState:UIControlStateDisabled];
-        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateNormal];
-        [sendCheckCodeButton setEnabled:NO];
-    }
-    else if (nCout==0)
-    {
-        [sendCheckCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-        [sendCheckCodeButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
-        [sendCheckCodeButton setEnabled:YES];
-        nCout=60;
-        [timer invalidate];//取消定时器
-    }
-}
-
-
--(void)touchSendCheckCodeButton//请求验证码
-{
-    if (![HP_NetWorkUtils isNetWorkEnable])
-    {
-        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
-        return;
-    }
-    
-    [self touchesBegan:nil withEvent:nil];
-    
-    
-    //网络请求
-    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
-    
-    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
-    [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
-    
-    //[connDictionary setObject:@"register" forKey:@"type"];
-    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
-    NSLog(@"connDictionary:%@",connDictionary);
-    
-    NSString *url =[NSString stringWithFormat:@"%@%@",IP,MessageCodeURL];
-    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
-    [self showProgressViewWithMessage:@"正在获取验证码..."];
-    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
-     {
-         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
-         if([ret isEqualToString:@"100"])
-         {
-             //returnCodeSTring=[self delStringNull:[responseJSONDictionary objectForKey:@"code"]];
-             
-             [self timeCountdown];
-             timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeCountdown) userInfo:nil repeats:YES];
-         }
-         //相同账号同时登陆，返回错误
-         else if([ret isEqualToString:reLoginOutFlag])
-         {
-             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-         }
-         else
-         {
-             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
-         }
-     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
-         
-         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
-         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
-         alertView.tag = 999;
-         [alertView show];
-     }];
-}
 
 -(void)goToBackView
 {
@@ -422,12 +289,12 @@
         [alertview show];
         return NO;
     }
-    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
-    {
-        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
-        [alertview show];
-        return NO;
-    }
+//    if ([str1 isEqualToString:[transmitDict objectForKey:USER_PASSWORD]])
+//    {
+//        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"交易密码不能与登录密码相同" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+//        [alertview show];
+//        return NO;
+//    }
     return YES;
 }
 
@@ -506,6 +373,5 @@
     [passCodeTextField3 resignFirstResponder];
     [oldPasswordTextField resignFirstResponder];
 }
-
 
 @end

@@ -208,7 +208,7 @@
              BMWithDrawsCashSuccessViewController *vc = [[BMWithDrawsCashSuccessViewController alloc] init];
              vc.money = nameTextField.text;
              vc.time  = [responseJSONDictionary objectForKey:@"deadLinetime"];
-             vc.cardNum = [[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO ]objectForKey:@"balanceCardNo"];
+             vc.cardNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"drawCardNo"];
              [self.navigationController pushViewController:vc animated:YES];
          }
          //相同账号同时登陆，返回错误

@@ -20,6 +20,7 @@
 #import "bindNetworkPointAccountViewController.h"
 #import "bindBalanceAccountViewController.h"
 #import "BMCreateTransactionpPasswordViewController.h"
+#import "ChaoebaoInfoViewController.h"
 
 
 @interface BMAccountMainViewController (){
@@ -384,10 +385,16 @@
     else if (indexPath.section == 2)
     {
         //关于超额宝
+//        
+//        ProjectReferViewController *vc = [[ProjectReferViewController alloc] init];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
         
-        ProjectReferViewController *vc = [[ProjectReferViewController alloc] init];
+        
+        ChaoebaoInfoViewController *vc = [[ChaoebaoInfoViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
+
     }
 
 }

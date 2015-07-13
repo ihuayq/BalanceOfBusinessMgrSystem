@@ -55,7 +55,7 @@
     
     UILabel *notePsdLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];//这个frame是初设的，没关系，后面还会重新设置其size。
     [notePsdLabel setNumberOfLines:0];
-    NSString *s = @"自然人手机号:";
+    NSString *s = @"手机号:";
     CGSize size = CGSizeMake(320,40);
     CGSize labelsize = [s sizeWithFont:font constrainedToSize:size lineBreakMode:UILineBreakModeWordWrap];
     [notePsdLabel setFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 20, labelsize.width, labelsize.height)];

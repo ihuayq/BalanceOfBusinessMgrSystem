@@ -405,7 +405,7 @@
     
     CLLockVC *lockVC = [self lockVC:vc];
     
-    lockVC.title = @"设置密码";
+    lockVC.title = @"设置手势密码";
     
     //设置类型
     lockVC.type = CoreLockTypeSetPwd;

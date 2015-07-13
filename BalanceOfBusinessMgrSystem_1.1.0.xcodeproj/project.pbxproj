@@ -26,6 +26,10 @@
 		8806497B1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */; };
 		8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */; };
 		880D0D9D1B184505006EFFE8 /* NatureManAccountInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */; };
+		886C8FC11B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FC01B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m */; };
+		886C8FC41B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FC31B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m */; };
+		886C8FC81B53C44700B02FF8 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FC71B53C44700B02FF8 /* PlaceholderTextView.m */; };
+		886C8FCB1B53C5C900B02FF8 /* AdviseInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FCA1B53C5C900B02FF8 /* AdviseInfoViewController.m */; };
 		8870684B1B214E510035D558 /* ProtocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8870684A1B214E510035D558 /* ProtocalViewController.m */; };
 		8889BA991AFC5F8A001BF5E2 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA981AFC5F8A001BF5E2 /* UIView+Additions.m */; };
 		8889BA9C1AFC6ACD001BF5E2 /* UIAssetsPageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BA9B1AFC6ACD001BF5E2 /* UIAssetsPageCell.m */; };
@@ -327,6 +331,14 @@
 		8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCreateTransactionpPasswordViewController.m; sourceTree = "<group>"; };
 		880D0D9B1B184505006EFFE8 /* NatureManAccountInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatureManAccountInfoViewController.h; sourceTree = "<group>"; };
 		880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NatureManAccountInfoViewController.m; sourceTree = "<group>"; };
+		886C8FBF1B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMModifyLoginPasswordViewController.h; sourceTree = "<group>"; };
+		886C8FC01B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMModifyLoginPasswordViewController.m; sourceTree = "<group>"; };
+		886C8FC21B53ABAC00B02FF8 /* ChaoebaoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChaoebaoInfoViewController.h; sourceTree = "<group>"; };
+		886C8FC31B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChaoebaoInfoViewController.m; sourceTree = "<group>"; };
+		886C8FC61B53C44700B02FF8 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
+		886C8FC71B53C44700B02FF8 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
+		886C8FC91B53C5C900B02FF8 /* AdviseInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdviseInfoViewController.h; sourceTree = "<group>"; };
+		886C8FCA1B53C5C900B02FF8 /* AdviseInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdviseInfoViewController.m; sourceTree = "<group>"; };
 		887068491B214E510035D558 /* ProtocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocalViewController.h; sourceTree = "<group>"; };
 		8870684A1B214E510035D558 /* ProtocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtocalViewController.m; sourceTree = "<group>"; };
 		8889BA971AFC5F8A001BF5E2 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
@@ -798,6 +810,15 @@
 				88EF53581B09C921004DAEC6 /* ModifyNaturalmanSuccessViewController.m */,
 			);
 			path = settingNaturalManInfo;
+			sourceTree = "<group>";
+		};
+		886C8FC51B53C44700B02FF8 /* PlaceholderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				886C8FC61B53C44700B02FF8 /* PlaceholderTextView.h */,
+				886C8FC71B53C44700B02FF8 /* PlaceholderTextView.m */,
+			);
+			path = PlaceholderTextView;
 			sourceTree = "<group>";
 		};
 		8889BAA31AFCA635001BF5E2 /* SCNavTabBar */ = {
@@ -1572,6 +1593,7 @@
 		88EF0B251AF8E397006B09B0 /* ThirdPartLib */ = {
 			isa = PBXGroup;
 			children = (
+				886C8FC51B53C44700B02FF8 /* PlaceholderTextView */,
 				889D68D51B429E170023416E /* GestureLock */,
 				88AD21301B283D8A0062EB33 /* SocketRocket */,
 				88A1C75E1B2683C8004709BF /* MJRefresh */,
@@ -1615,6 +1637,12 @@
 				880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */,
 				887068491B214E510035D558 /* ProtocalViewController.h */,
 				8870684A1B214E510035D558 /* ProtocalViewController.m */,
+				886C8FBF1B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.h */,
+				886C8FC01B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m */,
+				886C8FC21B53ABAC00B02FF8 /* ChaoebaoInfoViewController.h */,
+				886C8FC31B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m */,
+				886C8FC91B53C5C900B02FF8 /* AdviseInfoViewController.h */,
+				886C8FCA1B53C5C900B02FF8 /* AdviseInfoViewController.m */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1911,6 +1939,7 @@
 				88FB8C8B1B1D9B7C004769B2 /* UIScrollView+SVPullToRefresh.m in Sources */,
 				88FB8C821B1D5461004769B2 /* MYBlurIntroductionView.m in Sources */,
 				88EF06F21AF8A3EE006B09B0 /* HP_NSDataUtils.m in Sources */,
+				886C8FC11B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m in Sources */,
 				889D68FC1B429E170023416E /* CLLockNavVC.m in Sources */,
 				7AF494F21B04E6F00096EDE0 /* AssetDetailTableViewCell.m in Sources */,
 				88EF53561B09B838004DAEC6 /* ModifyNaturalManIdentifyInfoViewController.m in Sources */,
@@ -1931,6 +1960,7 @@
 				88F6F2D61AFA39AA0016F6F2 /* SettingLoginPassWord2ViewController.m in Sources */,
 				8889BAB41AFCA6BB001BF5E2 /* UIDatingAssetsViewTips.m in Sources */,
 				88F1854F1AFB1612007FE83B /* NavigationInteractiveTransition.m in Sources */,
+				886C8FC41B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m in Sources */,
 				7A21E5791AFF90DE00C8C023 /* bindNetworkPointAccountViewController.m in Sources */,
 				88C564F41B2A871000E515BF /* NSString+JSON.m in Sources */,
 				7A21E57C1AFF954000C8C023 /* BankAccountTableViewCell.m in Sources */,
@@ -1966,8 +1996,10 @@
 				88EF03101AF8A375006B09B0 /* ASIInputStream.m in Sources */,
 				88EF030F1AF8A375006B09B0 /* ASIHTTPRequest.m in Sources */,
 				88EF07211AF8B112006B09B0 /* ForgetPassword2ViewController.m in Sources */,
+				886C8FCB1B53C5C900B02FF8 /* AdviseInfoViewController.m in Sources */,
 				88E7C2891AFC425300F7B58C /* BMAccountCellInfo.m in Sources */,
 				88EF03081AF8A375006B09B0 /* AFURLConnectionOperation.m in Sources */,
+				886C8FC81B53C44700B02FF8 /* PlaceholderTextView.m in Sources */,
 				88EF06F71AF8A3EF006B09B0 /* HP_UIImageUtils.m in Sources */,
 				88EF06ED1AF8A3EE006B09B0 /* CoreTelephony.m in Sources */,
 				8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */,
@@ -2173,7 +2205,7 @@
 				);
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2213,7 +2245,7 @@
 				);
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

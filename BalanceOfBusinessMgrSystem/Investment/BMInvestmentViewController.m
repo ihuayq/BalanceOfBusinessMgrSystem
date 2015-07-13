@@ -110,7 +110,7 @@
     datingView = [[UIView alloc] initWithFrame:CGRectMake(0,0, MainWidth , MainHeight)];
     
     //超额宝介绍
-    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 60, MainWidth - 40*2, 180)];
+    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 40, MainWidth - 40*2, 180)];
     [manualProductWebView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
     [manualProductWebView.layer setBorderWidth:0.5f];
     [datingView addSubview:manualProductWebView];
@@ -179,7 +179,7 @@
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
-    [registerButton setFrame:CGRectMake(20, protolBtn3.frame.origin.y+protolBtn3.frame.size.height+ 20, MainWidth-2*20, 40)];
+    [registerButton setFrame:CGRectMake(20, protolBtn3.frame.origin.y+protolBtn3.frame.size.height+ 10, MainWidth-2*20, 40)];
     [registerButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"提交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];

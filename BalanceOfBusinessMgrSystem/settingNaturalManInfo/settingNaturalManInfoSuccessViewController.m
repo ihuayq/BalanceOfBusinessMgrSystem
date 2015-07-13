@@ -28,6 +28,7 @@
     [label setNumberOfLines:0];
     //label.lineBreakMode = UILineBreakModeWordWrap;
     // 测试字串
+    
     NSString *s = @"个人信息设置成功，点击确定设置网点账户与结算账户！";
     UIFont *font = [UIFont systemFontOfSize:18];
     //设置一个行高上限
