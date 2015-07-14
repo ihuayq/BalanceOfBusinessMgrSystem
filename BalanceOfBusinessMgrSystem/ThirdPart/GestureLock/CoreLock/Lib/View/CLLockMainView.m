@@ -51,24 +51,39 @@
         
         _labelTopMarginC.constant = 10;
     }
-}
-
-
-
--(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
     
-    if(iphone4x_3_5){
-        
-        CGRect forgetFrame = [_forgetBtn convertRect:_forgetBtn.bounds toView:self];
-        
-        CGRect modifyFrame = [_modifyBtn convertRect:_modifyBtn.bounds toView:self];
-        
-        if(CGRectContainsPoint(forgetFrame, point)) return _forgetBtn;
-        if(CGRectContainsPoint(modifyFrame, point)) return _modifyBtn;
-    }
-
-    return [super hitTest:point withEvent:event];
+    NSLog(@"value is :%f",_infoViewTopMoveC.constant );
 }
+
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *result = [super hitTest:point withEvent:event];
+    CGPoint buttonPoint = [_forgetBtn convertPoint:point fromView:self];
+    if ([_forgetBtn pointInside:buttonPoint withEvent:event]) {
+        return _forgetBtn;
+    }
+    
+    buttonPoint = [_modifyBtn convertPoint:point fromView:self];
+    if ([_modifyBtn pointInside:buttonPoint withEvent:event]) {
+        return _modifyBtn;
+    }
+    return result;
+}
+
+//-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+//    
+//    if(iphone4x_3_5){
+//        
+//        CGRect forgetFrame = [_forgetBtn convertRect:_forgetBtn.bounds toView:self];
+//        
+//        CGRect modifyFrame = [_modifyBtn convertRect:_modifyBtn.bounds toView:self];
+//        
+//        if(CGRectContainsPoint(forgetFrame, point)) return _forgetBtn;
+//        if(CGRectContainsPoint(modifyFrame, point)) return _modifyBtn;
+//    }
+//
+//    return [super hitTest:point withEvent:event];
+//}
 
 
 @end

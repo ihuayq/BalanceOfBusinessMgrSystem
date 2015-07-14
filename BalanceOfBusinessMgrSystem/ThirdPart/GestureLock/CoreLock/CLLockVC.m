@@ -13,6 +13,7 @@
 #import "CLLockNavVC.h"
 #import "CLLockView.h"
 #import "BaseASIDataConnection.h"
+#import "CLLockInfoView.h"
 
 
 
@@ -24,10 +25,12 @@
 @property (nonatomic,copy) void (^forgetPwdBlock)();
 
 @property (weak, nonatomic) IBOutlet CLLockLabel *label;
+//@property (strong, nonatomic) IBOutlet CLLockLabel *label;
 
 @property (nonatomic,copy) NSString *msg;
 
 @property (weak, nonatomic) IBOutlet CLLockView *lockView;
+//@property (strong, nonatomic) IBOutlet CLLockView *lockView;
 
 @property (nonatomic,weak) UIViewController *vc;
 
@@ -40,6 +43,8 @@
 @property (weak, nonatomic) IBOutlet UIView *actionView;
 
 @property (weak, nonatomic) IBOutlet UIButton *modifyBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *forgetBtn;
 
 
 
@@ -64,6 +69,38 @@
     
     //事件
     [self event];
+    
+    [self initViewPos];
+}
+
+-(void) initViewPos{
+//    CGRect lockFrame= _actionView.frame;
+//    lockFrame.origin.y = 0;//self.label.frame.size.height + self.label.frame.origin.y  + 10;
+//    [_actionView setFrame:lockFrame];
+    
+    UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, MainHeight - 40, MainWidth, 20)];
+    //手机号码
+    telLabel.text = @"注意：请防止未授权人员查看";
+    telLabel.textAlignment = NSTextAlignmentCenter;
+    telLabel.textColor = UISTYLECOLOR;
+    telLabel.font = [UIFont systemFontOfSize:16];
+    //telLabel.backgroundColor = [UIColor clearColor];
+    telLabel.numberOfLines = 0;
+    [self.view addSubview:telLabel];
+    
+//    [_modifyBtn setFrame:CGRectMake(0, MainHeight - 160, MainWidth, 20)];
+//    [_forgetBtn setFrame:CGRectMake(0, MainHeight - 80, MainWidth, 20)];
+    
+//    CLLockInfoView *infoView =[[CLLockInfoView alloc] initWithFrame:CGRectMake(MainWidth/2-20, NAVIGATION_OUTLET_HEIGHT + 20,40, 40)];
+//    [self.view addSubview:infoView];
+//
+//    
+//    self.label = [[CLLockLabel alloc] initWithFrame:CGRectMake(20, infoView.frame.origin.y + infoView.frame.size.height + 10,MainWidth -40, 40)];
+//    [self.view addSubview:self.label];
+//    
+//    
+//    self.lockView = [[CLLockView alloc] initWithFrame:CGRectMake(20, self.label.frame.origin.y + self.label.frame.size.height  ,MainWidth-40, MainWidth-40)];
+//    [self.view addSubview:self.lockView];
 }
 
 
@@ -194,15 +231,9 @@
     /** 开始 */
     self.lockView.modifyPwdBlock =^(){
       
-        [self.label showNormalMsg:self.modifyCurrentTitle];
+        //[self.label showNormalMsg:self.modifyCurrentTitle];
     };
-    
-    
 }
-
-
-
-
 
 
 /*
@@ -215,12 +246,6 @@
     //传递类型
     self.lockView.type = self.type;
 }
-
-
-
-
-
-
 
 /*
  *  控制器准备
@@ -285,9 +310,6 @@
     [self touchesBegan:nil withEvent:nil];
     
     NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:2];
-    //    NSString* string3des=[[[NSData alloc] init] encrypyConnectDes:passwordTextField.text];//3DES加密
-    //    NSString *encodedValue = [[ASIFormDataRequest requestWithURL:nil] encodeURL:string3des];//编码encode
-    //    [connDictionary setObject:encodedValue forKey:@"passwd_3des_encode"];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
     

@@ -71,6 +71,10 @@
 
 #define loginOutUrl @"superMoney-core/appInterface/loginOut?" //资产变动信息查询
 
+
+#define FeedbackUrl @"superMoney-core/appInterface/addAppFeedback?"  //用户反馈信息
+
+
 //loginOut
 //String phoneNum = request.getParameter("phoneNum");
 //String deviceID = request.getParameter("deviceId"); // 手机DeviceID

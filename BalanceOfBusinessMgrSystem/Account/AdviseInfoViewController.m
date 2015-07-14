@@ -41,8 +41,9 @@
     view=[[PlaceholderTextView alloc] initWithFrame:CGRectMake(10, label.frame.origin.y + label.frame.size.height + 10, MainWidth - 10*2, 180)];
     view.placeholder=@"使用过程中的不便和意见请在此写出";
     view.delegate = self;
-    view.font=[UIFont boldSystemFontOfSize:16];
-    view.placeholderFont=[UIFont boldSystemFontOfSize:13];
+    //view.font=[UIFont boldSystemFontOfSize:16];
+    view.font =[UIFont systemFontOfSize:16];
+    view.placeholderFont= [UIFont systemFontOfSize:16]; //[UIFont boldSystemFontOfSize:13];
     view.layer.borderWidth=0.5;
     view.layer.borderColor=[UIColor lightGrayColor].CGColor;
     [self.view addSubview:view];
@@ -63,9 +64,52 @@
 }
 
 -(void)touchCommitButton{
+    //http://192.168.12.142:8080/superMoney-core/appInterface/addAppFeedback  参数 commercialId content(encode)
     
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if (![HP_NetWorkUtils isNetWorkEnable])
+    {
+        [self showSimpleAlertViewWithTitle:nil alertMessage:@"网络不可用，请检查您的网络后重试" cancelButtonTitle:queding otherButtonTitles:nil];
+        return;
+    }
+    
+    [self touchesBegan:nil withEvent:nil];
+    
+    //网络请求
+    NSMutableDictionary *connDictionary = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
+    [connDictionary setObject:[view.text URLEncodedString] forKey:@"content"];
+    
+    [connDictionary setObject:[MD5Utils md5:[[NNString getRightString_BysortArray_dic:connDictionary]stringByAppendingString: ORIGINAL_KEY]] forKey:@"signature"];
+    NSLog(@"connDictionary:%@",connDictionary);
+    
+    NSString *url =[NSString stringWithFormat:@"%@%@",IP,FeedbackUrl];
+    [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
+    [self showMBProgressHUDWithMessage:@"提交反馈中..."];
+    [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
+     {
+         NSLog(@"responseJSONDictionary:%@,\n ret:%@ \n msg:%@",responseJSONDictionary,ret,msg);
+         [self hidMBProgressHUD];
+         if([ret isEqualToString:@"100"])
+         {
+             [self.navigationController popToRootViewControllerAnimated:YES];
+         }
+         //相同账号同时登陆，返回错误
+         else if([ret isEqualToString:reLoginOutFlag])
+         {
+             [self showSimpleAlertViewWithTitle:nil tag:(int)LoginOutViewTag alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+         else
+         {
+             [self showSimpleAlertViewWithTitle:nil alertMessage:msg cancelButtonTitle:queding otherButtonTitles:nil];
+         }
+     } RequestFailureBlock:^(ASIFormDataRequest *request, NSError *error, NSString * msg) {
+         [[self progressView] dismissWithClickedButtonIndex:0 animated:NO];
+         UIAlertView * alertView = [[UIAlertView alloc] initWithTitle:nil message:msg delegate:self cancelButtonTitle:queding otherButtonTitles:nil];
+         alertView.tag = 999;
+         [alertView show];
+     }];
 }
+
 
 
 - (void)textViewDidEndEditing:(UITextView *)textView {

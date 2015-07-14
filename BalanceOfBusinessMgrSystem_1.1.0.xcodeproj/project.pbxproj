@@ -26,6 +26,7 @@
 		8806497B1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497A1B0B543F007D9E28 /* BMSettingTransactionpPasswordViewController.m */; };
 		8806497E1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */; };
 		880D0D9D1B184505006EFFE8 /* NatureManAccountInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */; };
+		8843AB101B54F73500FFEDBC /* CLLockVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8843AB0F1B54F73500FFEDBC /* CLLockVC.xib */; };
 		886C8FC11B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FC01B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m */; };
 		886C8FC41B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FC31B53ABAC00B02FF8 /* ChaoebaoInfoViewController.m */; };
 		886C8FC81B53C44700B02FF8 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C8FC71B53C44700B02FF8 /* PlaceholderTextView.m */; };
@@ -155,7 +156,6 @@
 		889AA8821B1C2AE400C76E8B /* BTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8811B1C2AE400C76E8B /* BTLabel.m */; };
 		889CA6451B292B370094BA26 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 889CA6441B292B370094BA26 /* libicucore.dylib */; };
 		889D68F81B429E170023416E /* CLLockVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68D81B429E170023416E /* CLLockVC.m */; };
-		889D68F91B429E170023416E /* CLLockVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 889D68D91B429E170023416E /* CLLockVC.xib */; };
 		889D68FA1B429E170023416E /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68DD1B429E170023416E /* CALayer+Anim.m */; };
 		889D68FB1B429E170023416E /* CoreLockConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68E01B429E170023416E /* CoreLockConst.m */; };
 		889D68FC1B429E170023416E /* CLLockNavVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 889D68E31B429E170023416E /* CLLockNavVC.m */; };
@@ -331,6 +331,9 @@
 		8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCreateTransactionpPasswordViewController.m; sourceTree = "<group>"; };
 		880D0D9B1B184505006EFFE8 /* NatureManAccountInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatureManAccountInfoViewController.h; sourceTree = "<group>"; };
 		880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NatureManAccountInfoViewController.m; sourceTree = "<group>"; };
+		8843AB0B1B54F51500FFEDBC /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
+		8843AB0C1B54F51500FFEDBC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
+		8843AB0F1B54F73500FFEDBC /* CLLockVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLLockVC.xib; sourceTree = "<group>"; };
 		886C8FBF1B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMModifyLoginPasswordViewController.h; sourceTree = "<group>"; };
 		886C8FC01B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMModifyLoginPasswordViewController.m; sourceTree = "<group>"; };
 		886C8FC21B53ABAC00B02FF8 /* ChaoebaoInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChaoebaoInfoViewController.h; sourceTree = "<group>"; };
@@ -477,7 +480,6 @@
 		889CA6441B292B370094BA26 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		889D68D71B429E170023416E /* CLLockVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLLockVC.h; sourceTree = "<group>"; };
 		889D68D81B429E170023416E /* CLLockVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLLockVC.m; sourceTree = "<group>"; };
-		889D68D91B429E170023416E /* CLLockVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLLockVC.xib; sourceTree = "<group>"; };
 		889D68DC1B429E170023416E /* CALayer+Anim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Anim.h"; sourceTree = "<group>"; };
 		889D68DD1B429E170023416E /* CALayer+Anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
 		889D68DF1B429E170023416E /* CoreLockConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLockConst.h; sourceTree = "<group>"; };
@@ -812,6 +814,16 @@
 			path = settingNaturalManInfo;
 			sourceTree = "<group>";
 		};
+		8843AB0A1B54F51500FFEDBC /* iOS-Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				8843AB0B1B54F51500FFEDBC /* libReveal.dylib */,
+				8843AB0C1B54F51500FFEDBC /* Reveal.framework */,
+			);
+			name = "iOS-Libraries";
+			path = "BalanceOfBusinessMgrSystem/ThirdPart/iOS-Libraries";
+			sourceTree = SOURCE_ROOT;
+		};
 		886C8FC51B53C44700B02FF8 /* PlaceholderTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,6 +1051,7 @@
 		889D68D51B429E170023416E /* GestureLock */ = {
 			isa = PBXGroup;
 			children = (
+				8843AB0A1B54F51500FFEDBC /* iOS-Libraries */,
 				889D68D61B429E170023416E /* CoreLock */,
 				889D68EF1B429E170023416E /* FrameWork */,
 			);
@@ -1048,9 +1061,9 @@
 		889D68D61B429E170023416E /* CoreLock */ = {
 			isa = PBXGroup;
 			children = (
+				8843AB0F1B54F73500FFEDBC /* CLLockVC.xib */,
 				889D68D71B429E170023416E /* CLLockVC.h */,
 				889D68D81B429E170023416E /* CLLockVC.m */,
-				889D68D91B429E170023416E /* CLLockVC.xib */,
 				889D68DA1B429E170023416E /* Lib */,
 			);
 			path = CoreLock;
@@ -1832,7 +1845,6 @@
 				888CF5EE1B2FF88200097AFC /* 认证.html in Resources */,
 				888CF5841B2FBF3A00097AFC /* 120.png in Resources */,
 				888CF5831B2FBF3A00097AFC /* 114.png in Resources */,
-				889D68F91B429E170023416E /* CLLockVC.xib in Resources */,
 				88E9637C1B01F2DD00C04664 /* ProgressHUD.bundle in Resources */,
 				888CF5AD1B2FBF3A00097AFC /* paiduizijin@2x.png in Resources */,
 				888CF5651B2FBF3A00097AFC /* email.png in Resources */,
@@ -1870,6 +1882,7 @@
 				88E7A7BC1AF9DCEB00B44364 /* btn_close_normal.png in Resources */,
 				888CF5811B2FBF3A00097AFC /* zhongxinlogo.png in Resources */,
 				888CF5C11B2FBF3A00097AFC /* 继续添加按钮 ——点击前.png in Resources */,
+				8843AB101B54F73500FFEDBC /* CLLockVC.xib in Resources */,
 				88EF00C51AF8604A006B09B0 /* Main.storyboard in Resources */,
 				888CF59C1B2FBF3A00097AFC /* 理财本金@2x.png in Resources */,
 				888CF5A51B2FBF3A00097AFC /* 1.png in Resources */,
@@ -2202,6 +2215,8 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
+					"-framework",
+					Reveal,
 				);
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
@@ -2242,6 +2257,8 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lz",
+					"-framework",
+					Reveal,
 				);
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";

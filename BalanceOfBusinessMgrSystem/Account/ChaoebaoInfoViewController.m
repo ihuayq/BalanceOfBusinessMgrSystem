@@ -29,7 +29,7 @@
     self.navigation.leftImage = [UIImage imageNamed:@"back_icon_new"];
     self.navigation.title = @"关于超额宝";
     
-    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10,MainWidth - 60,40)];
+    UILabel *labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(30, NAVIGATION_OUTLET_HEIGHT + 10,MainWidth - 60,30)];
     labelTitle.text = @"介 绍";
     labelTitle.font = [UIFont systemFontOfSize:24];
     labelTitle.textAlignment = NSTextAlignmentCenter;
