@@ -8,11 +8,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CLLockVC">
             <connections>
-                <outlet property="forgetBtn" destination="7sf-Mh-lGn" id="wib-sO-Iat"/>
+                <outlet property="actionView" destination="VXS-Ab-5SK" id="GLu-Ae-D71"/>
                 <outlet property="label" destination="eS4-xU-78v" id="RRN-pI-gpa"/>
                 <outlet property="lockView" destination="yhf-NE-9vU" id="mDR-GR-ldZ"/>
-                <outlet property="modifyBtn" destination="00Q-Um-xQy" id="UQT-pj-z9Y"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="MKB-ss-MmH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

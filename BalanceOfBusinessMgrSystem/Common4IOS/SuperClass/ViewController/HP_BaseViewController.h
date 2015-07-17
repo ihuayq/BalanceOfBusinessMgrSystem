@@ -61,6 +61,8 @@
 -(void)showMBProgressHUDWithMessage:(NSString *)msg;
 -(void)hidMBProgressHUD;
 
+- (void)showMBProgressHUDWithCustomView:(NSString *)msg withImage:(NSString *)imageName;
+
 //获得NSUserDefaults对象
 -(NSUserDefaults *)getNSUserDefaults;
 

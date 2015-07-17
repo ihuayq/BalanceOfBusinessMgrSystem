@@ -245,9 +245,9 @@
         return;
     }
     
-//    if (![self checkPassCode:passCodeTextField3.text]) {
-//        return;
-//    }
+    if (![self checkPassCode:passCodeTextField3.text]) {
+        return;
+    }
     
     if (![self checkPassword:passwordTextField.text checkPassword2:passwordTextField2.text])
     {
@@ -268,7 +268,7 @@
 //    [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
     [connDictionary setObject:[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:USER_ID]forKey:USER_ID];
     [connDictionary setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"phoneNum"]forKey:@"phoneNum"];
-    //[connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
+    [connDictionary setObject:passCodeTextField3.text forKey:@"verificationCode"];
     
     //旧的密码
     NSString* string3desOld=[[[NSData alloc] init] encrypyConnectDes:oldPasswordTextField.text];//3DES加密

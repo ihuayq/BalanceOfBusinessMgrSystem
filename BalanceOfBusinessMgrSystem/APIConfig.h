@@ -18,7 +18,7 @@
 
 
 //#define TEST_LOGIN
-//#define UAT
+#define UAT
 //#define WORK
 
 

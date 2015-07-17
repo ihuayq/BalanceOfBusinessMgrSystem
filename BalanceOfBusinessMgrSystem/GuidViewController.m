@@ -71,18 +71,18 @@
     topScrollView.pagingEnabled=YES;
     topScrollView.showsHorizontalScrollIndicator=NO;
     
-    if (self.type == GLOBE_GUIDE) {
-        topPageControl = [[UIPageControl alloc] init];
-        topPageControl.frame = CGRectMake(0, MainHeight - 45 , MainWidth, 40);
-
-        topPageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
-        topPageControl.currentPageIndicatorTintColor = UISTYLECOLOR;
-        
-        topPageControl.numberOfPages = nPageNum;
-        topPageControl.currentPage = 0;
-        //[topPageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-        [self.view addSubview:topPageControl];
-    }
+//    if (self.type == GLOBE_GUIDE) {
+//        topPageControl = [[UIPageControl alloc] init];
+//        topPageControl.frame = CGRectMake(0, MainHeight - 45 , MainWidth, 40);
+//
+//        topPageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+//        topPageControl.currentPageIndicatorTintColor = UISTYLECOLOR;
+//        
+//        topPageControl.numberOfPages = nPageNum;
+//        topPageControl.currentPage = 0;
+//        //[topPageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+//        [self.view addSubview:topPageControl];
+//    }
 }
 
 -(void)setType:(LoadingGuidType)type{
@@ -96,7 +96,7 @@
         strGuidePicHead = @"supplyer";
     }
     else{
-        nPageNum = 4;
+        nPageNum = 5;
         strGuidePicHead = @"navigation";
     }
 }

@@ -163,6 +163,8 @@
     //将路径添加到上下文中
     CGContextAddPath(ctx, loopPath);
     
+    //CGContextSetLineWidth(ctx, 4);
+    
     //绘制圆环
     CGContextStrokePath(ctx);
     

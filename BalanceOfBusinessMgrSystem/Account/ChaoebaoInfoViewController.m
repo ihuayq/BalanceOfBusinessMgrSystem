@@ -175,7 +175,7 @@
     [connDictionary setObject:Default_Phone_UUID_MD5 forKey:@"deviceId"];//设备id
     
     NSLog(@"connDictionary:%@",connDictionary);
-    [self showMBProgressHUDWithMessage:@"登录中..."];
+    [self showMBProgressHUDWithMessage:@"版本检查中..."];
     [BaseASIDataConnection PostDictionaryConnectionByURL:url ConnDictionary:connDictionary RequestSuccessBlock:^(ASIFormDataRequest *request, NSString *ret, NSString *msg, NSMutableDictionary *responseJSONDictionary)
      {
          NSLog(@"检查更新ret:%@,msg:%@,response:%@",ret,msg,responseJSONDictionary);

@@ -48,8 +48,9 @@
     _tableView.delegate =self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.estimatedRowHeight = 32.0f;
     
-    footerView = [[FMLoadMoreFooterView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 70)];
+    footerView = [[FMLoadMoreFooterView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 0)];
     _tableView.tableFooterView = footerView;
     
     [self.view addSubview:_tableView];
@@ -84,7 +85,6 @@
     pageNum = 1;
     channelId = [self getChannelIDString:self.title];
     if (channelId == 1) {
-        //[self reloadData];
         [self.tableView headerBeginRefreshing];
     }
 }
@@ -212,7 +212,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * dentifier = @"cell";
+    
+    NSLog(@"the row is %ld",indexPath.row);
+    NSLog(@"the array cout is %ld",array.count);
+    
+    static NSString * dentifier = @"cell";
     AssetRecordItemInfo * model = [array objectAtIndex:indexPath.row];
 
     AssetDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:dentifier];
@@ -236,35 +240,35 @@
 }
 
 
--(void)loadMore
-{
-    if (isLoadingMore) {
-        [footerView.activeView startAnimating];
-        [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.1];
-        isLoadingMore = NO;
-        footerView.titleLabel.text = @"获取中...";
-    }
-}
-
--(void)loadMoreData
-{
-    if (pageNum>10){
-        isCanLoadMore = YES; // signal that there won't be any more items to load
-    }else{
-        isCanLoadMore = NO;
-    }
-    
-    if (isCanLoadMore) {
-        [self loadMoreCompleted];
-    }else{
-        [self requestAddMoreNetWork];
-    }
-}
-
--(void)reloadData
-{
-    [self requestNetWork];
-}
+//-(void)loadMore
+//{
+//    if (isLoadingMore) {
+//        [footerView.activeView startAnimating];
+//        [self performSelector:@selector(loadMoreData) withObject:nil afterDelay:0.1];
+//        isLoadingMore = NO;
+//        footerView.titleLabel.text = @"获取中...";
+//    }
+//}
+//
+//-(void)loadMoreData
+//{
+//    if (pageNum>10){
+//        isCanLoadMore = YES; // signal that there won't be any more items to load
+//    }else{
+//        isCanLoadMore = NO;
+//    }
+//    
+//    if (isCanLoadMore) {
+//        [self loadMoreCompleted];
+//    }else{
+//        [self requestAddMoreNetWork];
+//    }
+//}
+//
+//-(void)reloadData
+//{
+//    [self requestNetWork];
+//}
 
 -(void)requestNetWork{
     //请求页面的信息
@@ -348,11 +352,13 @@
                  [array addObject:asset];
              }
              pageNum ++;
+             [self.tableView reloadData];
+             
              
              // 2.2秒后刷新表格UI
-             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                  // 刷新表格
-                 [self.tableView reloadData];
+                 //[self.tableView reloadData];
                  
                  // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
                  [self.tableView headerEndRefreshing];
@@ -458,7 +464,7 @@
                  
                  NSMutableArray *insertion = [[NSMutableArray alloc] init];
                  for (int i = 0 ; i< moreArray.count ; i++ ) {
-                     [insertion addObject:[NSIndexPath indexPathForRow:array.count + i inSection:0]];
+                     [insertion addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                  }
                  [self.tableView insertRowsAtIndexPaths:insertion withRowAnimation:UITableViewRowAnimationNone];
                  [self.tableView endUpdates];
@@ -509,15 +515,15 @@
      }];
 }
 
--(void)loadMoreCompleted
-{
-    isLoadingMore = YES;
-    if (isCanLoadMore) {
-        _tableView.tableFooterView = nil;
-    }else{
-        [footerView.activeView stopAnimating];
-    }
-}
+//-(void)loadMoreCompleted
+//{
+//    isLoadingMore = YES;
+//    if (isCanLoadMore) {
+//        _tableView.tableFooterView = nil;
+//    }else{
+//        [footerView.activeView stopAnimating];
+//    }
+//}
 
 #define DEFAULT_HEIGHT_OFFSET 44.0f
 #pragma mark UIScrollViewDelegate

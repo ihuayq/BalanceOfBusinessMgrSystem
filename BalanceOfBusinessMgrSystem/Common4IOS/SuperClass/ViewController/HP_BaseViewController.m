@@ -190,6 +190,26 @@
     [HUD hide:YES afterDelay:0.1];
 }
 
+- (void)showMBProgressHUDWithCustomView:(NSString *)msg withImage:(NSString *)imageName
+{
+    
+    HUD= [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    // Make the customViews 37 by 37 pixels for best results (those are the bounds of the build-in progress indicators)
+    if (imageName.length == 0 ) {
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+    }
+    
+    // Set custom view mode
+    HUD.mode = MBProgressHUDModeCustomView;
+    
+    HUD.delegate = self;
+    HUD.labelText = msg;
+    
+    [HUD show:YES];
+    [HUD hide:YES afterDelay:3];
+}
+
 #pragma mark - MBProgressHUDDelegate
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {

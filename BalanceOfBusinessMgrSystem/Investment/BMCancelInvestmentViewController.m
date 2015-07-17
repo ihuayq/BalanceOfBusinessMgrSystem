@@ -140,8 +140,8 @@
              //通过通知中心发送通知
              [[NSNotificationCenter defaultCenter] postNotification:notification];
              
-             //发送网络请求，请求预约
-             //[[[UIAlertView alloc] initWithTitle:@"提示" message:@"预约成功，成功投资金额可能需要一定时间才能显示，谢谢您的使用" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+//             [[[UIAlertView alloc] initWithTitle:@"提示" message:@"取消预约成功" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil] show];
+             [self showMBProgressHUDWithCustomView:@"成功取消预约" withImage:@""];
              [self.navigationController popViewControllerAnimated:YES];
          }
          //相同账号同时登陆，返回错误

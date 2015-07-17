@@ -11,6 +11,7 @@
 
 @interface AdviseInfoViewController ()<UITextViewDelegate>{
     PlaceholderTextView *view;
+    UIButton *registerButton ;
 }
 
 @end
@@ -50,7 +51,7 @@
     
     
     //确定
-    UIButton *registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
+    registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
@@ -60,11 +61,18 @@
     [registerButton setTitle:@"提 交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];
     [registerButton.layer setCornerRadius:registerButton.frame.size.height/2.0f];
+    registerButton.enabled = NO;
     
 }
 
 -(void)touchCommitButton{
     //http://192.168.12.142:8080/superMoney-core/appInterface/addAppFeedback  参数 commercialId content(encode)
+    
+    if( view.text.length < 10 ){
+        UIAlertView* alertview=[[UIAlertView alloc]initWithTitle:nil message:@"您的建议不能低于5个字" delegate:self cancelButtonTitle:queding otherButtonTitles:nil, nil];
+        [alertview show];
+        return;
+    }
     
     if (![HP_NetWorkUtils isNetWorkEnable])
     {
@@ -111,26 +119,71 @@
 }
 
 
-
-- (void)textViewDidEndEditing:(UITextView *)textView {
-    [view resignFirstResponder];
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   [view resignFirstResponder];
-    
-}
-
 #pragma mark - UITextView Delegate Methods
+//- (void)textViewDidBeginEditing:(UITextView *)textView {
+//    
+//     [textView resignFirstResponder];
+//    
+//}
+//
+//- (void)textViewDidEndEditing:(UITextView *)textView {
+//    
+//     [textView resignFirstResponder];
+//    
+//}
+
+
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    NSLog(@"The textView Length is:%ld",textView.text.length);
     if ([text isEqualToString:@"\n"]) {
         [textView resignFirstResponder];
         return NO;
     }
+    
+    if (textView.text.length < 5) {
+        registerButton.enabled = NO;
+    }
+    else{
+        registerButton.enabled = YES;
+    }
+    
+    if (textView.text.length > 200) {
+        return NO;
+    }
     return YES;
 }
+
+
+
+-(BOOL)textField:(UITextView *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    
+//    if (textField==passwordTextField)
+//    {
+//        if (string.length > 0)
+//        {
+//            if ([string isEqualToString:@" "])
+//            {
+//                return NO;
+//            }
+//            return passwordTextField.text.length < 6;
+//        }
+//    }
+//    if (textField==passwordTextField2)
+//    {
+//        if (string.length > 0)
+//        {
+//            if ([string isEqualToString:@" "])
+//            {
+//                return NO;
+//            }
+//            return passwordTextField2.text.length < 6;
+//        }
+//    }
+    return YES;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

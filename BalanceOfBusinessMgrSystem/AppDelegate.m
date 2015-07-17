@@ -88,15 +88,15 @@
 //    else
     if([text.userInfo[@"login"] isEqualToString:@"0"] || [text.userInfo[@"login"] isEqualToString:@"1"])
     {
-        //判断自然人引导页是否显示过
-        NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)NATUREMAN_GUIDE];
-        if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
-        {
-            GuidViewController * guideVc=[[GuidViewController alloc]init];
-            guideVc.type = NATUREMAN_GUIDE;
-            self.window.rootViewController = guideVc;
-            return;
-        }
+//        //判断自然人引导页是否显示过
+//        NSString* keystring=[NSString stringWithFormat:@"%@_GuidePage_%ld",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"],(long)NATUREMAN_GUIDE];
+//        if (![[[NSUserDefaults standardUserDefaults] objectForKey:keystring] isEqualToString:keystring])
+//        {
+//            GuidViewController * guideVc=[[GuidViewController alloc]init];
+//            guideVc.type = NATUREMAN_GUIDE;
+//            self.window.rootViewController = guideVc;
+//            return;
+//        }
 
 
         BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc] init];

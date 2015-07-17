@@ -42,9 +42,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *actionView;
 
-@property (weak, nonatomic) IBOutlet UIButton *modifyBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *modifyBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *forgetBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *forgetBtn;
 
 
 
@@ -200,7 +200,7 @@
             if(CoreLockTypeVeryfiPwd == _type){
                 
                 //禁用交互
-                self.view.userInteractionEnabled = NO;
+                //self.view.userInteractionEnabled = NO;
                 
             }else if (CoreLockTypeModifyPwd == _type){//修改密码
                 
@@ -283,9 +283,9 @@
     }
     
     
-    if(![self.class hasPwd]){
-        [_modifyBtn removeFromSuperview];
-    }
+//    if(![self.class hasPwd]){
+//        [_modifyBtn removeFromSuperview];
+//    }
 }
 
 -(void)dismiss{

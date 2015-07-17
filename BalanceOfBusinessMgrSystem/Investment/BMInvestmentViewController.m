@@ -109,17 +109,27 @@
     
     datingView = [[UIView alloc] initWithFrame:CGRectMake(0,0, MainWidth , MainHeight)];
     
-    //超额宝介绍
-    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(40, NAVIGATION_OUTLET_HEIGHT + 40, MainWidth - 40*2, 180)];
-    [manualProductWebView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-    [manualProductWebView.layer setBorderWidth:0.5f];
-    [datingView addSubview:manualProductWebView];
+    UIView *roundView =[[UIView alloc] initWithFrame:CGRectMake(MainWidth/2 - 120, NAVIGATION_OUTLET_HEIGHT + 20, 240, 240)];
+    [roundView.layer setBorderColor:[UISTYLECOLOR CGColor]];
+    [roundView.layer setBorderWidth:1.5f];
+    [roundView.layer setCornerRadius:roundView.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    [datingView addSubview:roundView];
     
-    NSString *filePath1 = [[NSBundle mainBundle]pathForResource:@"我要投资" ofType:@"html"];
+    //超额宝介绍
+    double lenth = sqrt(240*240/2) - 1.5;
+    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2, roundView.frame.origin.y + 240/2 - lenth/2, lenth, lenth)];
+//    [manualProductWebView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
+//    [manualProductWebView.layer setBorderWidth:0.5f];
+    //[manualProductWebView.layer setCornerRadius:manualProductWebView.frame.size.height/2.0f]; //设置矩形四个圆角半径
+    [datingView addSubview:manualProductWebView];
+    //[datingView insertSubview:manualProductWebView belowSubview:roundView];
+    
+    
+    NSString *filePath1 = [[NSBundle mainBundle]pathForResource:@"超额宝介绍" ofType:@"html"];
     NSString *htmlString1= [NSString stringWithContentsOfFile:filePath1 encoding:NSUTF8StringEncoding error:nil];
     [manualProductWebView loadHTMLString:htmlString1 baseURL:[NSURL URLWithString:filePath1]];
     
-    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(40, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 20, 20) typeCheck:NO];
+    radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2 - 20 , roundView.frame.origin.y+roundView.frame.size.height+20, 20, 20) typeCheck:NO];
     [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     radioAgreement.titleLabel.font=[UIFont systemFontOfSize:12];
     radioAgreement.delegate=self;
@@ -127,7 +137,7 @@
     [datingView addSubview:radioAgreement];
     
     //自然人姓名
-    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width, manualProductWebView.frame.origin.y+manualProductWebView.frame.size.height+20, 180, 20)];
+    manTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width + 5, roundView.frame.origin.y+roundView.frame.size.height+20, 180, 20)];
     manTitleLabel.text = @"我已阅读并同意以下协议";
     manTitleLabel.textAlignment = NSTextAlignmentLeft;
     manTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
@@ -148,7 +158,7 @@
     //    《众信平台服务协议（超额宝）》
     //    《借款协议（超额宝）》
     //超额宝自动转入服务协议
-    protolBtn1=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10,240,14)];
+    protolBtn1=[[HP_UIButton alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2,manTitleLabel.frame.size.height + manTitleLabel.frame.origin.y + 10,240,14)];
     [protolBtn1 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
     [protolBtn1 addTarget:self action:@selector(touchAutoImportProtocalButton) forControlEvents:UIControlEventTouchUpInside];
     [protolBtn1 setTitle:@"《超额宝自动转入服务协议》" forState:UIControlStateNormal];
@@ -157,29 +167,30 @@
     [datingView addSubview:protolBtn1];
     
     //《众信平台服务协议（超额宝）》
-    protolBtn2=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,protolBtn1.frame.size.height + protolBtn1.frame.origin.y + 6,240,14)];
+    protolBtn2=[[HP_UIButton alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2,protolBtn1.frame.size.height + protolBtn1.frame.origin.y + 6,240,14)];
     [protolBtn2 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
     [protolBtn2 addTarget:self action:@selector(touchZhongXinServiceProtocalButton) forControlEvents:UIControlEventTouchUpInside];
-    [protolBtn2 setTitle:@"《众信平台服务协议（超额宝）》" forState:UIControlStateNormal];
+    [protolBtn2 setTitle:@"《众信平台服务协议》" forState:UIControlStateNormal];
     protolBtn2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     protolBtn2.titleLabel.font=[UIFont systemFontOfSize:14];
     [datingView addSubview:protolBtn2];
     
-    //《借款协议（超额宝）》
-    protolBtn3=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,protolBtn2.frame.size.height + protolBtn2.frame.origin.y + 6,180,14)];
-    [protolBtn3 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
-    [protolBtn3 addTarget:self action:@selector(touchReceiptMoneyProtocalButton) forControlEvents:UIControlEventTouchUpInside];
-    [protolBtn3 setTitle:@"《借款协议（超额宝）》" forState:UIControlStateNormal];
-    protolBtn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    protolBtn3.titleLabel.font=[UIFont systemFontOfSize:14];
-    [datingView addSubview:protolBtn3];
+//    //《借款协议（超额宝）》
+//    protolBtn3=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,protolBtn2.frame.size.height + protolBtn2.frame.origin.y + 6,180,14)];
+//    [protolBtn3 setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+//    [protolBtn3 addTarget:self action:@selector(touchReceiptMoneyProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+//    [protolBtn3 setTitle:@"《借款协议（超额宝）》" forState:UIControlStateNormal];
+//    protolBtn3.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    protolBtn3.titleLabel.font=[UIFont systemFontOfSize:14];
+//    [datingView addSubview:protolBtn3];
     
     //确定
     registerButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [registerButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
     [registerButton setBackgroundColor:[UIColor clearColor]];
-    [registerButton setFrame:CGRectMake(20, protolBtn3.frame.origin.y+protolBtn3.frame.size.height+ 10, MainWidth-2*20, 40)];
+    
+    [registerButton setFrame:CGRectMake(MainWidth/2 - 120, protolBtn2.frame.origin.y+protolBtn2.frame.size.height+ 10, 240, 40)];
     [registerButton addTarget:self action:@selector(touchDatingButton) forControlEvents:UIControlEventTouchUpInside];
     [registerButton setTitle:@"提交" forState:UIControlStateNormal];
     [registerButton.layer setMasksToBounds:YES];

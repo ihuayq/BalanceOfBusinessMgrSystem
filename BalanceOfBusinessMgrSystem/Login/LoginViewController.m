@@ -167,16 +167,16 @@
     [self.view addSubview:agreeTitleLabel];
     
     //支付通用户注册协议
-    icardRegisterProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,radioAgreement.frame.size.height + radioAgreement.frame.origin.y + 10,180,14)];
-    [icardRegisterProtolBtn setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
-    [icardRegisterProtolBtn addTarget:self action:@selector(touchICardRegisterProtocalButton) forControlEvents:UIControlEventTouchUpInside];
-    [icardRegisterProtolBtn setTitle:@"《支付通用户注册协议》" forState:UIControlStateNormal];
-    icardRegisterProtolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    icardRegisterProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
-    [self.view addSubview:icardRegisterProtolBtn];
+//    icardRegisterProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,radioAgreement.frame.size.height + radioAgreement.frame.origin.y + 10,180,14)];
+//    [icardRegisterProtolBtn setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
+//    [icardRegisterProtolBtn addTarget:self action:@selector(touchICardRegisterProtocalButton) forControlEvents:UIControlEventTouchUpInside];
+//    [icardRegisterProtolBtn setTitle:@"《支付通用户注册协议》" forState:UIControlStateNormal];
+//    icardRegisterProtolBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    icardRegisterProtolBtn.titleLabel.font=[UIFont systemFontOfSize:14];
+//    [self.view addSubview:icardRegisterProtolBtn];
     
     //超额宝服务协议
-    chaoebaoServiceProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,icardRegisterProtolBtn.frame.size.height + icardRegisterProtolBtn.frame.origin.y + 6,140,14)];
+    chaoebaoServiceProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,radioAgreement.frame.size.height + radioAgreement.frame.origin.y + 6,140,14)];
     [chaoebaoServiceProtolBtn setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
     [chaoebaoServiceProtolBtn addTarget:self action:@selector(touchChaoebaoServiceProtocalButton) forControlEvents:UIControlEventTouchUpInside];
     [chaoebaoServiceProtolBtn setTitle:@"《超额宝服务协议》" forState:UIControlStateNormal];
@@ -215,7 +215,7 @@
         nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_SUPPLYER_NAME]];
     }
     else{
-        nameTextField.placeholder = @"请输入手机号码";
+        nameTextField.placeholder = @"请输入平台账号";
         passwordTextField.placeholder = @"请输入密码";
         //self.forgetButton.hidden = NO;
         nameTextField.text=[self delStringNull:[[NSUserDefaults standardUserDefaults] objectForKey:LAST_LOGIN_NAME]];

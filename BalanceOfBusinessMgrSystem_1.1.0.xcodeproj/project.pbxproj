@@ -41,6 +41,8 @@
 		8889BAB41AFCA6BB001BF5E2 /* UIDatingAssetsViewTips.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BAB31AFCA6BB001BF5E2 /* UIDatingAssetsViewTips.m */; };
 		8889BABD1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */; };
 		8889BAC11AFCC09A001BF5E2 /* NALLabelsMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */; };
+		888C00CF1B5607F400E16D2C /* 37x-Checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 888C00CD1B5607F400E16D2C /* 37x-Checkmark.png */; };
+		888C00D01B5607F400E16D2C /* 37x-Checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 888C00CE1B5607F400E16D2C /* 37x-Checkmark@2x.png */; };
 		888CF5631B2FBF3A00097AFC /* addNaturalMan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 888CF4F01B2FBF3A00097AFC /* addNaturalMan@2x.png */; };
 		888CF5641B2FBF3A00097AFC /* bankcard.plist in Resources */ = {isa = PBXBuildFile; fileRef = 888CF4F11B2FBF3A00097AFC /* bankcard.plist */; };
 		888CF5651B2FBF3A00097AFC /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 888CF4F21B2FBF3A00097AFC /* email.png */; };
@@ -152,6 +154,7 @@
 		888CF5EE1B2FF88200097AFC /* 认证.html in Resources */ = {isa = PBXBuildFile; fileRef = 888CF5E01B2FF88200097AFC /* 认证.html */; };
 		888CF5EF1B2FF88200097AFC /* 购买申请.html in Resources */ = {isa = PBXBuildFile; fileRef = 888CF5E11B2FF88200097AFC /* 购买申请.html */; };
 		888CF5F01B2FF88200097AFC /* 转让.html in Resources */ = {isa = PBXBuildFile; fileRef = 888CF5E21B2FF88200097AFC /* 转让.html */; };
+		889759121B58AAD300E2EB1C /* 超额宝介绍.html in Resources */ = {isa = PBXBuildFile; fileRef = 889759111B58AAD300E2EB1C /* 超额宝介绍.html */; };
 		889AA8431B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8421B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m */; };
 		889AA8821B1C2AE400C76E8B /* BTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 889AA8811B1C2AE400C76E8B /* BTLabel.m */; };
 		889CA6451B292B370094BA26 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 889CA6441B292B370094BA26 /* libicucore.dylib */; };
@@ -181,6 +184,7 @@
 		88D406EA1B007FFC00418ACC /* NaturalManInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406E91B007FFC00418ACC /* NaturalManInfoTableViewCell.m */; };
 		88D406EE1B00834B00418ACC /* NaturalManItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406ED1B00834B00418ACC /* NaturalManItemModel.m */; };
 		88D406F31B00BC2F00418ACC /* BMCancelInvestmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88D406F21B00BC2F00418ACC /* BMCancelInvestmentViewController.m */; };
+		88E789591B57BEE800B36B3F /* navigation5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 88E789581B57BEE800B36B3F /* navigation5.jpg */; };
 		88E7A7AE1AF9ACEC00B44364 /* RadioButton_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E7A7AA1AF9ACEC00B44364 /* RadioButton_check.png */; };
 		88E7A7AF1AF9ACEC00B44364 /* RadioButton_Not_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 88E7A7AB1AF9ACEC00B44364 /* RadioButton_Not_check.png */; };
 		88E7A7B01AF9ACEC00B44364 /* RadioButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E7A7AD1AF9ACEC00B44364 /* RadioButton.m */; };
@@ -362,6 +366,8 @@
 		8889BABC1AFCC056001BF5E2 /* BMAssetsInfoSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMAssetsInfoSubViewController.m; sourceTree = "<group>"; };
 		8889BABF1AFCC09A001BF5E2 /* NALLabelsMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NALLabelsMatrix.h; sourceTree = "<group>"; };
 		8889BAC01AFCC09A001BF5E2 /* NALLabelsMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NALLabelsMatrix.m; sourceTree = "<group>"; };
+		888C00CD1B5607F400E16D2C /* 37x-Checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "37x-Checkmark.png"; path = "BalanceOfBusinessMgrSystem/NewResource/37x-Checkmark.png"; sourceTree = SOURCE_ROOT; };
+		888C00CE1B5607F400E16D2C /* 37x-Checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "37x-Checkmark@2x.png"; path = "BalanceOfBusinessMgrSystem/NewResource/37x-Checkmark@2x.png"; sourceTree = SOURCE_ROOT; };
 		888CF4F01B2FBF3A00097AFC /* addNaturalMan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "addNaturalMan@2x.png"; sourceTree = "<group>"; };
 		888CF4F11B2FBF3A00097AFC /* bankcard.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bankcard.plist; sourceTree = "<group>"; };
 		888CF4F21B2FBF3A00097AFC /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
@@ -473,6 +479,7 @@
 		888CF5E01B2FF88200097AFC /* 认证.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "认证.html"; sourceTree = "<group>"; };
 		888CF5E11B2FF88200097AFC /* 购买申请.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "购买申请.html"; sourceTree = "<group>"; };
 		888CF5E21B2FF88200097AFC /* 转让.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "转让.html"; sourceTree = "<group>"; };
+		889759111B58AAD300E2EB1C /* 超额宝介绍.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "超额宝介绍.html"; sourceTree = "<group>"; };
 		889AA8411B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCancelInvestmentBeforeViewController.h; sourceTree = "<group>"; };
 		889AA8421B1BF49400C76E8B /* BMCancelInvestmentBeforeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCancelInvestmentBeforeViewController.m; sourceTree = "<group>"; };
 		889AA8801B1C2AE400C76E8B /* BTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTLabel.h; sourceTree = "<group>"; };
@@ -532,6 +539,7 @@
 		88D406ED1B00834B00418ACC /* NaturalManItemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NaturalManItemModel.m; path = settingNaturalManInfo/NaturalManItemModel.m; sourceTree = "<group>"; };
 		88D406F11B00BC2F00418ACC /* BMCancelInvestmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMCancelInvestmentViewController.h; sourceTree = "<group>"; };
 		88D406F21B00BC2F00418ACC /* BMCancelInvestmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCancelInvestmentViewController.m; sourceTree = "<group>"; };
+		88E789581B57BEE800B36B3F /* navigation5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = navigation5.jpg; sourceTree = "<group>"; };
 		88E7A7AA1AF9ACEC00B44364 /* RadioButton_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton_check.png; sourceTree = "<group>"; };
 		88E7A7AB1AF9ACEC00B44364 /* RadioButton_Not_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RadioButton_Not_check.png; sourceTree = "<group>"; };
 		88E7A7AC1AF9ACEC00B44364 /* RadioButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RadioButton.h; sourceTree = "<group>"; };
@@ -876,6 +884,8 @@
 		888CF4EF1B2FBF3A00097AFC /* NewResource */ = {
 			isa = PBXGroup;
 			children = (
+				888C00CD1B5607F400E16D2C /* 37x-Checkmark.png */,
+				888C00CE1B5607F400E16D2C /* 37x-Checkmark@2x.png */,
 				888CF5D41B2FF88200097AFC /* html */,
 				888CF4F01B2FBF3A00097AFC /* addNaturalMan@2x.png */,
 				888CF4F11B2FBF3A00097AFC /* bankcard.plist */,
@@ -947,6 +957,7 @@
 			children = (
 				888CF5271B2FBF3A00097AFC /* navigation1.jpg */,
 				888CF5281B2FBF3A00097AFC /* navigation2.jpg */,
+				88E789581B57BEE800B36B3F /* navigation5.jpg */,
 				888CF5291B2FBF3A00097AFC /* navigation3.jpg */,
 				888CF52A1B2FBF3A00097AFC /* navigation4.jpg */,
 			);
@@ -1027,6 +1038,7 @@
 				888CF5D81B2FF88200097AFC /* 二级市场.html */,
 				888CF5D91B2FF88200097AFC /* 充值.html */,
 				888CF5DA1B2FF88200097AFC /* tishi.html */,
+				889759111B58AAD300E2EB1C /* 超额宝介绍.html */,
 				888CF5DB1B2FF88200097AFC /* 我要投资.html */,
 				888CF5DC1B2FF88200097AFC /* 提现.html */,
 				888CF5DD1B2FF88200097AFC /* 收费标准.html */,
@@ -1773,7 +1785,7 @@
 				TargetAttributes = {
 					88ED8CD31AF84FEB00B82BE7 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = W55459M99X;
+						DevelopmentTeam = 568K4VHFTK;
 					};
 				};
 			};
@@ -1804,6 +1816,7 @@
 				888CF5C01B2FBF3A00097AFC /* 短信验证@2x.png in Resources */,
 				88E7A7BE1AF9DCEB00B44364 /* btn_close_selected.png in Resources */,
 				888CF5631B2FBF3A00097AFC /* addNaturalMan@2x.png in Resources */,
+				888C00D01B5607F400E16D2C /* 37x-Checkmark@2x.png in Resources */,
 				888CF5E81B2FF88200097AFC /* tishi.html in Resources */,
 				888CF59F1B2FBF3A00097AFC /* natureman3.jpg in Resources */,
 				888CF5EF1B2FF88200097AFC /* 购买申请.html in Resources */,
@@ -1817,6 +1830,7 @@
 				888CF5861B2FBF3A00097AFC /* 152.png in Resources */,
 				888CF57E1B2FBF3A00097AFC /* send.png in Resources */,
 				888CF5B51B2FBF3A00097AFC /* 列表-选择前@2x.png in Resources */,
+				888C00CF1B5607F400E16D2C /* 37x-Checkmark.png in Resources */,
 				888CF5981B2FBF3A00097AFC /* navigation3.jpg in Resources */,
 				888CF5E71B2FF88200097AFC /* 充值.html in Resources */,
 				88A1C7701B2683C8004709BF /* MJRefresh.bundle in Resources */,
@@ -1863,9 +1877,11 @@
 				888CF5A61B2FBF3A00097AFC /* addperson.png in Resources */,
 				888CF5991B2FBF3A00097AFC /* navigation4.jpg in Resources */,
 				888CF5B91B2FBF3A00097AFC /* 密码@2x.png in Resources */,
+				889759121B58AAD300E2EB1C /* 超额宝介绍.html in Resources */,
 				88E7A7BF1AF9DCEB00B44364 /* btn_close_selected@2x.png in Resources */,
 				888CF5BC1B2FBF3A00097AFC /* 投资-normal@2x.png in Resources */,
 				888CF5B41B2FBF3A00097AFC /* 切换按钮——点击后.png in Resources */,
+				88E789591B57BEE800B36B3F /* navigation5.jpg in Resources */,
 				888CF57B1B2FBF3A00097AFC /* redbn.png in Resources */,
 				888CF5EA1B2FF88200097AFC /* 提现.html in Resources */,
 				888CF5A41B2FBF3A00097AFC /* 累计收益@2x.png in Resources */,
@@ -2187,8 +2203,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rongtong Info&Tech Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rongtong Info&Tech Co., Ltd";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2219,7 +2235,7 @@
 					Reveal,
 				);
 				PRODUCT_NAME = "超额宝";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6796182d-2d44-4e45-bea8-223db8b82618";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2229,8 +2245,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rongtong Info&Tech Co., Ltd";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rongtong Info&Tech Co., Ltd";
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2261,7 +2277,7 @@
 					Reveal,
 				);
 				PRODUCT_NAME = "超额宝";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "6796182d-2d44-4e45-bea8-223db8b82618";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
