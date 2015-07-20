@@ -157,8 +157,8 @@
     radioAgreement.tag = 708;
     [self.view addSubview:radioAgreement];
     
-    agreeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width + 4, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+6, 180, 20)];
-    agreeTitleLabel.text = @"我已阅读并且同意以下协议";
+    agreeTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(radioAgreement.frame.origin.x + radioAgreement.frame.size.width + 4, passwordTextField.frame.origin.y+passwordTextField.frame.size.height+6, 120, 20)];
+    agreeTitleLabel.text = @"我已阅读并且同意";
     agreeTitleLabel.textAlignment = NSTextAlignmentLeft;
     agreeTitleLabel.textColor = [HP_UIColorUtils colorWithHexString:TEXT_COLOR];
     agreeTitleLabel.font = [UIFont systemFontOfSize:14];
@@ -176,7 +176,7 @@
 //    [self.view addSubview:icardRegisterProtolBtn];
     
     //超额宝服务协议
-    chaoebaoServiceProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(30,radioAgreement.frame.size.height + radioAgreement.frame.origin.y + 6,140,14)];
+    chaoebaoServiceProtolBtn=[[HP_UIButton alloc] initWithFrame:CGRectMake(agreeTitleLabel.frame.origin.x + agreeTitleLabel.frame.size.width - 12,passwordTextField.frame.origin.y+passwordTextField.frame.size.height+9,140,14)];
     [chaoebaoServiceProtolBtn setTitleColor:UIColorFromRGB(0x00baff) forState:UIControlStateNormal];
     [chaoebaoServiceProtolBtn addTarget:self action:@selector(touchChaoebaoServiceProtocalButton) forControlEvents:UIControlEventTouchUpInside];
     [chaoebaoServiceProtolBtn setTitle:@"《超额宝服务协议》" forState:UIControlStateNormal];
@@ -185,7 +185,7 @@
     [self.view addSubview:chaoebaoServiceProtolBtn];
     
     _forgetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _forgetButton.frame = CGRectMake(MainWidth - 85 - 40, MainHeight-125, 85, 15);
+    _forgetButton.frame = CGRectMake(MainWidth - 85 - 40, agreeTitleLabel.frame.origin.y+agreeTitleLabel.frame.size.height+10, 85, 15);
     [_forgetButton setBackgroundImage:[UIImage imageNamed:@"forgetpassword"] forState:UIControlStateNormal];
     _forgetButton.backgroundColor = [UIColor clearColor];
     [_forgetButton addTarget:self action:@selector(touchForgetButton) forControlEvents:UIControlEventTouchUpInside];
@@ -340,7 +340,8 @@
     }
     
     if (!_isSupplerSelected) {
-        [self.forgetButton setFrame:CGRectMake(MainWidth - 85 - 40,chaoebaoServiceProtolBtn.frame.size.height + chaoebaoServiceProtolBtn.frame.origin.y,85, 15)];
+        //[self.forgetButton setFrame:CGRectMake(MainWidth - 85 - 40,chaoebaoServiceProtolBtn.frame.size.height + chaoebaoServiceProtolBtn.frame.origin.y,85, 15)];
+        self.forgetButton.frame = CGRectMake(MainWidth - 85 - 40, agreeTitleLabel.frame.origin.y+agreeTitleLabel.frame.size.height+10, 85, 15);
         [loginButton setFrame:CGRectMake(20,self.forgetButton.frame.size.height + self.forgetButton.frame.origin.y + 10,MainWidth-40, 40)];
     }
     else{

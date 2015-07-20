@@ -117,17 +117,37 @@
     
     //超额宝介绍
     double lenth = sqrt(240*240/2) - 1.5;
-    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2, roundView.frame.origin.y + 240/2 - lenth/2, lenth, lenth)];
-//    [manualProductWebView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
-//    [manualProductWebView.layer setBorderWidth:0.5f];
-    //[manualProductWebView.layer setCornerRadius:manualProductWebView.frame.size.height/2.0f]; //设置矩形四个圆角半径
-    [datingView addSubview:manualProductWebView];
-    //[datingView insertSubview:manualProductWebView belowSubview:roundView];
+//    manualProductWebView =[[UIWebView alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2, roundView.frame.origin.y + 240/2 - lenth/2, lenth, lenth)];
+//    [datingView addSubview:manualProductWebView];
+//    
+//    
+//    NSString *filePath1 = [[NSBundle mainBundle]pathForResource:@"超额宝介绍" ofType:@"html"];
+//    NSString *htmlString1= [NSString stringWithContentsOfFile:filePath1 encoding:NSUTF8StringEncoding error:nil];
+//    [manualProductWebView loadHTMLString:htmlString1 baseURL:[NSURL URLWithString:filePath1]];
+    
+    //初始化label
+    UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0,0,0,0)];
+    [label2 setNumberOfLines:0];
+    NSString *s2 = [NSString stringWithFormat:@"年化收益率  %@ %%",[[NSUserDefaults standardUserDefaults] objectForKey:@"rate"]];
+    UIFont *font2 = [UIFont systemFontOfSize:32];
+    CGSize size2 = CGSizeMake(300,400);
+    CGSize labelsize2 = [s2 sizeWithFont:font2 constrainedToSize:size2 lineBreakMode:(UILineBreakMode)UILineBreakModeWordWrap];
+    [label2 setFrame:CGRectMake(MainWidth/2 - lenth/2, roundView.frame.origin.y + 240/2 - lenth/2-30, lenth, lenth)];
+    label2.text = s2;
+    label2.textColor = UISTYLECOLOR;
+    label2.textAlignment = UITextAlignmentCenter;
+    [datingView addSubview:label2];
     
     
-    NSString *filePath1 = [[NSBundle mainBundle]pathForResource:@"超额宝介绍" ofType:@"html"];
-    NSString *htmlString1= [NSString stringWithContentsOfFile:filePath1 encoding:NSUTF8StringEncoding error:nil];
-    [manualProductWebView loadHTMLString:htmlString1 baseURL:[NSURL URLWithString:filePath1]];
+    BTLabel *label;
+    label = [[BTLabel alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2, roundView.frame.origin.y + 240/2 - lenth/2+30, lenth, lenth) edgeInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+    label.font = [UIFont systemFontOfSize:14];
+    label.text = [NSString stringWithFormat:@"随存随取\n月复利\n投资、提现无手续费"];
+    label.verticalAlignment = BTVerticalAlignmentCenter;
+    label.textAlignment = NSTextAlignmentCenter;
+    label.numberOfLines = 3;
+    [datingView addSubview:label];
+
     
     radioAgreement=[[RadioButton alloc] initWithFrame:CGRectMake(MainWidth/2 - lenth/2 - 20 , roundView.frame.origin.y+roundView.frame.size.height+20, 20, 20) typeCheck:NO];
     [radioAgreement setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

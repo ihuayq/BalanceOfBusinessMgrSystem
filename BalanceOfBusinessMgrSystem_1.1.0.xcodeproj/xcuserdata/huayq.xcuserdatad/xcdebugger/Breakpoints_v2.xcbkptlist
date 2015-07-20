@@ -404,11 +404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BalanceOfBusinessMgrSystem/Login/LoginViewController.m"
-            timestampString = "457510777.938491"
+            timestampString = "458818655.897036"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "499"
+            endingLineNumber = "499"
             landmarkName = "-natureManLoginRequest"
             landmarkType = "5">
          </BreakpointContent>
@@ -532,12 +532,12 @@
                   moduleName = "&#x8d85;&#x989d;&#x5b9d;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/huayq/svn_chaoebao/1.1.0/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem/ThirdPart/GestureLock/CoreLock/CLLockVC.m"
-                  timestampString = "458816033.284111"
+                  timestampString = "459076994.695737"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "52"
                   endingLineNumber = "52"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "12">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -547,12 +547,12 @@
                   moduleName = "&#x8d85;&#x989d;&#x5b9d;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/huayq/svn_chaoebao/1.1.0/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem/ThirdPart/GestureLock/CoreLock/CLLockVC.m"
-                  timestampString = "458816033.284299"
+                  timestampString = "459076994.695912"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "52"
                   endingLineNumber = "52"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>
