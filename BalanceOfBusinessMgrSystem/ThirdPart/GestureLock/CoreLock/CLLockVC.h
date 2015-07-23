@@ -27,7 +27,7 @@ typedef enum{
 
 @property (nonatomic,assign) CoreLockType type;
 
-
+@property (nonatomic,assign) BOOL hasEnterApp;
 
 /*
  *  是否有本地密码缓存？即用户是否设置过初始密码？

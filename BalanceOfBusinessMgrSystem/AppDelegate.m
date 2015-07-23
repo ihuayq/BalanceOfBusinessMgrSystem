@@ -56,7 +56,7 @@
     }
     
 #else
-    BMInvestmentConfirmViewController* Vc=[[BMInvestmentConfirmViewController alloc]init];
+    BMWithDrawsCashSuccessViewController* Vc=[[BMWithDrawsCashSuccessViewController alloc]init];
     self.window.rootViewController = Vc;
 #endif
     
@@ -98,8 +98,10 @@
 //            return;
 //        }
 
+        int nIndex = [text.userInfo[@"indexPage"] intValue];
 
         BMNaturalManMainViewController* Vc=[[BMNaturalManMainViewController alloc] init];
+        Vc.indexPage = nIndex;
         self.window.rootViewController = Vc;
         
     }

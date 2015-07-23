@@ -197,7 +197,6 @@
     loginButton = [HP_UIButton buttonWithType:UIButtonTypeCustom];
     [loginButton setBackgroundImage:[UIImage imageNamed:@"redbn"] forState:UIControlStateNormal];
     [loginButton setBackgroundImage:[UIImage imageNamed:@"redbndj"] forState:UIControlStateHighlighted];
-    //[loginButton setBackgroundColor:[UIColor clearColor]];
     [loginButton setFrame:CGRectMake(20, MainHeight-100, MainWidth-40, 40)];
     [loginButton addTarget:self action:@selector(touchLoginButton) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setTitle:@"登 录" forState:UIControlStateNormal];
@@ -363,8 +362,6 @@
 -(void)touchForgetButton
 {
     ForgetPasswordViewController * fpw = [[ForgetPasswordViewController alloc] init];
-        //[self.navigationController pushViewController:fpw animated:YES];
-    //[self presentViewController:fpw animated:YES completion:NULL];
     [self presentModalViewController:fpw animated:YES];
 }
 
@@ -510,7 +507,16 @@
              
              [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:LOGIN_STATUS];//0未登录、1的登录
              
-             NSMutableDictionary* Dict=[[NSMutableDictionary alloc]initWithCapacity:0];
+             //查看是否有旧的USERINFO信息，因为直接用账号登陆绕过了后面的查询操作，所以需要借用上一次的查询操作结果
+             NSLog(@"the userinfo is:%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO]);
+             NSMutableDictionary* Dict = [[NSMutableDictionary alloc]initWithCapacity:0];
+             NSDictionary* reDict = [[NSUserDefaults standardUserDefaults] objectForKey:USERINFO];
+             if (reDict) {
+                 Dict =[NSMutableDictionary dictionaryWithDictionary:reDict];
+             }
+             
+             //NSLog(@"the dic is%@",Dict);
+            
              //商户还是自然人
              [Dict setObject:[NSString stringWithFormat:@"%d",self.isSupplerSelected]   forKey:@"logintype"];
              [Dict setObject:[responseJSONDictionary objectForKey:USER_ID] forKey:USER_ID];

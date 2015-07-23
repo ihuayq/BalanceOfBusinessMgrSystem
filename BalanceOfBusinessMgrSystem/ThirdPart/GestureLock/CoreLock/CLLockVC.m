@@ -60,6 +60,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
 
     //控制器准备
     [self vcPrepare];
@@ -74,9 +75,6 @@
 }
 
 -(void) initViewPos{
-//    CGRect lockFrame= _actionView.frame;
-//    lockFrame.origin.y = 0;//self.label.frame.size.height + self.label.frame.origin.y  + 10;
-//    [_actionView setFrame:lockFrame];
     
     UILabel * telLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, MainHeight - 40, MainWidth, 20)];
     //手机号码
@@ -84,23 +82,8 @@
     telLabel.textAlignment = NSTextAlignmentCenter;
     telLabel.textColor = UISTYLECOLOR;
     telLabel.font = [UIFont systemFontOfSize:16];
-    //telLabel.backgroundColor = [UIColor clearColor];
     telLabel.numberOfLines = 0;
     [self.view addSubview:telLabel];
-    
-//    [_modifyBtn setFrame:CGRectMake(0, MainHeight - 160, MainWidth, 20)];
-//    [_forgetBtn setFrame:CGRectMake(0, MainHeight - 80, MainWidth, 20)];
-    
-//    CLLockInfoView *infoView =[[CLLockInfoView alloc] initWithFrame:CGRectMake(MainWidth/2-20, NAVIGATION_OUTLET_HEIGHT + 20,40, 40)];
-//    [self.view addSubview:infoView];
-//
-//    
-//    self.label = [[CLLockLabel alloc] initWithFrame:CGRectMake(20, infoView.frame.origin.y + infoView.frame.size.height + 10,MainWidth -40, 40)];
-//    [self.view addSubview:self.label];
-//    
-//    
-//    self.lockView = [[CLLockView alloc] initWithFrame:CGRectMake(20, self.label.frame.origin.y + self.label.frame.size.height  ,MainWidth-40, MainWidth-40)];
-//    [self.view addSubview:self.lockView];
 }
 
 
@@ -108,8 +91,6 @@
  *  事件
  */
 -(void)event{
-    
-    
     /*
      *  设置密码
      */
@@ -156,7 +137,7 @@
         [CoreArchive setStr:pwd key:CoreLockPWDKey];
         
         //禁用交互
-        self.view.userInteractionEnabled = NO;
+        //self.view.userInteractionEnabled = NO;
         
         if(_successBlock != nil) _successBlock(self,pwd);
         
@@ -272,7 +253,7 @@
 
         if(_isDirectModify) return;
         
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
     }
     else if (CoreLockTypeSetPwd == _type){
         _actionView.hidden = YES;
@@ -282,10 +263,18 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"跳过" style:UIBarButtonItemStylePlain target:self action:@selector(skip)];
     }
     
-    
+
 //    if(![self.class hasPwd]){
 //        [_modifyBtn removeFromSuperview];
 //    }
+}
+
+-(void)close{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+//    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login",@"2",@"indexPage", nil];
+//    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//    [[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 -(void)dismiss{
@@ -348,9 +337,17 @@
              [[NSUserDefaults standardUserDefaults] setObject:[responseJSONDictionary objectForKey:@"accountId"] forKey:@"drawCardNo"];    //提现卡号码
              
              
-            NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-            NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-            [[NSNotificationCenter defaultCenter] postNotification:notification];
+             if (self.hasEnterApp) {
+                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login",@"2",@"indexPage", nil];
+                 NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+             }
+             else{
+                 NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
+                 NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+                 [[NSNotificationCenter defaultCenter] postNotification:notification];
+             }
+            
              
          }
          //相同账号同时登陆，返回错误
@@ -428,6 +425,7 @@
     CLLockVC *lockVC = [self lockVC:vc];
     
     lockVC.title = @"设置手势密码";
+    //lockVC.navigation.title = @"设置手势密码";
     
     //设置类型
     lockVC.type = CoreLockTypeSetPwd;
@@ -450,6 +448,7 @@
     CLLockVC *lockVC = [self lockVC:vc];
     
     lockVC.title = @"手势解锁";
+    //lockVC.navigation.title = @"手势解锁";
     
     //设置类型
     lockVC.type = CoreLockTypeVeryfiPwd;
@@ -472,6 +471,7 @@
     CLLockVC *lockVC = [self lockVC:vc];
     
     lockVC.title = @"修改密码";
+    //lockVC.navigation.title = @"修改密码";
     
     //设置类型
     lockVC.type = CoreLockTypeModifyPwd;

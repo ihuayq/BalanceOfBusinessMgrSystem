@@ -518,12 +518,38 @@
 
 
 -(void)touchCancelButton{
-    NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"]);
-    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+//    NSLog(@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"]);
+//    if ([[[[NSUserDefaults standardUserDefaults] objectForKey:USERINFO] objectForKey:@"appointment"] isEqualToString:@"1"]) {
+//        BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
+//        cancelVC.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:cancelVC animated:YES];
+//    }
+    
+    //需要判断是否已经设置交易密码
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"payMark"] isEqualToString:@"1"]) {
         BMCancelInvestmentViewController *cancelVC = [[BMCancelInvestmentViewController alloc] init];
         cancelVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:cancelVC animated:YES];
     }
+    else{
+        DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"提示" contentText:@"您还没有设置交易密码,是否现在设置?" leftButtonTitle:@"是" rightButtonTitle:@"否"];
+        [alert show];
+        alert.leftBlock = ^() {
+            NSLog(@"Left button clicked");
+            BMCreateTransactionpPasswordViewController *info = [[BMCreateTransactionpPasswordViewController alloc] init];
+            info.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:info
+                                                 animated:NO];
+        };
+        alert.rightBlock = ^() {
+            NSLog(@"Right button clicked");
+            [self.navigationController popViewControllerAnimated:YES];
+        };
+        alert.dismissBlock = ^() {
+            NSLog(@"Do something interesting after dismiss block");
+        };
+    }
+
 }
 
 //-(void)requestNetWork{

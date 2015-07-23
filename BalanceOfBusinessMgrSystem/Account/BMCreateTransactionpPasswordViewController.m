@@ -196,15 +196,16 @@
     //    registerLabel.textColor = [UIColor whiteColor];
     //    registerLabel.font = [UIFont systemFontOfSize:15];
     //    [registerButton addSubview:registerLabel];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
     nCout = 60;
-    
 }
 
--(void)viewWillDisappear:(BOOL)animated
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    nCout = 60;
+//    
+//}
+
+-(void)viewDidAppear:(BOOL)animated
 {
     nCout = 0;
     [self timeCountdown];

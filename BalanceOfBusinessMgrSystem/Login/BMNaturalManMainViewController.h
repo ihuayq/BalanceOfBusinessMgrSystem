@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface BMNaturalManMainViewController : HP_BaseTabBarController
-
+@property(nonatomic,assign) int indexPage;
 @end

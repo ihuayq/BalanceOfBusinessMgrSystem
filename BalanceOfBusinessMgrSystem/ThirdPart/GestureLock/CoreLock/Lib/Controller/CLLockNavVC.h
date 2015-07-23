@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavigationWithInteract.h"
 
-@interface CLLockNavVC : UINavigationController
+@interface CLLockNavVC : NavigationWithInteract
 
 @end

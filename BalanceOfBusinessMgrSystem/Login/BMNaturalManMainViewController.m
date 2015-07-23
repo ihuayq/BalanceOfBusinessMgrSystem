@@ -163,7 +163,13 @@
     nc3.tabBarItem.image = [UIImage imageNamed:@"资产-normal"];
     nc4.tabBarItem.image = [UIImage imageNamed:@"账号-normal"];
     
-    //self.tabBarController.selectedViewController = nc2;
+    //self.selectedViewController = nc4;
+    
+}
+
+-(void)setIndexPage:(int)indexPage{
+    _indexPage = indexPage;
+    self.selectedIndex = _indexPage;
 }
 
 - (void)didReceiveMemoryWarning {

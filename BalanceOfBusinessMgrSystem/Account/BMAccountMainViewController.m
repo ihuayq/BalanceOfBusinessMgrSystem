@@ -97,7 +97,7 @@
          [[self progressView] dismissWithClickedButtonIndex:0 animated:YES];
          if([ret isEqualToString:@"100"])
          {
-             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
+             //[[NSUserDefaults standardUserDefaults]setObject:nil forKey:USERINFO];
              [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:LOGIN_STATUS];//0未登录、1的登录
              
              [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IsUsingGesturePwdLogin"];
@@ -361,27 +361,23 @@
                     NSLog(@"Left button clicked");
                    [self setLockPwd];
                 };
-                alert.rightBlock = ^() {
-                    NSLog(@"Right button clicked");
-                    [self.navigationController popViewControllerAnimated:YES];
-                };
-                alert.dismissBlock = ^() {
-                    NSLog(@"Do something interesting after dismiss block");
-                };
                 
                 return;
             }
             else{
-                //            ModifyLoginPasswordViewController *vc = [[ModifyLoginPasswordViewController alloc] init];
-                //            vc.hidesBottomBarWhenPushed = YES;
-                //            [self.navigationController pushViewController:vc animated:YES];
                 CLLockVC  *lockVC = [CLLockVC showModifyLockVCInVC:self successBlock:^(CLLockVC *lockVC, NSString *pwd) {
                     
                     [lockVC dismiss:.5f];
+                    
+//                    NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login",@"3",@"indexPage", nil];
+//                    NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
                 }];
-                
+//                lockVC.hidesBottomBarWhenPushed = YES;
+//                [self.navigationController pushViewController:lockVC animated:YES];
                 CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
                 [self presentViewController:navVC animated:YES completion:nil];
+//                [self.navigationController pushViewController:navVC animated:YES];
             }
         }
        
@@ -389,12 +385,6 @@
     else if (indexPath.section == 2)
     {
         //关于超额宝
-//        
-//        ProjectReferViewController *vc = [[ProjectReferViewController alloc] init];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
-        
-        
         ChaoebaoInfoViewController *vc = [[ChaoebaoInfoViewController alloc] init];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
@@ -414,12 +404,14 @@
         
         [lockVC dismiss:.5f];
         
-//        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login", nil];
-//        NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
-//        [[NSNotificationCenter defaultCenter] postNotification:notification];
+        NSDictionary *dict =[[NSDictionary alloc] initWithObjectsAndKeys:@"0",@"login",@"2",@"indexPage", nil];
+        NSNotification *notification =[NSNotification notificationWithName:@"LoginInitMainwidow" object:nil userInfo:dict];
+        [[NSNotificationCenter defaultCenter] postNotification:notification];
     }];
+    lockVC.hasEnterApp = YES;
     CLLockNavVC *navVC = [[CLLockNavVC alloc] initWithRootViewController:lockVC];
     [self presentViewController:navVC animated:YES completion:nil];
+
 }
 
 -(void)requestNetWork{

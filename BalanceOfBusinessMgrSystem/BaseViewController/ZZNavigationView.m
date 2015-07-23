@@ -43,7 +43,7 @@
         navigationBack.userInteractionEnabled = YES;
         [self addSubview:navigationBack];
         
-         NSLog(@"the navigationBack frame is:%@",navigationBack);
+         //NSLog(@"the navigationBack frame is:%@",navigationBack);
 
         leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         leftBtn.frame = CGRectMake(8, self.frame.size.height/2-_leftImage.size.height/2, _leftImage.size.width, _leftImage.size.height);
@@ -100,7 +100,7 @@
         titleLabel.frame = CGRectMake(navigationBack.frame.size.width/2-titleSize.width/2, navigationBack.frame.size.height/2-titleSize.height/2, titleSize.width, titleSize.height);
     }
     
-    NSLog(@"the title frame is:%@",titleLabel);
+    //NSLog(@"the title frame is:%@",titleLabel);
     titleLabel.text = title;
 }
 

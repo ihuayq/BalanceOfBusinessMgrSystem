@@ -224,19 +224,24 @@
 //    registerLabel.textColor = [UIColor whiteColor];
 //    registerLabel.font = [UIFont systemFontOfSize:15];
 //    [registerButton addSubview:registerLabel];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
     nCout = 60;
-
 }
--(void)viewWillDisappear:(BOOL)animated
-{
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    nCout = 60;
+//
+//}
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//
+//    //[timer invalidate];//取消定时器
+//    
+//}
+
+- (void)viewDidDisappear:(BOOL)animated{
     nCout = 0;
     [self timeCountdown];
-    //[timer invalidate];//取消定时器
-    
 }
 
 -(void)touchSettingPasswordButton{
