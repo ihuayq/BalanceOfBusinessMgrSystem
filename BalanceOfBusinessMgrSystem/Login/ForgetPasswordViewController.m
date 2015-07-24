@@ -87,7 +87,7 @@
     checkwordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:checkwordLabel];
     
-    manNameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(90, supplyerAccountTextField.frame.origin.y + supplyerAccountTextField.frame.size.height + 10, MainWidth-40, 40)];
+    manNameTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(70, supplyerAccountTextField.frame.origin.y + supplyerAccountTextField.frame.size.height + 10, 230, 40)];
     [manNameTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     manNameTextField.backgroundColor = [UIColor clearColor];
     manNameTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -112,7 +112,7 @@
     identifyLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:identifyLabel];
     
-    manIdentifyNoTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(90, manNameTextField.frame.origin.y + manNameTextField.frame.size.height + 10, 180, 40)];
+    manIdentifyNoTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(100, manNameTextField.frame.origin.y + manNameTextField.frame.size.height + 10, 200, 40)];
     [manIdentifyNoTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     manIdentifyNoTextField.backgroundColor = [UIColor clearColor];
     manIdentifyNoTextField.clearButtonMode = UITextFieldViewModeAlways;
@@ -138,7 +138,7 @@
     passwordLabel.backgroundColor = [UIColor clearColor];
     [self.view addSubview:passwordLabel];
     
-    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(80, manIdentifyNoTextField.frame.origin.y + manIdentifyNoTextField.frame.size.height + 10, 220, 40)];
+    passwordTextField = [[HP_UITextField alloc] initWithFrame:CGRectMake(70, manIdentifyNoTextField.frame.origin.y + manIdentifyNoTextField.frame.size.height + 10, 230, 40)];
     [passwordTextField setInsets:UIEdgeInsetsMake(5, 5, 0, 0)];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.clearButtonMode = UITextFieldViewModeAlways;

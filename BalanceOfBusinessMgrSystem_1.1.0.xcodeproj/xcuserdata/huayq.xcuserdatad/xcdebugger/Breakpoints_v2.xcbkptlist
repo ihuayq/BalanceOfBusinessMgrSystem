@@ -516,12 +516,12 @@
                   moduleName = "&#x8d85;&#x989d;&#x5b9d;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/huayq/svn_chaoebao/1.1.0/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem/ThirdPart/GestureLock/CoreLock/CLLockVC.m"
-                  timestampString = "459336661.872832"
+                  timestampString = "459400624.731218"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "52"
                   endingLineNumber = "52"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "12">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -531,12 +531,12 @@
                   moduleName = "&#x8d85;&#x989d;&#x5b9d;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/huayq/svn_chaoebao/1.1.0/BalanceOfBusinessMgrSystem/BalanceOfBusinessMgrSystem/ThirdPart/GestureLock/CoreLock/CLLockVC.m"
-                  timestampString = "459336661.872984"
+                  timestampString = "459400624.731469"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "52"
                   endingLineNumber = "52"
-                  offsetFromSymbolStart = "24">
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -564,27 +564,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BalanceOfBusinessMgrSystem/Assets/AssetDetailTableViewController.m"
-            timestampString = "458815417.071408"
+            timestampString = "459393794.441067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
-            landmarkName = "-requestNetWork"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BalanceOfBusinessMgrSystem/Assets/AssetDetailTableViewController.m"
-            timestampString = "458815417.071408"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "-headerRereshing"
             landmarkType = "5">
          </BreakpointContent>
@@ -596,11 +580,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BalanceOfBusinessMgrSystem/Assets/AssetDetailTableViewController.m"
-            timestampString = "458815417.071408"
+            timestampString = "459393794.441067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "-requestNetWork"
             landmarkType = "5">
          </BreakpointContent>
@@ -612,11 +596,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BalanceOfBusinessMgrSystem/Assets/AssetDetailTableViewController.m"
-            timestampString = "458815417.071408"
+            timestampString = "459393794.441067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "355"
-            endingLineNumber = "355"
+            startingLineNumber = "356"
+            endingLineNumber = "356"
             landmarkName = "-requestNetWork"
             landmarkType = "5">
          </BreakpointContent>

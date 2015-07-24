@@ -202,8 +202,6 @@
              NSNotification *notification =[NSNotification notificationWithName:@"AssetChange" object:nil userInfo:dict];
              //通过通知中心发送通知
              [[NSNotificationCenter defaultCenter] postNotification:notification];
-             //[self.navigationController popViewControllerAnimated:YES];
-             
              
              BMWithDrawsCashSuccessViewController *vc = [[BMWithDrawsCashSuccessViewController alloc] init];
              vc.money = nameTextField.text;

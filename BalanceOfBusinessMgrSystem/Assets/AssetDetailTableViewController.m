@@ -49,6 +49,7 @@
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     _tableView.estimatedRowHeight = 32.0f;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     footerView = [[FMLoadMoreFooterView alloc] initWithFrame:CGRectMake(0, 0, MainWidth, 0)];
     _tableView.tableFooterView = footerView;
@@ -466,12 +467,18 @@
                  for (int i = 0 ; i< moreArray.count ; i++ ) {
                      [insertion addObject:[NSIndexPath indexPathForRow:i inSection:0]];
                  }
-                 [self.tableView insertRowsAtIndexPaths:insertion withRowAnimation:UITableViewRowAnimationNone];
+                 [self.tableView insertRowsAtIndexPaths:insertion withRowAnimation:UITableViewRowAnimationFade];
                  [self.tableView endUpdates];
+                 
+                 [self.tableView reloadData];
                  
                  // (最好在刷新表格后调用)调用endRefreshing可以结束刷新状态
                  [self.tableView footerEndRefreshing];
+                 
+                 
              });
+             
+             
              
 //             //添加到array中
 //             int64_t delayInSeconds = 1.0;
