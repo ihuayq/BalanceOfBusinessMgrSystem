@@ -154,7 +154,11 @@
     return YES;
 }
 
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    //隐藏键盘
+    [view resignFirstResponder];
+}
 
 -(BOOL)textField:(UITextView *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {

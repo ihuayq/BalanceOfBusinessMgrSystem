@@ -26,6 +26,18 @@
     
     //超额宝介绍
     self.productWebView =[[UIWebView alloc] initWithFrame:CGRectMake(0, NAVIGATION_OUTLET_HEIGHT, MainWidth, MainHeight - NAVIGATION_OUTLET_HEIGHT)];
+
+//    CGRect frame = self.productWebView.frame;
+//    CGSize fittingSize = [self.productWebView sizeThatFits:CGSizeZero];
+//    frame.size = fittingSize;
+//    self.productWebView.frame = frame;
+    
+//    CGFloat webViewHeight=[self.productWebView.scrollView contentSize].height;
+//    CGRect newFrame = self.productWebView.frame;
+//    newFrame.size.height = webViewHeight;
+//    self.productWebView.frame = newFrame;
+    
+    
     [self.productWebView.layer setBorderColor:[[UIColor colorWithWhite:0.821 alpha:1.000] CGColor]];
     [self.productWebView.layer setBorderWidth:0.5f];
     [self.view addSubview:self.productWebView];
@@ -54,11 +66,26 @@
     [activityIndicatorView startAnimating];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
+//- (void)webViewDidFinishLoad:(UIWebView *)webView
+//{
+//    [activityIndicatorView stopAnimating];
+//}
+
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+//    CGRect frame = webView.frame;
+//    frame.size.height = 1;
+//    webView.frame = frame;
+//    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+//    frame.size = fittingSize;
+//    webView.frame = frame;
+    CGFloat webViewHeight=[self.productWebView.scrollView contentSize].height;
+    CGRect newFrame = self.productWebView.frame;
+    newFrame.size.height = webViewHeight;
+    self.productWebView.frame = newFrame;
+    
     [activityIndicatorView stopAnimating];
 }
-
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {

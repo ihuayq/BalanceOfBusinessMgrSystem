@@ -335,8 +335,6 @@
 		8806497D1B0B551D007D9E28 /* BMCreateTransactionpPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMCreateTransactionpPasswordViewController.m; sourceTree = "<group>"; };
 		880D0D9B1B184505006EFFE8 /* NatureManAccountInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NatureManAccountInfoViewController.h; sourceTree = "<group>"; };
 		880D0D9C1B184505006EFFE8 /* NatureManAccountInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NatureManAccountInfoViewController.m; sourceTree = "<group>"; };
-		8843AB0B1B54F51500FFEDBC /* libReveal.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libReveal.dylib; sourceTree = "<group>"; };
-		8843AB0C1B54F51500FFEDBC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		8843AB0F1B54F73500FFEDBC /* CLLockVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CLLockVC.xib; sourceTree = "<group>"; };
 		886C8FBF1B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMModifyLoginPasswordViewController.h; sourceTree = "<group>"; };
 		886C8FC01B53A97F00B02FF8 /* BMModifyLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMModifyLoginPasswordViewController.m; sourceTree = "<group>"; };
@@ -822,16 +820,6 @@
 			path = settingNaturalManInfo;
 			sourceTree = "<group>";
 		};
-		8843AB0A1B54F51500FFEDBC /* iOS-Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				8843AB0B1B54F51500FFEDBC /* libReveal.dylib */,
-				8843AB0C1B54F51500FFEDBC /* Reveal.framework */,
-			);
-			name = "iOS-Libraries";
-			path = "BalanceOfBusinessMgrSystem/ThirdPart/iOS-Libraries";
-			sourceTree = SOURCE_ROOT;
-		};
 		886C8FC51B53C44700B02FF8 /* PlaceholderTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1063,7 +1051,6 @@
 		889D68D51B429E170023416E /* GestureLock */ = {
 			isa = PBXGroup;
 			children = (
-				8843AB0A1B54F51500FFEDBC /* iOS-Libraries */,
 				889D68D61B429E170023416E /* CoreLock */,
 				889D68EF1B429E170023416E /* FrameWork */,
 			);
@@ -2228,12 +2215,7 @@
 				);
 				OTHER_CFLAGS = "-DUSE_方案一";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2270,12 +2252,7 @@
 				);
 				OTHER_CFLAGS = "-DUSE_方案一";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lz",
-					"-framework",
-					Reveal,
-				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "超额宝";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

@@ -52,7 +52,7 @@
     [self.view addSubview:label];
     
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, label.frame.size.height + label.frame.origin.y + 10 ,MainWidth, 180) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, label.frame.size.height + label.frame.origin.y + 10 ,MainWidth, 120) style:UITableViewStyleGrouped];
     self.tableView.delegate =self;
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -63,9 +63,9 @@
     _group=[[NSMutableArray alloc]init];
     
     BMAccountCellInfo *contact1=[BMAccountCellInfo initWithFirstName:@"意见反馈"];
-    BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"致电客服电话"];
+    //BMAccountCellInfo *contact2=[BMAccountCellInfo initWithFirstName:@"致电客服电话"];
     BMAccountCellInfo *contact3=[BMAccountCellInfo initWithFirstName:@"检查更新"];
-    BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1,contact2,contact3, nil]];
+    BMAccountCellGroup *group1=[BMAccountCellGroup initWithName:@"C" andDetail:@"With names beginning with C" andContacts:[NSMutableArray arrayWithObjects:contact1,contact3, nil]];
     [_group addObject:group1];
     
 }
@@ -106,10 +106,10 @@
     cell.textLabel.text=contact.title;
     
 
-    if (indexPath.row == 1) {
-        cell.detailTextLabel.text=@"400-6668-888";
+    if (indexPath.row == 2) {
+        //cell.detailTextLabel.text=@"400-6668-888";
     }
-    else if ( indexPath.row == 2 ){
+    else if ( indexPath.row == 1 ){
         NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
         cell.detailTextLabel.text = [NSString stringWithFormat:@"V%@",version];
     }
@@ -138,15 +138,15 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-    if( indexPath.row == 1  )
-    {
-        UIWebView*callWebview =[[UIWebView alloc] init];
-        NSURL *telURL =[NSURL URLWithString:@"tel:4006668888"];// 貌似tel:// 或者 tel: 都行
-        [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
-        //记得添加到view上
-        [self.view addSubview:callWebview];
-    }
-    else if (indexPath.row == 2)
+//    if( indexPath.row == 1  )
+//    {
+//        UIWebView*callWebview =[[UIWebView alloc] init];
+//        NSURL *telURL =[NSURL URLWithString:@"tel:4006668888"];// 貌似tel:// 或者 tel: 都行
+//        [callWebview loadRequest:[NSURLRequest requestWithURL:telURL]];
+//        //记得添加到view上
+//        [self.view addSubview:callWebview];
+//    }
+    if (indexPath.row == 1)
     {
         //关于超额宝
 //        ProjectReferViewController *vc = [[ProjectReferViewController alloc] init];

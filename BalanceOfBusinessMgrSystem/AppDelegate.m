@@ -20,6 +20,7 @@
 #import "CLLockVC.h"
 #import "CLLockNavVC.h"
 #import "MBProgressHUD.h"
+#import "ProtocalViewController.h"
 
 @interface AppDelegate ()<UIAlertViewDelegate>{
     //NSTimer * loginCheckTimer;
@@ -56,7 +57,8 @@
     }
     
 #else
-    BMWithDrawsCashSuccessViewController* Vc=[[BMWithDrawsCashSuccessViewController alloc]init];
+    ProtocalViewController* Vc=[[ProtocalViewController alloc]init];
+    Vc.urlPath = @"http://192.168.0.56:8080/superMoney-core/pages/app/main.html?commercialId=1100100402";
     self.window.rootViewController = Vc;
 #endif
     
